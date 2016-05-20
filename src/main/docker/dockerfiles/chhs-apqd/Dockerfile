@@ -1,9 +1,9 @@
 FROM java:alpine
 
-ADD intake.war /intake.war
+ADD chhs-apqd.war /chhs-apqd.war
 ADD run.sh /run.sh
-ADD intake.git.txt /intake.git.txt
-RUN sh -c 'touch /intake.war' \
+ADD chhs-apqd.git.txt /chhs-apqd.git.txt
+RUN sh -c 'touch /chhs-apqd.war' \
 &&  apk add --update tzdata \
 &&  chmod +x /run.sh
 

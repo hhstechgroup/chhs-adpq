@@ -1,15 +1,15 @@
-intake-elasticsearch:
-  container_name: intake-elasticsearch
+chhs-apqd-elasticsearch:
+  container_name: chhs-apqd-elasticsearch
   restart: unless-stopped
-  image: docker-registry-sdg.engagepoint.us:5000/intake-elasticsearch
+  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
   # volumes:
   #   - ~/volumes/jhipster/intake/elasticsearch/:/usr/share/elasticsearch/data/
   ports:
     - "9200:9200"
     - "9300:9300"
 
-intake-postgresql:
-  container_name: intake-postgresql
+chhs-apqd-postgresql:
+  container_name: chhs-apqd-postgresql
   restart: unless-stopped
   image: postgres:9.4.5
   # volumes:
@@ -20,8 +20,8 @@ intake-postgresql:
   ports:
     - "5432:5432"
 
-intake-neo4j:
-    container_name: intake-neo4j
+chhs-apqd-neo4j:
+    container_name: chhs-apqd-neo4j
     restart: unless-stopped
     image: neo4j:2.3.3
     ports:

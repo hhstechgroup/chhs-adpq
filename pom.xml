@@ -941,8 +941,8 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <name>intake</name>
-                                    <alias>intake</alias>
+                                    <name>chhs-apqd</name>
+                                    <alias>chhs-apqd</alias>
                                     <registry>docker-registry-sdg.engagepoint.us:5000</registry>
                                     <build>
                                         <cleanup>remove</cleanup>
@@ -954,13 +954,13 @@
                                         </tags>
                                         <assembly>
                                             <basedir>/</basedir>
-                                            <dockerFileDir>dockerfiles/intake</dockerFileDir>
+                                            <dockerFileDir>dockerfiles/chhs-apqd</dockerFileDir>
                                         </assembly>
                                     </build>
                                 </image>
                                 <image>
-                                    <name>intake-elasticsearch</name>
-                                    <alias>intake-elasticsearch</alias>
+                                    <name>chhs-apqd-elasticsearch</name>
+                                    <alias>chhs-apqd-elasticsearch</alias>
                                     <registry>docker-registry-sdg.engagepoint.us:5000</registry>
                                     <build>
                                         <cleanup>remove</cleanup>
@@ -972,7 +972,7 @@
                                         </tags>
                                         <assembly>
                                             <basedir>/</basedir>
-                                            <dockerFileDir>dockerfiles/intake-elasticsearch</dockerFileDir>
+                                            <dockerFileDir>dockerfiles/chhs-apqd-elasticsearch</dockerFileDir>
                                         </assembly>
                                     </build>
                                 </image>
@@ -986,12 +986,12 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>com.engagepoint.cws.apqd</groupId>
-                                    <artifactId>intake</artifactId>
+                                    <artifactId>chhs-apqd</artifactId>
                                     <version>${project.version}</version>
                                     <type>war</type>
                                     <overWrite>true</overWrite>
-                                    <outputDirectory>src/main/docker/dockerfiles/intake</outputDirectory>
-                                    <destFileName>intake.war</destFileName>
+                                    <outputDirectory>src/main/docker/dockerfiles/chhs-apqd</outputDirectory>
+                                    <destFileName>chhs-apqd.war</destFileName>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

@@ -1,28 +1,28 @@
-intake-elasticsearch:
-  container_name: intake-elasticsearch
+chhs-apqd-elasticsearch:
+  container_name: chhs-apqd-elasticsearch
   restart: unless-stopped
-  image: docker-registry-sdg.engagepoint.us:5000/intake-elasticsearch
+  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
   # volumes:
-  #   - ~/volumes/jhipster/intake/elasticsearch/:/usr/share/elasticsearch/data/
+  #   - ~/volumes/jhipster/chhs-apqd/elasticsearch/:/usr/share/elasticsearch/data/
   ports:
     - "9200:9200"
     - "9300:9300"
 
-intake-postgresql:
-  container_name: intake-postgresql
+chhs-apqd-postgresql:
+  container_name: chhs-apqd-postgresql
   restart: unless-stopped
   image: postgres:9.4.5
   # volumes:
-  #   - ~/volumes/jhipster/intake/postgresql/:/var/lib/postgresql/
+  #   - ~/volumes/jhipster/chhs-apqd/postgresql/:/var/lib/postgresql/
   environment:
-    - POSTGRES_USER=intake
+    - POSTGRES_USER=chhs-apqd
     - POSTGRES_PASSWORD=
     - TZ=America/New_York
   ports:
     - "5432:5432"
 
-intake-neo4j:
-    container_name: intake-neo4j
+chhs-apqd-neo4j:
+    container_name: chhs-apqd-neo4j
     restart: unless-stopped
     image: neo4j:2.3.3
     ports:
@@ -33,10 +33,10 @@ intake-neo4j:
     ulimits:
      nofile: 40000
 
-intake:
-  container_name: intake
+chhs-apqd:
+  container_name: chhs-apqd
   restart: unless-stopped
-  image: docker-registry-sdg.engagepoint.us:5000/intake
+  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd
   environment:
     - COOKIE=SRV insert indirect nocache
     - spring_mail_host=172.24.232.25
@@ -45,6 +45,6 @@ intake:
   ports:
     - "8080:8080"
   links:
-    - "intake-postgresql:POSTGRESQL"
-    - "intake-elasticsearch:ELASTIC"
-    - "intake-neo4j:NEO4J"
+    - "chhs-apqd-postgresql:POSTGRESQL"
+    - "chhs-apqd-elasticsearch:ELASTIC"
+    - "chhs-apqd-neo4j:NEO4J"

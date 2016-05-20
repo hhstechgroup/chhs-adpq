@@ -1,31 +1,31 @@
 #
-# to start intake use:
-#  docker-compose -f ha-intake.yml up -d
+# to start chhs-apqd use:
+#  docker-compose -f ha-chhs-apqd.yml up -d
 #
 # for scaling use
-#  docker-compose -f ha-intake.yml scale intake=3
+#  docker-compose -f ha-chhs-apqd.yml scale chhs-apqd=3
 #
 #
 
-intake-elasticsearch:
-  image: docker-registry-sdg.engagepoint.us:5000/intake-elasticsearch
+chhs-apqd-elasticsearch:
+  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
   restart: unless-stopped
   ports:
     - "9200"
     - "9300"
 
-intake-postgresql:
-  container_name: intake-postgresql
+chhs-apqd-postgresql:
+  container_name: chhs-apqd-postgresql
   restart: unless-stopped
   image: postgres:9.4.5
   environment:
-    - POSTGRES_USER=intake
+    - POSTGRES_USER=chhs-apqd
     - POSTGRES_PASSWORD=
   ports:
     - "5432:5432"
 
-intake-neo4j:
-    container_name: intake-neo4j
+chhs-apqd-neo4j:
+    container_name: chhs-apqd-neo4j
     restart: unless-stopped
     image: neo4j:2.3.3
     ports:
@@ -35,8 +35,8 @@ intake-neo4j:
     ulimits:
      nofile: 40000
 
-intake:
-  image: docker-registry-sdg.engagepoint.us:5000/intake
+chhs-apqd:
+  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd
   restart: unless-stopped
   environment:
     - COOKIE=SRV insert indirect nocache
@@ -46,16 +46,16 @@ intake:
   ports:
     - "8080"
   links:
-    - "intake-postgresql:POSTGRESQL"
-    - "intake-elasticsearch:ELASTIC"
-    - "intake-neo4j:NEO4J"
+    - "chhs-apqd-postgresql:POSTGRESQL"
+    - "chhs-apqd-elasticsearch:ELASTIC"
+    - "chhs-apqd-neo4j:NEO4J"
 
-intake-lb:
-  container_name: intake-haproxy
+chhs-apqd-lb:
+  container_name: chhs-apqd-haproxy
   restart: unless-stopped
   image: tutum/haproxy
   links:
-   - "intake"
+   - "chhs-apqd"
   ports:
    - "4080:80"
    - "4043:443"

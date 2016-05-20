@@ -40,12 +40,12 @@ fi
 ################################################################################
 echo "The application will start in ${JHIPSTER_SLEEP}sec..." && sleep ${JHIPSTER_SLEEP}
 if [ -d ${JHIPSTER_SPRING} ]; then
-  java -jar /intake.war \
+  java -jar /chhs-apqd.war \
     --spring.profiles.active=prod ${JHIPSTER_SPRING_ADD} \
     --spring.data.elasticsearch.cluster-nodes=${SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES} \
     --spring.datasource.url=${SPRING_DATASOURCE_URL} \
     --neo4j.http.uri=${NEO4J_HTTP_URI}
 else
   echo "java -jar /intake.war --spring.profiles.active=prod ${JHIPSTER_SPRING}"
-  java -jar /intake.war --spring.profiles.active=prod ${JHIPSTER_SPRING}
+  java -jar /chhs-apqd.war --spring.profiles.active=prod ${JHIPSTER_SPRING}
 fi
