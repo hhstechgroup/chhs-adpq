@@ -7,7 +7,7 @@ angular.module('intakeApp')
                 parent: 'account',
                 url: '/settings',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER', 'ROLE_INVESTIGATOR'],
+                    authorities: ['ROLE_INTAKE_WORKER', 'ROLE_INVESTIGATOR', 'ROLE_ADMIN'],
                     pageTitle: 'global.menu.account.settings'
                 },
                 views: {

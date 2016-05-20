@@ -72,6 +72,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date", nullable = true)
     private ZonedDateTime resetDate = null;
 
+    @Column(name = "ssn_last_4_digits", nullable = true, length = 4)
+    private String ssnLast4Digits;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -190,6 +193,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
+    public String getSsnLast4Digits() {
+        return ssnLast4Digits;
+    }
+
+    public void setSsnLast4Digits(String ssnLast4Digits) {
+        this.ssnLast4Digits = ssnLast4Digits;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -223,6 +234,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
+            ", ssnLast4Digits='" + ssnLast4Digits + '\'' +
             "}";
     }
 }
