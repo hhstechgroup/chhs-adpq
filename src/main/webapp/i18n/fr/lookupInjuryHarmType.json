@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupInjuryHarmType" : {
+            "home": {
+                "title": "LookupInjuryHarmTypes",
+                "createLabel": "Créer un nouveau LookupInjuryHarmType",
+                "createOrEditLabel": "Créer ou éditer un LookupInjuryHarmType",
+                "search": "Search for LookupInjuryHarmType"
+            },
+            "created": "Un nouveau LookupInjuryHarmType a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupInjuryHarmType avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupInjuryHarmType avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupInjuryHarmType {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupInjuryHarmType"
+            },
+            "injuryHarmTypeCode": "InjuryHarmTypeCode",
+            "injuryHarmTypeName": "InjuryHarmTypeName"
+        }
+    }
+}
+

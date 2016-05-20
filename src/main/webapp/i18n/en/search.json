@@ -1,0 +1,33 @@
+{
+    "search": {
+        "title": "Search",
+        "yes": "Yes",
+        "no": "No",
+        "all": "All",
+        "alien-registration-number": "Alien Registration Number",
+        "anonymous-reporter": "Anonymous Reporter",
+        "bage-number": "Bage Number",
+        "birth-city": "Birth City",
+        "birth-date": "Birth Date",
+        "city": "City",
+        "client": "Client",
+        "clients": "Clients",
+        "clients-found": "Clients found: {{count}}",
+        "details": "Details...",
+        "employer": "Employer",
+        "health-summary": "Health Summary",
+        "name": "Name",
+        "please-type-characters-at-least" : "Please type {{count}} characters at least",
+        "received-date": "Received Date",
+        "records-found": "Records found: {{count}}",
+        "referral": "Referral",
+        "referrals": "Referrals",
+        "referrals-found": "Referrals found: {{count}}",
+        "reporter": "Reporter",
+        "reporters": "Reporters",
+        "reporters-found": "Reporters found: {{count}}",
+        "response-rational-text": "Response Rational Text",
+        "screener-note": "Screener Note",
+        "sufficient-information": "Sufficient Information"
+    }
+}

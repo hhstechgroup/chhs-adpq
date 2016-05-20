@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupSafetyPlanActionResult" : {
+            "home": {
+                "title": "LookupSafetyPlanActionResults",
+                "createLabel": "Crear nuevo LookupSafetyPlanActionResult",
+                "createOrEditLabel": "Crear o editar LookupSafetyPlanActionResult",
+                "search": "Search for LookupSafetyPlanActionResult"
+            },
+            "created": "Un nuevo LookupSafetyPlanActionResult ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupSafetyPlanActionResult ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupSafetyPlanActionResult ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupSafetyPlanActionResult {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupSafetyPlanActionResult"
+            },
+            "safetyPlanActionResultCode": "SafetyPlanActionResultCode",
+            "safetyPlanActionResultName": "SafetyPlanActionResultName"
+        }
+    }
+}

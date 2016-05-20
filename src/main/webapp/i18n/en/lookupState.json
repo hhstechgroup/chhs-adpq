@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupState" : {
+            "home": {
+                "title": "LookupStates",
+                "createLabel": "Create a new LookupState",
+                "createOrEditLabel": "Create or edit a LookupState",
+                "search": "Search for LookupState"
+            },
+            "created": "A new LookupState is created with identifier {{ param }}",
+            "updated": "A LookupState is updated with identifier {{ param }}",
+            "deleted": "A LookupState is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupState {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupState"
+            },
+            "stateCode": "StateCode",
+            "stateName": "StateName"
+        }
+    }
+}

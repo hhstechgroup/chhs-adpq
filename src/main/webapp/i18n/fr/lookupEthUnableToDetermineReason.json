@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupEthUnableToDetermineReason" : {
+            "home": {
+                "title": "LookupEthUnableToDetermineReasons",
+                "createLabel": "Créer un nouveau LookupEthUnableToDetermineReason",
+                "createOrEditLabel": "Créer ou éditer un LookupEthUnableToDetermineReason",
+                "search": "Search for LookupEthUnableToDetermineReason"
+            },
+            "created": "Un nouveau LookupEthUnableToDetermineReason a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupEthUnableToDetermineReason avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupEthUnableToDetermineReason avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupEthUnableToDetermineReason {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupEthUnableToDetermineReason"
+            },
+            "ethUnableToDetermineReasonCode": "EthUnableToDetermineReasonCode",
+            "ethUnableToDetermineReasonName": "EthUnableToDetermineReasonName"
+        }
+    }
+}
+

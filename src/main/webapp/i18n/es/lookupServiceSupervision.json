@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupServiceSupervision" : {
+            "home": {
+                "title": "LookupServiceSupervisions",
+                "createLabel": "Crear nuevo LookupServiceSupervision",
+                "createOrEditLabel": "Crear o editar LookupServiceSupervision",
+                "search": "Search for LookupServiceSupervision"
+            },
+            "created": "Un nuevo LookupServiceSupervision ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupServiceSupervision ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupServiceSupervision ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupServiceSupervision {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupServiceSupervision"
+            },
+            "serviceSupervisionCode": "ServiceSupervisionCode",
+            "serviceSupervisionName": "ServiceSupervisionName"
+        }
+    }
+}

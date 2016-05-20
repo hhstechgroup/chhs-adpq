@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupServiceCategory" : {
+            "home": {
+                "title": "LookupServiceCategorys",
+                "createLabel": "Créer un nouveau LookupServiceCategory",
+                "createOrEditLabel": "Créer ou éditer un LookupServiceCategory",
+                "search": "Search for LookupServiceCategory"
+            },
+            "created": "Un nouveau LookupServiceCategory a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupServiceCategory avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupServiceCategory avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupServiceCategory {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupServiceCategory"
+            },
+            "serviceCategoryCode": "ServiceCategoryCode",
+            "serviceCategoryName": "ServiceCategoryName"
+        }
+    }
+}
+

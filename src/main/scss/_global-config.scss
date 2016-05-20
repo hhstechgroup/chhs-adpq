@@ -1,0 +1,46 @@
+$open-sans: 'Open Sans', sans-serif;
+$lightgrey-text: #697d8d;
+$darkgrey-text: #4b6376;
+$lightgrey-border: rgba(105,125,141,0.5);
+$white-trans: rgba(250,250,250, 0.85);
+$orange: #fc9467;
+$blue: #47aacb;
+$blue-background: #1c6d9c;
+$blue-light: #3d8dbb;
+$grey-border: #d2dbde;
+$blue-border: #58b8d2;
+$grey-background: #c7cfd6;
+$grey-text: #697a83;
+$grey-dark: #455a65;
+$grey-ultra: #8899a3;
+$greyb: #edf1f2;
+$textarea: #edf1f2;
+$shadow: 0px 1px 3px 0px rgba(181, 194, 202, 0.9);
+$shadow-color: 0px 1px 3px 0px rgba(112, 175, 68, 0.5);
+
+$popup-bg: #eff0f2;
+$popup-text: #a6aab5;
+$main-bg-color: #e7e8ec;
+$dark-bg: #595c65;
+$border-color: #99a3a8;
+$border-header: #c4c7ce;
+$text-third-color: #44444c;
+$text-primary-color: #363839;
+$text-secondary-color: #6f7c82;
+$primary-color: #70af44;
+$secondary-color: #449c44;
+$active-color: #8dc73f;
+$label-color: #f7b338;
+$open-sans: 'Open Sans', sans-serif;
+$warning: #dc7d64;
+$modal-title-color: #56a956;
+
+
+
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}

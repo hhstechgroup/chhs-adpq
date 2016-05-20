@@ -1,0 +1,49 @@
+{
+    "intakeApp": {
+        "place" : {
+            "home": {
+                "title": "Places",
+                "createLabel": "Créer un nouveau Place",
+                "createOrEditLabel": "Créer ou éditer un Place",
+                "search": "Search for Place"
+            },
+            "created": "Un nouveau Place a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Place avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Place avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Place {{ id }} ?"
+            },
+            "detail": {
+                "title": "Place"
+            },
+            "unitNumber": "UnitNumber",
+            "cityName": "CityName",
+            "streetName": "StreetName",
+            "streetNumber": "StreetNumber",
+            "zipCode": "ZipCode",
+            "zipSuffix": "ZipSuffix",
+            "foreignAddressFlag": "ForeignAddressFlag",
+            "lastUpdateTimestamp": "LastUpdateTimestamp",
+            "descritpion": "Descritpion",
+            "emergencyPhoneExtensionNumber": "EmergencyPhoneExtensionNumber",
+            "emergencyPhoneNumber": "EmergencyPhoneNumber",
+            "messagePhoneExtensionNumber": "MessagePhoneExtensionNumber",
+            "messagePhoneNumber": "MessagePhoneNumber",
+            "otherHeaderAddress": "OtherHeaderAddress",
+            "primaryPhoneNumber": "PrimaryPhoneNumber",
+            "websiteUrl": "WebsiteUrl",
+            "longitude": "Longitude",
+            "latitude": "Latitude",
+            "name": "Name",
+            "email": "Email",
+            "recordStatus": "RecordStatus",
+            "validAddressFlag": "ValidAddressFlag",
+            "validationStatus": "ValidationStatus",
+            "validationMessage": "ValidationMessage",
+            "governmentEntity": "GovernmentEntity",
+            "state": "State",
+            "county": "County"
+        }
+    }
+}
+

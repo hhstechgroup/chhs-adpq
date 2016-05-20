@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupServiceType" : {
+            "home": {
+                "title": "LookupServiceTypes",
+                "createLabel": "Create a new LookupServiceType",
+                "createOrEditLabel": "Create or edit a LookupServiceType",
+                "search": "Search for LookupServiceType"
+            },
+            "created": "A new LookupServiceType is created with identifier {{ param }}",
+            "updated": "A LookupServiceType is updated with identifier {{ param }}",
+            "deleted": "A LookupServiceType is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupServiceType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupServiceType"
+            },
+            "serviceTypeCode": "ServiceTypeCode",
+            "serviceTypeName": "ServiceTypeName",
+            "serviceCategoryCode": "ServiceCategoryCode"
+        }
+    }
+}

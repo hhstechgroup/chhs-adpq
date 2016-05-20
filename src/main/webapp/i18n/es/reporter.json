@@ -1,0 +1,54 @@
+{
+    "intakeApp": {
+        "reporter" : {
+            "home": {
+                "title": "Reporters",
+                "createLabel": "Crear nuevo Reporter",
+                "createOrEditLabel": "Crear o editar Reporter",
+                "search": "Search for Reporter"
+            },
+            "created": "Un nuevo Reporter ha sido creado con el identificador {{ param }}",
+            "updated": "Un Reporter ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Reporter ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Reporter {{ id }}?"
+            },
+            "detail": {
+                "title": "Reporter"
+            },
+            "bageNumber": "BageNumber",
+            "cityName": "CityName",
+            "confidentialityWaiverFlag": "ConfidentialityWaiverFlag",
+            "drmsMandatedReporterFeedbackDoc": "DrmsMandatedReporterFeedbackDoc",
+            "employerName": "EmployerName",
+            "feedbackDate": "FeedbackDate",
+            "feedbackRequiredFlag": "FeedbackRequiredFlag",
+            "firstName": "FirstName",
+            "lastName": "LastName",
+            "lastUpdateId": "LastUpdateId",
+            "lastUpdateTimestamp": "LastUpdateTimestamp",
+            "mandatedReporterFlag": "MandatedReporterFlag",
+            "messagePhoneExtensionNumber": "MessagePhoneExtensionNumber",
+            "messagePhoneNumber": "MessagePhoneNumber",
+            "middleInitialName": "MiddleInitialName",
+            "namePrefixDescription": "NamePrefixDescription",
+            "primaryPhoneExtensionNumber": "PrimaryPhoneExtensionNumber",
+            "primaryPhoneNumber": "PrimaryPhoneNumber",
+            "selfReporterFlag": "SelfReporterFlag",
+            "suffixTitleDescription": "SuffixTitleDescription",
+            "recordStatus": "RecordStatus",
+            "lawEnforcementFlag": "LawEnforcementFlag",
+            "participantFlag": "ParticipantFlag",
+            "reporterClient": "ReporterClient",
+            "reporterRelationshipType": "ReporterRelationshipType",
+            "preferredCommunicationMethod": "PreferredCommunicationMethod",
+            "feedbackMethod": "FeedbackMethod",
+            "email": "Email",
+            "phone": "Phone",
+            "countySpecific": "CountySpecific",
+            "mailingAddress": "MailingAddress",
+            "lawEnforcement": "LawEnforcement",
+            "referral": "Referral"
+        }
+    }
+}

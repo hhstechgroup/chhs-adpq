@@ -1,0 +1,17 @@
+# This configuration require environment described in the env.yml file.
+# For stanalone application in a preconfigured environmet please
+# provide configuration parameters using $JHIPSTER_SPRING env variable.
+# For example:
+# JHIPSTER_SPRING="--spring.datasource.url=jdbc:postgresql://172.16.1.1:5432/intake --server.port=8088"
+# Full list of available parameters published on the Configuaration tab of Intake application.
+
+intake:
+  container_name: intake
+  image: docker-registry-sdg.engagepoint.us:5000/intake
+  environment:
+    - COOKIE=SRV insert indirect nocache
+    - spring_mail_host=172.24.232.25
+    - TZ=America/New_York	
+#   - logback_graylogHost=LOGBACK_GRAYLOGHOST
+  ports:
+    - "8080:8080"

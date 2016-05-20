@@ -1,0 +1,62 @@
+
+<div>
+    <h2><span translate="intakeApp.calendarTask.detail.title">CalendarTask</span> {{calendarTask.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="intakeApp.calendarTask.taskName">TaskName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{calendarTask.taskName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="intakeApp.calendarTask.taskDescription">TaskDescription</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{calendarTask.taskDescription}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="intakeApp.calendarTask.taskDate">TaskDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{calendarTask.taskDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="intakeApp.calendarTask.taskStartTime">TaskStartTime</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{calendarTask.taskStartTime | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="intakeApp.calendarTask.taskEndTime">TaskEndTime</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{calendarTask.taskEndTime | date:'medium'}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

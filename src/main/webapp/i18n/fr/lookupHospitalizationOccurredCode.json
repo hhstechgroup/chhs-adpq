@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupHospitalizationOccurredCode" : {
+            "home": {
+                "title": "LookupHospitalizationOccurredCodes",
+                "createLabel": "Créer un nouveau LookupHospitalizationOccurredCode",
+                "createOrEditLabel": "Créer ou éditer un LookupHospitalizationOccurredCode",
+                "search": "Search for LookupHospitalizationOccurredCode"
+            },
+            "created": "Un nouveau LookupHospitalizationOccurredCode a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupHospitalizationOccurredCode avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupHospitalizationOccurredCode avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupHospitalizationOccurredCode {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupHospitalizationOccurredCode"
+            },
+            "hospitalizationOccurredCode": "HospitalizationOccurredCode",
+            "hospitalizationOccurredName": "HospitalizationOccurredName"
+        }
+    }
+}
+

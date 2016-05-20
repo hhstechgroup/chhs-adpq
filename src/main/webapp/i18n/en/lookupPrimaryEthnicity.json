@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupPrimaryEthnicity" : {
+            "home": {
+                "title": "LookupPrimaryEthnicitys",
+                "createLabel": "Create a new LookupPrimaryEthnicity",
+                "createOrEditLabel": "Create or edit a LookupPrimaryEthnicity",
+                "search": "Search for LookupPrimaryEthnicity"
+            },
+            "created": "A new LookupPrimaryEthnicity is created with identifier {{ param }}",
+            "updated": "A LookupPrimaryEthnicity is updated with identifier {{ param }}",
+            "deleted": "A LookupPrimaryEthnicity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupPrimaryEthnicity {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupPrimaryEthnicity"
+            },
+            "primaryEthnicityCode": "PrimaryEthnicityCode",
+            "primaryEthnicityName": "PrimaryEthnicityName"
+        }
+    }
+}

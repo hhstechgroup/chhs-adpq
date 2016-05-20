@@ -1,0 +1,97 @@
+.participant-addresses-widget {
+    .participant-addresses-container {
+        background: #fff;
+    }
+
+    .participant-addresses-header {
+        border-bottom: 1px solid #e7e8ec;
+        padding: 15px 20px 13px;
+
+        h3 {
+            float: left;
+            color: $text-secondary-color;
+            font-size: 16px;
+            font-weight: 400;
+            margin: 0;
+        }
+    }
+}
+
+.participant-addresses-item {
+    padding: 15px;
+    border: 1px solid $border-color;
+    margin-bottom: 10px;
+    p,
+    span,
+    a {
+        font-size: 1.3rem;
+    }
+    h4 {
+        color: #313135;
+        font-size: 16px;
+        font-weight: 400;
+        margin-top: 0;
+        padding-top: 0;
+        line-height: 26px;
+    }
+
+    p {
+        color: $text-primary-color;
+    }
+    p:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    a {
+        text-decoration: underline;
+        margin-top: 5px;
+        margin-left: 15px;
+        color: $text-secondary-color;
+    }
+    .btn {
+        border: 0;
+        border-radius: 15px;
+        padding: 6px 30px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+    .btn-default {
+        background-color: $primary-color;
+        &:hover {
+            background-color: $active-color;
+        }
+    }
+}
+.participant-addresses-list {
+    height: 500px;
+}
+
+.participant-addresses-item .aside-widget-term-text {
+    color: #a6aab5;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.participant-addresses-item .aside-widget-definition-text {
+    color: #6f7c82;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.participant-addresses-item .btn-transparent-green {
+    padding: 3px 25px;
+    text-transform: none;
+}
+.search-relation-pane .participant-search-container {
+  background: #fff;
+  margin: 10px -20px 0px -20px;
+  padding: 20px 20px 0px 20px;
+  border-top: 1px solid $border-color;
+}
+
+.participant-search-container {
+  .flex-row {
+    height: 77px;
+  }
+}

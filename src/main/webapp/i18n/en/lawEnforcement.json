@@ -1,0 +1,38 @@
+{
+    "intakeApp": {
+        "lawEnforcement" : {
+            "home": {
+                "title": "LawEnforcements",
+                "createLabel": "Create a new LawEnforcement",
+                "createOrEditLabel": "Create or edit a LawEnforcement",
+                "search": "Search for LawEnforcement"
+            },
+            "created": "A new LawEnforcement is created with identifier {{ param }}",
+            "updated": "A LawEnforcement is updated with identifier {{ param }}",
+            "deleted": "A LawEnforcement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LawEnforcement {{ id }}?"
+            },
+            "detail": {
+                "title": "LawEnforcement"
+            },
+            "archiveAssociationFlag": "ArchiveAssociationFlag",
+            "cityName": "CityName",
+            "contactPersonName": "ContactPersonName",
+            "contactPhoneExtensionNumber": "ContactPhoneExtensionNumber",
+            "contactPhoneNumber": "ContactPhoneNumber",
+            "contactPositionTitleDescription": "ContactPositionTitleDescription",
+            "emailAddress": "EmailAddress",
+            "faxNumber": "FaxNumber",
+            "name": "Name",
+            "stationName": "StationName",
+            "streetName": "StreetName",
+            "streetNumber": "StreetNumber",
+            "zipCode": "ZipCode",
+            "zipSuffix": "ZipSuffix",
+            "recordStatus": "RecordStatus",
+            "governmentEntityType": "GovernmentEntityType",
+            "stateCode": "StateCode"
+        }
+    }
+}

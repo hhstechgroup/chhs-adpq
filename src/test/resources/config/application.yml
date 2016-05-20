@@ -1,0 +1,139 @@
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration is used for unit/integration tests.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+spring:
+    datasource:
+        driver-class-name: org.h2.jdbcx.JdbcDataSource
+        url: jdbc:h2:mem:intake;DB_CLOSE_DELAY=-1
+        name:
+        username:
+        password:
+    jpa:
+        database-platform: com.engagepoint.cws.apqd.domain.util.FixedH2Dialect
+        database: H2
+        open-in-view: false
+        show_sql: true
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+            hibernate.hbm2ddl.auto: validate
+    data:
+        elasticsearch:
+            cluster-name:
+            cluster-nodes:
+            properties:
+                path:
+                  logs: target/elasticsearch/log
+                  data: target/elasticsearch/data
+    mail:
+        host: localhost
+    mvc:
+        favicon:
+            enabled: false
+    thymeleaf:
+        mode: XHTML
+
+liquibase:
+    contexts: test
+
+security:
+    basic:
+        enabled: false
+
+server:
+    port: 10344
+    address: localhost
+
+# ===================================================================
+# JHipster specific properties
+# ===================================================================
+
+jhipster:
+    async:
+        corePoolSize: 2
+        maxPoolSize: 50
+        queueCapacity: 10000
+    security:
+        rememberme:
+            # security key (this key should be unique for your application, and kept secret)
+            key: 7b2fd59e025ec84a4856f8618fea74df4806f0cd
+    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        jmx.enabled: true
+    swagger:
+        title: intake API
+        description: intake API documentation
+        version: 0.0.1
+        termsOfServiceUrl:
+        contact:
+        license:
+        licenseUrl:
+
+neo4j:
+    driver-type: embedded
+    embedded:
+        port:
+        dbpath:
+
+# ===================================================================
+# Application properties
+# ===================================================================
+
+intake:
+    state: test state
+    cws-office: test cwsOffice
+    nlp-mode : opennlp
+    #referral-report-type: FULL_REFERRAL
+    referral-report-type: SUSPECTED_CHILD_ABUSE_FORM
+
+# ===================================================================
+# EngagePoint Content connection properties
+# ===================================================================
+content:
+    username:
+    password:
+    binding-type: atompub
+    repository-id: default
+    cookies-enabled: false
+    responses-compression-enabled: false
+    requests-compression-enabled: false
+    objects-cache-ttl: 5
+    atompub:
+        #url: http://ieed-int.engagepoint.us/content/cmis/atom
+        #kiev
+        url: http://172.26.32.151:9081/content/cmis/atom
+    poc:
+        root-folder: /Demo/CWS-Intake
+        max-items-per-page: -1
+
+# ===================================================================
+# USPS web service connection properties
+# ===================================================================
+usps:
+   server-url: http://production.shippingapis.com/ShippingAPI.dll
+   user-id: 286ENGAG5998
+   timeout: 10
+
+# ===================================================================
+# EngagePoint Notify properties
+# ===================================================================
+notify:
+    #ws-address: http://ieed-int.engagepoint.us/notify/soap/v2/NotificationService
+    #kiev
+    ws-address: http://mdc-nfybt1-was1.engagepoint.us/notify/soap/v2/NotificationService
+    suspected-child-abuse-report-name: scar_report
+    templates:
+        full-referral: ReferralReport
+        suspected-child-abuse-form: SUSPECTED CHILD ABUSE REPORT

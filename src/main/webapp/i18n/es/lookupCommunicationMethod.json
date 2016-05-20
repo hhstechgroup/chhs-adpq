@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupCommunicationMethod" : {
+            "home": {
+                "title": "LookupCommunicationMethods",
+                "createLabel": "Crear nuevo LookupCommunicationMethod",
+                "createOrEditLabel": "Crear o editar LookupCommunicationMethod",
+                "search": "Search for LookupCommunicationMethod"
+            },
+            "created": "Un nuevo LookupCommunicationMethod ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupCommunicationMethod ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupCommunicationMethod ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupCommunicationMethod {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupCommunicationMethod"
+            },
+            "communicationMethodCode": "CommunicationMethodCode",
+            "communicationMethodName": "CommunicationMethodName"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "properties": {
+        "commonFirstName": {
+            "type": "string",
+            "fields": {
+                "phonetic": {
+                    "type":     "string",
+                    "analyzer": "dbl_metaphone"
+                }
+            }
+        },
+        "commonMiddleName": {
+            "type": "string",
+            "fields": {
+                "phonetic": {
+                    "type":     "string",
+                    "analyzer": "dbl_metaphone"
+                }
+            }
+        },
+        "commonLastName": {
+            "type": "string",
+            "fields": {
+                "phonetic": {
+                    "type":     "string",
+                    "analyzer": "dbl_metaphone"
+                }
+            }
+        }
+    }
+}

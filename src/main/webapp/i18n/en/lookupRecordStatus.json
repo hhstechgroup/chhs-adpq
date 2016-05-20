@@ -1,0 +1,22 @@
+{
+    "intakeApp": {
+        "lookupRecordStatus" : {
+            "home": {
+                "title": "LookupRecordStatuss",
+                "createLabel": "Create a new LookupRecordStatus",
+                "createOrEditLabel": "Create or edit a LookupRecordStatus",
+                "search": "Search for LookupRecordStatus"
+            },
+            "created": "A new LookupRecordStatus is created with identifier {{ param }}",
+            "updated": "A LookupRecordStatus is updated with identifier {{ param }}",
+            "deleted": "A LookupRecordStatus is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupRecordStatus {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupRecordStatus"
+            },
+            "recordStatusName": "RecordStatusName"
+        }
+    }
+}

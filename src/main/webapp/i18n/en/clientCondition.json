@@ -1,0 +1,39 @@
+{
+    "intakeApp": {
+        "clientCondition" : {
+            "home": {
+                "title": "ClientConditions",
+                "createLabel": "Create a new ClientCondition",
+                "createOrEditLabel": "Create or edit a ClientCondition",
+                "search": "Search for ClientCondition"
+            },
+            "created": "A new ClientCondition is created with identifier {{ param }}",
+            "updated": "A ClientCondition is updated with identifier {{ param }}",
+            "deleted": "A ClientCondition is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete ClientCondition {{ id }}?"
+            },
+            "detail": {
+                "title": "ClientCondition"
+            },
+            "alertFlag": "AlertFlag",
+            "diagnosedByPhoneNumber": "DiagnosedByPhoneNumber",
+            "deagnosedFlag": "DeagnosedFlag",
+            "diagnosedObservedByName": "DiagnosedObservedByName",
+            "endDate": "EndDate",
+            "healthProblem": "HealthProblem",
+            "nextScheduleVisitDate": "NextScheduleVisitDate",
+            "referralMade": "ReferralMade",
+            "startDate": "StartDate",
+            "treatmentPlan": "TreatmentPlan",
+            "recordStatus": "RecordStatus",
+            "clientConditionType": "ClientConditionType",
+            "hospitalizationOccurredCode": "HospitalizationOccurredCode",
+            "infectiousContagiousCode": "InfectiousContagiousCode",
+            "medicationPrescribedCode": "MedicationPrescribedCode",
+            "referralMadeCode": "ReferralMadeCode",
+            "testsOrderedCode": "TestsOrderedCode",
+            "client": "Client"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "narrativeTemplate" : {
+            "home": {
+                "title": "NarrativeTemplates",
+                "createLabel": "Créer un nouveau NarrativeTemplate",
+                "createOrEditLabel": "Créer ou éditer un NarrativeTemplate",
+                "search": "Search for NarrativeTemplate"
+            },
+            "created": "Un nouveau NarrativeTemplate a été créé avec l'identifiant {{ param }}",
+            "updated": "Le NarrativeTemplate avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le NarrativeTemplate avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le NarrativeTemplate {{ id }} ?"
+            },
+            "detail": {
+                "title": "NarrativeTemplate"
+            },
+            "templateName": "TemplateName",
+            "templateContent": "TemplateContent"
+        }
+    }
+}
+

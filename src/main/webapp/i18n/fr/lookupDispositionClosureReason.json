@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupDispositionClosureReason" : {
+            "home": {
+                "title": "LookupDispositionClosureReasons",
+                "createLabel": "Créer un nouveau LookupDispositionClosureReason",
+                "createOrEditLabel": "Créer ou éditer un LookupDispositionClosureReason",
+                "search": "Search for LookupDispositionClosureReason"
+            },
+            "created": "Un nouveau LookupDispositionClosureReason a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupDispositionClosureReason avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupDispositionClosureReason avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupDispositionClosureReason {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupDispositionClosureReason"
+            },
+            "dispositionClosureReasonCode": "DispositionClosureReasonCode",
+            "dispositionClosureReasonName": "DispositionClosureReasonName"
+        }
+    }
+}
+

@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupMaritalStatus" : {
+            "home": {
+                "title": "LookupMaritalStatuss",
+                "createLabel": "Créer un nouveau LookupMaritalStatus",
+                "createOrEditLabel": "Créer ou éditer un LookupMaritalStatus",
+                "search": "Search for LookupMaritalStatus"
+            },
+            "created": "Un nouveau LookupMaritalStatus a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupMaritalStatus avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupMaritalStatus avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupMaritalStatus {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupMaritalStatus"
+            },
+            "maritalStatusCode": "MaritalStatusCode",
+            "maritalStatusName": "MaritalStatusName"
+        }
+    }
+}
+

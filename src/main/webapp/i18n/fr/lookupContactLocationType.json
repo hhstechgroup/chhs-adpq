@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupContactLocationType" : {
+            "home": {
+                "title": "LookupContactLocationTypes",
+                "createLabel": "Créer un nouveau LookupContactLocationType",
+                "createOrEditLabel": "Créer ou éditer un LookupContactLocationType",
+                "search": "Search for LookupContactLocationType"
+            },
+            "created": "Un nouveau LookupContactLocationType a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupContactLocationType avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupContactLocationType avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupContactLocationType {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupContactLocationType"
+            },
+            "contactLocationTypeCode": "ContactLocationTypeCode",
+            "contactLocationTypeName": "ContactLocationTypeName"
+        }
+    }
+}
+

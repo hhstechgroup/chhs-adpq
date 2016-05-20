@@ -1,0 +1,26 @@
+{
+    "intakeApp": {
+        "injuryHarmDetails" : {
+            "home": {
+                "title": "InjuryHarmDetailss",
+                "createLabel": "Crear nuevo InjuryHarmDetails",
+                "createOrEditLabel": "Crear o editar InjuryHarmDetails",
+                "search": "Search for InjuryHarmDetails"
+            },
+            "created": "Un nuevo InjuryHarmDetails ha sido creado con el identificador {{ param }}",
+            "updated": "Un InjuryHarmDetails ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un InjuryHarmDetails ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar InjuryHarmDetails {{ id }}?"
+            },
+            "detail": {
+                "title": "InjuryHarmDetails"
+            },
+            "recordStatus": "RecordStatus",
+            "injuryHarmType": "InjuryHarmType",
+            "countySpecific": "CountySpecific",
+            "injuryToBodyDetail": "InjuryToBodyDetail",
+            "allegation": "Allegation"
+        }
+    }
+}

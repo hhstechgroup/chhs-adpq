@@ -1,0 +1,22 @@
+{
+  "name": "jquery-emulatetab",
+  "version": "0.2.9",
+  "main": "src/emulatetab.joelpurra.js",
+  "dependencies": {
+    "jquery": "^2.0.0"
+  },
+  "devDependencies": {
+    "console-shim": "*",
+    "qunit": "^1.3.0"
+  },
+  "homepage": "https://github.com/joelpurra/emulatetab",
+  "_release": "0.2.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.9",
+    "commit": "83731cef1fc4c1b39611353d92df060315698f3d"
+  },
+  "_source": "https://github.com/joelpurra/emulatetab.git",
+  "_target": "0.2.9",
+  "_originalSource": "jquery-emulatetab"
+}

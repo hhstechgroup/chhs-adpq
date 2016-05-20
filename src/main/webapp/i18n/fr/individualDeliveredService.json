@@ -1,0 +1,37 @@
+{
+    "intakeApp": {
+        "individualDeliveredService" : {
+            "home": {
+                "title": "IndividualDeliveredServices",
+                "createLabel": "Créer un nouveau IndividualDeliveredService",
+                "createOrEditLabel": "Créer ou éditer un IndividualDeliveredService",
+                "search": "Search for IndividualDeliveredService"
+            },
+            "created": "Un nouveau IndividualDeliveredService a été créé avec l'identifiant {{ param }}",
+            "updated": "Le IndividualDeliveredService avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le IndividualDeliveredService avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le IndividualDeliveredService {{ id }} ?"
+            },
+            "detail": {
+                "title": "IndividualDeliveredService"
+            },
+            "startDateTime": "StartDateTime",
+            "endDateTime": "EndDateTime",
+            "wraparoundServiceFlag": "WraparoundServiceFlag",
+            "offeredNotDeliveredFlag": "OfferedNotDeliveredFlag",
+            "hardCopyOnFile": "HardCopyOnFile",
+            "details": "Details",
+            "otherParticipants": "OtherParticipants",
+            "deliveredService": "DeliveredService",
+            "serviceType": "ServiceType",
+            "serviceCategory": "ServiceCategory",
+            "deliveredToIndividualCode": "DeliveredToIndividualCode",
+            "deliveredToIndividual": "DeliveredToIndividual",
+            "onBehalfOf": "OnBehalfOf",
+            "safetyPlanResource": "SafetyPlanResource",
+            "referral": "Referral"
+        }
+    }
+}
+

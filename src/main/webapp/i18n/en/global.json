@@ -1,0 +1,223 @@
+{
+    "global": {
+        "title": "intake",
+        "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+        "menu": {
+            "home": "Home",
+            "dashboard": "Dashboard",
+            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+            "entities": {
+                "main": "Entities",
+                "place": "Place",
+                "lookupState": "LookupState",
+                "lookupCounty": "LookupCounty",
+                "referral": "Referral",
+                "lookupCommunicationMethod": "LookupCommunicationMethod",
+                "lookupReferralResponse": "LookupReferralResponse",
+                "lookupApprovalStatus": "LookupApprovalStatus",
+                "lookupResponseAgency": "LookupResponseAgency",
+                "allegation": "Allegation",
+                "lookupAllegationDisposition": "LookupAllegationDisposition",
+                "lookupAllegation": "LookupAllegation",
+                "lookupNonProtectingParent": "LookupNonProtectingParent",
+                "lookupPlacementFacility": "LookupPlacementFacility",
+                "lookupAbuseFrequencyPeriod": "LookupAbuseFrequencyPeriod",
+                "lookupAgePeriod": "LookupAgePeriod",
+                "lookupDispositionClosureReason": "LookupDispositionClosureReason",
+                "lookupDisposition": "LookupDisposition",
+                "lookupAddressType": "LookupAddressType",
+                "lookupUnemployedParent": "LookupUnemployedParent",
+                "lookupReligion": "LookupReligion",
+                "lookupPrimaryLanguage": "LookupPrimaryLanguage",
+                "lookupNameType": "LookupNameType",
+                "lookupPrimaryEthnicity": "LookupPrimaryEthnicity",
+                "lookupMilitaryStatus": "LookupMilitaryStatus",
+                "lookupMaritalStatus": "LookupMaritalStatus",
+                "lookupHispanicOrigin": "LookupHispanicOrigin",
+                "lookupGender": "LookupGender",
+                "lookupEstimatedDOB": "LookupEstimatedDOB",
+                "lookupCountry": "LookupCountry",
+                "lookupImmigrationStatus": "LookupImmigrationStatus",
+                "lookupIncapacitatedParent": "LookupIncapacitatedParent",
+                "referralClient": "ReferralClient",
+                "client": "Client",
+                "clientAddress": "ClientAddress",
+                "lookupReporterRelationshipType": "LookupReporterRelationshipType",
+                "lookupInjuryHarmType": "LookupInjuryHarmType",
+                "lookupAbuseBodyPart": "LookupAbuseBodyPart",
+                "allegationDisposition": "AllegationDisposition",
+                "injuryHarmDetails": "InjuryHarmDetails",
+                "reporter": "Reporter",
+                "injuryToBodyDetails": "InjuryToBodyDetails",
+                "lookupClientConditionType": "LookupClientConditionType",
+                "lookupHospitalizationOccurredCode": "LookupHospitalizationOccurredCode",
+                "lookupInfectiousContagiousCode": "LookupInfectiousContagiousCode",
+                "lookupMedicationPrescribedCode": "LookupMedicationPrescribedCode",
+                "lookupReferralMadeCode": "LookupReferralMadeCode",
+                "lookupTestsOrderedCode": "LookupTestsOrderedCode",
+                "lookupActivationReason": "LookupActivationReason",
+                "lookupClientRelationshipType": "LookupClientRelationshipType",
+                "lookupSameHome": "LookupSameHome",
+                "lawEnforcement": "LawEnforcement",
+                "clientRelationship": "ClientRelationship",
+                "safetyAlert": "SafetyAlert",
+                "clientCondition": "ClientCondition",
+                "lookupRecordStatus": "LookupRecordStatus",
+                "lookupReferralType": "LookupReferralType",
+                "narrativeTemplate": "NarrativeTemplate",
+                "lookupEthUnableToDetermineReason": "LookupEthUnableToDetermineReason",
+                "lookupHispUnableToDetermineReason": "LookupHispUnableToDetermineReason",
+                "lookupPhoneType": "LookupPhoneType",
+                "lookupEmailType": "LookupEmailType",
+                "otherClientName": "OtherClientName",
+                "lookupAllegationGroup": "LookupAllegationGroup",
+                "email": "Email",
+                "phone": "Phone",
+                "lookupLiterateCode": "LookupLiterateCode",
+                "document": "Document",
+                "attachment": "Attachment",
+                "lookupReferralRestriction": "LookupReferralRestriction",
+                "clientIndexNumber": "ClientIndexNumber",
+                "quickContact": "QuickContact",
+                "calendarTask": "CalendarTask",
+                "lookupContactLocationType": "LookupContactLocationType",
+                "lookupProvidedBy": "LookupProvidedBy",
+                "lookupServiceContactType": "LookupServiceContactType",
+                "lookupServiceStatus": "LookupServiceStatus",
+                "lookupServiceSupervision": "LookupServiceSupervision",
+                "lookupDeliveredToIndividual": "LookupDeliveredToIndividual",
+                "lookupContactActionType": "LookupContactActionType",
+                "lookupContactPhoneType": "LookupContactPhoneType",
+                "deliveredService": "DeliveredService",
+                "individualDeliveredService": "IndividualDeliveredService",
+                "chatMessage": "ChatMessage",
+                "lookupSafetyPlanActionResult": "LookupSafetyPlanActionResult",
+                "safetyPlanItem": "SafetyPlanItem",
+                "safetyPlanAction": "SafetyPlanAction",
+                "lookupWeekDay": "LookupWeekDay",
+                "lookupMonth": "LookupMonth",
+                "lookupServiceToKeepSafe": "LookupServiceToKeepSafe",
+                "frequencyWeekDay": "FrequencyWeekDay",
+                "lookupServiceCategory": "LookupServiceCategory",
+                "lookupServiceType": "LookupServiceType",
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+            },
+            "account": {
+                "main": "Account",
+                "settings": "Settings",
+                "password": "Password",
+                "sessions": "Sessions",
+                "login": "Sign in",
+                "logout": "Log out",
+                "register": "Register"
+            },
+            "admin": {
+                "main": "Administration",
+                "user-management": "User management",
+                "tracker": "User tracker",
+                "metrics": "Metrics",
+                "health": "Health",
+                "configuration": "Configuration",
+                "logs": "Logs",
+                "audits": "Audits",
+                "apidocs": "API",
+                "database": "Database",
+                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+            },
+            "search": "Search",
+            "POC": {
+                "audio-recorder": "Audio Recorder",
+                "google-maps": "Google Maps",
+                "elastic-search": "Elastic Search + drag&amp;drop",
+                "phonetic-search": "Phonetic Search",
+                "google-address": "Google Address",
+                "ep-content": "EngagePoint Content"
+            },
+            "language": "Language"
+        },
+        "form": {
+            "username": "Username",
+            "username.placeholder": "Your username",
+            "newpassword": "New password",
+            "newpassword.placeholder": "New password",
+            "confirmpassword": "New password confirmation",
+            "confirmpassword.placeholder": "Confirm the new password",
+            "email": "E-mail",
+            "email.placeholder": "Your e-mail"
+        },
+        "messages": {
+            "info": {
+                "authenticated": "If you want to <a class=\"alert-link\" href=\"#/login\">sign in</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
+                "register": "You don't have an account yet? <a class=\"alert-link\" href=\"#/register\">Register a new account</a>"
+            },
+            "error": {
+                "dontmatch": "The password and its confirmation do not match!"
+            },
+            "validate": {
+                "newpassword": {
+                    "required": "Your password is required.",
+                    "minlength": "Your password is required to be at least 5 characters.",
+                    "maxlength": "Your password cannot be longer than 50 characters.",
+                    "strength": "Password strength:"
+                },
+                "confirmpassword": {
+                    "required": "Your confirmation password is required.",
+                    "minlength": "Your confirmation password is required to be at least 5 characters.",
+                    "maxlength": "Your confirmation password cannot be longer than 50 characters."
+                },
+                "email": {
+                    "required": "Your e-mail is required.",
+                    "invalid": "Your e-mail is invalid.",
+                    "minlength": "Your e-mail is required to be at least 5 characters.",
+                    "maxlength": "Your e-mail cannot be longer than 50 characters."
+                }
+            }
+        },
+        "field": {
+            "id": "ID"
+        }
+    },
+    "entity": {
+        "action": {
+            "addblob": "Add blob",
+            "addimage": "Add image",
+            "back": "Back",
+            "cancel": "Cancel",
+            "delete": "Delete",
+            "edit": "Edit",
+            "save": "Save",
+            "view": "View"
+        },
+        "detail": {
+            "field": "Field",
+            "value": "Value"
+        },
+        "delete": {
+            "title": "Confirm delete operation"
+        },
+        "validation": {
+            "required": "This field is required.",
+            "minlength": "This field is required to be at least {{ min }} characters.",
+            "maxlength": "This field cannot be longer than {{ max }} characters.",
+            "min": "This field should be more than {{ min }}.",
+            "max": "This field cannot be more than {{ max }}.",
+            "minbytes": "This field should be more than {{ min }} bytes.",
+            "maxbytes": "This field cannot be more than {{ max }} bytes.",
+            "pattern": "This field should follow pattern {{ pattern }}.",
+            "number": "This field should be a number.",
+            "datetimelocal": "This field should be a date and time."
+        }
+    },
+    "error": {
+        "server.not.reachable": "Server not reachable",
+        "NotNull": "Field {{ fieldName }} cannot be empty!",
+        "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
+        "userexists": "Login name already used!",
+        "emailexists": "E-mail is already in use!",
+        "idexists": "A new {{ entityName }} cannot already have an ID"
+    },
+    "footer": "This is your footer",
+    "bootswatch": {
+        "themeSelector": "Theme"
+    }
+}

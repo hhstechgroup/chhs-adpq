@@ -1,0 +1,67 @@
+{
+    "intakeApp": {
+        "referral" : {
+            "home": {
+                "title": "Referrals",
+                "createLabel": "Crear nuevo Referral",
+                "createOrEditLabel": "Crear o editar Referral",
+                "search": "Search for Referral"
+            },
+            "created": "Un nuevo Referral ha sido creado con el identificador {{ param }}",
+            "updated": "Un Referral ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Referral ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Referral {{ id }}?"
+            },
+            "detail": {
+                "title": "Referral"
+            },
+            "anonymousReporterFlag": "AnonymousReporterFlag",
+            "receivedDate": "ReceivedDate",
+            "applicationForPetition": "ApplicationForPetition",
+            "approvalNumber": "ApprovalNumber",
+            "caretakerPerpetratorFlag": "CaretakerPerpetratorFlag",
+            "closureDate": "ClosureDate",
+            "drmsAllegationDescriptionDoc": "DrmsAllegationDescriptionDoc",
+            "drmsERReferralDoc": "DrmsERReferralDoc",
+            "drmsInvestigationDoc": "DrmsInvestigationDoc",
+            "familyAwarenessFlag": "FamilyAwarenessFlag",
+            "familyRefusedServicesFlag": "FamilyRefusedServicesFlag",
+            "homelessFlag": "HomelessFlag",
+            "legalDefinitionFlag": "LegalDefinitionFlag",
+            "responseDeterminationDate": "ResponseDeterminationDate",
+            "responseRationalText": "ResponseRationalText",
+            "screenerNoteText": "ScreenerNoteText",
+            "sufficientInformationFlag": "SufficientInformationFlag",
+            "lastUpdateTimestamp": "LastUpdateTimestamp",
+            "narrative": "Narrative",
+            "investigatorNarrative": "InvestigatorNarrative",
+            "filedCrssRptWithLawEnfFlag": "FiledCrssRptWithLawEnfFlag",
+            "recordStatus": "RecordStatus",
+            "name": "Name",
+            "restrictionDate": "RestrictionDate",
+            "restrictionDescription": "RestrictionDescription",
+            "ss8572RecievedDate": "Ss8572RecievedDate",
+            "specificActsIncludedFlag": "SpecificActsIncludedFlag",
+            "knowLocateFamilyFlag": "KnowLocateFamilyFlag",
+            "serialReportFlag": "SerialReportFlag",
+            "investigatorComment": "InvestigatorComment",
+            "deliveredService": "DeliveredService",
+            "individualDeliveredService": "IndividualDeliveredService",
+            "safetyPlanItem": "SafetyPlanItem",
+            "referralRestriction": "ReferralRestriction",
+            "referralType": "ReferralType",
+            "reporter": "Reporter",
+            "attachment": "Attachment",
+            "name": "Name",
+            "responseAgency": "ResponseAgency",
+            "approvalStatus": "ApprovalStatus",
+            "referralResponse": "ReferralResponse",
+            "communicationMethod": "CommunicationMethod",
+            "countySpecific": "CountySpecific",
+            "governmentEntity": "GovernmentEntity",
+            "childrenCurrentLocation": "ChildrenCurrentLocation",
+            "allegation": "Allegation"
+        }
+    }
+}

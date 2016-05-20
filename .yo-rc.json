@@ -1,0 +1,26 @@
+{
+  "generator-jhipster": {
+    "baseName": "intake",
+    "packageName": "com.engagepoint.cws.apqd",
+    "packageFolder": "com/engagepoint/cws/apqd",
+    "authenticationType": "session",
+    "hibernateCache": "hazelcast",
+    "clusteredHttpSession": "hazelcast",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "useSass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": true,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "7b2fd59e025ec84a4856f8618fea74df4806f0cd",
+    "testFrameworks": [
+      "gatling",
+      "cucumber",
+      "protractor"
+    ]
+  }
+}

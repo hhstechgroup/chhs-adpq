@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupIncapacitatedParent" : {
+            "home": {
+                "title": "LookupIncapacitatedParents",
+                "createLabel": "Create a new LookupIncapacitatedParent",
+                "createOrEditLabel": "Create or edit a LookupIncapacitatedParent",
+                "search": "Search for LookupIncapacitatedParent"
+            },
+            "created": "A new LookupIncapacitatedParent is created with identifier {{ param }}",
+            "updated": "A LookupIncapacitatedParent is updated with identifier {{ param }}",
+            "deleted": "A LookupIncapacitatedParent is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupIncapacitatedParent {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupIncapacitatedParent"
+            },
+            "incapacitatedParentCode": "IncapacitatedParentCode",
+            "incapacitatedParentName": "IncapacitatedParentName"
+        }
+    }
+}

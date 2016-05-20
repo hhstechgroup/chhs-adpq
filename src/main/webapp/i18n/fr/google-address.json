@@ -1,0 +1,14 @@
+{
+    "google-address": {
+        "title": "Google Adresse",
+        "address_search":"Search Adresse",
+        "search_placeholder":"You may enter new address quickly by using google places search",
+        "street_number": "Street Number",
+        "street": "Street",
+        "city": "City",
+        "state_code": "State",
+        "zipcode": "Zipcode",
+        "county": "County",
+        "country": "Country"
+    }
+}

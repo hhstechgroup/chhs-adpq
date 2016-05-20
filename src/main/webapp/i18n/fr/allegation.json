@@ -1,0 +1,40 @@
+{
+    "intakeApp": {
+        "allegation" : {
+            "home": {
+                "title": "Allegations",
+                "createLabel": "Créer un nouveau Allegation",
+                "createOrEditLabel": "Créer ou éditer un Allegation",
+                "search": "Search for Allegation"
+            },
+            "created": "Un nouveau Allegation a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Allegation avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Allegation avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Allegation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Allegation"
+            },
+            "abuseStartDate": "AbuseStartDate",
+            "abuseEndDate": "AbuseEndDate",
+            "abuseFrequency": "AbuseFrequency",
+            "abusePerTimeItem": "AbusePerTimeItem",
+            "abuseLocationDescription": "AbuseLocationDescription",
+            "recordStatus": "RecordStatus",
+            "singleEventFlag": "SingleEventFlag",
+            "injuryHarmDetail": "InjuryHarmDetail",
+            "allegationDisposition": "AllegationDisposition",
+            "victim": "Victim",
+            "perpetrator": "Perpetrator",
+            "countySpecific": "CountySpecific",
+            "allegation": "Allegation",
+            "nonProtectingParent": "NonProtectingParent",
+            "placementFacility": "PlacementFacility",
+            "abuseFrequencyPeriod": "AbuseFrequencyPeriod",
+            "abuseLocation": "AbuseLocation",
+            "referral": "Referral"
+        }
+    }
+}
+

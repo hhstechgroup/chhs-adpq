@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupProvidedBy" : {
+            "home": {
+                "title": "LookupProvidedBys",
+                "createLabel": "Créer un nouveau LookupProvidedBy",
+                "createOrEditLabel": "Créer ou éditer un LookupProvidedBy",
+                "search": "Search for LookupProvidedBy"
+            },
+            "created": "Un nouveau LookupProvidedBy a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupProvidedBy avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupProvidedBy avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupProvidedBy {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupProvidedBy"
+            },
+            "providedByCode": "ProvidedByCode",
+            "providedByName": "ProvidedByName"
+        }
+    }
+}
+

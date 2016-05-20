@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupMonth" : {
+            "home": {
+                "title": "LookupMonths",
+                "createLabel": "Crear nuevo LookupMonth",
+                "createOrEditLabel": "Crear o editar LookupMonth",
+                "search": "Search for LookupMonth"
+            },
+            "created": "Un nuevo LookupMonth ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupMonth ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupMonth ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupMonth {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupMonth"
+            },
+            "monthCode": "MonthCode",
+            "monthName": "MonthName"
+        }
+    }
+}

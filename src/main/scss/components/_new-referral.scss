@@ -1,0 +1,56 @@
+.new-referral-header.sticky {
+    position: fixed;
+    width: auto;
+    right: 0;
+    left: 97px;
+    z-index: 90000;
+}
+
+
+.new-ref-heading,
+.new-ref-options-pane,
+.new-ref-id-info,
+.new-ref-save-pane {
+    float: left;
+    height: 100%;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.new-ref-heading {
+    width: 20%;
+    height: 100%;
+    border-right: 1px solid #d5d7dc;
+
+    .new-ref-header-group {
+        padding: 18px 0 18px 18px;
+    }
+}
+
+.new-ref-options-pane {
+    width: 30%;
+    border-right: 1px solid #d5d7dc;
+    .new-ref-header-group {
+        padding-left: 22px;
+    }
+
+    .btn-group {
+        padding-right: 10px;
+
+        .ui-select-toggle,
+        .ui-select-search {
+            border-radius: 0;
+        }
+    }
+}
+.new-ref-id-info {
+    width: 30%;
+    .new-ref-header-group {
+        padding-left: 22px;
+    }
+}
+.new-ref-save-pane {
+    width: 20%;
+}
+
+

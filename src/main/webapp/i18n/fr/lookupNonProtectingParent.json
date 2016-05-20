@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupNonProtectingParent" : {
+            "home": {
+                "title": "LookupNonProtectingParents",
+                "createLabel": "Créer un nouveau LookupNonProtectingParent",
+                "createOrEditLabel": "Créer ou éditer un LookupNonProtectingParent",
+                "search": "Search for LookupNonProtectingParent"
+            },
+            "created": "Un nouveau LookupNonProtectingParent a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupNonProtectingParent avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupNonProtectingParent avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupNonProtectingParent {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupNonProtectingParent"
+            },
+            "nonProtectingParentCode": "NonProtectingParentCode",
+            "nonProtectingParentName": "NonProtectingParentName"
+        }
+    }
+}
+

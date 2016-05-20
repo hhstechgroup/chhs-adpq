@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "narrativeTemplate" : {
+            "home": {
+                "title": "NarrativeTemplates",
+                "createLabel": "Create a new NarrativeTemplate",
+                "createOrEditLabel": "Create or edit a NarrativeTemplate",
+                "search": "Search for NarrativeTemplate"
+            },
+            "created": "A new NarrativeTemplate is created with identifier {{ param }}",
+            "updated": "A NarrativeTemplate is updated with identifier {{ param }}",
+            "deleted": "A NarrativeTemplate is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete NarrativeTemplate {{ id }}?"
+            },
+            "detail": {
+                "title": "NarrativeTemplate"
+            },
+            "templateName": "TemplateName",
+            "templateContent": "TemplateContent"
+        }
+    }
+}

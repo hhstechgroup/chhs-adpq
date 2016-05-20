@@ -1,0 +1,25 @@
+{
+    "intakeApp": {
+        "clientIndexNumber" : {
+            "home": {
+                "title": "ClientIndexNumbers",
+                "createLabel": "Créer un nouveau ClientIndexNumber",
+                "createOrEditLabel": "Créer ou éditer un ClientIndexNumber",
+                "search": "Search for ClientIndexNumber"
+            },
+            "created": "Un nouveau ClientIndexNumber a été créé avec l'identifiant {{ param }}",
+            "updated": "Le ClientIndexNumber avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le ClientIndexNumber avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le ClientIndexNumber {{ id }} ?"
+            },
+            "detail": {
+                "title": "ClientIndexNumber"
+            },
+            "clientIndexNumber": "ClientIndexNumber",
+            "creationDate": "CreationDate",
+            "clientReference": "ClientReference"
+        }
+    }
+}
+

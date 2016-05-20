@@ -1,0 +1,31 @@
+{
+    "intakeApp": {
+        "safetyAlert" : {
+            "home": {
+                "title": "SafetyAlerts",
+                "createLabel": "Créer un nouveau SafetyAlert",
+                "createOrEditLabel": "Créer ou éditer un SafetyAlert",
+                "search": "Search for SafetyAlert"
+            },
+            "created": "Un nouveau SafetyAlert a été créé avec l'identifiant {{ param }}",
+            "updated": "Le SafetyAlert avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le SafetyAlert avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le SafetyAlert {{ id }} ?"
+            },
+            "detail": {
+                "title": "SafetyAlert"
+            },
+            "activationDate": "ActivationDate",
+            "activationExplanation": "ActivationExplanation",
+            "deactivationDate": "DeactivationDate",
+            "deactivationExplanation": "DeactivationExplanation",
+            "recordStatus": "RecordStatus",
+            "activationReason": "ActivationReason",
+            "actGovernmentEntity": "ActGovernmentEntity",
+            "deactGovernmentEntity": "DeactGovernmentEntity",
+            "client": "Client"
+        }
+    }
+}
+

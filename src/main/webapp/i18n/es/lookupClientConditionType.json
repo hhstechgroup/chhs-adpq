@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupClientConditionType" : {
+            "home": {
+                "title": "LookupClientConditionTypes",
+                "createLabel": "Crear nuevo LookupClientConditionType",
+                "createOrEditLabel": "Crear o editar LookupClientConditionType",
+                "search": "Search for LookupClientConditionType"
+            },
+            "created": "Un nuevo LookupClientConditionType ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupClientConditionType ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupClientConditionType ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupClientConditionType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupClientConditionType"
+            },
+            "clientConditionTypeCode": "ClientConditionTypeCode",
+            "clientConditionTypeName": "ClientConditionTypeName"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "intakeApp": {
+        "calendarTask" : {
+            "home": {
+                "title": "CalendarTasks",
+                "createLabel": "Créer un nouveau CalendarTask",
+                "createOrEditLabel": "Créer ou éditer un CalendarTask",
+                "search": "Search for CalendarTask"
+            },
+            "created": "Un nouveau CalendarTask a été créé avec l'identifiant {{ param }}",
+            "updated": "Le CalendarTask avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le CalendarTask avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le CalendarTask {{ id }} ?"
+            },
+            "detail": {
+                "title": "CalendarTask"
+            },
+            "taskName": "TaskName",
+            "taskDescription": "TaskDescription",
+            "taskDate": "TaskDate",
+            "taskStartTime": "TaskStartTime",
+            "taskEndTime": "TaskEndTime"
+        }
+    }
+}
+

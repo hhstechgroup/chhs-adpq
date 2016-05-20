@@ -1,0 +1,106 @@
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration will be overriden by the Spring profile you use,
+# for example application-dev.yml if you use the "dev" profile.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+spring:
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+    messages:
+        basename: classpath:/i18n/messages
+    mvc:
+        favicon:
+            enabled: false
+    thymeleaf:
+        mode: XHTML
+    velocity:
+        enabled: false
+
+#server:
+#    ssl:
+#        key-store: keystore.p12
+#        key-store-password: qwe123
+#        keyStoreType: PKCS12
+#        keyAlias: cwsintake
+#    tomcat:
+#        remote_ip_header: x-forwarded-for
+#        protocol_header: x-forwarded-proto
+
+multipart:
+    maxFileSize: -1
+
+security:
+    basic:
+        enabled: false
+
+# ===================================================================
+# JHipster specific properties
+# ===================================================================
+
+jhipster:
+    async:
+        corePoolSize: 2
+        maxPoolSize: 50
+        queueCapacity: 10000
+    #cors: #By default CORS are not enabled. Uncomment to enable.
+        #allowed-origins: "*"
+        #allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+        #allowed-headers: "*"
+        #exposed-headers:
+        #allow-credentials: true
+        #max-age: 1800
+    mail:
+        from: intake@localhost
+    security:
+        rememberme:
+            # security key (this key should be unique for your application, and kept secret)
+            key: 7b2fd59e025ec84a4856f8618fea74df4806f0cd
+    swagger:
+        title: intake API
+        description: intake API documentation
+        version: 0.0.1
+        termsOfServiceUrl:
+        contact:
+        license:
+        licenseUrl:
+
+# ===================================================================
+# Application properties
+# ===================================================================
+
+intake:
+    state: CA
+    cws-office: 5669 Gibraltar Dr,Pleasanton, CA 94588
+    google-maps-bounds:
+        north-east:
+            latitude: 42
+            longitude: -114.13
+        south-west:
+            latitude: 32.53
+            longitude: -124.43
+    #values: alchemy, opennlp
+    nlp-mode: opennlp
+    alchemyapi-key: d5cf8a179a2d822072f193ca9ae541abd711999a
+    alchemyapi-url: http://access.alchemyapi.com/calls/text/
+    #referral-report-type: FULL_REFERRAL
+    referral-report-type: SUSPECTED_CHILD_ABUSE_FORM
+    webSocketAllowOrigins: "*"
+
+# ===================================================================
+# USPS web service connection properties
+# ===================================================================
+usps:
+   server-url: http://production.shippingapis.com/ShippingAPI.dll
+   user-id: 286ENGAG5998
+   timeout: 10

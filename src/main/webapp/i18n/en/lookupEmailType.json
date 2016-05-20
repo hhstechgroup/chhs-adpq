@@ -1,0 +1,22 @@
+{
+    "intakeApp": {
+        "lookupEmailType" : {
+            "home": {
+                "title": "LookupEmailTypes",
+                "createLabel": "Create a new LookupEmailType",
+                "createOrEditLabel": "Create or edit a LookupEmailType",
+                "search": "Search for LookupEmailType"
+            },
+            "created": "A new LookupEmailType is created with identifier {{ param }}",
+            "updated": "A LookupEmailType is updated with identifier {{ param }}",
+            "deleted": "A LookupEmailType is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupEmailType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupEmailType"
+            },
+            "emailTypeName": "EmailTypeName"
+        }
+    }
+}

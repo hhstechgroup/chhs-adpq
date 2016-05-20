@@ -1,0 +1,27 @@
+{
+    "intakeApp": {
+        "chatMessage" : {
+            "home": {
+                "title": "ChatMessages",
+                "createLabel": "Crear nuevo ChatMessage",
+                "createOrEditLabel": "Crear o editar ChatMessage",
+                "search": "Search for ChatMessage"
+            },
+            "created": "Un nuevo ChatMessage ha sido creado con el identificador {{ param }}",
+            "updated": "Un ChatMessage ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un ChatMessage ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar ChatMessage {{ id }}?"
+            },
+            "detail": {
+                "title": "ChatMessage"
+            },
+            "referralId": "ReferralId",
+            "userSender": "UserSender",
+            "userReceiver": "UserReceiver",
+            "datetimeSent": "DatetimeSent",
+            "message": "Message",
+            "deliveredStatus": "DeliveredStatus"
+        }
+    }
+}

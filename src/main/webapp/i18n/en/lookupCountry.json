@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupCountry" : {
+            "home": {
+                "title": "LookupCountrys",
+                "createLabel": "Create a new LookupCountry",
+                "createOrEditLabel": "Create or edit a LookupCountry",
+                "search": "Search for LookupCountry"
+            },
+            "created": "A new LookupCountry is created with identifier {{ param }}",
+            "updated": "A LookupCountry is updated with identifier {{ param }}",
+            "deleted": "A LookupCountry is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupCountry {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupCountry"
+            },
+            "countryCode": "CountryCode",
+            "countryName": "CountryName"
+        }
+    }
+}

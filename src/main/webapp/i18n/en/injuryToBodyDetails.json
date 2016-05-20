@@ -1,0 +1,25 @@
+{
+    "intakeApp": {
+        "injuryToBodyDetails" : {
+            "home": {
+                "title": "InjuryToBodyDetailss",
+                "createLabel": "Create a new InjuryToBodyDetails",
+                "createOrEditLabel": "Create or edit a InjuryToBodyDetails",
+                "search": "Search for InjuryToBodyDetails"
+            },
+            "created": "A new InjuryToBodyDetails is created with identifier {{ param }}",
+            "updated": "A InjuryToBodyDetails is updated with identifier {{ param }}",
+            "deleted": "A InjuryToBodyDetails is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete InjuryToBodyDetails {{ id }}?"
+            },
+            "detail": {
+                "title": "InjuryToBodyDetails"
+            },
+            "recordStatus": "RecordStatus",
+            "abuseBodyPart": "AbuseBodyPart",
+            "countySpecific": "CountySpecific",
+            "injuryHarmDetail": "InjuryHarmDetail"
+        }
+    }
+}

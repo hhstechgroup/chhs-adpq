@@ -1,0 +1,48 @@
+{
+    "intakeApp": {
+        "place" : {
+            "home": {
+                "title": "Places",
+                "createLabel": "Create a new Place",
+                "createOrEditLabel": "Create or edit a Place",
+                "search": "Search for Place"
+            },
+            "created": "A new Place is created with identifier {{ param }}",
+            "updated": "A Place is updated with identifier {{ param }}",
+            "deleted": "A Place is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Place {{ id }}?"
+            },
+            "detail": {
+                "title": "Place"
+            },
+            "unitNumber": "UnitNumber",
+            "cityName": "CityName",
+            "streetName": "StreetName",
+            "streetNumber": "StreetNumber",
+            "zipCode": "ZipCode",
+            "zipSuffix": "ZipSuffix",
+            "foreignAddressFlag": "ForeignAddressFlag",
+            "lastUpdateTimestamp": "LastUpdateTimestamp",
+            "descritpion": "Descritpion",
+            "emergencyPhoneExtensionNumber": "EmergencyPhoneExtensionNumber",
+            "emergencyPhoneNumber": "EmergencyPhoneNumber",
+            "messagePhoneExtensionNumber": "MessagePhoneExtensionNumber",
+            "messagePhoneNumber": "MessagePhoneNumber",
+            "otherHeaderAddress": "OtherHeaderAddress",
+            "primaryPhoneNumber": "PrimaryPhoneNumber",
+            "websiteUrl": "WebsiteUrl",
+            "longitude": "Longitude",
+            "latitude": "Latitude",
+            "name": "Name",
+            "email": "Email",
+            "recordStatus": "RecordStatus",
+            "validAddressFlag": "ValidAddressFlag",
+            "validationStatus": "ValidationStatus",
+            "validationMessage": "ValidationMessage",
+            "governmentEntity": "GovernmentEntity",
+            "state": "State",
+            "county": "County"
+        }
+    }
+}

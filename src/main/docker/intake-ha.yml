@@ -1,0 +1,64 @@
+#
+# to start intake use:
+#  docker-compose -f ha-intake.yml up -d
+#
+# for scaling use
+#  docker-compose -f ha-intake.yml scale intake=3
+#
+#
+
+intake-elasticsearch:
+  image: docker-registry-sdg.engagepoint.us:5000/intake-elasticsearch
+  restart: unless-stopped
+  ports:
+    - "9200"
+    - "9300"
+
+intake-postgresql:
+  container_name: intake-postgresql
+  restart: unless-stopped
+  image: postgres:9.4.5
+  environment:
+    - POSTGRES_USER=intake
+    - POSTGRES_PASSWORD=
+  ports:
+    - "5432:5432"
+
+intake-neo4j:
+    container_name: intake-neo4j
+    restart: unless-stopped
+    image: neo4j:2.3.3
+    ports:
+    - "7474:7474"
+    environment:
+    - NEO4J_AUTH=neo4j/qwe123
+    ulimits:
+     nofile: 40000
+
+intake:
+  image: docker-registry-sdg.engagepoint.us:5000/intake
+  restart: unless-stopped
+  environment:
+    - COOKIE=SRV insert indirect nocache
+    - spring_mail_host=172.24.232.25
+    - TZ=America/New_York
+#   - logback_graylogHost=LOGBACK_GRAYLOGHOST
+  ports:
+    - "8080"
+  links:
+    - "intake-postgresql:POSTGRESQL"
+    - "intake-elasticsearch:ELASTIC"
+    - "intake-neo4j:NEO4J"
+
+intake-lb:
+  container_name: intake-haproxy
+  restart: unless-stopped
+  image: tutum/haproxy
+  links:
+   - "intake"
+  ports:
+   - "4080:80"
+   - "4043:443"
+  environment:
+   - BACKEND_PORT=8080
+   - BALANCE=roundrobin

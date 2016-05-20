@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupContactActionType" : {
+            "home": {
+                "title": "LookupContactActionTypes",
+                "createLabel": "Crear nuevo LookupContactActionType",
+                "createOrEditLabel": "Crear o editar LookupContactActionType",
+                "search": "Search for LookupContactActionType"
+            },
+            "created": "Un nuevo LookupContactActionType ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupContactActionType ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupContactActionType ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupContactActionType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupContactActionType"
+            },
+            "contactActionTypeCode": "ContactActionTypeCode",
+            "contactActionTypeName": "ContactActionTypeName"
+        }
+    }
+}

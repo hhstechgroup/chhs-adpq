@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupPlacementFacility" : {
+            "home": {
+                "title": "LookupPlacementFacilitys",
+                "createLabel": "Create a new LookupPlacementFacility",
+                "createOrEditLabel": "Create or edit a LookupPlacementFacility",
+                "search": "Search for LookupPlacementFacility"
+            },
+            "created": "A new LookupPlacementFacility is created with identifier {{ param }}",
+            "updated": "A LookupPlacementFacility is updated with identifier {{ param }}",
+            "deleted": "A LookupPlacementFacility is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupPlacementFacility {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupPlacementFacility"
+            },
+            "placementFacilityCode": "PlacementFacilityCode",
+            "placementFacilityName": "PlacementFacilityName"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupReligion" : {
+            "home": {
+                "title": "LookupReligions",
+                "createLabel": "Crear nuevo LookupReligion",
+                "createOrEditLabel": "Crear o editar LookupReligion",
+                "search": "Search for LookupReligion"
+            },
+            "created": "Un nuevo LookupReligion ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupReligion ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupReligion ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupReligion {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupReligion"
+            },
+            "religionCode": "ReligionCode",
+            "religionName": "ReligionName"
+        }
+    }
+}

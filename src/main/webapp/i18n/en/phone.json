@@ -1,0 +1,30 @@
+{
+    "intakeApp": {
+        "phone" : {
+            "home": {
+                "title": "Phones",
+                "createLabel": "Create a new Phone",
+                "createOrEditLabel": "Create or edit a Phone",
+                "search": "Search for Phone"
+            },
+            "created": "A new Phone is created with identifier {{ param }}",
+            "updated": "A Phone is updated with identifier {{ param }}",
+            "deleted": "A Phone is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Phone {{ id }}?"
+            },
+            "detail": {
+                "title": "Phone"
+            },
+            "phoneExtensionNumber": "PhoneExtensionNumber",
+            "phoneNumber": "PhoneNumber",
+            "preferred": "Preferred",
+            "startDate": "StartDate",
+            "endDate": "EndDate",
+            "recordStatus": "RecordStatus",
+            "phoneType": "PhoneType",
+            "client": "Client",
+            "reporter": "Reporter"
+        }
+    }
+}

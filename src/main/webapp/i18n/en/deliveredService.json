@@ -1,0 +1,44 @@
+{
+    "intakeApp": {
+        "deliveredService" : {
+            "home": {
+                "title": "DeliveredServices",
+                "createLabel": "Create a new DeliveredService",
+                "createOrEditLabel": "Create or edit a DeliveredService",
+                "search": "Search for DeliveredService"
+            },
+            "created": "A new DeliveredService is created with identifier {{ param }}",
+            "updated": "A DeliveredService is updated with identifier {{ param }}",
+            "deleted": "A DeliveredService is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete DeliveredService {{ id }}?"
+            },
+            "detail": {
+                "title": "DeliveredService"
+            },
+            "details": "Details",
+            "allegation": "Allegation",
+            "startDateTime": "StartDateTime",
+            "endDateTime": "EndDateTime",
+            "contactVisitCode": "ContactVisitCode",
+            "otherParticipantsDescription": "OtherParticipantsDescription",
+            "wraparoundServiceFlag": "WraparoundServiceFlag",
+            "actionEmail": "ActionEmail",
+            "actionFax": "ActionFax",
+            "actionPhone": "ActionPhone",
+            "preferredCommunicationMethod": "PreferredCommunicationMethod",
+            "contactLocationType": "ContactLocationType",
+            "contactParticipant": "ContactParticipant",
+            "onBehalfOf": "OnBehalfOf",
+            "providedBy": "ProvidedBy",
+            "serviceContactType": "ServiceContactType",
+            "serviceStatus": "ServiceStatus",
+            "serviceSupervisionCode": "ServiceSupervisionCode",
+            "individualDeliveredService": "IndividualDeliveredService",
+            "actionLocation": "ActionLocation",
+            "actionType": "ActionType",
+            "phoneType": "PhoneType",
+            "referral": "Referral"
+        }
+    }
+}

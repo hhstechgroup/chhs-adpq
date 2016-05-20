@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupImmigrationStatus" : {
+            "home": {
+                "title": "LookupImmigrationStatuss",
+                "createLabel": "Crear nuevo LookupImmigrationStatus",
+                "createOrEditLabel": "Crear o editar LookupImmigrationStatus",
+                "search": "Search for LookupImmigrationStatus"
+            },
+            "created": "Un nuevo LookupImmigrationStatus ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupImmigrationStatus ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupImmigrationStatus ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupImmigrationStatus {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupImmigrationStatus"
+            },
+            "immigrationStatusCode": "ImmigrationStatusCode",
+            "immigrationStatusName": "ImmigrationStatusName"
+        }
+    }
+}

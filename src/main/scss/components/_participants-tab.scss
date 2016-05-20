@@ -1,0 +1,202 @@
+.participant-container,
+.allegation-container {
+  border-radius: 4px;
+  box-shadow: $shadow;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+  h3 {
+    display: inline-block;
+    width: 100%;
+    margin: 0 10px 0 0;
+    padding-left: 0;
+    padding-top: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    background: none;
+    color: $grey-dark;
+  }
+}
+.allegation-container {
+  position: relative;
+  p {
+    margin: 5px;
+    font-size: 13px;
+    text-transform: none;
+    span {
+      font-weight: bold;
+    }
+  }
+  span.address-allegations {
+    float: right;
+    font-size: 12px;
+    font-weight: 300;
+    color: $grey-ultra;
+  }
+}
+.edit-container {
+  position: absolute;
+  top: 8px;
+  right: 0px;
+  span {
+    cursor: pointer;
+    margin-right: 15px;
+  }
+}
+.participant-info {
+  span:not(span.badge) {
+    font-size: 14px;
+    font-weight: 500;
+    color: $grey-dark;
+    margin-right: 5px;
+    }
+}
+span.edit {
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  cursor: pointer;
+  margin-left: 5px;
+  width: 16px;
+  height: 16px;
+  background: url("../images/edit.png") no-repeat center;
+}
+span.participant-image {
+    float: left;
+    width: 36px;
+    height: 40px;
+}
+span.img-1 { background: url("../images/p_boy.png") no-repeat center;}
+span.img-2 { background: url("../images/p_girl.png") no-repeat center;}
+span.img-3 { background: url("../images/p_people_3.png") no-repeat center;}
+span.img-4 { background: url("../images/p_people_4.png") no-repeat center;}
+span.img-5 { background: url("../images/p_people_5.png") no-repeat center;}
+span.img-6 { background: url("../images/p_unknown.png") no-repeat center;}
+
+// image resize
+
+span.img-1-s { background: url("../images/p_boy_resize.png") no-repeat center;}
+span.img-2-s { background: url("../images/p_girl_resize.png") no-repeat center;}
+span.img-3-s { background: url("../images/p_people_3_resize.png") no-repeat center;}
+span.img-4-s { background: url("../images/p_people_4_resize.png") no-repeat center;}
+span.img-5-s { background: url("../images/p_people_5_resize.png") no-repeat center;}
+span.img-6-s { background: url("../images/p_unknown_resize.png") no-repeat center;}
+
+
+span.switch-label {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: $grey-dark;
+  font-weight: 400;
+}
+
+span.or-inline {
+  display: inline-block;
+  height: 34px;
+  font-size: 14px;
+  font-weight: 500;
+  color: $grey-dark;
+  text-transform: uppercase;
+  position: relative;
+  top: 45px;
+  left: 28%;
+}
+span.toggle-arrow-down,
+span.toggle-arrow-right {
+  float: right;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  background: url("../images/arrow-down.png") no-repeat center;
+}
+span.toggle-arrow-down { background: url("../images/arrow-down.png") no-repeat center; }
+span.toggle-arrow-right { background: url("../images/arrow-right.png") no-repeat center;}
+
+
+.current-participants {
+    h3 {
+        color: #6f7c82;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        padding: 0;
+    }
+}
+.tabs-content .tab-body .participants-home.tab-main-content-area,
+.tabs-content .tab-body .allegations-home.tab-main-content-area {
+    width: 100%;
+    padding-right: 0;
+}
+
+
+.participants-item {
+    padding: 15px;
+    margin-bottom: 9px;
+    border: 1px solid #d5d7dc;
+    background: #fff;
+
+    .participant-info-heading {
+        margin-bottom: 7px;
+    }
+
+    .participant-description {
+        float: left;
+        width: 65%;
+    }
+
+    .participant-options-pane {
+        float: left;
+        width: 35%;
+        padding-top: 7px;
+        text-align: right;
+    }
+
+    .participant-relation-meta-tags__item {
+        display: inline-block;
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+
+    .participant-info {
+        margin-left: 60px;
+    }
+
+    .participant-name {
+        display: inline-block;
+        font-size: 15px;
+        color: #44444c;
+        font-weight: 600;
+        margin-right: 10px;
+    }
+
+    .participant-gender {
+        display: inline-block;
+        font-size: 13px;
+        color: #70af44;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .participant-additional-info span {
+        display: inline-block;
+        color: #6f7c82;
+        font-size: 12px;
+        margin-right: 8px;
+    }
+
+    .participant-options-pane .input-group {
+        margin-bottom: 0;
+        padding: 4px;
+    }
+
+    .close {
+        margin-left: 15px;
+    }
+}
+
+.current-panel.info-box {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #c4c7ce;
+}
+

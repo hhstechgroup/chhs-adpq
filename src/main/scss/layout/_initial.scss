@@ -1,0 +1,25 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: $open-sans;
+    background: #e7e8ec;
+    min-width: 1024px;
+    position: relative;
+}
+
+input:placeholder {
+    font-size: 20px;
+    color: #fff;
+}
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+dl {
+    margin: 0;
+}

@@ -1,0 +1,10 @@
+{
+    "ep-content": {
+        "title": "EngagePoint Content",
+        "new-file": "Upload new file",
+        "edit-file": "Upload new version of File",
+        "upload": "Upload",
+        "upload-failed" : "Upload has failed because of an error",
+        "list-failed":"Files list cannot be obtained because of an error"
+    }
+}

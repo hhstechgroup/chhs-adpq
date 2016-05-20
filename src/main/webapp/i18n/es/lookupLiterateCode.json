@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupLiterateCode" : {
+            "home": {
+                "title": "LookupLiterateCodes",
+                "createLabel": "Crear nuevo LookupLiterateCode",
+                "createOrEditLabel": "Crear o editar LookupLiterateCode",
+                "search": "Search for LookupLiterateCode"
+            },
+            "created": "Un nuevo LookupLiterateCode ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupLiterateCode ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupLiterateCode ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupLiterateCode {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupLiterateCode"
+            },
+            "literateCode": "LiterateCode",
+            "literateName": "LiterateName"
+        }
+    }
+}

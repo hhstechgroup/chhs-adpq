@@ -1,0 +1,22 @@
+{
+    "intakeApp": {
+        "lookupReferralType" : {
+            "home": {
+                "title": "LookupReferralTypes",
+                "createLabel": "Crear nuevo LookupReferralType",
+                "createOrEditLabel": "Crear o editar LookupReferralType",
+                "search": "Search for LookupReferralType"
+            },
+            "created": "Un nuevo LookupReferralType ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupReferralType ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupReferralType ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupReferralType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupReferralType"
+            },
+            "referralTypeName": "ReferralTypeName"
+        }
+    }
+}

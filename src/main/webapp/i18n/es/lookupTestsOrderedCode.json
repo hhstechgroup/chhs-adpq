@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupTestsOrderedCode" : {
+            "home": {
+                "title": "LookupTestsOrderedCodes",
+                "createLabel": "Crear nuevo LookupTestsOrderedCode",
+                "createOrEditLabel": "Crear o editar LookupTestsOrderedCode",
+                "search": "Search for LookupTestsOrderedCode"
+            },
+            "created": "Un nuevo LookupTestsOrderedCode ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupTestsOrderedCode ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupTestsOrderedCode ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupTestsOrderedCode {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupTestsOrderedCode"
+            },
+            "testsOrderedCode": "TestsOrderedCode",
+            "testsOrderedName": "TestsOrderedName"
+        }
+    }
+}

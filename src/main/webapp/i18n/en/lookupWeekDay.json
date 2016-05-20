@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupWeekDay" : {
+            "home": {
+                "title": "LookupWeekDays",
+                "createLabel": "Create a new LookupWeekDay",
+                "createOrEditLabel": "Create or edit a LookupWeekDay",
+                "search": "Search for LookupWeekDay"
+            },
+            "created": "A new LookupWeekDay is created with identifier {{ param }}",
+            "updated": "A LookupWeekDay is updated with identifier {{ param }}",
+            "deleted": "A LookupWeekDay is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupWeekDay {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupWeekDay"
+            },
+            "weekDayCode": "WeekDayCode",
+            "weekDayName": "WeekDayName"
+        }
+    }
+}

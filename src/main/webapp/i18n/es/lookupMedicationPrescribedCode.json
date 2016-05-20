@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupMedicationPrescribedCode" : {
+            "home": {
+                "title": "LookupMedicationPrescribedCodes",
+                "createLabel": "Crear nuevo LookupMedicationPrescribedCode",
+                "createOrEditLabel": "Crear o editar LookupMedicationPrescribedCode",
+                "search": "Search for LookupMedicationPrescribedCode"
+            },
+            "created": "Un nuevo LookupMedicationPrescribedCode ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupMedicationPrescribedCode ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupMedicationPrescribedCode ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupMedicationPrescribedCode {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupMedicationPrescribedCode"
+            },
+            "medicationPrescribedCode": "MedicationPrescribedCode",
+            "medicationPrescribedName": "MedicationPrescribedName"
+        }
+    }
+}

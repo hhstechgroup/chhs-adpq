@@ -1,0 +1,14 @@
+.ui-select-match-text{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 30px;
+}
+
+.ui-select-bootstrap > .ui-select-choices {
+    width: auto;
+}
+
+.w100 .ui-select-bootstrap > .ui-select-choices {
+    width: 100%;
+}

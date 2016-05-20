@@ -1,0 +1,161 @@
+$main-bg-color: #eff0f2;
+$border-color: #d5d7dc;
+$border-header: #c4c7ce;
+$text-primary-color: #434345;
+$text-secondary-color: #6f7c82;
+$primary-color: #70af44;
+$active-color: #8dc73f;
+$label-color: #f7b338;
+$open-sans: 'Open Sans', sans-serif;
+
+.background {
+  background: -webkit-linear-gradient(top, rgb(75, 163, 94) 0%, rgb(113, 176, 68) 100%);
+  background: -o-linear-gradient(top, rgb(75, 163, 94) 0%, rgb(113, 176, 68) 100%);
+  background: -ms-linear-gradient(top, rgb(75, 163, 94) 0%, rgb(113, 176, 68) 100%);
+  background: -moz-linear-gradient(top, rgb(75, 163, 94) 0%, rgb(113, 176, 68) 100%);
+  background: linear-gradient(to bottom, rgb(75, 163, 94) 0%, rgb(113, 176, 68) 100%);
+}
+.shadow-inset {
+  -webkit-box-shadow: inset -10px 0 19px 3px rgba(61,145,76,.9);
+  -moz-box-shadow: inset -10px 0 19px 3px rgba(61,145,76,.9);
+  box-shadow: inset -10px 0 19px 3px rgba(61,145,76,.9);
+}
+$icon-font-path: "../assets/fonts/bootstrap/"; // bower:scss
+@import "../assets/stylesheets/_bootstrap.scss"; // endbower
+body {
+  font-family: $open-sans !important;
+  font-size: 16px;
+}
+.yellow {
+  background: $label-color;
+}
+.pull-right {
+  float: right;
+}
+.navbar-vertical {
+  @extend .background;
+  @extend .shadow-inset;
+  width: 95px;
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+}
+.icon {
+  display: inline-block;
+  width: 60px;
+  height: 25px;
+  opacity: 0.8;
+}
+.icon-menu {
+  background: url("../img/icon_menu.png") no-repeat center;
+}
+.icon-dashboard {
+  background: url("../img/icon_dashboard.png") no-repeat center;
+}
+.icon-plus {
+  background: url("../img/icon_plus.png") no-repeat center;
+}
+.icon-look {
+  background: url("../img/icon_look.png") no-repeat center;
+}
+.icon-search {
+  background: url("../img/icon_search.png") no-repeat center;
+}
+.icon-reports {
+  background: url("../img/icon_reports.png") no-repeat center;
+}
+.icon-more {
+  background: url("../img/icon_more.png") no-repeat center;
+}
+.icon-user {
+  background: url("../img/icon_user.png") no-repeat center;
+}
+.navbar-vertical .nav > li {
+  width: 95px;
+  margin-left: -16px;
+}
+.navbar-vertical .nav > li > a:hover,
+.navbar-vertical .nav > .dropdown > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: $active-color;
+  transition: background-color 0.3s ease-in-out;
+  .icon {
+    opacity: 1;
+  }
+}
+.navbar-vertical > .user-manager {
+  position: absolute;
+  bottom: 0;
+}
+.header-wrapper {
+  width: 100%;
+  height: 75px;
+  border-bottom: 1px solid $border-color;
+  box-sizing: border-box;
+}
+.main-section {
+  width: 99%;
+  height: 100%;
+  padding-left: 95px;
+  background: $main-bg-color;
+}
+.tabs-container {
+  padding-top: 10px;
+  .nav {
+    padding-left: 25px;
+    li {
+      a {
+        text-transform: uppercase;
+        font-size: 1.6rem;
+        color: $text-secondary-color;
+        padding: 15px 25px;
+        border-radius: 0;
+        &:focus {
+          background-color: inherit;
+        }
+      }
+    }
+    li.active a {
+      color: $text-primary-color;
+      border-top: 2px solid $primary-color;
+      border-left: 0;
+      border-right: 0;
+      font-weight: 600;
+    }
+  }
+}
+.tabs-content-wrapper {
+  background: #fff;
+  h3 {
+    font-size: 1.6rem;
+    color: $text-secondary-color;
+    span.label {
+      color: #fff;
+      border-radius: 1.25em;
+      margin-right: 1em;
+    }
+  }
+}
+.tabs-content-header {
+  height: 75px;
+}
+///// summary tab content
+.summary {
+  .tab-header {
+    height: 40px;
+    .btn {
+      border: 0;
+      border-radius: 15px;
+      padding: 6px 30px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .btn-default {
+      background-color: $primary-color;
+      &:hover {
+        background-color: $active-color;
+      }
+    }
+  }
+}

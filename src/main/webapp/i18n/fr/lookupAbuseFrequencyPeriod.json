@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupAbuseFrequencyPeriod" : {
+            "home": {
+                "title": "LookupAbuseFrequencyPeriods",
+                "createLabel": "Créer un nouveau LookupAbuseFrequencyPeriod",
+                "createOrEditLabel": "Créer ou éditer un LookupAbuseFrequencyPeriod",
+                "search": "Search for LookupAbuseFrequencyPeriod"
+            },
+            "created": "Un nouveau LookupAbuseFrequencyPeriod a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupAbuseFrequencyPeriod avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupAbuseFrequencyPeriod avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupAbuseFrequencyPeriod {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupAbuseFrequencyPeriod"
+            },
+            "abuseFrequencyPeriodCode": "AbuseFrequencyPeriodCode",
+            "abuseFrequencyPeriodName": "AbuseFrequencyPeriodName"
+        }
+    }
+}
+

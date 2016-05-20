@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupServiceToKeepSafe" : {
+            "home": {
+                "title": "LookupServiceToKeepSafes",
+                "createLabel": "Créer un nouveau LookupServiceToKeepSafe",
+                "createOrEditLabel": "Créer ou éditer un LookupServiceToKeepSafe",
+                "search": "Search for LookupServiceToKeepSafe"
+            },
+            "created": "Un nouveau LookupServiceToKeepSafe a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupServiceToKeepSafe avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupServiceToKeepSafe avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupServiceToKeepSafe {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupServiceToKeepSafe"
+            },
+            "serviceToKeepSafeCode": "ServiceToKeepSafeCode",
+            "serviceToKeepSafeName": "ServiceToKeepSafeName"
+        }
+    }
+}
+

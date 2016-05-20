@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupSafetyPlanActionResult" : {
+            "home": {
+                "title": "LookupSafetyPlanActionResults",
+                "createLabel": "Create a new LookupSafetyPlanActionResult",
+                "createOrEditLabel": "Create or edit a LookupSafetyPlanActionResult",
+                "search": "Search for LookupSafetyPlanActionResult"
+            },
+            "created": "A new LookupSafetyPlanActionResult is created with identifier {{ param }}",
+            "updated": "A LookupSafetyPlanActionResult is updated with identifier {{ param }}",
+            "deleted": "A LookupSafetyPlanActionResult is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupSafetyPlanActionResult {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupSafetyPlanActionResult"
+            },
+            "safetyPlanActionResultCode": "SafetyPlanActionResultCode",
+            "safetyPlanActionResultName": "SafetyPlanActionResultName"
+        }
+    }
+}

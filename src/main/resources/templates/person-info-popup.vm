@@ -1,0 +1,76 @@
+<div class="person-info-popup-template">
+  <div class="person-info">
+	  <div class="person-info-heading">
+		  <h4 class="person-name">
+			  $!{personName}
+#if($victimofallegations)
+                <span class = "status-text-victim">(Victim)</span>
+#end
+
+#if($perpetratorofallegations)
+                <span class = "status-text-perpetrator">(Perpetrator)</span>
+#end
+		  </h4>
+	  </div>
+	  <div class="person-additional-info">
+		  <span class="person-gender">$!{gender}</span>
+		  <span class="separator" aria-hidden="true">&#124</span>
+#if ($age && $age != -1)
+		  <span>Age $!{age}</span>
+#else
+		  <span>Age N/A</span>
+#end
+	  </div>
+  </div>
+
+  <div class="person-info-popup-pane">
+	<h3>Address:</h3>
+	<h4><span>$!{addressLine}</span></h4>
+  </div>
+
+#if($victimofallegations)
+    <div class="person-info-popup-pane">
+        <h3>Victim of allegations:</h3>
+        <ul class = "popup-victim-list">
+            #foreach ($allegation in $victimofallegations)
+            <li><b class = "list-label">2</b>
+                <span>$allegation</span></li>
+            #end
+        </ul>
+    </div>
+#end
+
+#if($perpetratorofallegations)
+    <div class="person-info-popup-pane">
+        <h3>Perpetrator of allegations:</h3>
+        <ul class = "popup-victim-list">
+            #foreach ($allegation in $perpetratorofallegations)
+                <li><b class = "list-label">2</b>
+                    <span>$allegation</span></li>
+            #end
+        </ul>
+    </div>
+#end
+
+#if($perpetrators)
+    <div class="person-info-popup-pane">
+        <h3>Perpetrators:</h3>
+        <h4><span>${perpetrators}</span></h4>
+    </div>
+#end
+
+#if($victims)
+    <div class="person-info-popup-pane">
+        <h3>Victims:</h3>
+        <h4><span>${victims}</span></h4>
+    </div>
+#end
+
+#if($guardians)
+    <div class="person-info-popup-pane">
+        <h3>Guardian:</h3>
+        <h4><span>${guardians}</span></h4>
+    </div>
+#end
+
+</div>

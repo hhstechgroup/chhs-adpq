@@ -1,0 +1,39 @@
+{
+    "intakeApp": {
+        "safetyPlanAction" : {
+            "home": {
+                "title": "SafetyPlanActions",
+                "createLabel": "Créer un nouveau SafetyPlanAction",
+                "createOrEditLabel": "Créer ou éditer un SafetyPlanAction",
+                "search": "Search for SafetyPlanAction"
+            },
+            "created": "Un nouveau SafetyPlanAction a été créé avec l'identifiant {{ param }}",
+            "updated": "Le SafetyPlanAction avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le SafetyPlanAction avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le SafetyPlanAction {{ id }} ?"
+            },
+            "detail": {
+                "title": "SafetyPlanAction"
+            },
+            "otherActions": "OtherActions",
+            "responsibleParticipantComment": "ResponsibleParticipantComment",
+            "resourcesComment": "ResourcesComment",
+            "startDate": "StartDate",
+            "endDate": "EndDate",
+            "frequencyActionFlag": "FrequencyActionFlag",
+            "evaluationComment": "EvaluationComment",
+            "frequencyNumber": "FrequencyNumber",
+            "frequencyComment": "FrequencyComment",
+            "selectedFrequencyActionType": "SelectedFrequencyActionType",
+            "responsibleParticipant": "ResponsibleParticipant",
+            "resourceParticipantWhoHelp": "ResourceParticipantWhoHelp",
+            "resourceServiceWhoHelp": "ResourceServiceWhoHelp",
+            "safetyPlanActionResult": "SafetyPlanActionResult",
+            "frequencyWeekDay": "FrequencyWeekDay",
+            "frequencyMonth": "FrequencyMonth",
+            "safetyPlanItem": "SafetyPlanItem"
+        }
+    }
+}
+

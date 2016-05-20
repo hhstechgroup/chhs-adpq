@@ -1,0 +1,25 @@
+{
+    "intakeApp": {
+        "lookupAllegation" : {
+            "home": {
+                "title": "LookupAllegations",
+                "createLabel": "Créer un nouveau LookupAllegation",
+                "createOrEditLabel": "Créer ou éditer un LookupAllegation",
+                "search": "Search for LookupAllegation"
+            },
+            "created": "Un nouveau LookupAllegation a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupAllegation avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupAllegation avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupAllegation {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupAllegation"
+            },
+            "allegationCode": "AllegationCode",
+            "allegationGroupCode": "AllegationGroupCode",
+            "allegationName": "AllegationName"
+        }
+    }
+}
+

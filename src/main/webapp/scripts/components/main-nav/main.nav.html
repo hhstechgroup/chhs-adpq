@@ -1,0 +1,212 @@
+<div class="main-nav nav-height-max" ng-cloak="" main-nav-switcher>
+    <nav class="navbar nav-height-max" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class = "icon icon-nav-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">
+                <span class = "logo"></span>
+            </a>
+        </div>
+            <ul class="nav navbar-nav nav-pane-general" ng-switch="isAuthenticated()">
+                <li ui-sref-active="active" ng-switch-when="true" class="main-nav__item" has-any-authority="ROLE_INTAKE_WORKER,ROLE_INVESTIGATOR" >
+                    <a ui-sref="dashboard">
+                        <span class = "icon icon-dashboard"></span>
+                        <span class="title hidden-sm">Dashboard</span>
+                    </a>
+                </li>
+                <li ui-sref-active="{active: $state.includes('new-referral')}" ng-switch-when="true" has-authority="ROLE_INTAKE_WORKER"  class="main-nav__item"
+                    ng-class="{ active: $state.includes('new-referral')}" >
+                    <a ui-sref="new-referral({id: -1})">
+                        <span class = "icon icon-plus"></span>
+                        <span class="title hidden-sm">New Referral</span>
+                    </a>
+                </li>
+                <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+                <!-- CWS-44 -->
+                <li ui-sref-active="active" ng-switch-when="true" has-any-authority="ROLE_INTAKE_WORKER,ROLE_INVESTIGATOR"
+                    class="main-nav__item">
+                    <a ui-sref="search">
+                        <span class="icon icon-search"></span>
+                        <span class="title hidden-sm" translate="global.menu.search">Search</span>
+                    </a>
+                </li>
+
+                <li ng-class="{active: $state.includes('admin')}" ng-switch-when="true" has-authority="ROLE_ADMIN"
+                    class="main-nav__item dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="" id="admin-menu">
+                            <span class = "icon icon-reports"></span>
+                            <span class="title hidden-sm" translate="global.menu.admin.main">Administration</span>
+                    </a>
+                    <ul class="dropdown-sublist">
+                        <li ui-sref-active="active"><a ui-sref="user-management" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-user"></span>
+                            &#xA0;<span translate="global.menu.admin.user-management">User management</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="tracker" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-eye-open"></span>
+                            &nbsp;<span translate="global.menu.admin.tracker">User tracker</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="metrics" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-dashboard"></span>
+                            &#xA0;<span translate="global.menu.admin.metrics">Metrics</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="health" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-heart"></span>
+                            &#xA0;<span translate="global.menu.admin.health">Health</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="configuration" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-list-alt"></span>
+                            &#xA0;<span translate="global.menu.admin.configuration">Configuration</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="audits" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-bell"></span>
+                            &#xA0;<span translate="global.menu.admin.audits">Audits</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="logs" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-tasks"></span>
+                            &#xA0;<span translate="global.menu.admin.logs">Logs</span></a></li>
+                        <li ng-hide="inProduction" ui-sref-active="active"><a ui-sref="docs" data-toggle="collapse"
+                                                                              data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-book"></span>
+                            &#xA0;<span translate="global.menu.admin.apidocs">API</span></a></li>
+                        <li ng-hide="inProduction"><a href='/h2-console' target="_tab" data-toggle="collapse"
+                                                      data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-hdd"></span>
+                            &#xA0;<span translate="global.menu.admin.database">Database</span></a></li>
+                    </ul>
+                </li>
+                <li ng-class="{active: $state.includes('POC')}" ng-switch-when="true" has-authority="ROLE_ADMIN" class="main-nav__item dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <span class = "icon icon-investigation"></span>
+                            <span class="title hidden-sm">
+                                POC
+                            </span>
+                    </a>
+                    <ul class="dropdown-sublist">
+                        <li ui-sref-active="active"><a ui-sref="audio-recorder" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-play-circle"></span>
+                            &#xA0;<span translate="global.menu.POC.audio-recorder">Audio Recorder</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="voice-recognition" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-bullhorn"></span>
+                            &#xA0;<span>Voice Recognition</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="google-maps" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-globe"></span>
+                            &#xA0;<span translate="global.menu.POC.google-maps">Google Maps</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="elastic-search" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-search"></span>
+                            &#xA0;<span translate="global.menu.POC.elastic-search">Elastic Search</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="phonetic-search" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-search"></span>
+                            &#xA0;<span translate="global.menu.POC.phonetic-search">Phonetic Search</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="google-address" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-plus-sign"></span>
+                            &#xA0;<span translate="global.menu.POC.google-address">Google Address</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="ep-content" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-plus-sign"></span>
+                            &#xA0;<span translate="global.menu.POC.ep-content">EngagePoint Content</span></a></li>
+                        <li ui-sref-active="active"><a ui-sref="graph-visualization" data-toggle="collapse"
+                                                       data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-plus-sign"></span>
+                            &#xA0;<span>Graph Visualization</span></a></li>
+                    </ul>
+                </li>
+                <!--<li ng-class="{active: $state.includes('admin')}" ng-switch-when="true" has-authority="ROLE_ADMIN" class="main-nav__item dropdown pointer">-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown" href="">-->
+                        <!--<span class = "icon icon-more"></span>-->
+                            <!--<span class="title hidden-sm">-->
+                                <!--Develop-->
+                            <!--</span>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-sublist">-->
+                        <!--<li ui-sref-active="active"><a ui-sref="new-referral" data-toggle="collapse"-->
+                                                       <!--data-target=".navbar-collapse.in"><span-->
+                            <!--class="glyphicon glyphicon-asterisk"></span>-->
+                            <!--&#xA0;<span>new-referral</span></a></li>-->
+                        <!--<li ui-sref-active="active"><a ui-sref="dashboard" data-toggle="collapse"-->
+                                                       <!--data-target=".navbar-collapse.in"><span-->
+                            <!--class="glyphicon glyphicon-asterisk"></span>-->
+                            <!--&#xA0;<span>dashboard</span></a></li>-->
+                        <!--<li ui-sref-active="active">-->
+                            <!--<a ui-sref="participants({id: 1})" data-toggle="collapse" data-target=".navbar-collapse.in">-->
+                                <!--<span class="glyphicon glyphicon-asterisk"></span>-->
+                                <!--&#xA0;<span>Participants</span></a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            </ul>
+            <!--<button type="button" class="show-more-nav-items-btn">-->
+                    <!--<span class = "icon icon-more"></span>-->
+                    <!--<span class="title hidden-sm">-->
+                        <!--More-->
+                    <!--</span>-->
+            <!--</button>-->
+            <ul class="nav navbar-nav nav-user-pane" ng-switch="isAuthenticated()">
+
+                <li class="main-nav__item">
+                    <a ng-click="triggerVoiceAssistant()">
+                        <span class="icon"
+                              ng-class="{'icon-voice-control-on': !isVoiceAssistantActive(),
+                                         'icon-voice-control-off': isVoiceAssistantActive()}"></span>
+                        <span class="title hidden-sm">Stop Voice Assistant</span>
+                    </a>
+                </li>
+
+                <li ng-class="{active: $state.includes('account')}" class="main-nav__item dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="" id="account-menu">
+                        <span class = "icon icon-user-account"></span>
+                            <span ng-switch-when="false" class="title hidden-sm" translate="global.menu.account.main">
+                                Account
+                            </span>
+                    </a>
+                    <ul class="dropdown-sublist">
+                        <li ui-sref-active="active" ng-switch-when="true">
+                            <span class="user-name">{{account.firstName}}</span>
+                            <a class="user-logout-btn btn-submit-action-green" href="" ng-click="logout()" id="logout"
+                                                                             data-toggle="collapse"
+                                                                             data-target=".navbar-collapse.in" translate="global.menu.account.logout">Log out</a></li>
+                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings" data-toggle="collapse"
+                                                                             data-target=".navbar-collapse.in"><span
+                            class="icon icon-settings"></span>
+                            &#xA0;<span translate="global.menu.account.settings">Settings</span></a></li>
+                        <!--<li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password" data-toggle="collapse"-->
+                                                                             <!--data-target=".navbar-collapse.in"><span-->
+                            <!--class="glyphicon glyphicon-lock"></span>-->
+                            <!--&#xA0;<span translate="global.menu.account.password">Password</span></a></li>-->
+                        <!--<li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions" data-toggle="collapse"-->
+                                                                             <!--data-target=".navbar-collapse.in"><span-->
+                            <!--class="glyphicon glyphicon-cloud"></span>-->
+                            <!--&#xA0;<span translate="global.menu.account.sessions">Sessions</span></a></li>-->
+                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login" class="user-login-btn btn-submit-action-green" data-toggle="collapse"
+                                                                              data-target=".navbar-collapse.in" translate="global.menu.account.login">Sign in</a>
+                        </li>
+                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register" data-toggle="collapse"
+                                                                              data-target=".navbar-collapse.in"><span
+                            class="glyphicon glyphicon-plus-sign"></span>
+                            &#xA0;<span translate="global.menu.account.register">Register</span></a></li>
+                        <li class="company-logo"><span class="icon git engagepoint-logo"></span></li>
+                    </ul>
+                </li>
+                <!--<li ui-sref-active="active" class="main-nav__item dropdown pointer" ng-controller="LanguageController">-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown" href="">-->
+                        <!--<span class = "icon icon-language"></span>-->
+                        <!--<span class="title hidden-sm" translate="global.menu.language">Language</span>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-sublist">-->
+                        <!--<li active-menu="{{language}}" ng-repeat="language in languages">-->
+                            <!--<a href="" ng-click="changeLanguage(language)" data-toggle="collapse"-->
+                               <!--data-target=".navbar-collapse.in">{{language | findLanguageFromKey}}</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            </ul>
+    </nav>
+</div>

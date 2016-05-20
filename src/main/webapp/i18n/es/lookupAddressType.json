@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupAddressType" : {
+            "home": {
+                "title": "LookupAddressTypes",
+                "createLabel": "Crear nuevo LookupAddressType",
+                "createOrEditLabel": "Crear o editar LookupAddressType",
+                "search": "Search for LookupAddressType"
+            },
+            "created": "Un nuevo LookupAddressType ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupAddressType ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupAddressType ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupAddressType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupAddressType"
+            },
+            "addressTypeCode": "AddressTypeCode",
+            "addressTypeName": "AddressTypeName"
+        }
+    }
+}

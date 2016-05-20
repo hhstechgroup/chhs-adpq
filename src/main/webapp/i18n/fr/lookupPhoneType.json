@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupPhoneType" : {
+            "home": {
+                "title": "LookupPhoneTypes",
+                "createLabel": "Créer un nouveau LookupPhoneType",
+                "createOrEditLabel": "Créer ou éditer un LookupPhoneType",
+                "search": "Search for LookupPhoneType"
+            },
+            "created": "Un nouveau LookupPhoneType a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupPhoneType avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupPhoneType avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupPhoneType {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupPhoneType"
+            },
+            "phoneTypeName": "PhoneTypeName"
+        }
+    }
+}
+

@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupNameType" : {
+            "home": {
+                "title": "LookupNameTypes",
+                "createLabel": "Create a new LookupNameType",
+                "createOrEditLabel": "Create or edit a LookupNameType",
+                "search": "Search for LookupNameType"
+            },
+            "created": "A new LookupNameType is created with identifier {{ param }}",
+            "updated": "A LookupNameType is updated with identifier {{ param }}",
+            "deleted": "A LookupNameType is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupNameType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupNameType"
+            },
+            "nameTypeCode": "NameTypeCode",
+            "nameTypeName": "NameTypeName"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupHispanicOrigin" : {
+            "home": {
+                "title": "LookupHispanicOrigins",
+                "createLabel": "Crear nuevo LookupHispanicOrigin",
+                "createOrEditLabel": "Crear o editar LookupHispanicOrigin",
+                "search": "Search for LookupHispanicOrigin"
+            },
+            "created": "Un nuevo LookupHispanicOrigin ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupHispanicOrigin ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupHispanicOrigin ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupHispanicOrigin {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupHispanicOrigin"
+            },
+            "hispanicOriginCode": "HispanicOriginCode",
+            "hispanicOriginName": "HispanicOriginName"
+        }
+    }
+}

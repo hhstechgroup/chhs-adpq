@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupHispUnableToDetermineReason" : {
+            "home": {
+                "title": "LookupHispUnableToDetermineReasons",
+                "createLabel": "Crear nuevo LookupHispUnableToDetermineReason",
+                "createOrEditLabel": "Crear o editar LookupHispUnableToDetermineReason",
+                "search": "Search for LookupHispUnableToDetermineReason"
+            },
+            "created": "Un nuevo LookupHispUnableToDetermineReason ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupHispUnableToDetermineReason ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupHispUnableToDetermineReason ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupHispUnableToDetermineReason {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupHispUnableToDetermineReason"
+            },
+            "hispUnableToDetermineReasonCode": "HispUnableToDetermineReasonCode",
+            "hispUnableToDetermineReasonName": "HispUnableToDetermineReasonName"
+        }
+    }
+}

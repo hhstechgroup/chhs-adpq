@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupResponseAgency" : {
+            "home": {
+                "title": "LookupResponseAgencys",
+                "createLabel": "Créer un nouveau LookupResponseAgency",
+                "createOrEditLabel": "Créer ou éditer un LookupResponseAgency",
+                "search": "Search for LookupResponseAgency"
+            },
+            "created": "Un nouveau LookupResponseAgency a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupResponseAgency avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupResponseAgency avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupResponseAgency {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupResponseAgency"
+            },
+            "responseAgencyCode": "ResponseAgencyCode",
+            "responseAgencyName": "ResponseAgencyName"
+        }
+    }
+}
+

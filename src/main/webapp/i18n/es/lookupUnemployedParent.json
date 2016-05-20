@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupUnemployedParent" : {
+            "home": {
+                "title": "LookupUnemployedParents",
+                "createLabel": "Crear nuevo LookupUnemployedParent",
+                "createOrEditLabel": "Crear o editar LookupUnemployedParent",
+                "search": "Search for LookupUnemployedParent"
+            },
+            "created": "Un nuevo LookupUnemployedParent ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupUnemployedParent ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupUnemployedParent ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupUnemployedParent {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupUnemployedParent"
+            },
+            "unemployedParentCode": "UnemployedParentCode",
+            "unemployedParentName": "UnemployedParentName"
+        }
+    }
+}

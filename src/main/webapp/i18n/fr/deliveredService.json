@@ -1,0 +1,45 @@
+{
+    "intakeApp": {
+        "deliveredService" : {
+            "home": {
+                "title": "DeliveredServices",
+                "createLabel": "Créer un nouveau DeliveredService",
+                "createOrEditLabel": "Créer ou éditer un DeliveredService",
+                "search": "Search for DeliveredService"
+            },
+            "created": "Un nouveau DeliveredService a été créé avec l'identifiant {{ param }}",
+            "updated": "Le DeliveredService avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le DeliveredService avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le DeliveredService {{ id }} ?"
+            },
+            "detail": {
+                "title": "DeliveredService"
+            },
+            "details": "Details",
+            "allegation": "Allegation",
+            "startDateTime": "StartDateTime",
+            "endDateTime": "EndDateTime",
+            "contactVisitCode": "ContactVisitCode",
+            "otherParticipantsDescription": "OtherParticipantsDescription",
+            "wraparoundServiceFlag": "WraparoundServiceFlag",
+            "actionEmail": "ActionEmail",
+            "actionFax": "ActionFax",
+            "actionPhone": "ActionPhone",
+            "preferredCommunicationMethod": "PreferredCommunicationMethod",
+            "contactLocationType": "ContactLocationType",
+            "contactParticipant": "ContactParticipant",
+            "onBehalfOf": "OnBehalfOf",
+            "providedBy": "ProvidedBy",
+            "serviceContactType": "ServiceContactType",
+            "serviceStatus": "ServiceStatus",
+            "serviceSupervisionCode": "ServiceSupervisionCode",
+            "individualDeliveredService": "IndividualDeliveredService",
+            "actionLocation": "ActionLocation",
+            "actionType": "ActionType",
+            "phoneType": "PhoneType",
+            "referral": "Referral"
+        }
+    }
+}
+

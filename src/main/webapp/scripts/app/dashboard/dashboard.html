@@ -1,0 +1,28 @@
+<div class="dashboard-content">
+
+    <div class="header-wrapper">
+        <h2>
+            <span>Dashboard</span>
+            <a href="" class="dashboard-gear" ng-click="switchWidgetsToolbar()"><span class="icon icon-gear"></span></a>
+        </h2>
+        <div class="pull-right w30">
+            <form ng-submit="doSearch();">
+                <input ng-model="searchString"
+                       type="text" class="search-contact form-control" name="search"
+                       id="field_search" autocomplete="off" placeholder="Search"
+                       aria-disabled="false">
+            </form>
+            <a ng-click="doSearch();" class="dashboard-search pull-right"><span class="icon icon-search"></span></a>
+        </div>
+    </div>
+
+    <div class="main-section">
+
+        <div class="grid-custom" dashboard="dashboardOptions">
+
+
+        </div>
+    </div>
+
+</div>
+

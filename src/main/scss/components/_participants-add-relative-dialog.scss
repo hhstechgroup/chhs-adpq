@@ -1,0 +1,63 @@
+.modal-participants-relations {
+    width: 850px;
+}
+
+.cws-relations-dialog__selected {
+    float: left;
+    width: 33.3333%;
+    padding: 15px 21px;
+    border-top: 1px solid #e7e8ec;
+}
+
+.cws-relations-dialog__selection {
+    float: left;
+    width: 66.6666%;
+    height: 450px;
+    padding: 15px 28px 15px 23px;
+    border-left: 1px solid #e7e8ec;
+    border-top: 1px solid #e7e8ec;
+}
+
+.cws-relations-dialog__selection_custom-scroll {
+    padding-right: 0;
+}
+
+.cws-relations-dialog__selection_custom-scroll.mCS_no_scrollbar {
+    padding-right: 28px;
+}
+
+.cws-relations-dialog__selected-heading {
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: #6f7c82;
+}
+
+.cws-relations-dialog__selected-item {
+    margin-bottom: 10px;
+}
+
+.cws-relations-dialog__selection-row {
+    margin-bottom: 28px;
+}
+
+.cws-relations-dialog__selection-row.cws-relations-dialog__selection-row_search-box {
+    margin-bottom: 20px;
+}
+
+.cws-relations-dialog-selection-group__heading {
+    font-size: 14px;
+    color: #879196;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
+.cws-relations-dialog-selection-group__item {
+    float: left;
+    width: 50%;
+    margin-top: 10px;
+}
+
+.cws-modal-controls__button {
+    display: inline-block;
+    margin-right: 10px;
+}

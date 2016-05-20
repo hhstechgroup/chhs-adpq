@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupActivationReason" : {
+            "home": {
+                "title": "LookupActivationReasons",
+                "createLabel": "Créer un nouveau LookupActivationReason",
+                "createOrEditLabel": "Créer ou éditer un LookupActivationReason",
+                "search": "Search for LookupActivationReason"
+            },
+            "created": "Un nouveau LookupActivationReason a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupActivationReason avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupActivationReason avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupActivationReason {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupActivationReason"
+            },
+            "activationReasonCode": "ActivationReasonCode",
+            "activationReasonName": "ActivationReasonName"
+        }
+    }
+}
+

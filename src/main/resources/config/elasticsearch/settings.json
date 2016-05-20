@@ -1,0 +1,18 @@
+{
+    "index": {
+        "analysis": {
+            "filter": {
+                "dbl_metaphone": {
+                    "type": "phonetic",
+                    "encoder": "double_metaphone"
+                }
+            },
+            "analyzer": {
+                "dbl_metaphone": {
+                    "tokenizer": "standard",
+                    "filter": "dbl_metaphone"
+                }
+            }
+        }
+    }
+}

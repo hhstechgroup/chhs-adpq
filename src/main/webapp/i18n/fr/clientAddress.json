@@ -1,0 +1,30 @@
+{
+    "intakeApp": {
+        "clientAddress" : {
+            "home": {
+                "title": "ClientAddresss",
+                "createLabel": "Créer un nouveau ClientAddress",
+                "createOrEditLabel": "Créer ou éditer un ClientAddress",
+                "search": "Search for ClientAddress"
+            },
+            "created": "Un nouveau ClientAddress a été créé avec l'identifiant {{ param }}",
+            "updated": "Le ClientAddress avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le ClientAddress avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le ClientAddress {{ id }} ?"
+            },
+            "detail": {
+                "title": "ClientAddress"
+            },
+            "bookingOrInmateId": "BookingOrInmateId",
+            "effectiveStartDate": "EffectiveStartDate",
+            "effectiveEndDate": "EffectiveEndDate",
+            "homelessIndicator": "HomelessIndicator",
+            "recordStatus": "RecordStatus",
+            "addressType": "AddressType",
+            "place": "Place",
+            "client": "Client"
+        }
+    }
+}
+

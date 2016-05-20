@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupServiceContactType" : {
+            "home": {
+                "title": "LookupServiceContactTypes",
+                "createLabel": "Crear nuevo LookupServiceContactType",
+                "createOrEditLabel": "Crear o editar LookupServiceContactType",
+                "search": "Search for LookupServiceContactType"
+            },
+            "created": "Un nuevo LookupServiceContactType ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupServiceContactType ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupServiceContactType ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupServiceContactType {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupServiceContactType"
+            },
+            "serviceContactTypeCode": "ServiceContactTypeCode",
+            "serviceContactTypeName": "ServiceContactTypeName"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "intakeApp": {
+        "lookupMilitaryStatus" : {
+            "home": {
+                "title": "LookupMilitaryStatuss",
+                "createLabel": "Créer un nouveau LookupMilitaryStatus",
+                "createOrEditLabel": "Créer ou éditer un LookupMilitaryStatus",
+                "search": "Search for LookupMilitaryStatus"
+            },
+            "created": "Un nouveau LookupMilitaryStatus a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LookupMilitaryStatus avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LookupMilitaryStatus avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LookupMilitaryStatus {{ id }} ?"
+            },
+            "detail": {
+                "title": "LookupMilitaryStatus"
+            },
+            "militaryStatusCode": "MilitaryStatusCode",
+            "militaryStatusName": "MilitaryStatusName"
+        }
+    }
+}
+

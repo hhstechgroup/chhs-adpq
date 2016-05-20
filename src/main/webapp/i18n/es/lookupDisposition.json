@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupDisposition" : {
+            "home": {
+                "title": "LookupDispositions",
+                "createLabel": "Crear nuevo LookupDisposition",
+                "createOrEditLabel": "Crear o editar LookupDisposition",
+                "search": "Search for LookupDisposition"
+            },
+            "created": "Un nuevo LookupDisposition ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupDisposition ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupDisposition ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupDisposition {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupDisposition"
+            },
+            "dispositionCode": "DispositionCode",
+            "dispositionName": "DispositionName"
+        }
+    }
+}

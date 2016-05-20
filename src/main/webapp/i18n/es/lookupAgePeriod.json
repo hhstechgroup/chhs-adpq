@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "lookupAgePeriod" : {
+            "home": {
+                "title": "LookupAgePeriods",
+                "createLabel": "Crear nuevo LookupAgePeriod",
+                "createOrEditLabel": "Crear o editar LookupAgePeriod",
+                "search": "Search for LookupAgePeriod"
+            },
+            "created": "Un nuevo LookupAgePeriod ha sido creado con el identificador {{ param }}",
+            "updated": "Un LookupAgePeriod ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un LookupAgePeriod ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar LookupAgePeriod {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupAgePeriod"
+            },
+            "agePeriodCode": "AgePeriodCode",
+            "agePeriodName": "AgePeriodName"
+        }
+    }
+}

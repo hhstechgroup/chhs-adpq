@@ -1,0 +1,44 @@
+{
+    "intakeApp": {
+        "referralClient" : {
+            "home": {
+                "title": "ReferralClients",
+                "createLabel": "Crear nuevo ReferralClient",
+                "createOrEditLabel": "Crear o editar ReferralClient",
+                "search": "Search for ReferralClient"
+            },
+            "created": "Un nuevo ReferralClient ha sido creado con el identificador {{ param }}",
+            "updated": "Un ReferralClient ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un ReferralClient ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar ReferralClient {{ id }}?"
+            },
+            "detail": {
+                "title": "ReferralClient"
+            },
+            "ageNumber": "AgeNumber",
+            "alcoholFlag": "AlcoholFlag",
+            "approvalNumber": "ApprovalNumber",
+            "dispositionClosureDescription": "DispositionClosureDescription",
+            "dispositionDate": "DispositionDate",
+            "drugFlag": "DrugFlag",
+            "mentalHealthIssuesFlag": "MentalHealthIssuesFlag",
+            "selfReportedFlag": "SelfReportedFlag",
+            "staffPersonAddedFlag": "StaffPersonAddedFlag",
+            "recordStatus": "RecordStatus",
+            "agePeriod": "AgePeriod",
+            "approvalStatus": "ApprovalStatus",
+            "countySpecific": "CountySpecific",
+            "dispositionClosureReason": "DispositionClosureReason",
+            "client": "Client",
+            "disposition": "Disposition",
+            "contact": "Contact",
+            "safetyPlanResponsibleParticipant": "SafetyPlanResponsibleParticipant",
+            "safetyPlanResource": "SafetyPlanResource",
+            "contactOnBehalfOf": "ContactOnBehalfOf",
+            "deliveredToIndividual": "DeliveredToIndividual",
+            "IDSOnBehalfOf": "IDSOnBehalfOf",
+            "referral": "Referral"
+        }
+    }
+}

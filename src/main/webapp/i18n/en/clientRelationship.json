@@ -1,0 +1,29 @@
+{
+    "intakeApp": {
+        "clientRelationship" : {
+            "home": {
+                "title": "ClientRelationships",
+                "createLabel": "Create a new ClientRelationship",
+                "createOrEditLabel": "Create or edit a ClientRelationship",
+                "search": "Search for ClientRelationship"
+            },
+            "created": "A new ClientRelationship is created with identifier {{ param }}",
+            "updated": "A ClientRelationship is updated with identifier {{ param }}",
+            "deleted": "A ClientRelationship is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete ClientRelationship {{ id }}?"
+            },
+            "detail": {
+                "title": "ClientRelationship"
+            },
+            "absentRelationshipFlag": "AbsentRelationshipFlag",
+            "startDate": "StartDate",
+            "endDate": "EndDate",
+            "recordStatus": "RecordStatus",
+            "primaryIndividual": "PrimaryIndividual",
+            "secondaryIndividual": "SecondaryIndividual",
+            "ClientRelationshipType": "ClientRelationshipType",
+            "sameHome": "SameHome"
+        }
+    }
+}
