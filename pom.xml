@@ -985,7 +985,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.engagepoint.cws.apqd</groupId>
+                                    <groupId>com.engagepoint.chhs-apqd</groupId>
                                     <artifactId>chhs-apqd</artifactId>
                                     <version>${project.version}</version>
                                     <type>war</type>
