@@ -5,8 +5,11 @@ import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
+import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -84,10 +87,13 @@ public class MessageResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Message> getAllMessages() {
-        log.debug("REST request to get all Messages");
-        return messageRepository.findAll();
-            }
+    public ResponseEntity<List<Message>> getAllMessages(Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Messages");
+        Page<Message> page = messageRepository.findAll(pageable); 
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/messages");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /messages/:id -> get the "id" message.

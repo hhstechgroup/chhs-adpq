@@ -52,8 +52,8 @@ public class PlaceResourceIntTest {
     private static final String UPDATED_STREET_NUMBER = "BBBBB";
     private static final String DEFAULT_ZIP_CODE = "AAAAA";
     private static final String UPDATED_ZIP_CODE = "BBBBB";
-    private static final String DEFAULT_ZIP_SUFFIX = "AAAAA";
-    private static final String UPDATED_ZIP_SUFFIX = "BBBBB";
+    private static final String DEFAULT_ZIP_SUFFIX = "AAAA";
+    private static final String UPDATED_ZIP_SUFFIX = "BBBB";
 
     private static final Double DEFAULT_LONGITUDE = 1D;
     private static final Double UPDATED_LONGITUDE = 2D;

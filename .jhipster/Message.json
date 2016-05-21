@@ -94,6 +94,6 @@
   ],
   "changelogDate": "20160521013734",
   "dto": "no",
-  "pagination": "no",
+  "pagination": "infinite-scroll",
   "service": "no"
 }

@@ -42,8 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class LookupStateResourceIntTest {
 
-    private static final String DEFAULT_STATE_CODE = "AAAAA";
-    private static final String UPDATED_STATE_CODE = "BBBBB";
+    private static final String DEFAULT_STATE_CODE = "AA";
+    private static final String UPDATED_STATE_CODE = "BB";
     private static final String DEFAULT_STATE_NAME = "AAAAA";
     private static final String UPDATED_STATE_NAME = "BBBBB";
 

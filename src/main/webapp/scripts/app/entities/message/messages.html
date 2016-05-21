@@ -29,23 +29,23 @@ class="hidden-xs"                        translate="intakeApp.message.home.creat
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr>
-                    <th><span translate="global.field.id">ID</span></th>
-                    <th><span translate="intakeApp.message.body">Body</span></th>
-                    <th><span translate="intakeApp.message.subject">Subject</span></th>
-                    <th><span translate="intakeApp.message.caseNumber">CaseNumber</span></th>
-                    <th><span translate="intakeApp.message.dateCreated">DateCreated</span></th>
-                    <th><span translate="intakeApp.message.dateRead">DateRead</span></th>
-                    <th><span translate="intakeApp.message.status">Status</span></th>
-                    <th><span translate="intakeApp.message.inbox">inbox</span></th>
-                    <th><span translate="intakeApp.message.outbox">outbox</span></th>
-                    <th><span translate="intakeApp.message.replyOn">replyOn</span></th>
-                    <th><span translate="intakeApp.message.from">from</span></th>
-                    <th><span translate="intakeApp.message.to">to</span></th>
+                <tr jh-sort="predicate" ascending="reverse" callback="reset()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="body"><span translate="intakeApp.message.body">Body</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="subject"><span translate="intakeApp.message.subject">Subject</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="caseNumber"><span translate="intakeApp.message.caseNumber">CaseNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dateCreated"><span translate="intakeApp.message.dateCreated">DateCreated</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dateRead"><span translate="intakeApp.message.dateRead">DateRead</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status"><span translate="intakeApp.message.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="inbox.id"><span translate="intakeApp.message.inbox">inbox</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="outbox.id"><span translate="intakeApp.message.outbox">outbox</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="replyOn.id"><span translate="intakeApp.message.replyOn">replyOn</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="from.id"><span translate="intakeApp.message.from">from</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="to.id"><span translate="intakeApp.message.to">to</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
                 <tr ng-repeat="message in messages track by message.id">
                     <td><a ui-sref="message.detail({id:message.id})">{{message.id}}</a></td>
                     <td>{{message.body}}</td>

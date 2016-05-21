@@ -62,8 +62,8 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE_READ = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
-    private static final String DEFAULT_STATUS = "AAAAA";
-    private static final String UPDATED_STATUS = "BBBBB";
+    private static final String DEFAULT_STATUS = "AA";
+    private static final String UPDATED_STATUS = "BB";
 
     @Inject
     private MessageRepository messageRepository;

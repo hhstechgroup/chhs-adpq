@@ -1,6 +1,6 @@
 entity LookupState {
     stateCode String required maxlength(2),
-    stateName String required
+    stateName String required maxlength(30)
 }
 
 entity LookupCounty {
@@ -99,4 +99,6 @@ relationship ManyToOne {
 relationship OneToOne {
   LookupCounty{county} to LookupState
 }
+
+paginate Message with infinite-scroll
 
