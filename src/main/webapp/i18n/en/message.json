@@ -1,0 +1,32 @@
+{
+    "intakeApp": {
+        "message" : {
+            "home": {
+                "title": "Messages",
+                "createLabel": "Create a new Message",
+                "createOrEditLabel": "Create or edit a Message",
+                "search": "Search for Message"
+            },
+            "created": "A new Message is created with identifier {{ param }}",
+            "updated": "A Message is updated with identifier {{ param }}",
+            "deleted": "A Message is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Message {{ id }}?"
+            },
+            "detail": {
+                "title": "Message"
+            },
+            "body": "Body",
+            "subject": "Subject",
+            "caseNumber": "CaseNumber",
+            "dateCreated": "DateCreated",
+            "dateRead": "DateRead",
+            "status": "Status",
+            "inbox": "Inbox",
+            "outbox": "Outbox",
+            "replyOn": "ReplyOn",
+            "from": "From",
+            "to": "To"
+        }
+    }
+}

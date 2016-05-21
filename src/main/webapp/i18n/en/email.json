@@ -19,11 +19,7 @@
             "emailText": "EmailText",
             "preferred": "Preferred",
             "startDate": "StartDate",
-            "endDate": "EndDate",
-            "recordStatus": "RecordStatus",
-            "emailType": "EmailType",
-            "client": "Client",
-            "reporter": "Reporter"
+            "endDate": "EndDate"
         }
     }
 }

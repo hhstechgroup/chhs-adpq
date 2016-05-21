@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity LookupAbuseFrequencyPeriod.
+    -->
+    <changeSet id="20160210314" author="leonid.marushevskiy">
+        <insert tableName="lookup_county"><column name="county_code" value="01"/><column name="county_name" value="Alameda"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="02"/><column name="county_name" value="Alpine"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="03"/><column name="county_name" value="Amador"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="04"/><column name="county_name" value="Butte"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="05"/><column name="county_name" value="Calaveras"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="06"/><column name="county_name" value="Colusa"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="07"/><column name="county_name" value="Contra Costa"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="08"/><column name="county_name" value="Del Norte"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="09"/><column name="county_name" value="El Dorado"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="10"/><column name="county_name" value="Fresno"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="11"/><column name="county_name" value="Glenn"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="12"/><column name="county_name" value="Humboldt"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="13"/><column name="county_name" value="Imperial"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="14"/><column name="county_name" value="Inyo"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="15"/><column name="county_name" value="Kern"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="16"/><column name="county_name" value="Kings"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="17"/><column name="county_name" value="Lake"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="18"/><column name="county_name" value="Lassen"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="19"/><column name="county_name" value="Los Angeles"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="20"/><column name="county_name" value="Madera"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="21"/><column name="county_name" value="Marin"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="22"/><column name="county_name" value="Mariposa"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="23"/><column name="county_name" value="Mendocino"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="24"/><column name="county_name" value="Merced"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="25"/><column name="county_name" value="Modoc"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="26"/><column name="county_name" value="Mono"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="27"/><column name="county_name" value="Monterey"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="28"/><column name="county_name" value="Napa"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="29"/><column name="county_name" value="Nevada"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="30"/><column name="county_name" value="Orange"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="31"/><column name="county_name" value="Placer"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="32"/><column name="county_name" value="Plumas"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="33"/><column name="county_name" value="Riverside"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="34"/><column name="county_name" value="Sacramento"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="35"/><column name="county_name" value="San Benito"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="36"/><column name="county_name" value="San Bernardino"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="37"/><column name="county_name" value="San Diego"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="38"/><column name="county_name" value="San Francisco"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="39"/><column name="county_name" value="San Joaquin"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="40"/><column name="county_name" value="San Luis Obispo"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="41"/><column name="county_name" value="San Mateo"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="42"/><column name="county_name" value="Santa Barbara"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="43"/><column name="county_name" value="Santa Clara"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="44"/><column name="county_name" value="Santa Cruz"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="45"/><column name="county_name" value="Shasta"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="46"/><column name="county_name" value="Sierra"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="47"/><column name="county_name" value="Siskiyou"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="48"/><column name="county_name" value="Solano"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="49"/><column name="county_name" value="Sonoma"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="50"/><column name="county_name" value="Stanislaus"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="51"/><column name="county_name" value="Sutter"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="52"/><column name="county_name" value="Tehama"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="53"/><column name="county_name" value="Trinity"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="54"/><column name="county_name" value="Tulare"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="55"/><column name="county_name" value="Tuolumne"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="56"/><column name="county_name" value="Ventura"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="57"/><column name="county_name" value="Yolo"/><column name="state_code" value="CA"/></insert>
+        <insert tableName="lookup_county"><column name="county_code" value="58"/><column name="county_name" value="Yuba"/><column name="state_code" value="CA"/></insert>
+
+    </changeSet>
+</databaseChangeLog>

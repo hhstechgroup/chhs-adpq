@@ -98,6 +98,10 @@
                 "frequencyWeekDay": "FrequencyWeekDay",
                 "lookupServiceCategory": "LookupServiceCategory",
                 "lookupServiceType": "LookupServiceType",
+                "inbox": "Inbox",
+                "outbox": "Outbox",
+                "mailBox": "MailBox",
+                "message": "Message",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

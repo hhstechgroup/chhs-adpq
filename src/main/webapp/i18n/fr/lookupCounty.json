@@ -16,9 +16,8 @@
             "detail": {
                 "title": "LookupCounty"
             },
-            "countyCode": "CountyCode",
             "countyName": "CountyName",
-            "stateCode": "StateCode"
+            "county": "County"
         }
     }
 }

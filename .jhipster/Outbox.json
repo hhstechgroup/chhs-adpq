@@ -1,0 +1,16 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "message",
+      "otherEntityName": "message",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "outbox"
+    }
+  ],
+  "fields": [],
+  "changelogDate": "20160521013733",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

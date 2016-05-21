@@ -1,0 +1,98 @@
+<div>
+    <h2 translate="intakeApp.message.home.title">Messages</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="message.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+class="hidden-xs"                        translate="intakeApp.message.home.createLabel">Create new Message
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'intakeApp.message.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="search()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="intakeApp.message.body">Body</span></th>
+                    <th><span translate="intakeApp.message.subject">Subject</span></th>
+                    <th><span translate="intakeApp.message.caseNumber">CaseNumber</span></th>
+                    <th><span translate="intakeApp.message.dateCreated">DateCreated</span></th>
+                    <th><span translate="intakeApp.message.dateRead">DateRead</span></th>
+                    <th><span translate="intakeApp.message.status">Status</span></th>
+                    <th><span translate="intakeApp.message.inbox">inbox</span></th>
+                    <th><span translate="intakeApp.message.outbox">outbox</span></th>
+                    <th><span translate="intakeApp.message.replyOn">replyOn</span></th>
+                    <th><span translate="intakeApp.message.from">from</span></th>
+                    <th><span translate="intakeApp.message.to">to</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="message in messages track by message.id">
+                    <td><a ui-sref="message.detail({id:message.id})">{{message.id}}</a></td>
+                    <td>{{message.body}}</td>
+                    <td>{{message.subject}}</td>
+                    <td>{{message.caseNumber}}</td>
+                    <td>{{message.dateCreated | date:'medium'}}</td>
+                    <td>{{message.dateRead | date:'medium'}}</td>
+                    <td>{{message.status}}</td>
+                    <td>
+                        <a ui-sref="inbox.detail({id:message.inbox.id})">{{message.inbox.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="outbox.detail({id:message.outbox.id})">{{message.outbox.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="message.detail({id:message.replyOn.id})">{{message.replyOn.id}}</a>
+                    </td>
+                    <td>
+                        {{message.from.id}}
+                    </td>
+                    <td>
+                        {{message.to.id}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="message.detail({id:message.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="message.edit({id:message.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="message.delete({id:message.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

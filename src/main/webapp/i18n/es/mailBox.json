@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "mailBox" : {
+            "home": {
+                "title": "MailBoxs",
+                "createLabel": "Crear nuevo MailBox",
+                "createOrEditLabel": "Crear o editar MailBox",
+                "search": "Search for MailBox"
+            },
+            "created": "Un nuevo MailBox ha sido creado con el identificador {{ param }}",
+            "updated": "Un MailBox ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un MailBox ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar MailBox {{ id }}?"
+            },
+            "detail": {
+                "title": "MailBox"
+            },
+            "inbox": "Inbox",
+            "outbox": "Outbox"
+        }
+    }
+}

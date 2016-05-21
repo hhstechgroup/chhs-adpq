@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span translate="intakeApp.email.detail.title">Email</span> {{email.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="intakeApp.email.emailText">EmailText</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{email.emailText}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="intakeApp.email.preferred">Preferred</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{email.preferred}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="intakeApp.email.startDate">StartDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{email.startDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="intakeApp.email.endDate">EndDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{email.endDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

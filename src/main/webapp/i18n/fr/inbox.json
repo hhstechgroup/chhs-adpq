@@ -1,0 +1,23 @@
+{
+    "intakeApp": {
+        "inbox" : {
+            "home": {
+                "title": "Inboxs",
+                "createLabel": "Créer un nouveau Inbox",
+                "createOrEditLabel": "Créer ou éditer un Inbox",
+                "search": "Search for Inbox"
+            },
+            "created": "Un nouveau Inbox a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Inbox avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Inbox avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Inbox {{ id }} ?"
+            },
+            "detail": {
+                "title": "Inbox"
+            },
+            "message": "Message"
+        }
+    }
+}
+
