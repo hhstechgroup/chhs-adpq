@@ -25,6 +25,6 @@ angular.module('intakeApp')
                 },
                 onExit: function(Tracker) {
                     Tracker.unsubscribe();
-                },
+                }
             });
     });
