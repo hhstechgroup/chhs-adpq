@@ -5,7 +5,7 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
     'uiGmapgoogle-maps',
     // jhipster-needle-angularjs-add-module JHipster will add new module
     'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router',  'infinite-scroll', 'angular-loading-bar',
-    'angularAudioRecorder', 'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'ui.ace', 'sticky'])
+    'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language,
                    Auth, Principal, ENV, VERSION, VoiceAssistantService) {
