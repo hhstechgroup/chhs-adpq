@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('EmailController', function ($scope, $state, Email, EmailSearch) {
 
         $scope.emails = [];

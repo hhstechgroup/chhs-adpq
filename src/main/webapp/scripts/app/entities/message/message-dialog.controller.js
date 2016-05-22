@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('MessageDialogController',
+angular.module('apqdApp').controller('MessageDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'Inbox', 'Outbox', 'User',
         function($scope, $stateParams, $uibModalInstance, $q, entity, Message, Inbox, Outbox, User) {
 
@@ -24,7 +24,7 @@ angular.module('intakeApp').controller('MessageDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('intakeApp:messageUpdate', result);
+            $scope.$emit('apqdApp:messageUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

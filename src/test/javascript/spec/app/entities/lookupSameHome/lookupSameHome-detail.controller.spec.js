@@ -12,7 +12,7 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockLookupSameHome = jasmine.createSpy('MockLookupSameHome');
-            
+
 
             var locals = {
                 '$scope': $scope,
@@ -28,7 +28,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:lookupSameHomeUpdate';
+                var eventType = 'apqdApp:lookupSameHomeUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

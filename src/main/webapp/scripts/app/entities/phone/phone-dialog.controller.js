@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('PhoneDialogController',
+angular.module('apqdApp').controller('PhoneDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Phone',
         function($scope, $stateParams, $uibModalInstance, entity, Phone) {
 
@@ -12,7 +12,7 @@ angular.module('intakeApp').controller('PhoneDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('intakeApp:phoneUpdate', result);
+            $scope.$emit('apqdApp:phoneUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

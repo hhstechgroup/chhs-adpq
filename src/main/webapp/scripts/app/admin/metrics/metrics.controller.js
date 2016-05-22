@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('MetricsController', function ($scope, MonitoringService, $uibModal) {
         $scope.metrics = {};
         $scope.updatingMetrics = true;

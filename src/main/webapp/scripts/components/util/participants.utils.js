@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('ParticipantsUtils', function ($q, ClientRelationshipSearch, ClientRelationship, ReferralClient, Client,
                                             LookupGender, GenderCode) {
 

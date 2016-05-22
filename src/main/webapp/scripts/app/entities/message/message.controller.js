@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('MessageController', function ($scope, $state, Message, MessageSearch, ParseLinks) {
 
         $scope.messages = [];

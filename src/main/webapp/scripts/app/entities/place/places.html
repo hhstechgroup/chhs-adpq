@@ -1,20 +1,20 @@
 <div>
-    <h2 translate="intakeApp.place.home.title">Places</h2>
+    <h2 translate="apqdApp.place.home.title">Places</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="place.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-class="hidden-xs"                        translate="intakeApp.place.home.createLabel">Create new Place
+                    <span
+class="hidden-xs"                        translate="apqdApp.place.home.createLabel">Create new Place
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'intakeApp.place.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'apqdApp.place.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="search()">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -31,19 +31,19 @@ class="hidden-xs"                        translate="intakeApp.place.home.createL
             <thead>
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
-                    <th><span translate="intakeApp.place.unitNumber">UnitNumber</span></th>
-                    <th><span translate="intakeApp.place.cityName">CityName</span></th>
-                    <th><span translate="intakeApp.place.streetName">StreetName</span></th>
-                    <th><span translate="intakeApp.place.streetNumber">StreetNumber</span></th>
-                    <th><span translate="intakeApp.place.zipCode">ZipCode</span></th>
-                    <th><span translate="intakeApp.place.zipSuffix">ZipSuffix</span></th>
-                    <th><span translate="intakeApp.place.longitude">Longitude</span></th>
-                    <th><span translate="intakeApp.place.latitude">Latitude</span></th>
-                    <th><span translate="intakeApp.place.validAddressFlag">ValidAddressFlag</span></th>
-                    <th><span translate="intakeApp.place.validationStatus">ValidationStatus</span></th>
-                    <th><span translate="intakeApp.place.validationMessage">ValidationMessage</span></th>
-                    <th><span translate="intakeApp.place.state">state</span></th>
-                    <th><span translate="intakeApp.place.county">county</span></th>
+                    <th><span translate="apqdApp.place.unitNumber">UnitNumber</span></th>
+                    <th><span translate="apqdApp.place.cityName">CityName</span></th>
+                    <th><span translate="apqdApp.place.streetName">StreetName</span></th>
+                    <th><span translate="apqdApp.place.streetNumber">StreetNumber</span></th>
+                    <th><span translate="apqdApp.place.zipCode">ZipCode</span></th>
+                    <th><span translate="apqdApp.place.zipSuffix">ZipSuffix</span></th>
+                    <th><span translate="apqdApp.place.longitude">Longitude</span></th>
+                    <th><span translate="apqdApp.place.latitude">Latitude</span></th>
+                    <th><span translate="apqdApp.place.validAddressFlag">ValidAddressFlag</span></th>
+                    <th><span translate="apqdApp.place.validationStatus">ValidationStatus</span></th>
+                    <th><span translate="apqdApp.place.validationMessage">ValidationMessage</span></th>
+                    <th><span translate="apqdApp.place.state">state</span></th>
+                    <th><span translate="apqdApp.place.county">county</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -71,7 +71,7 @@ class="hidden-xs"                        translate="intakeApp.place.home.createL
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="place.detail({id:place.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -83,7 +83,7 @@ class="hidden-xs"                        translate="intakeApp.place.home.createL
                             </button>
                             <button type="submit"
                                     ui-sref="place.delete({id:place.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

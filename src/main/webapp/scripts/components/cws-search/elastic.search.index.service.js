@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('ElasticSearchIndexService', ['$http', '$log', function ($http, $log) {
         /**
          * This performs authorized version of HTTP POST like the following:

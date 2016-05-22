@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('jhAlert', function (AlertService) {
         return {
             restrict: 'E',
@@ -15,7 +15,7 @@ angular.module('intakeApp')
             restrict: 'E',
             controller: ['$scope', '$uibModal',
                 function ($scope, $uibModal) {
-                    var cleanHttpErrorListener = $rootScope.$on('intakeApp.httpError', function (event, httpResponse) {
+                    var cleanHttpErrorListener = $rootScope.$on('apqdApp.httpError', function (event, httpResponse) {
                         var i;
                         event.stopPropagation();
                         switch (httpResponse.status) {
@@ -34,8 +34,8 @@ angular.module('intakeApp')
                                 break;
 
                             case 400:
-                                var errorHeader = httpResponse.headers('X-intakeApp-error');
-                                var entityKey = httpResponse.headers('X-intakeApp-params');
+                                var errorHeader = httpResponse.headers('X-apqdApp-error');
+                                var entityKey = httpResponse.headers('X-apqdApp-params');
                                 if (errorHeader) {
                                     var entityName = $translate.instant('global.menu.entities.' + entityKey);
                                     addErrorAlert(errorHeader, errorHeader, {entityName: entityName});
@@ -44,7 +44,7 @@ angular.module('intakeApp')
                                         var fieldError = httpResponse.data.fieldErrors[i];
                                         // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it
                                         var convertedField = fieldError.field.replace(/\[\d*\]/g, "[]");
-                                        var fieldName = $translate.instant('intakeApp.' + fieldError.objectName + '.' + convertedField);
+                                        var fieldName = $translate.instant('apqdApp.' + fieldError.objectName + '.' + convertedField);
                                         addErrorAlert('Field ' + fieldName + ' cannot be empty', 'error.' + fieldError.message, {fieldName: fieldName});
                                     }
                                 } else if (httpResponse.data && httpResponse.data.message) {

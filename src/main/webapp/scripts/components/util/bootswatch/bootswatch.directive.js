@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('jhSwitchTheme', function() {
         /*Directive binds to anchor to update the bootswatch theme selected*/
         return {

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('VoiceAssistantService', function ($log) {
 
         var TIMEOUT = 900;

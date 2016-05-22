@@ -13,7 +13,7 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockClientIndexNumber = jasmine.createSpy('MockClientIndexNumber');
             MockClient = jasmine.createSpy('MockClient');
-            
+
 
             var locals = {
                 '$scope': $scope,
@@ -30,7 +30,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:clientIndexNumberUpdate';
+                var eventType = 'apqdApp:clientIndexNumberUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('ParseLinks', function () {
         this.parse = function (header) {
             if (header.length == 0) {

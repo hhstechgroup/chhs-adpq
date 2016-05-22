@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myPhoneLabel" translate="intakeApp.phone.home.createOrEditLabel">Create or edit a Phone</h4>
+        <h4 class="modal-title" id="myPhoneLabel" translate="apqdApp.phone.home.createOrEditLabel">Create or edit a Phone</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="phone.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.phone.phoneNumber" for="field_phoneNumber">PhoneNumber</label>
+            <label class="control-label" translate="apqdApp.phone.phoneNumber" for="field_phoneNumber">PhoneNumber</label>
             <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
                     ng-model="phone.phoneNumber"
                     required ng-maxlength="15" />
@@ -30,13 +30,13 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.phone.preferred" for="field_preferred">Preferred</label>
+            <label class="control-label" translate="apqdApp.phone.preferred" for="field_preferred">Preferred</label>
             <input type="checkbox" class="form-control" name="preferred" id="field_preferred"
                     ng-model="phone.preferred"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.phone.startDate" for="field_startDate">StartDate</label>
+            <label class="control-label" translate="apqdApp.phone.startDate" for="field_startDate">StartDate</label>
             <input id="field_startDate" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="phone.startDate" is-open="datePickerForStartDate.status.opened"
             />
             <span class="input-group-btn">
@@ -44,7 +44,7 @@
             </span>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.phone.endDate" for="field_endDate">EndDate</label>
+            <label class="control-label" translate="apqdApp.phone.endDate" for="field_endDate">EndDate</label>
             <input id="field_endDate" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="phone.endDate" is-open="datePickerForEndDate.status.opened"
             />
             <span class="input-group-btn">

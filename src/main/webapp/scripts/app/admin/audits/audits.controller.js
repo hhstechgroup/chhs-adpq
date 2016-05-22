@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('AuditsController', function ($scope, $filter, AuditsService) {
         $scope.onChangeDate = function () {
             var dateFormat = 'yyyy-MM-dd';

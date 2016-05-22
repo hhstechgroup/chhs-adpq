@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .config(function (uibPaginationConfig) {
         uibPaginationConfig.itemsPerPage = 20;
         uibPaginationConfig.maxSize = 5;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('PlaceSearch', function ($resource) {
         return $resource('api/_search/places/:query', {}, {
             'query': { method: 'GET', isArray: true}

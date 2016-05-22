@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('LookupCountyDialogController',
+angular.module('apqdApp').controller('LookupCountyDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'LookupCounty', 'LookupState',
         function($scope, $stateParams, $uibModalInstance, $q, entity, LookupCounty, LookupState) {
 
@@ -21,7 +21,7 @@ angular.module('intakeApp').controller('LookupCountyDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('intakeApp:lookupCountyUpdate', result);
+            $scope.$emit('apqdApp:lookupCountyUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

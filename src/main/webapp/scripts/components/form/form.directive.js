@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('showValidation', function() {
         return {
             restrict: 'A',

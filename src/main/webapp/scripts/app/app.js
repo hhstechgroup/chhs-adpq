@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
+angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
     'uiGmapgoogle-maps',
     // jhipster-needle-angularjs-add-module JHipster will add new module

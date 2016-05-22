@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .filter('fileSizeDisplay', [function(){
         return function(bytes, decimals) {
             if(bytes == 0) return '0 Byte';

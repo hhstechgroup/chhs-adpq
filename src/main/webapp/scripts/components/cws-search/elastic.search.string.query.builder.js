@@ -10,7 +10,7 @@ if (searchByFirstName) {
 }
 var stringQuery = queryBuilder.buildStringQuery(searchString);
  */
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('ElasticSearchStringQueryBuilder', [function () {
         function ElasticSearchStringQueryBuilder() {
             this.searchOptions = {
@@ -88,7 +88,7 @@ angular.module('intakeApp')
 
             this._isFieldNameLikeId = function (fieldName) {
                 fieldName = fieldName.toLowerCase();
-                return fieldName == 'id' || fieldName == '+id' || fieldName == '-id' || new RegExp("\.id$").test(fieldName);
+                return fieldName === 'id' || fieldName === '+id' || fieldName === '-id' || new RegExp("\.id$").test(fieldName);
             };
 
             function _buildStringQuery(queryString, searchOptions) {
@@ -128,7 +128,7 @@ angular.module('intakeApp')
                     this.fuzziness(0);
                 }
 
-                if (this.searchOptions.detectRecordStatus && this.searchOptions.byField == 'recordStatus') {
+                if (this.searchOptions.detectRecordStatus && this.searchOptions.byField === 'recordStatus') {
                     this.minTokenLength(1);
                     this.matchExactWord();
                     this.fuzziness(0);

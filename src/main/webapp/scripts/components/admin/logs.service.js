@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('LogsService', function ($resource) {
         return $resource('api/logs', {}, {
             'findAll': { method: 'GET', isArray: true},

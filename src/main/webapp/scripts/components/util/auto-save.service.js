@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('AutoSaveService', function ($rootScope, DateUtils) {
 
         var ACTIVITY_AUTO_SAVE_INTERVAL = 30000;
@@ -10,7 +10,7 @@ angular.module('intakeApp')
         function invokeAutoSave(formScope) {
             var promise;
             autoSaveInvoked = true;
-            formScope.$emit('intakeApp:savingInProgress');
+            formScope.$emit('apqdApp:savingInProgress');
 
             if (formScope.saveWithoutValidation) {
                 promise = formScope.saveWithoutValidation(true);
@@ -28,7 +28,7 @@ angular.module('intakeApp')
         }
 
         function onSuccess() {
-            $rootScope.$broadcast('intakeApp:autoSaveEvent', 'Last saved at ' + DateUtils.formatCurrentTime());
+            $rootScope.$broadcast('apqdApp:autoSaveEvent', 'Last saved at ' + DateUtils.formatCurrentTime());
         }
 
         function setUpAutoSave(formScope, model4monitoring) {
@@ -56,7 +56,7 @@ angular.module('intakeApp')
                         changesExists = false;
                         clearInterval(inactivityMonitoringTimer);
                         inactivityMonitoringTimer = startAutoSaveTimer();
-                        formScope.$emit('intakeApp:hasUnsavedChangesEvent');
+                        formScope.$emit('apqdApp:hasUnsavedChangesEvent');
                     }
 
                 }, 300);

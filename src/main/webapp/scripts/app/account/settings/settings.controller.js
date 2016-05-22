@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate) {
         $scope.success = null;
         $scope.error = null;

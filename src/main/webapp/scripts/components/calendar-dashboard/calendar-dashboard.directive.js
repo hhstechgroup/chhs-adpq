@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('calendarDashboard', function () {
         return {
             restrict: 'E',

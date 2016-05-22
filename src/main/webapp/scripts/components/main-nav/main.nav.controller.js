@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('MainNavController', function ($scope, $rootScope, $location, $state, Auth, Principal, ENV, VoiceAssistantService) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;

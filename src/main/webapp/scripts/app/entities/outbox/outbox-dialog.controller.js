@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('OutboxDialogController',
+angular.module('apqdApp').controller('OutboxDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Outbox', 'Message',
         function($scope, $stateParams, $uibModalInstance, entity, Outbox, Message) {
 
@@ -13,7 +13,7 @@ angular.module('intakeApp').controller('OutboxDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('intakeApp:outboxUpdate', result);
+            $scope.$emit('apqdApp:outboxUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

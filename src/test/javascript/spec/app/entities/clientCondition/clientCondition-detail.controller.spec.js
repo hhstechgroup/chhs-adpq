@@ -19,7 +19,7 @@ describe('Controller Tests', function() {
             MockLookupReferralMadeCode = jasmine.createSpy('MockLookupReferralMadeCode');
             MockLookupTestsOrderedCode = jasmine.createSpy('MockLookupTestsOrderedCode');
             MockClient = jasmine.createSpy('MockClient');
-            
+
 
             var locals = {
                 '$scope': $scope,
@@ -42,7 +42,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:clientConditionUpdate';
+                var eventType = 'apqdApp:clientConditionUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

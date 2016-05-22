@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myMessageLabel" translate="intakeApp.message.home.createOrEditLabel">Create or edit a Message</h4>
+        <h4 class="modal-title" id="myMessageLabel" translate="apqdApp.message.home.createOrEditLabel">Create or edit a Message</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="message.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.message.body" for="field_body">Body</label>
+            <label class="control-label" translate="apqdApp.message.body" for="field_body">Body</label>
             <input type="text" class="form-control" name="body" id="field_body"
                     ng-model="message.body"
                     required ng-maxlength="2000" />
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.message.subject" for="field_subject">Subject</label>
+            <label class="control-label" translate="apqdApp.message.subject" for="field_subject">Subject</label>
             <input type="text" class="form-control" name="subject" id="field_subject"
                     ng-model="message.subject"
                     required ng-maxlength="100" />
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.message.caseNumber" for="field_caseNumber">CaseNumber</label>
+            <label class="control-label" translate="apqdApp.message.caseNumber" for="field_caseNumber">CaseNumber</label>
             <input type="text" class="form-control" name="caseNumber" id="field_caseNumber"
                     ng-model="message.caseNumber"
                     ng-maxlength="20" />
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.message.dateCreated" for="field_dateCreated">DateCreated</label>
+            <label class="control-label" translate="apqdApp.message.dateCreated" for="field_dateCreated">DateCreated</label>
             <input id="field_dateCreated" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="message.dateCreated" is-open="datePickerForDateCreated.status.opened"
             />
             <span class="input-group-btn">
@@ -66,7 +66,7 @@
             </span>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.message.dateRead" for="field_dateRead">DateRead</label>
+            <label class="control-label" translate="apqdApp.message.dateRead" for="field_dateRead">DateRead</label>
             <input id="field_dateRead" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="message.dateRead" is-open="datePickerForDateRead.status.opened"
             />
             <span class="input-group-btn">
@@ -74,7 +74,7 @@
             </span>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.message.status" for="field_status">Status</label>
+            <label class="control-label" translate="apqdApp.message.status" for="field_status">Status</label>
             <input type="text" class="form-control" name="status" id="field_status"
                     ng-model="message.status"
                     ng-maxlength="2" />
@@ -87,31 +87,31 @@
         </div>
 
         <div class="form-group">
-            <label translate="intakeApp.message.inbox" for="field_inbox">inbox</label>
+            <label translate="apqdApp.message.inbox" for="field_inbox">inbox</label>
             <select class="form-control" id="field_inbox" name="inbox" ng-model="message.inbox" ng-options="inbox as inbox.id for inbox in inboxs track by inbox.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="intakeApp.message.outbox" for="field_outbox">outbox</label>
+            <label translate="apqdApp.message.outbox" for="field_outbox">outbox</label>
             <select class="form-control" id="field_outbox" name="outbox" ng-model="message.outbox" ng-options="outbox as outbox.id for outbox in outboxs track by outbox.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="intakeApp.message.replyOn" for="field_replyOn">replyOn</label>
+            <label translate="apqdApp.message.replyOn" for="field_replyOn">replyOn</label>
             <select class="form-control" id="field_replyOn" name="replyOn" ng-model="message.replyOn" ng-options="message as message.id for message in replyons | orderBy:'id' track by message.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="intakeApp.message.from" for="field_from">from</label>
+            <label translate="apqdApp.message.from" for="field_from">from</label>
             <select class="form-control" id="field_from" name="from" ng-model="message.from" ng-options="user as user.id for user in users track by user.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="intakeApp.message.to" for="field_to">to</label>
+            <label translate="apqdApp.message.to" for="field_to">to</label>
             <select class="form-control" id="field_to" name="to" ng-model="message.to" ng-options="user as user.id for user in users track by user.id">
                 <option value=""></option>
             </select>

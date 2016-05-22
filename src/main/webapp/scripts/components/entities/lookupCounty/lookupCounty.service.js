@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('LookupCounty', function ($resource, DateUtils) {
         return $resource('api/lookupCountys/:id', {}, {
             'query': { method: 'GET', isArray: true},

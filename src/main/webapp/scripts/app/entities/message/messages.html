@@ -1,20 +1,20 @@
 <div>
-    <h2 translate="intakeApp.message.home.title">Messages</h2>
+    <h2 translate="apqdApp.message.home.title">Messages</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="message.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-class="hidden-xs"                        translate="intakeApp.message.home.createLabel">Create new Message
+                    <span
+class="hidden-xs"                        translate="apqdApp.message.home.createLabel">Create new Message
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'intakeApp.message.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'apqdApp.message.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="search()">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -31,17 +31,17 @@ class="hidden-xs"                        translate="intakeApp.message.home.creat
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="body"><span translate="intakeApp.message.body">Body</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="subject"><span translate="intakeApp.message.subject">Subject</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="caseNumber"><span translate="intakeApp.message.caseNumber">CaseNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dateCreated"><span translate="intakeApp.message.dateCreated">DateCreated</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dateRead"><span translate="intakeApp.message.dateRead">DateRead</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="status"><span translate="intakeApp.message.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="inbox.id"><span translate="intakeApp.message.inbox">inbox</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="outbox.id"><span translate="intakeApp.message.outbox">outbox</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="replyOn.id"><span translate="intakeApp.message.replyOn">replyOn</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="from.id"><span translate="intakeApp.message.from">from</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="to.id"><span translate="intakeApp.message.to">to</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="body"><span translate="apqdApp.message.body">Body</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="subject"><span translate="apqdApp.message.subject">Subject</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="caseNumber"><span translate="apqdApp.message.caseNumber">CaseNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dateCreated"><span translate="apqdApp.message.dateCreated">DateCreated</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dateRead"><span translate="apqdApp.message.dateRead">DateRead</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status"><span translate="apqdApp.message.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="inbox.id"><span translate="apqdApp.message.inbox">inbox</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="outbox.id"><span translate="apqdApp.message.outbox">outbox</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="replyOn.id"><span translate="apqdApp.message.replyOn">replyOn</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="from.id"><span translate="apqdApp.message.from">from</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="to.id"><span translate="apqdApp.message.to">to</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -73,7 +73,7 @@ class="hidden-xs"                        translate="intakeApp.message.home.creat
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="message.detail({id:message.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -85,7 +85,7 @@ class="hidden-xs"                        translate="intakeApp.message.home.creat
                             </button>
                             <button type="submit"
                                     ui-sref="message.delete({id:message.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

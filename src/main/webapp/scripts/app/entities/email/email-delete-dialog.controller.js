@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
 	.controller('EmailDeleteController', function($scope, $uibModalInstance, entity, Email) {
 
         $scope.email = entity;

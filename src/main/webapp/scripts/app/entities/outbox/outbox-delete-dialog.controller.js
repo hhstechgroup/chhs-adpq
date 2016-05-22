@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
 	.controller('OutboxDeleteController', function($scope, $uibModalInstance, entity, Outbox) {
 
         $scope.outbox = entity;

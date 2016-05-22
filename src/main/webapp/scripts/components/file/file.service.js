@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('File',
         ['FileUpload', '$resource',
             function(FileUpload, $resource) {

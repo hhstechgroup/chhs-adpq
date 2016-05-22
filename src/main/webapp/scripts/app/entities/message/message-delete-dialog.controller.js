@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
 	.controller('MessageDeleteController', function($scope, $uibModalInstance, entity, Message) {
 
         $scope.message = entity;

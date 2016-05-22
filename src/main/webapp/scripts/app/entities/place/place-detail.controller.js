@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('PlaceDetailController', function ($scope, $rootScope, $stateParams, entity, Place, LookupState, LookupCounty) {
         $scope.place = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('intakeApp')
                 $scope.place = result;
             });
         };
-        var unsubscribe = $rootScope.$on('intakeApp:placeUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('apqdApp:placeUpdate', function(event, result) {
             $scope.place = result;
         });
         $scope.$on('$destroy', unsubscribe);

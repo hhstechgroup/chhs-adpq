@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('EmailDialogController',
+angular.module('apqdApp').controller('EmailDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Email',
         function($scope, $stateParams, $uibModalInstance, entity, Email) {
 
@@ -12,7 +12,7 @@ angular.module('intakeApp').controller('EmailDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('intakeApp:emailUpdate', result);
+            $scope.$emit('apqdApp:emailUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

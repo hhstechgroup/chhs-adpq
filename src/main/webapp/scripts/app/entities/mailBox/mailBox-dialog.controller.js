@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('MailBoxDialogController',
+angular.module('apqdApp').controller('MailBoxDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'MailBox', 'Inbox', 'Outbox',
         function($scope, $stateParams, $uibModalInstance, $q, entity, MailBox, Inbox, Outbox) {
 
@@ -30,7 +30,7 @@ angular.module('intakeApp').controller('MailBoxDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('intakeApp:mailBoxUpdate', result);
+            $scope.$emit('apqdApp:mailBoxUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

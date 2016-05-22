@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('PlaceController', function ($scope, $state, Place, PlaceSearch) {
 
         $scope.places = [];

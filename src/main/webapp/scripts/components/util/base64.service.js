@@ -1,7 +1,7 @@
 /*jshint bitwise: false*/
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
             'QRSTUVWXYZabcdef' +

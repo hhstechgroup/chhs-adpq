@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('LookupStateController', function ($scope, $state, LookupState, LookupStateSearch) {
 
         $scope.lookupStates = [];

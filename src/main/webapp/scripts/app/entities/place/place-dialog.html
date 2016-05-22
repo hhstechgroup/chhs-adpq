@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myPlaceLabel" translate="intakeApp.place.home.createOrEditLabel">Create or edit a Place</h4>
+        <h4 class="modal-title" id="myPlaceLabel" translate="apqdApp.place.home.createOrEditLabel">Create or edit a Place</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="place.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.unitNumber" for="field_unitNumber">UnitNumber</label>
+            <label class="control-label" translate="apqdApp.place.unitNumber" for="field_unitNumber">UnitNumber</label>
             <input type="text" class="form-control" name="unitNumber" id="field_unitNumber"
                     ng-model="place.unitNumber"
                     ng-maxlength="10" />
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.cityName" for="field_cityName">CityName</label>
+            <label class="control-label" translate="apqdApp.place.cityName" for="field_cityName">CityName</label>
             <input type="text" class="form-control" name="cityName" id="field_cityName"
                     ng-model="place.cityName"
                     required ng-maxlength="20" />
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.streetName" for="field_streetName">StreetName</label>
+            <label class="control-label" translate="apqdApp.place.streetName" for="field_streetName">StreetName</label>
             <input type="text" class="form-control" name="streetName" id="field_streetName"
                     ng-model="place.streetName"
                     required ng-maxlength="100" />
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.streetNumber" for="field_streetNumber">StreetNumber</label>
+            <label class="control-label" translate="apqdApp.place.streetNumber" for="field_streetNumber">StreetNumber</label>
             <input type="text" class="form-control" name="streetNumber" id="field_streetNumber"
                     ng-model="place.streetNumber"
                     ng-maxlength="10" />
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.zipCode" for="field_zipCode">ZipCode</label>
+            <label class="control-label" translate="apqdApp.place.zipCode" for="field_zipCode">ZipCode</label>
             <input type="text" class="form-control" name="zipCode" id="field_zipCode"
                     ng-model="place.zipCode"
                     ng-maxlength="5" />
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.zipSuffix" for="field_zipSuffix">ZipSuffix</label>
+            <label class="control-label" translate="apqdApp.place.zipSuffix" for="field_zipSuffix">ZipSuffix</label>
             <input type="text" class="form-control" name="zipSuffix" id="field_zipSuffix"
                     ng-model="place.zipSuffix"
                     ng-maxlength="4" />
@@ -94,44 +94,44 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.longitude" for="field_longitude">Longitude</label>
+            <label class="control-label" translate="apqdApp.place.longitude" for="field_longitude">Longitude</label>
             <input type="number" class="form-control" name="longitude" id="field_longitude"
                     ng-model="place.longitude"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.latitude" for="field_latitude">Latitude</label>
+            <label class="control-label" translate="apqdApp.place.latitude" for="field_latitude">Latitude</label>
             <input type="number" class="form-control" name="latitude" id="field_latitude"
                     ng-model="place.latitude"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.validAddressFlag" for="field_validAddressFlag">ValidAddressFlag</label>
+            <label class="control-label" translate="apqdApp.place.validAddressFlag" for="field_validAddressFlag">ValidAddressFlag</label>
             <input type="checkbox" class="form-control" name="validAddressFlag" id="field_validAddressFlag"
                     ng-model="place.validAddressFlag"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.validationStatus" for="field_validationStatus">ValidationStatus</label>
+            <label class="control-label" translate="apqdApp.place.validationStatus" for="field_validationStatus">ValidationStatus</label>
             <input type="text" class="form-control" name="validationStatus" id="field_validationStatus"
                     ng-model="place.validationStatus"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.place.validationMessage" for="field_validationMessage">ValidationMessage</label>
+            <label class="control-label" translate="apqdApp.place.validationMessage" for="field_validationMessage">ValidationMessage</label>
             <input type="text" class="form-control" name="validationMessage" id="field_validationMessage"
                     ng-model="place.validationMessage"
                      />
         </div>
 
         <div class="form-group">
-            <label translate="intakeApp.place.state" for="field_state">state</label>
+            <label translate="apqdApp.place.state" for="field_state">state</label>
             <select class="form-control" id="field_state" name="state" ng-model="place.state" ng-options="lookupState as lookupState.id for lookupState in lookupstates track by lookupState.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="intakeApp.place.county" for="field_county">county</label>
+            <label translate="apqdApp.place.county" for="field_county">county</label>
             <select class="form-control" id="field_county" name="county" ng-model="place.county" ng-options="lookupCounty as lookupCounty.id for lookupCounty in lookupcountys track by lookupCounty.id">
                 <option value=""></option>
             </select>

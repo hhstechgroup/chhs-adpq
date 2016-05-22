@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('OutboxSearch', function ($resource) {
         return $resource('api/_search/outboxs/:query', {}, {
             'query': { method: 'GET', isArray: true}

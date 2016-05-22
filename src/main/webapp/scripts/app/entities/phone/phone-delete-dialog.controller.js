@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
 	.controller('PhoneDeleteController', function($scope, $uibModalInstance, entity, Phone) {
 
         $scope.phone = entity;

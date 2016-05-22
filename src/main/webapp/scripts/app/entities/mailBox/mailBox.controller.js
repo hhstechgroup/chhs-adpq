@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('MailBoxController', function ($scope, $state, MailBox, MailBoxSearch) {
 
         $scope.mailBoxs = [];

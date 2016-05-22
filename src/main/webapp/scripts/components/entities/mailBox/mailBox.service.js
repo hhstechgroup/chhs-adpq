@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('MailBox', function ($resource, DateUtils) {
         return $resource('api/mailBoxs/:id', {}, {
             'query': { method: 'GET', isArray: true},

@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myMailBoxLabel" translate="intakeApp.mailBox.home.createOrEditLabel">Create or edit a MailBox</h4>
+        <h4 class="modal-title" id="myMailBoxLabel" translate="apqdApp.mailBox.home.createOrEditLabel">Create or edit a MailBox</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -15,13 +15,13 @@
         </div>
 
         <div class="form-group">
-            <label translate="intakeApp.mailBox.inbox" for="field_inbox">inbox</label>
+            <label translate="apqdApp.mailBox.inbox" for="field_inbox">inbox</label>
             <select class="form-control" id="field_inbox" name="inbox" ng-model="mailBox.inbox" ng-options="inbox as inbox.id for inbox in inboxs | orderBy:'id' track by inbox.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="intakeApp.mailBox.outbox" for="field_outbox">outbox</label>
+            <label translate="apqdApp.mailBox.outbox" for="field_outbox">outbox</label>
             <select class="form-control" id="field_outbox" name="outbox" ng-model="mailBox.outbox" ng-options="outbox as outbox.id for outbox in outboxs | orderBy:'id' track by outbox.id">
                 <option value=""></option>
             </select>

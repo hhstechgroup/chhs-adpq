@@ -1,20 +1,20 @@
 <div>
-    <h2 translate="intakeApp.email.home.title">Emails</h2>
+    <h2 translate="apqdApp.email.home.title">Emails</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="email.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-class="hidden-xs"                        translate="intakeApp.email.home.createLabel">Create new Email
+                    <span
+class="hidden-xs"                        translate="apqdApp.email.home.createLabel">Create new Email
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'intakeApp.email.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'apqdApp.email.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="search()">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -31,10 +31,10 @@ class="hidden-xs"                        translate="intakeApp.email.home.createL
             <thead>
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
-                    <th><span translate="intakeApp.email.emailText">EmailText</span></th>
-                    <th><span translate="intakeApp.email.preferred">Preferred</span></th>
-                    <th><span translate="intakeApp.email.startDate">StartDate</span></th>
-                    <th><span translate="intakeApp.email.endDate">EndDate</span></th>
+                    <th><span translate="apqdApp.email.emailText">EmailText</span></th>
+                    <th><span translate="apqdApp.email.preferred">Preferred</span></th>
+                    <th><span translate="apqdApp.email.startDate">StartDate</span></th>
+                    <th><span translate="apqdApp.email.endDate">EndDate</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -49,7 +49,7 @@ class="hidden-xs"                        translate="intakeApp.email.home.createL
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="email.detail({id:email.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -61,7 +61,7 @@ class="hidden-xs"                        translate="intakeApp.email.home.createL
                             </button>
                             <button type="submit"
                                     ui-sref="email.delete({id:email.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

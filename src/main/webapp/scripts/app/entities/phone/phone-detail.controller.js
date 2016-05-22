@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('PhoneDetailController', function ($scope, $rootScope, $stateParams, entity, Phone) {
         $scope.phone = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('intakeApp')
                 $scope.phone = result;
             });
         };
-        var unsubscribe = $rootScope.$on('intakeApp:phoneUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('apqdApp:phoneUpdate', function(event, result) {
             $scope.phone = result;
         });
         $scope.$on('$destroy', unsubscribe);

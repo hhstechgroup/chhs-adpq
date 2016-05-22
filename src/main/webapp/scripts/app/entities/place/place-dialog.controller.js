@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('PlaceDialogController',
+angular.module('apqdApp').controller('PlaceDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Place', 'LookupState', 'LookupCounty',
         function($scope, $stateParams, $uibModalInstance, entity, Place, LookupState, LookupCounty) {
 
@@ -14,7 +14,7 @@ angular.module('intakeApp').controller('PlaceDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('intakeApp:placeUpdate', result);
+            $scope.$emit('apqdApp:placeUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp').controller('UserManagementDialogController',
+angular.module('apqdApp').controller('UserManagementDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'User', 'Language',
         function($scope, $stateParams, $uibModalInstance, entity, User, Language) {
 

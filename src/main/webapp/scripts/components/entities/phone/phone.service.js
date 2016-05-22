@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('Phone', function ($resource, DateUtils) {
         return $resource('api/phones/:id', {}, {
             'query': { method: 'GET', isArray: true},
