@@ -51,7 +51,7 @@ angular.module('intakeApp')
 
                 // Transform { 'name': 'John' } into { field: 'name', searchString: 'John' }
                 //  while keeping { 'searchString': 'John' } as is.
-                if (_.keys(searchClause).length == 1 && angular.isUndefined(searchClause.searchString)) {
+                if (_.keys(searchClause).length === 1 && angular.isUndefined(searchClause.searchString)) {
                     searchClause = {
                         field: _.keys(searchClause)[0],
                         searchString: _.values(searchClause)[0]

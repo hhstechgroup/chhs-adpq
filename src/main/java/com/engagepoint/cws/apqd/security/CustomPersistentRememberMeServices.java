@@ -50,7 +50,7 @@ import java.util.Arrays;
 public class CustomPersistentRememberMeServices extends
     AbstractRememberMeServices {
 
-    private final Logger log = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
 
     // Token is valid for one month
     private static final int TOKEN_VALIDITY_DAYS = 31;
@@ -79,14 +79,14 @@ public class CustomPersistentRememberMeServices extends
 
     @Override
     @Transactional
-    protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request,
+    public UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request,
         HttpServletResponse response) {
 
         PersistentToken token = getPersistentToken(cookieTokens);
         String login = token.getUser().getLogin();
 
         // Token also matches, so login is valid. Update the token value, keeping the *same* series number.
-        log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
+        LOG.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
         token.setTokenDate(LocalDate.now());
         token.setTokenValue(generateTokenData());
         token.setIpAddress(request.getRemoteAddr());
@@ -95,7 +95,7 @@ public class CustomPersistentRememberMeServices extends
             persistentTokenRepository.saveAndFlush(token);
             addCookie(token, request, response);
         } catch (DataAccessException e) {
-            log.error("Failed to update token: ", e);
+            LOG.error("Failed to update token: ", e);
             throw new RememberMeAuthenticationException("Autologin failed due to data access problem", e);
         }
         return getUserDetailsService().loadUserByUsername(login);
@@ -107,7 +107,7 @@ public class CustomPersistentRememberMeServices extends
 
         String login = successfulAuthentication.getName();
 
-        log.debug("Creating new persistent login for user {}", login);
+        LOG.debug("Creating new persistent login for user {}", login);
         PersistentToken token = userRepository.findOneByLogin(login).map(u -> {
             PersistentToken t = new PersistentToken();
             t.setSeries(generateSeriesData());
@@ -122,7 +122,7 @@ public class CustomPersistentRememberMeServices extends
             persistentTokenRepository.saveAndFlush(token);
             addCookie(token, request, response);
         } catch (DataAccessException e) {
-            log.error("Failed to save persistent token ", e);
+            LOG.error("Failed to save persistent token ", e);
         }
     }
 
@@ -142,9 +142,9 @@ public class CustomPersistentRememberMeServices extends
                 PersistentToken token = getPersistentToken(cookieTokens);
                 persistentTokenRepository.delete(token);
             } catch (InvalidCookieException ice) {
-                log.info("Invalid cookie, no persistent token could be deleted");
+                LOG.info("Invalid cookie, no persistent token could be deleted. Exception: {}", ice);
             } catch (RememberMeAuthenticationException rmae) {
-                log.debug("No persistent token found, so no token could be deleted");
+                LOG.debug("No persistent token found, so no token could be deleted. Exception: {}", rmae);
             }
         }
         super.logout(request, response, authentication);
@@ -168,7 +168,7 @@ public class CustomPersistentRememberMeServices extends
         }
 
         // We have a match for this user/series combination
-        log.info("presentedToken={} / tokenValue={}", presentedToken, token.getTokenValue());
+        LOG.info("presentedToken={} / tokenValue={}", presentedToken, token.getTokenValue());
         if (!presentedToken.equals(token.getTokenValue())) {
             // Token doesn't match series value. Delete this session and throw an exception.
             persistentTokenRepository.delete(token);

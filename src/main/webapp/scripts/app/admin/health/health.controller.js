@@ -62,7 +62,7 @@ angular.module('intakeApp')
 
 
         $scope.showHealth = function(health) {
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 templateUrl: 'scripts/app/admin/health/health.modal.html',
                 controller: 'HealthModalController',
                 size: 'lg',
