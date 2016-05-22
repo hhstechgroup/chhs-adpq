@@ -38,7 +38,7 @@ angular.module('apqdApp')
                     return tel;
             }
 
-            if (country == 1) {
+            if (country === 1) {
                 country = "";
             }
 

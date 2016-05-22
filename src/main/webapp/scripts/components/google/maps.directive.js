@@ -171,7 +171,7 @@ angular.module('apqdApp')
                         var q = $q.defer();
                         promices.push(q.promise);
                         $scope.directionsService.route(request, function (result, status) {
-                            if (status == google.maps.DirectionsStatus.OK) {
+                            if (status === google.maps.DirectionsStatus.OK) {
                                 q.resolve(result);
                             } else {
                                 q.reject('Google Directions Service response status: ' + status);
