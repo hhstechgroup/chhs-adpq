@@ -43,7 +43,7 @@ angular.module('apqdApp')
         $scope.refreshThreadDumpData = function() {
             MonitoringService.threadDump().then(function(data) {
 
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     templateUrl: 'scripts/app/admin/metrics/metrics.modal.html',
                     controller: 'MetricsModalController',
                     size: 'lg',

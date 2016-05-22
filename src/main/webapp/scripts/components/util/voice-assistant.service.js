@@ -6,7 +6,6 @@ angular.module('apqdApp')
         var TIMEOUT = 900;
 
         var count = 0;
-        var fuse = null;
         var debug = true;
         var commands = [];
         var active = false;
@@ -530,48 +529,11 @@ angular.module('apqdApp')
         function performCommandNext() {
             showWhatWasSaid('next');
             $.emulateTab();
-
-            //var input = $(document.activeElement);
-            //if (isInputTypeAngularSelect(input)) {
-            //    expandAngularSelect(input);
-            //} else if (isInputTypeNativeSelect(input)) {
-            //    expandNativeSelect(input);
-            //}
-            //    log('moveFocus ' + forward);
-            //
-            //    if (forward) {
-            //        $.emulateTab();
-            //    } else {
-            //        $.emulateTab(-1);
-            //    }
-            //
-            //    if ($(document.activeElement).hasClass('ui-select-focusser')) {
-            //
-            //        var selected = $(document.activeElement);
-            //        while(!selected.hasClass('ui-select-container')) {
-            //            selected = selected.parent();
-            //        }
-            //
-            //        uiSelectInit(selected.attr('id'));
-            //
-            //    } else if (_.isUndefined($(document.activeElement).attr('type')) ||
-            //         $(document.activeElement).attr('type') === 'text') {
-            //        focus = $(document.activeElement);
-            //    } else {
-            //        focus = null;
-            //    }
         }
 
         function performCommandPrevious() {
             showWhatWasSaid('previous');
             $.emulateTab(-1);
-
-            //var input = $(document.activeElement);
-            //if (isInputTypeAngularSelect(input)) {
-            //    expandAngularSelect(input);
-            //} else if (isInputTypeNativeSelect(input)) {
-            //    expandNativeSelect(input);
-            //}
         }
 
         function performCommandScrollUp() {
@@ -618,12 +580,6 @@ angular.module('apqdApp')
 
         function performCommandSelect() {
             showWhatWasSaid('select');
-            //    if (select) {
-            //        $('#' + uiSelectId).find('.ui-select-choices-row.active').click();
-            //    } else {
-            //        $('#' + uiSelectId).click();
-            //    }
-            //}
         }
 
         function performCommandCancel() {
@@ -650,36 +606,6 @@ angular.module('apqdApp')
         }
 
         function performUsingFuse(text) {
-
-            //} else if (_.isNil(focus)) {
-            //    log('Annyang No Match with 1: ' + variants);
-            //    reInitAnnyang(true);
-            //    var r1 = performUsingFuse(variants[0]);
-            //    var r2 = performUsingFuse(variants[1]);
-            //
-            //    if (r1 === r2 && !_.isUndefined(r1)) {
-            //        doCommand(r1);
-            //    } else if (!_.isUndefined(r1) && _.isUndefined(r2)) {
-            //        doCommand(r1);
-            //    } else if (_.isUndefined(r1) && !_.isUndefined(r2)) {
-            //        doCommand(r2);
-            //    }
-            //} else {
-            //    log('Annyang No Match with 2: ' + variants);
-            //}
-            //
-            //if (!_.isNil(fuse) || !_.isUndefined(text)) {
-            //    var results = fuse.search(text);
-            //    _.each(results, function(i) {
-            //        log('Fuse Match with: ' + i.id);
-            //    });
-            //
-            //    if (results.length === 1) {
-            //        return results[0];
-            //    } else if (results.length === 0) {
-            //        log('Fuse No Match with: ' + text);
-            //    }
-            //}
         }
 
         function initNarrative() {
