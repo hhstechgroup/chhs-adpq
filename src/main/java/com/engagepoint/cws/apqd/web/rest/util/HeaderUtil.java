@@ -18,7 +18,6 @@ public class HeaderUtil {
     public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
         return createAlert("apqdApp." + entityName + ".created", param);
     }
-
     public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
         return createAlert("apqdApp." + entityName + ".updated", param);
     }

@@ -1,6 +1,8 @@
 package com.engagepoint.cws.apqd.async;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.slf4j.Logger;
@@ -12,7 +14,7 @@ import org.springframework.core.task.AsyncTaskExecutor;
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
     InitializingBean, DisposableBean {
 
-    private final Logger log = LoggerFactory.getLogger(ExceptionHandlingAsyncTaskExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandlingAsyncTaskExecutor.class);
 
     private final AsyncTaskExecutor executor;
 
@@ -44,7 +46,8 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
     private Runnable createWrappedRunnable(final Runnable task) {
         return () -> {
             try {
-                task.run();
+                ExecutorService executor = Executors.newFixedThreadPool(1);
+                executor.execute(task);
             } catch (Exception e) {
                 handle(e);
             }
@@ -52,7 +55,7 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
     }
 
     protected void handle(Exception e) {
-        log.error("Caught async exception", e);
+        LOG.error("Caught async exception", e);
     }
 
     @Override
