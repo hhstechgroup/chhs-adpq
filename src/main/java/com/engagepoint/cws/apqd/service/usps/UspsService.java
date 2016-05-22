@@ -18,10 +18,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Created by dmytro.palczewski on 2/10/2ModelService016.
@@ -44,7 +46,7 @@ public class UspsService {
     private Unmarshaller unmarshaller;
 
     @PostConstruct
-    public void initialize() throws Exception {
+    public void initialize() throws JAXBException {
         jaxbContext = JAXBContext.newInstance(
             AddressValidateRequest.class,
             AddressValidateResponse.class,
@@ -225,7 +227,7 @@ public class UspsService {
         return (AddressValidateResponse)xmlResponseObj;
     }
 
-    private URI createHttpGetUri(String requestType, String xmlString)throws Exception {
+    private URI createHttpGetUri(String requestType, String xmlString) throws URISyntaxException {
         URIBuilder uriBuilder = new URIBuilder(serverUrl);
         uriBuilder.addParameter("API", requestType);
         uriBuilder.addParameter("XML", xmlString);
@@ -234,7 +236,7 @@ public class UspsService {
         return uri;
     }
 
-    private void configureHttpGet(HttpGet httpGet) throws Exception {
+    private void configureHttpGet(HttpGet httpGet) {
         int timeoutMilli = timeout * 1000;
         RequestConfig requestConfig = RequestConfig.custom()
             .setSocketTimeout(timeoutMilli)
@@ -244,7 +246,7 @@ public class UspsService {
         httpGet.setConfig(requestConfig);
     }
 
-    private String getHttpResponseString(HttpEntity httpEntity) throws Exception{
+    private String getHttpResponseString(HttpEntity httpEntity) throws IOException {
         BufferedReader rd = new BufferedReader(new InputStreamReader(httpEntity.getContent()));
 
         StringBuffer result = new StringBuffer();

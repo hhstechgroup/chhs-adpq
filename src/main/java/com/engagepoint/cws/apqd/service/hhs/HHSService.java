@@ -8,6 +8,8 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @Service
 public class HHSService {
@@ -22,7 +24,7 @@ public class HHSService {
         requestFactory = new NetHttpTransport().createRequestFactory();
     }
 
-    public String findFosterFamilyAgencies(double nwLatitude, double nwLongitude, double seLatitude, double seLongitude) throws Exception {
+    public String findFosterFamilyAgencies(double nwLatitude, double nwLongitude, double seLatitude, double seLongitude) throws URISyntaxException, IOException {
         URIBuilder uriBuilder = new URIBuilder(HHS_URL);
         uriBuilder.addParameter("$where", String.format(WHERE_CLAUSE, nwLatitude, nwLongitude, seLatitude, seLongitude));
         GenericUrl genericUrl = new GenericUrl(uriBuilder.build());

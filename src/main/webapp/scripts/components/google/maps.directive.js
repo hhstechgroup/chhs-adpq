@@ -69,7 +69,6 @@ angular.module('apqdApp')
                         }
                         updateCenter(bounds);
                     }, function(reason) {
-                        console.log('Google Map is not ready. \n' + reason);
                     });
                 }
 

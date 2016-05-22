@@ -34,8 +34,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             String pCookieName = "CSRF-TOKEN";
             Cookie cookie = new Cookie(pCookieName, "");
             cookie.setMaxAge(0);
+            cookie.setSecure(true);
             cookie.setHttpOnly(false);
-//            cookie.setPath("/");
             String applicationPath = request.getServletContext().getContextPath();
             if (applicationPath.isEmpty()) {
                 applicationPath = "/";
