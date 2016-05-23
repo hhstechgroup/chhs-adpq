@@ -77,6 +77,24 @@
             </div>
         </div>
         <div class="form-group">
+            <label>SSN last 4 digits</label>
+            <input type="text" class="form-control" name="ssnLast4Digits"
+                   ng-model="user.ssnLast4Digits" ng-maxlength="4" ng-minlength="4">
+
+            <div ng-show="editForm.ssnLast4Digits.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.ssnLast4Digits.$error.maxlength" translate="entity.validation.maxlength"
+                   translate-value-max="4">
+                    This field cannot be longer than 4 characters.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.ssnLast4Digits.$error.minlength" translate="entity.validation.minlength"
+                   translate-value-min="4">
+                    This field is required to be at least 4 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="activated">
                 <input ng-disabled="user.id === null" type="checkbox" id="activated" ng-model="user.activated">
                 <span translate="user-management.activated">Activated</span>

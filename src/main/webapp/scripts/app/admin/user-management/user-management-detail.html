@@ -44,13 +44,21 @@
             </tr>
             <tr>
                 <td>
+                    <span>SSN last 4 digits</span>
+                </td>
+                <td>
+                    <input type="text" class="input-sm form-control" value="{{user.ssnLast4Digits}}" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <span translate="user-management.activated">Activated</span>
                 </td>
                 <td>
                     <input type="text" class="input-sm form-control" value="{{user.activated}}" readonly>
                 </td>
             </tr>
-            
+
             <tr>
                 <td>
                     <span translate="user-management.langKey">LangKey</span>
@@ -59,7 +67,7 @@
                     <input type="text" class="input-sm form-control" value="{{user.langKey}}" readonly>
                 </td>
             </tr>
-            
+
             <tr>
                 <td>
                     <span translate="user-management.createdBy">CreatedBy</span>
