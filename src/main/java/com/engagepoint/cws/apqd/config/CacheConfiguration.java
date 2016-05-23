@@ -19,6 +19,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import java.net.InetAddress;
 
 @Configuration
 @EnableCaching
@@ -57,8 +58,7 @@ public class CacheConfiguration {
 
         // In development, remove multicast auto-configuration
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            System.setProperty("hazelcast.local.localAddress", "127.0.0.1");
-
+            System.setProperty("hazelcast.local.localAddress", InetAddress.getLoopbackAddress().getHostAddress());
             config.getNetworkConfig().getJoin().getAwsConfig().setEnabled(false);
             config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
             config.getNetworkConfig().getJoin().getTcpIpConfig().setEnabled(false);

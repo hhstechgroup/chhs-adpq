@@ -65,7 +65,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('mailBox', null, { reload: true });
                     }, function() {
                         $state.go('mailBox');
@@ -88,7 +88,7 @@ angular.module('apqdApp')
                                 return MailBox.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('mailBox', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -111,7 +111,7 @@ angular.module('apqdApp')
                                 return MailBox.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('mailBox', null, { reload: true });
                     }, function() {
                         $state.go('^');

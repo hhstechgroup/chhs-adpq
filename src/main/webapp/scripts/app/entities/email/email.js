@@ -69,7 +69,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('email', null, { reload: true });
                     }, function() {
                         $state.go('email');
@@ -92,7 +92,7 @@ angular.module('apqdApp')
                                 return Email.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('email', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -115,7 +115,7 @@ angular.module('apqdApp')
                                 return Email.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('email', null, { reload: true });
                     }, function() {
                         $state.go('^');

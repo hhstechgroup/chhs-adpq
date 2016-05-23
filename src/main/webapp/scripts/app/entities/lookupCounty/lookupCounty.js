@@ -66,7 +66,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('lookupCounty', null, { reload: true });
                     }, function() {
                         $state.go('lookupCounty');
@@ -89,7 +89,7 @@ angular.module('apqdApp')
                                 return LookupCounty.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('lookupCounty', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -112,7 +112,7 @@ angular.module('apqdApp')
                                 return LookupCounty.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('lookupCounty', null, { reload: true });
                     }, function() {
                         $state.go('^');
