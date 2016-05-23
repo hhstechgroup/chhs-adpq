@@ -1,4 +1,4 @@
-package com.engagepoint.cws.apqd.service.hhs;
+package com.engagepoint.cws.apqd.service.hhsapi;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
