@@ -74,8 +74,9 @@ public class Application {
         addDefaultProfile(app, source);
         Environment env = app.run(args).getEnvironment();
         LOG.info("Access URLs:\n----------------------------------------------------------\n\t" +
-                "Local: \t\thttp://127.0.0.1:{}\n\t" +
+                "Local: \t\thttp://{}:{}\n\t" +
                 "External: \thttp://{}:{}\n----------------------------------------------------------",
+            InetAddress.getLoopbackAddress().getHostAddress(),
             env.getProperty("server.port"),
             InetAddress.getLocalHost().getHostAddress(),
             env.getProperty("server.port"));
