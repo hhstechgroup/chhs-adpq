@@ -1,53 +1,38 @@
 'use strict';
 
 angular.module('apqdApp')
-    .directive('cwsMaps', function () {
+    .directive('apdqGoogleMaps', function () {
         return {
             restrict: 'E',
             scope: {
                 /*
                  The array of objects with structure
                  {
-                     id: <unique id>
-                     latitude: <gmaps latitude>
-                     longitude: <gmaps longitude>
-                     options: {
-                         visible: true
-                     }
+                 id: <unique id>
+                 latitude: <gmaps latitude>
+                 longitude: <gmaps longitude>
+                 options: {
+                 visible: true
+                 }
                  }
                  */
                 markers: '=',
-                /*
-                 Expects object {id: <build_route_from_marker_id>}.
-                 Build Route functionality will be switched off if is not defined.
-                 */
-                buildRouteFrom: '='
+                doRefresh: '&'
             },
             templateUrl: 'scripts/components/google/maps.html',
 
-            controller: ['$scope', '$timeout', '$q', 'uiGmapIsReady', function ($scope, $timeout, $q, uiGmapIsReady) {
-                $scope.DEFAULT_ZOOM_LEVEL = 12;
-
-                $scope.bounds = {};
-                $scope.bounds.northeast = {};
-                $scope.bounds.southwest = {};
-                $scope.center = {latitude: 0, longitude: 0};
-
-                $scope.dMap = {};
-                $scope.directionsService = new google.maps.DirectionsService();
-                $scope.directionsRenderer;
-                $scope.routeDuration;
+            controller: ['$scope', '$log', '$q', 'uiGmapIsReady', function ($scope, $log, $q, uiGmapIsReady) {
+                init();
 
                 if (_.isNil($scope.markers)) {
                     $scope.markers = [];
                 }
 
-                $scope.$watchCollection('markers', function(newValue, oldValue) {
+                $scope.$watchCollection('markers', function(newValue) {
                     updateMarkers(newValue);
                 });
 
                 function updateMarkers(newMarkers) {
-                    clearRoute();
                     if (newMarkers.length === 0) {
                         return;
                     }
@@ -69,16 +54,8 @@ angular.module('apqdApp')
                         }
                         updateCenter(bounds);
                     }, function(reason) {
+                        console.log('Google Map is not ready. \n' + reason);
                     });
-                }
-
-                function updateBounds(bounds) {
-                    $scope.bounds.northeast.latitude = bounds.getNorthEast().lat();
-                    $scope.bounds.northeast.longitude = bounds.getNorthEast().lng();
-                    $scope.bounds.southwest.latitude = bounds.getSouthWest().lat();
-                    $scope.bounds.southwest.longitude = bounds.getSouthWest().lng();
-
-                    updateCenter(bounds);
                 }
 
                 function updateCenter(bounds) {
@@ -87,107 +64,25 @@ angular.module('apqdApp')
                     $scope.center.longitude = center.lng();
                 }
 
-                function clearRoute() {
-                    $scope.routeDuration = undefined;
-                    if(!_.isNil($scope.directionsRenderer)) {
-                        $scope.directionsRenderer.setMap(null);
-                        $scope.directionsRenderer = null;
-                    }
+                function onIdle(map, eventName, attrs) {
+                    $log.debug(eventName);
+                    $scope.doRefresh({bounds: map.bounds});
                 }
 
-                $scope.buildRoute = function() {
-                    if (_.isNil($scope.buildRouteFrom)) {
-                        return;
-                    }
+                function init() {
+                    $scope.DEFAULT_ZOOM_LEVEL = 17;
 
-                    clearRoute();
-                    if ($scope.markers.length < 2) {
-                        return;
-                    }
+                    $scope.bounds = {};
+                    $scope.bounds.northeast = {};
+                    $scope.bounds.southwest = {};
+                    $scope.center = {latitude: 0, longitude: 0};
 
-                    var fromMarker = _.find($scope.markers, {id: $scope.buildRouteFrom.id});
-                    var otherMarkers = $scope.markers.filter(function(marker) {
-                        return marker.id !== fromMarker.id;
-                    });
-
-                    var fromLocation = new google.maps.LatLng(fromMarker.latitude, fromMarker.longitude);
-                    var requests = [];
-                    _.each(otherMarkers, function(otherMarker) {
-                        var waypoints = [];
-                        var waypointsMarkers = otherMarkers.filter(function(marker) {
-                            return marker.id !== otherMarker.id;
-                        });
-                        _.each(waypointsMarkers, function(waypointsMarker) {
-                            waypoints.push({location: getLatLng(waypointsMarker), stopover: true});
-                        });
-
-                        var request = {
-                            origin: fromLocation,
-                            destination: getLatLng(otherMarker),
-                            waypoints: waypoints,
-                            optimizeWaypoints: true,
-                            travelMode: google.maps.DirectionsTravelMode.DRIVING,
-                            unitSystem: google.maps.UnitSystem.IMPERIAL
-                        };
-
-                        requests.push(request);
-                    });
-
-                    getDirectionsResults(requests).then(function(results) {
-                        _.each(results, function(result) {
-                            var durationInTraffic = 0;
-                            _.each(result.routes[0].legs, function(leg) {
-                                durationInTraffic += leg.duration.value;
-                            });
-                            result.customDurationInTraffic = durationInTraffic;
-                        });
-
-                        var minDurationResult = _.minBy(results, function(result) {
-                            return result.customDurationInTraffic;
-                        });
-                        setRouteDuration(minDurationResult.customDurationInTraffic);
-
-                        $scope.directionsRenderer = new google.maps.DirectionsRenderer({
-                            map: $scope.dMap.control.getGMap(),
-                            directions: minDurationResult
-                        });
-                    });
-                };
-
-                function setRouteDuration(seconds) {
-                    var date = new Date(1970, 0, 1);
-                    date.setSeconds(seconds);
-                    $scope.routeDuration = date;
-                }
-
-                function getLatLng(marker) {
-                    return new google.maps.LatLng(marker.latitude, marker.longitude)
-                }
-
-                function getDirectionsResults(requests) {
-                    var promices = [];
-                    _.each(requests, function(request) {
-                        var q = $q.defer();
-                        promices.push(q.promise);
-                        $scope.directionsService.route(request, function (result, status) {
-                            if (status === google.maps.DirectionsStatus.OK) {
-                                q.resolve(result);
-                            } else {
-                                q.reject('Google Directions Service response status: ' + status);
-                            }
-                            q.resolve(result);
-                        });
-                    });
-                    return $q.all(promices);
-                }
-
-                $scope.draw = function() {
                     $scope.windowOptions = {
                         visible: true
                     };
 
                     $scope.dMap = {
-                        control: {zoomControl: false},
+                        control: {},
                         center: $scope.center,
                         zoom: $scope.DEFAULT_ZOOM_LEVEL,
                         dragging: false,
@@ -195,16 +90,15 @@ angular.module('apqdApp')
                         idkey: _.random(),
                         markers: $scope.markers,
                         options: {
+                            signInControl: false,
                             visible: true
                         },
-                        events: {}
+                        events: {
+                            idle: onIdle
+                        }
                     };
-                };
 
-                $timeout(function () {
-                    $scope.draw();
-                    updateMarkers($scope.markers);
-                });
+                }
             }]
         };
 
