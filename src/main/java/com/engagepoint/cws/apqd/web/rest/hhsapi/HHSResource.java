@@ -15,7 +15,7 @@ public class HHSResource {
     private HHSService hhsService;
 
     @RequestMapping(value = "/hhs/findFosterFamilyAgencies",
-        method = RequestMethod.POST)
+        method = RequestMethod.POST, produces = "application/json")
     @Timed
     @ResponseBody
     public String findFosterFamilyAgencies(@RequestBody Box box) throws Exception {
