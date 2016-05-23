@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('HealthController', function ($scope, MonitoringService, $uibModal) {
         $scope.updatingHealth = true;
         $scope.separator = '.';
@@ -62,7 +62,7 @@ angular.module('intakeApp')
 
 
         $scope.showHealth = function(health) {
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 templateUrl: 'scripts/app/admin/health/health.modal.html',
                 controller: 'HealthModalController',
                 size: 'lg',

@@ -37,7 +37,7 @@ import java.util.Arrays;
 @EnableElasticsearchRepositories("com.engagepoint.cws.apqd.repository.search")
 public class DatabaseConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
     @Inject
     private Environment env;
@@ -47,10 +47,10 @@ public class DatabaseConfiguration {
 
     @Bean(destroyMethod = "close")
     @ConditionalOnExpression("#{!environment.acceptsProfiles('cloud') && !environment.acceptsProfiles('heroku')}")
-    public DataSource dataSource(DataSourceProperties dataSourceProperties, JHipsterProperties jHipsterProperties, CacheManager cacheManager) {
-        log.debug("Configuring Datasource");
+    public DataSource dataSource(DataSourceProperties dataSourceProperties, CacheManager cacheManager) {
+        LOG.debug("Configuring Datasource");
         if (dataSourceProperties.getUrl() == null) {
-            log.error("Your database connection pool configuration is incorrect! The application" +
+            LOG.error("Your database connection pool configuration is incorrect! The application" +
                     " cannot start. Please check your Spring profile, current profiles are: {}",
                 Arrays.toString(env.getActiveProfiles()));
 
@@ -100,13 +100,13 @@ public class DatabaseConfiguration {
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_FAST)) {
             if ("org.h2.jdbcx.JdbcDataSource".equals(dataSourceProperties.getDriverClassName())) {
                 liquibase.setShouldRun(true);
-                log.warn("Using '{}' profile with H2 database in memory is not optimal, you should consider switching to" +
+                LOG.warn("Using '{}' profile with H2 database in memory is not optimal, you should consider switching to" +
                     " MySQL or Postgresql to avoid rebuilding your database upon each start.", Constants.SPRING_PROFILE_FAST);
             } else {
                 liquibase.setShouldRun(false);
             }
         } else {
-            log.debug("Configuring Liquibase");
+            LOG.debug("Configuring Liquibase");
         }
         return liquibase;
     }

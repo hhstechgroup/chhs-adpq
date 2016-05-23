@@ -4,8 +4,17 @@ angular.module('intakeApp')
     .directive('jhAlert', function (AlertService) {
         return {
             restrict: 'E',
+            template: '<div class="alerts" ng-cloak="">' +
+            '<div ng-repeat="alert in alerts" ng-class="[alert.position, {\'toast\': alert.toast}]">' +
+            '<uib-alert ng-cloak="" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></uib-alert>' +
+            '</div>' +
+            '</div>',
             controller: ['$scope',
                 function ($scope) {
+                    $scope.alerts = AlertService.get();
+                    $scope.$on('$destroy', function () {
+                        $scope.alerts = [];
+                    });
                 }
             ]
         }
@@ -13,24 +22,23 @@ angular.module('intakeApp')
     .directive('jhAlertError', function (AlertService, $rootScope, $translate) {
         return {
             restrict: 'E',
-            controller: ['$scope', '$uibModal',
-                function ($scope, $uibModal) {
+            template: '<div class="alerts" ng-cloak="">' +
+            '<div ng-repeat="alert in alerts" ng-class="[alert.position, {\'toast\': alert.toast}]">' +
+            '<uib-alert ng-cloak="" type="{{alert.type}}" close="alert.close(alerts)"><pre>{{ alert.msg }}</pre></uib-alert>' +
+            '</div>' +
+            '</div>',
+            controller: ['$scope',
+                function ($scope) {
+
+                    $scope.alerts = [];
+
                     var cleanHttpErrorListener = $rootScope.$on('intakeApp.httpError', function (event, httpResponse) {
                         var i;
                         event.stopPropagation();
                         switch (httpResponse.status) {
                             // connection refused, server not reachable
                             case 0:
-                            case -1:
                                 addErrorAlert("Server not reachable", 'error.server.not.reachable');
-                                if (_.isNil($rootScope.serverNotReachableError) || (new Date().getTime() - $rootScope.serverNotReachableError) > 10 * 1000) {
-                                    $rootScope.serverNotReachableError = new Date().getTime();
-                                    $uibModal.open({
-                                        templateUrl: "serverUnreachable.html",
-                                        size: 'lg',
-                                        controller: 'NetworkErrorController'
-                                    });
-                                }
                                 break;
 
                             case 400:
@@ -66,21 +74,27 @@ angular.module('intakeApp')
                     $scope.$on('$destroy', function () {
                         if (cleanHttpErrorListener !== undefined && cleanHttpErrorListener !== null) {
                             cleanHttpErrorListener();
+                            $scope.alerts = [];
                         }
                     });
 
                     var addErrorAlert = function (message, key, data) {
                         key = key && key != null ? key : message;
-                        console.log("Message:" + message + " Key:" + key + " Data: " + data);
-                    };
+                        $scope.alerts.push(
+                            AlertService.add(
+                                {
+                                    type: "danger",
+                                    msg: key,
+                                    params: data,
+                                    timeout: 5000,
+                                    toast: AlertService.isToast(),
+                                    scoped: true
+                                },
+                                $scope.alerts
+                            )
+                        );
+                    }
                 }
             ]
         }
-    }).controller('NetworkErrorController',
-    ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
-
-        $scope.close = function () {
-            $uibModalInstance.dismiss('close');
-        };
-    }]
-);
+    });

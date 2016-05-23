@@ -1,5 +1,5 @@
 {
-    "intakeApp": {
+    "apqdApp": {
         "phone" : {
             "home": {
                 "title": "Phones",
@@ -16,15 +16,10 @@
             "detail": {
                 "title": "Phone"
             },
-            "phoneExtensionNumber": "PhoneExtensionNumber",
             "phoneNumber": "PhoneNumber",
             "preferred": "Preferred",
             "startDate": "StartDate",
-            "endDate": "EndDate",
-            "recordStatus": "RecordStatus",
-            "phoneType": "PhoneType",
-            "client": "Client",
-            "reporter": "Reporter"
+            "endDate": "EndDate"
         }
     }
 }

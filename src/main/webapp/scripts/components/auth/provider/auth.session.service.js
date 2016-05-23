@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('AuthServerProvider', function loginService($http, localStorageService, $window, Tracker) {
         return {
             login: function(credentials) {

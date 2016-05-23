@@ -1,0 +1,104 @@
+entity LookupState {
+    stateCode String required maxlength(2),
+    stateName String required maxlength(30)
+}
+
+entity LookupCounty {
+    countyName String required maxlength(2)
+}
+
+entity Phone {
+    phoneNumber String required maxlength(15),
+    preferred Boolean,
+    startDate LocalDate,
+    endDate LocalDate
+}
+
+entity Email {
+    emailText String required maxlength(35),
+    preferred Boolean,
+    startDate LocalDate,
+    endDate LocalDate
+}
+
+entity Place {
+    unitNumber String maxlength(10),
+    cityName String maxlength(20) required,
+    streetName String maxlength(100) required,
+    streetNumber String maxlength(10),
+    zipCode String maxlength(5),
+    zipSuffix String maxlength(4),
+    longitude Double,
+    latitude Double,
+    validAddressFlag Boolean,
+    validationStatus String,
+    validationMessage String
+}
+
+entity MailBox {
+
+}
+
+entity Inbox {
+
+}
+
+entity Outbox {
+
+}
+
+entity Message {
+    body String maxlength(2000) required,
+    subject String maxlength(100) required,
+    caseNumber String maxlength(20),
+    dateCreated ZonedDateTime,
+    dateRead ZonedDateTime,
+    status String maxlength(2)
+}
+
+relationship OneToOne {
+  User{mailBox} to MailBox
+}
+
+relationship OneToOne {
+  MailBox{inbox} to Inbox
+}
+
+relationship OneToOne {
+  MailBox{outbox} to Outbox
+}
+
+relationship OneToMany {
+  Inbox{message} to Message
+}
+
+relationship OneToMany {
+  Outbox{message} to Message
+}
+
+relationship OneToOne {
+  Message{replyOn} to Message
+}
+
+relationship OneToOne {
+  Message{from} to User
+}
+
+relationship OneToOne {
+  Message{to} to User
+}
+
+relationship ManyToOne {
+  Place{state} to LookupState
+}
+
+relationship ManyToOne {
+  Place{county} to LookupCounty
+}
+
+relationship OneToOne {
+  LookupCounty{county} to LookupState
+}
+
+paginate Message with infinite-scroll
+

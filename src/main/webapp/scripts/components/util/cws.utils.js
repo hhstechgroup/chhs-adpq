@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .filter('tel', function () {
         return function (tel) {
             if (!tel) {
@@ -38,7 +38,7 @@ angular.module('intakeApp')
                     return tel;
             }
 
-            if (country == 1) {
+            if (country === 1) {
                 country = "";
             }
 

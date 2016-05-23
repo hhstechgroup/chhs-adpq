@@ -1,0 +1,54 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myLookupStateLabel" translate="apqdApp.lookupState.home.createOrEditLabel">Create or edit a LookupState</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="lookupState.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.lookupState.stateCode" for="field_stateCode">StateCode</label>
+            <input type="text" class="form-control" name="stateCode" id="field_stateCode"
+                    ng-model="lookupState.stateCode"
+                    required ng-maxlength="2" />
+            <div ng-show="editForm.stateCode.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.stateCode.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.stateCode.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2">
+                    This field cannot be longer than 2 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.lookupState.stateName" for="field_stateName">StateName</label>
+            <input type="text" class="form-control" name="stateName" id="field_stateName"
+                    ng-model="lookupState.stateName"
+                    required />
+            <div ng-show="editForm.stateName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.stateName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

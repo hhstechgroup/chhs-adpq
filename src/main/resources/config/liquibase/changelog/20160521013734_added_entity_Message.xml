@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity Message.
+    -->
+    <changeSet id="20160521013734" author="jhipster">
+        <createTable tableName="message">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="body" type="varchar(2000)">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="subject" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="case_number" type="varchar(20)"/>
+            
+            <column name="date_created" type="timestamp"/>
+            
+            <column name="date_read" type="timestamp"/>
+            
+            <column name="status" type="varchar(2)"/>
+            
+            <column name="inbox_id" type="bigint"/>
+            <column name="outbox_id" type="bigint"/>
+            <column name="reply_on_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+            <column name="from_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+            <column name="to_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="message" columnName="date_created" columnDataType="datetime"/>
+
+        <dropDefaultValue tableName="message" columnName="date_read" columnDataType="datetime"/>
+
+        
+        <addForeignKeyConstraint baseColumnNames="inbox_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_inbox_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="inbox"/>
+
+        <addForeignKeyConstraint baseColumnNames="outbox_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_outbox_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="outbox"/>
+
+        <addForeignKeyConstraint baseColumnNames="reply_on_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_replyon_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="message"/>
+
+        <addForeignKeyConstraint baseColumnNames="from_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_from_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="to_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_to_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+    </changeSet>
+</databaseChangeLog>

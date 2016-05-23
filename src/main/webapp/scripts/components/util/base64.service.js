@@ -1,7 +1,7 @@
 /*jshint bitwise: false*/
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
             'QRSTUVWXYZabcdef' +
@@ -10,8 +10,8 @@ angular.module('intakeApp')
             '=';
         this.encode = function (input) {
             var output = '',
-                chr1, chr2, chr3 = '',
-                enc1, enc2, enc3, enc4 = '',
+                chr1, chr2, chr3,
+                enc1, enc2, enc3, enc4,
                 i = 0;
 
             while (i < input.length) {
@@ -35,8 +35,6 @@ angular.module('intakeApp')
                     keyStr.charAt(enc2) +
                     keyStr.charAt(enc3) +
                     keyStr.charAt(enc4);
-                chr1 = chr2 = chr3 = '';
-                enc1 = enc2 = enc3 = enc4 = '';
             }
 
             return output;
@@ -44,8 +42,8 @@ angular.module('intakeApp')
 
         this.decode = function (input) {
             var output = '',
-                chr1, chr2, chr3 = '',
-                enc1, enc2, enc3, enc4 = '',
+                chr1, chr2, chr3,
+                enc1, enc2, enc3, enc4,
                 i = 0;
 
             // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
@@ -70,8 +68,6 @@ angular.module('intakeApp')
                     output = output + String.fromCharCode(chr3);
                 }
 
-                chr1 = chr2 = chr3 = '';
-                enc1 = enc2 = enc3 = enc4 = '';
             }
         };
     })

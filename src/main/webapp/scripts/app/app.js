@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
+angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
     'uiGmapgoogle-maps',
     // jhipster-needle-angularjs-add-module JHipster will add new module
     'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router',  'infinite-scroll', 'angular-loading-bar',
-    'angularAudioRecorder', 'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'ui.ace', 'sticky'])
+    'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language,
                    Auth, Principal, ENV, VERSION, VoiceAssistantService) {
@@ -48,7 +48,7 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
             // reset the state memory after logout. If we're redirected to login, our
             // previousState is already set in the authExpiredInterceptor. If we're going
             // to login directly, we don't want to be sent to some previous state anyway
-            if (toState.name != 'login' && $rootScope.previousStateName) {
+            if (toState.name !== 'login' && $rootScope.previousStateName) {
               $rootScope.previousStateName = fromState.name;
               $rootScope.previousStateParams = fromParams;
             }
@@ -85,8 +85,7 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
         }
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, AlertServiceProvider) {
-        // uncomment below to make alerts look like toast
-        //AlertServiceProvider.showAsToast(true);
+        AlertServiceProvider.showAsToast(true);
 
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
@@ -147,7 +146,7 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
     .config(['$urlMatcherFactoryProvider', function($urlMatcherFactory) {
         $urlMatcherFactory.type('boolean', {
             name : 'boolean',
-            decode: function(val) { return val == true ? true : val == "true" ? true : false },
+            decode: function(val) { return val === true ? true : val === "true" ? true : false },
             encode: function(val) { return val ? 1 : 0; },
             equals: function(a, b) { return this.is(a) && a === b; },
             is: function(val) { return [true,false,0,1].indexOf(val) >= 0 },

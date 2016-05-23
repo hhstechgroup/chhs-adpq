@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('ParticipantsUtils', function ($q, ClientRelationshipSearch, ClientRelationship, ReferralClient, Client,
                                             LookupGender, GenderCode) {
 
@@ -118,9 +118,9 @@ angular.module('intakeApp')
             }
 
             if (referralClientHasVictimAge(referralClient)) {
-                return (client.gender.genderCode == GenderCode.MALE ? 'img-1' : 'img-2');
+                return (client.gender.genderCode === GenderCode.MALE ? 'img-1' : 'img-2');
             } else {
-                return (client.gender.genderCode == GenderCode.MALE ? 'img-3' : 'img-4');
+                return (client.gender.genderCode === GenderCode.MALE ? 'img-3' : 'img-4');
             }
         }
 

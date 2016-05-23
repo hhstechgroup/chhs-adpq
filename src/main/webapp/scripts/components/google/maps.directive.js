@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('cwsMaps', function () {
         return {
             restrict: 'E',
@@ -69,7 +69,6 @@ angular.module('intakeApp')
                         }
                         updateCenter(bounds);
                     }, function(reason) {
-                        console.log('Google Map is not ready. \n' + reason);
                     });
                 }
 
@@ -171,7 +170,7 @@ angular.module('intakeApp')
                         var q = $q.defer();
                         promices.push(q.promise);
                         $scope.directionsService.route(request, function (result, status) {
-                            if (status == google.maps.DirectionsStatus.OK) {
+                            if (status === google.maps.DirectionsStatus.OK) {
                                 q.resolve(result);
                             } else {
                                 q.reject('Google Directions Service response status: ' + status);

@@ -10,27 +10,26 @@ public class HeaderUtil {
 
     public static HttpHeaders createAlert(String message, String param) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-intakeApp-alert", message);
-        headers.add("X-intakeApp-params", param);
+        headers.add("X-apqdApp-alert", message);
+        headers.add("X-apqdApp-params", param);
         return headers;
     }
 
     public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
-        return createAlert("intakeApp." + entityName + ".created", param);
+        return createAlert("apqdApp." + entityName + ".created", param);
     }
-
     public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
-        return createAlert("intakeApp." + entityName + ".updated", param);
+        return createAlert("apqdApp." + entityName + ".updated", param);
     }
 
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
-        return createAlert("intakeApp." + entityName + ".deleted", param);
+        return createAlert("apqdApp." + entityName + ".deleted", param);
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-intakeApp-error", "error." + errorKey);
-        headers.add("X-intakeApp-params", entityName);
+        headers.add("X-apqdApp-error", "error." + errorKey);
+        headers.add("X-apqdApp-params", entityName);
         return headers;
     }
 }

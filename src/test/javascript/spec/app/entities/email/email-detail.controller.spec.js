@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Email Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockEmail, MockLookupEmailType, MockClient, MockReporter;
+        var MockEntity, MockEmail;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -12,19 +12,13 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockEmail = jasmine.createSpy('MockEmail');
-            MockLookupEmailType = jasmine.createSpy('MockLookupEmailType');
-            MockClient = jasmine.createSpy('MockClient');
-            MockReporter = jasmine.createSpy('MockReporter');
-            
+
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
                 'entity': MockEntity ,
-                'Email': MockEmail,
-                'LookupEmailType': MockLookupEmailType,
-                'Client': MockClient,
-                'Reporter': MockReporter
+                'Email': MockEmail
             };
             createController = function() {
                 $injector.get('$controller')("EmailDetailController", locals);
@@ -34,7 +28,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:emailUpdate';
+                var eventType = 'apqdApp:emailUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('USPS', function ($resource) {
         return $resource('usps/verify-address', {}, {
             'verifyAddress': { method:'PUT' }

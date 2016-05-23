@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('hasAnyAuthority', ['Principal', function (Principal) {
         return {
             restrict: 'A',
@@ -28,7 +28,7 @@ angular.module('intakeApp')
 
                 if (authorities.length > 0) {
                     defineVisibility(true);
-                    
+
                     scope.$watch(function(scope) {
                         return Principal.isAuthenticated();
                     }, function(newValue) {

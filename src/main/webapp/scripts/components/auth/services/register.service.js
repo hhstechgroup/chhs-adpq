@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('Register', function ($resource) {
         return $resource('api/register', {}, {
         });

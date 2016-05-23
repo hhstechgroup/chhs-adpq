@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity LookupAbuseFrequencyPeriod.
+    -->
+    <changeSet id="20160210315" author="leonid.marushevskiy">
+        <insert tableName="lookup_state"><column name="state_code" value="AL"/><column name="state_name" value="Alabama"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="AK"/><column name="state_name" value="Alaska"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="AM"/><column name="state_name" value="American Samoa"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="AZ"/><column name="state_name" value="Arizona"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="AR"/><column name="state_name" value="Arkansas"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="CA"/><column name="state_name" value="California"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="CZ"/><column name="state_name" value="Canal Zone"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="CO"/><column name="state_name" value="Colorado"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="CT"/><column name="state_name" value="Connecticut"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="DE"/><column name="state_name" value="Delaware"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="DC"/><column name="state_name" value="District of Columbia"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="FL"/><column name="state_name" value="Florida"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="GA"/><column name="state_name" value="Georgia"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="GU"/><column name="state_name" value="Guam"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="HI"/><column name="state_name" value="Hawaii"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="ID"/><column name="state_name" value="Idaho"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="IL"/><column name="state_name" value="Illinois"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="IN"/><column name="state_name" value="Indiana"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="IA"/><column name="state_name" value="Iowa"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="KS"/><column name="state_name" value="Kansas"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="KY"/><column name="state_name" value="Kentucky"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="LA"/><column name="state_name" value="Louisiana"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="ME"/><column name="state_name" value="Maine"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="MD"/><column name="state_name" value="Maryland"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="MA"/><column name="state_name" value="Massachusetts"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="MI"/><column name="state_name" value="Michigan"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="MN"/><column name="state_name" value="Minnesota"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="MS"/><column name="state_name" value="Mississippi"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="MO"/><column name="state_name" value="Missouri"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="MT"/><column name="state_name" value="Montana"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="NE"/><column name="state_name" value="Nebraska"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="NV"/><column name="state_name" value="Nevada"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="NH"/><column name="state_name" value="New Hampshire"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="NJ"/><column name="state_name" value="New Jersey"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="NM"/><column name="state_name" value="New Mexico"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="NY"/><column name="state_name" value="New York"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="NC"/><column name="state_name" value="North Carolina"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="ND"/><column name="state_name" value="North Dakota"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="CM"/><column name="state_name" value="Northern Marianas Islands"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="OH"/><column name="state_name" value="Ohio"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="OK"/><column name="state_name" value="Oklahoma"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="OR"/><column name="state_name" value="Oregon"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="PA"/><column name="state_name" value="Pennsylvania"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="PR"/><column name="state_name" value="Puerto Rico"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="RI"/><column name="state_name" value="Rhode Island"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="SC"/><column name="state_name" value="South Carolina"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="SD"/><column name="state_name" value="South Dakota"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="TN"/><column name="state_name" value="Tennessee"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="TX"/><column name="state_name" value="Texas"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="TT"/><column name="state_name" value="Trust Territories"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="UT"/><column name="state_name" value="Utah"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="VT"/><column name="state_name" value="Vermont"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="VI"/><column name="state_name" value="Virgin Islands"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="VA"/><column name="state_name" value="Virginia"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="WA"/><column name="state_name" value="Washington"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="WV"/><column name="state_name" value="West Virginia"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="WI"/><column name="state_name" value="Wisconsin"/></insert>
+        <insert tableName="lookup_state"><column name="state_code" value="WY"/><column name="state_name" value="Wyoming"/></insert>
+    </changeSet>
+</databaseChangeLog>

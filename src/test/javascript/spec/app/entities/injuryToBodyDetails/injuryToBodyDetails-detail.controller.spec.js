@@ -15,7 +15,7 @@ describe('Controller Tests', function() {
             MockLookupAbuseBodyPart = jasmine.createSpy('MockLookupAbuseBodyPart');
             MockLookupCounty = jasmine.createSpy('MockLookupCounty');
             MockInjuryHarmDetails = jasmine.createSpy('MockInjuryHarmDetails');
-            
+
 
             var locals = {
                 '$scope': $scope,
@@ -34,7 +34,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:injuryToBodyDetailsUpdate';
+                var eventType = 'apqdApp:injuryToBodyDetailsUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

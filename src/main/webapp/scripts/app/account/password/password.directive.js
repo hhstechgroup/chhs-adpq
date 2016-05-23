@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('passwordStrengthBar', function () {
         return {
             replace: true,
@@ -46,7 +46,7 @@ angular.module('intakeApp')
                     },
                     getColor: function (s) {
 
-                        var idx = 0;
+                        var idx;
                         if (s <= 10) {
                             idx = 0;
                         }

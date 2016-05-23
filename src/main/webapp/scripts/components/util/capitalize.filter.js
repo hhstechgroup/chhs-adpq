@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .filter('capitalize', function () {
         return function (input, scope) {
             if (input != null)

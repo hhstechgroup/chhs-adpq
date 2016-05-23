@@ -18,7 +18,7 @@ describe('Controller Tests', function() {
             MockFrequencyWeekDay = jasmine.createSpy('MockFrequencyWeekDay');
             MockLookupMonth = jasmine.createSpy('MockLookupMonth');
             MockSafetyPlanItem = jasmine.createSpy('MockSafetyPlanItem');
-            
+
 
             var locals = {
                 '$scope': $scope,
@@ -40,7 +40,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:safetyPlanActionUpdate';
+                var eventType = 'apqdApp:safetyPlanActionUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('Attachment', function ($resource, DateUtils) {
         return $resource('api/attachments/:id', {}, {
             'query': { method: 'GET', isArray: true},

@@ -14,7 +14,7 @@ describe('Controller Tests', function() {
             MockPlace = jasmine.createSpy('MockPlace');
             MockLookupState = jasmine.createSpy('MockLookupState');
             MockLookupCounty = jasmine.createSpy('MockLookupCounty');
-            
+
 
             var locals = {
                 '$scope': $scope,
@@ -32,7 +32,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:placeUpdate';
+                var eventType = 'apqdApp:placeUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);
