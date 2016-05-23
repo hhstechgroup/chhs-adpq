@@ -25,13 +25,12 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- * Created by dmytro.palczewski on 2/10/2ModelService016.
- */
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 @Service
 public class UspsService {
 
-    private static final Logger log = LoggerFactory.getLogger(UspsService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UspsService.class);
     private static final String VALIDATION_ERROR = "Error sending request for USPS Address Validation service";
 
     private String serverUrl;
@@ -40,15 +39,13 @@ public class UspsService {
 
     private int timeout;
 
-    private JAXBContext jaxbContext;
-
     private Marshaller marshaller;
 
     private Unmarshaller unmarshaller;
 
     @PostConstruct
     public void initialize() throws JAXBException {
-        jaxbContext = JAXBContext.newInstance(
+        JAXBContext jaxbContext = JAXBContext.newInstance(
             AddressValidateRequest.class,
             AddressValidateResponse.class,
             Address.class,
@@ -89,29 +86,32 @@ public class UspsService {
     */
     public UspsResponse verifyAddress(UspsAddress inputAddress) {
 
-        log.info("input address is :" + inputAddress);
+        LOGGER.info("input address is :" + inputAddress);
 
         String inputState = inputAddress.getState();
         String inputCity = inputAddress.getCity();
         String inputZip = inputAddress.getZip();
 
-        if ((StringUtils.isEmpty(inputState) && StringUtils.isEmpty(inputCity) && StringUtils.isEmpty(inputZip)) ||    // No state, city or zip5
-            (StringUtils.isEmpty(inputZip) && (StringUtils.isEmpty(inputState) || StringUtils.isEmpty(inputCity)))) {  // Both state and city are required if no zip5
+        if (isEmpty(inputZip) && (isEmpty(inputState) || isEmpty(inputCity))) {
             String msg = "USPS address validation requires either zip or city and state";
-            log.error(msg);
+            LOGGER.error(msg);
             return errorResponse(msg);
         }
 
         AddressValidateRequest uspsXmlRequest = createUspsXmlRequest(inputAddress);
 
-        AddressValidateResponse uspsXmlResponse = null;
+        AddressValidateResponse uspsXmlResponse;
         try {
             uspsXmlResponse = sendUspsRequest("Verify", uspsXmlRequest);
         } catch (UspsRequestException e) {
-            log.error(VALIDATION_ERROR, e);
+            LOGGER.error(VALIDATION_ERROR, e);
             return errorResponse(VALIDATION_ERROR + ":" + e.getMessage());
         }
 
+        return handleUspsXmlResponse(uspsXmlResponse);
+    }
+
+    private UspsResponse handleUspsXmlResponse(AddressValidateResponse uspsXmlResponse) {
         Address responseXmlAddress = uspsXmlResponse.getAddress();
         if (responseXmlAddress == null) {
             return errorResponse("Incomplete response from USPS Address Validation service: no Address element found");
@@ -122,9 +122,7 @@ public class UspsService {
             return errorResponse(responseXmlError.getDescription());
         }
 
-        UspsResponse response = new UspsResponse();
         UspsAddress outputAddress = new UspsAddress();
-
         // Note: an Address1 element is not returned if empty
         String address1 = responseXmlAddress.getAddress1();
         if (StringUtils.isNotEmpty(address1)) {
@@ -136,13 +134,15 @@ public class UspsService {
         outputAddress.setZip(responseXmlAddress.getZip5());
         outputAddress.setZip4(responseXmlAddress.getZip4());
 
+        UspsResponse response = new UspsResponse();
         String returnText = responseXmlAddress.getReturnText();
         if (returnText != null) {
             response.setReturnText(returnText);
         }
         response.setResponseType(UspsResponseType.SUCCESS);
         response.setAddress(outputAddress);
-        log.info("response :" + response);
+        LOGGER.info("response: " + response);
+
         return response;
     }
 
@@ -165,23 +165,17 @@ public class UspsService {
         return addressValidateRequest;
     }
 
-    private static String emptyIfNull(String value){
+    private static String emptyIfNull(String value) {
         return value == null ? "" : value;
     }
 
     private AddressValidateResponse sendUspsRequest(String requestType, AddressValidateRequest addressValidateRequest) throws UspsRequestException {
-
-        String xmlRequestString = null;
-        try {
-            xmlRequestString = JaxbUtils.marshal(addressValidateRequest, marshaller);
-        } catch (Exception e) {
-            throw new UspsRequestException("Error serializing requestDocument", e);
-        }
-        log.info("USPS XML request string: " + xmlRequestString);
-
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse httpResponse = null;
         String responseXmlString = null;
+
+        String xmlRequestString = marshalValidationRequest(addressValidateRequest);
+        LOGGER.info("USPS XML request string: " + xmlRequestString);
 
         try {
             URI uri = createHttpGetUri(requestType, xmlRequestString);
@@ -189,29 +183,43 @@ public class UspsService {
             configureHttpGet(httpGet);
 
             httpResponse = httpClient.execute(httpGet);
-            log.info("Response Code : {}", httpResponse.getStatusLine().getStatusCode());
+            LOGGER.info("Response Code: {}", httpResponse.getStatusLine().getStatusCode());
 
             HttpEntity httpEntity = httpResponse.getEntity();
             responseXmlString = getHttpResponseString(httpEntity);
+            LOGGER.info("USPS response: " + responseXmlString);
             EntityUtils.consume(httpEntity);
 
-        } catch (Exception e) {
+        } catch (IOException | URISyntaxException e) {
             throw new UspsRequestException("USPS Shipment Gateway Configuration is not available", e);
-        }finally {
+        } finally {
             try {
-                if (httpResponse != null) httpResponse.close();
-            }catch (IOException e) {
-                log.error("cannot close properly CloseableHttpResponse", e);
+                httpClient.close();
+                if (httpResponse != null) {
+                    httpResponse.close();
+                }
+            } catch (IOException e) {
+                LOGGER.error("cannot close properly CloseableHttpResponse", e);
             }
         }
 
-        log.info("USPS response: " + responseXmlString);
+        return unmarshalValidationResponse(responseXmlString);
+    }
 
-        if (StringUtils.isEmpty(responseXmlString)) {
+    private String marshalValidationRequest(AddressValidateRequest addressValidateRequest) throws UspsRequestException {
+        try {
+            return JaxbUtils.marshal(addressValidateRequest, marshaller);
+        } catch (Exception e) {
+            throw new UspsRequestException("Error serializing requestDocument", e);
+        }
+    }
+
+    private AddressValidateResponse unmarshalValidationResponse(String responseXmlString) throws UspsRequestException {
+        if (isEmpty(responseXmlString)) {
             return null;
         }
 
-        Object xmlResponseObj = null;
+        Object xmlResponseObj;
         try {
             xmlResponseObj = JaxbUtils.unmarshal(responseXmlString, unmarshaller);
         } catch (Exception e) {
@@ -221,11 +229,11 @@ public class UspsService {
         // If a top-level error document is returned, throw exception
         // Other request-level errors should be handled by the caller
         if (xmlResponseObj instanceof Error) {
-            Error xmlResponseError = (Error)xmlResponseObj;
+            Error xmlResponseError = (Error) xmlResponseObj;
             throw new UspsRequestException(xmlResponseError.getDescription());
         }
 
-        return (AddressValidateResponse)xmlResponseObj;
+        return (AddressValidateResponse) xmlResponseObj;
     }
 
     private URI createHttpGetUri(String requestType, String xmlString) throws URISyntaxException {
@@ -233,7 +241,7 @@ public class UspsService {
         uriBuilder.addParameter("API", requestType);
         uriBuilder.addParameter("XML", xmlString);
         URI uri = uriBuilder.build();
-        log.info("request uri = [{}]", uri.toString());
+        LOGGER.info("request uri = [{}]", uri.toString());
         return uri;
     }
 
@@ -250,16 +258,16 @@ public class UspsService {
     private String getHttpResponseString(HttpEntity httpEntity) throws IOException {
         BufferedReader rd = new BufferedReader(new InputStreamReader(httpEntity.getContent()));
 
-        StringBuffer result = new StringBuffer();
-        String line = "";
+        StringBuilder result = new StringBuilder();
+        String line;
         while ((line = rd.readLine()) != null) {
             result.append(line);
         }
-        String responseString = result.toString();
-        return responseString;
+
+        return result.toString();
     }
 
-    private static UspsResponse errorResponse(String message){
+    private static UspsResponse errorResponse(String message) {
         UspsResponse response = new UspsResponse();
         response.setResponseType(UspsResponseType.ERROR);
         response.setErrorDescription(message);

@@ -65,7 +65,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('inbox', null, { reload: true });
                     }, function() {
                         $state.go('inbox');
@@ -88,7 +88,7 @@ angular.module('apqdApp')
                                 return Inbox.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('inbox', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -111,7 +111,7 @@ angular.module('apqdApp')
                                 return Inbox.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('inbox', null, { reload: true });
                     }, function() {
                         $state.go('^');
