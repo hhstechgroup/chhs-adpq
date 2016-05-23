@@ -32,6 +32,7 @@ import java.net.URISyntaxException;
 public class UspsService {
 
     private static final Logger log = LoggerFactory.getLogger(UspsService.class);
+    private static final String VALIDATION_ERROR = "Error sending request for USPS Address Validation service";
 
     private String serverUrl;
 
@@ -107,8 +108,8 @@ public class UspsService {
         try {
             uspsXmlResponse = sendUspsRequest("Verify", uspsXmlRequest);
         } catch (UspsRequestException e) {
-            log.info(e.getMessage());
-            return errorResponse("Error sending request for USPS Address Validation service:"  + e.getMessage());
+            log.error(VALIDATION_ERROR, e);
+            return errorResponse(VALIDATION_ERROR + ":" + e.getMessage());
         }
 
         Address responseXmlAddress = uspsXmlResponse.getAddress();
@@ -174,7 +175,7 @@ public class UspsService {
         try {
             xmlRequestString = JaxbUtils.marshal(addressValidateRequest, marshaller);
         } catch (Exception e) {
-            throw new UspsRequestException("Error serializing requestDocument:"  + e.getMessage());
+            throw new UspsRequestException("Error serializing requestDocument", e);
         }
         log.info("USPS XML request string: " + xmlRequestString);
 
@@ -195,7 +196,7 @@ public class UspsService {
             EntityUtils.consume(httpEntity);
 
         } catch (Exception e) {
-            throw new UspsRequestException("USPS Shipment Gateway Configuration is not available: " + e.getMessage());
+            throw new UspsRequestException("USPS Shipment Gateway Configuration is not available", e);
         }finally {
             try {
                 if (httpResponse != null) httpResponse.close();
@@ -214,7 +215,7 @@ public class UspsService {
         try {
             xmlResponseObj = JaxbUtils.unmarshal(responseXmlString, unmarshaller);
         } catch (Exception e) {
-            throw new UspsRequestException("Error reading response Document from a String: " + e.getMessage());
+            throw new UspsRequestException("Error reading response Document from a String", e);
         }
 
         // If a top-level error document is returned, throw exception
