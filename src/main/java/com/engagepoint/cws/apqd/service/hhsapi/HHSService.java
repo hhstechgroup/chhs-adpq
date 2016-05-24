@@ -5,6 +5,7 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,17 @@ public class HHSService {
     public String findFosterFamilyAgencies(double nwLatitude, double nwLongitude, double seLatitude, double seLongitude) throws URISyntaxException, IOException {
         URIBuilder uriBuilder = new URIBuilder(hhsapiProperties.getHhsApiUrl());
         uriBuilder.addParameter("$where", String.format(WHERE_CLAUSE, nwLatitude, nwLongitude, seLatitude, seLongitude));
+        GenericUrl genericUrl = new GenericUrl(uriBuilder.build());
+        HttpRequest httpRequest = requestFactory.buildGetRequest(genericUrl);
+        return httpRequest.execute().parseAsString();
+    }
+
+    public String findFosterFamilyAgencies(String queryString) throws Exception {
+        StringBuilder url = new StringBuilder(hhsapiProperties.getHhsApiUrl());
+        if(StringUtils.isNotBlank(queryString)) {
+            url.append("?").append(queryString);
+        }
+        URIBuilder uriBuilder = new URIBuilder(url.toString());
         GenericUrl genericUrl = new GenericUrl(uriBuilder.build());
         HttpRequest httpRequest = requestFactory.buildGetRequest(genericUrl);
         return httpRequest.execute().parseAsString();
