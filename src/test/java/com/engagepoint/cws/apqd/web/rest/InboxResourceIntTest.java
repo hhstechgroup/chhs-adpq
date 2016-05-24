@@ -2,7 +2,9 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Inbox;
+import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
+import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.search.InboxSearchRepository;
 
 import org.junit.Before;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,6 +51,9 @@ public class InboxResourceIntTest {
 
     @Inject
     private InboxSearchRepository inboxSearchRepository;
+
+    @Inject
+    private MessageRepository messageRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -77,6 +83,25 @@ public class InboxResourceIntTest {
 
     @Test
     @Transactional
+    public void getEntityFields() throws Exception {
+        Message message = new Message();
+        message.setSubject("message subject");
+        message.setBody("message body");
+        messageRepository.saveAndFlush(message);
+
+        inbox.setMessages(new HashSet<>());
+        inbox.getMessages().add(message);
+        inboxRepository.saveAndFlush(inbox);
+
+        Inbox testInbox = inboxRepository.findOne(inbox.getId());
+        assertThat(testInbox).isNotNull();
+        assertThat(testInbox.getMessages()).isNotNull();
+        assertThat(testInbox.getMessages().size()).isGreaterThan(0);
+        assertThat(testInbox.getMessages().iterator().next()).isEqualTo(inbox.getMessages().iterator().next());
+    }
+
+    @Test
+    @Transactional
     public void createInbox() throws Exception {
         int databaseSizeBeforeCreate = inboxRepository.findAll().size();
 
@@ -90,7 +115,6 @@ public class InboxResourceIntTest {
         // Validate the Inbox in the database
         List<Inbox> inboxs = inboxRepository.findAll();
         assertThat(inboxs).hasSize(databaseSizeBeforeCreate + 1);
-        Inbox testInbox = inboxs.get(inboxs.size() - 1);
     }
 
     @Test
@@ -145,7 +169,6 @@ public class InboxResourceIntTest {
         // Validate the Inbox in the database
         List<Inbox> inboxs = inboxRepository.findAll();
         assertThat(inboxs).hasSize(databaseSizeBeforeUpdate);
-        Inbox testInbox = inboxs.get(inboxs.size() - 1);
     }
 
     @Test

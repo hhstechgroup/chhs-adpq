@@ -1,9 +1,15 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
+import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.MessageStatus;
+import com.engagepoint.cws.apqd.domain.Outbox;
+import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
+import com.engagepoint.cws.apqd.repository.OutboxRepository;
+import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 
 import org.junit.Before;
@@ -66,11 +72,22 @@ public class MessageResourceIntTest {
     private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
     private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 
+    private static String TEST_PASSWORD_HASH = new String(new char[60]).replace("\0", "F");
+
     @Inject
     private MessageRepository messageRepository;
 
     @Inject
     private MessageSearchRepository messageSearchRepository;
+
+    @Inject
+    private InboxRepository inboxRepository;
+
+    @Inject
+    private OutboxRepository outboxRepository;
+
+    @Inject
+    private UserRepository userRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -102,6 +119,48 @@ public class MessageResourceIntTest {
         message.setDateCreated(DEFAULT_DATE_CREATED);
         message.setDateRead(DEFAULT_DATE_READ);
         message.setStatus(DEFAULT_STATUS);
+    }
+
+    @Test
+    @Transactional
+    public void getEntityFields() throws Exception {
+        Inbox inbox = new Inbox();
+        inboxRepository.saveAndFlush(inbox);
+
+        Outbox outbox = new Outbox();
+        outboxRepository.saveAndFlush(outbox);
+
+        Message replyOn = new Message();
+        replyOn.setSubject("replyOn message subject");
+        replyOn.setBody("replyOn message body");
+        messageRepository.saveAndFlush(replyOn);
+
+        User from = new User();
+        from.setLogin("user1");
+        from.setPassword(TEST_PASSWORD_HASH);
+        userRepository.saveAndFlush(from);
+
+        User to = new User();
+        to.setLogin("user2");
+        to.setPassword(TEST_PASSWORD_HASH);
+        userRepository.saveAndFlush(to);
+
+        message.setSubject("message subject");
+        message.setBody("message body");
+        message.setInbox(inbox);
+        message.setOutbox(outbox);
+        message.setReplyOn(replyOn);
+        message.setFrom(from);
+        message.setTo(to);
+        messageRepository.saveAndFlush(message);
+
+        Message testMessage = messageRepository.findOne(message.getId());
+        assertThat(testMessage).isNotNull();
+        assertThat(testMessage.getInbox()).isNotNull();
+        assertThat(testMessage.getOutbox()).isNotNull();
+        assertThat(testMessage.getReplyOn()).isNotNull();
+        assertThat(testMessage.getFrom()).isNotNull();
+        assertThat(testMessage.getTo()).isNotNull();
     }
 
     @Test
@@ -175,12 +234,12 @@ public class MessageResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))
-                .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY.toString())))
-                .andExpect(jsonPath("$.[*].subject").value(hasItem(DEFAULT_SUBJECT.toString())))
-                .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER.toString())))
+                .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY)))
+                .andExpect(jsonPath("$.[*].subject").value(hasItem(DEFAULT_SUBJECT)))
+                .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER)))
                 .andExpect(jsonPath("$.[*].dateCreated").value(hasItem(DEFAULT_DATE_CREATED_STR)))
                 .andExpect(jsonPath("$.[*].dateRead").value(hasItem(DEFAULT_DATE_READ_STR)))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
     }
 
     @Test
@@ -194,12 +253,12 @@ public class MessageResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(message.getId().intValue()))
-            .andExpect(jsonPath("$.body").value(DEFAULT_BODY.toString()))
-            .andExpect(jsonPath("$.subject").value(DEFAULT_SUBJECT.toString()))
-            .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER.toString()))
+            .andExpect(jsonPath("$.body").value(DEFAULT_BODY))
+            .andExpect(jsonPath("$.subject").value(DEFAULT_SUBJECT))
+            .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER))
             .andExpect(jsonPath("$.dateCreated").value(DEFAULT_DATE_CREATED_STR))
             .andExpect(jsonPath("$.dateRead").value(DEFAULT_DATE_READ_STR))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS));
     }
 
     @Test
