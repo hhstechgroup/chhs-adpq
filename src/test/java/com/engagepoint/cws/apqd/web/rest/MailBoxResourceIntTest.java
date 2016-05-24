@@ -1,8 +1,12 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
+import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.MailBox;
+import com.engagepoint.cws.apqd.domain.Outbox;
+import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
+import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.search.MailBoxSearchRepository;
 
 import org.junit.Before;
@@ -50,6 +54,12 @@ public class MailBoxResourceIntTest {
     private MailBoxSearchRepository mailBoxSearchRepository;
 
     @Inject
+    private InboxRepository inboxRepository;
+
+    @Inject
+    private OutboxRepository outboxRepository;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -77,6 +87,25 @@ public class MailBoxResourceIntTest {
 
     @Test
     @Transactional
+    public void getEntityFields() throws Exception {
+        Inbox inbox = new Inbox();
+        inboxRepository.saveAndFlush(inbox);
+
+        Outbox outbox = new Outbox();
+        outboxRepository.saveAndFlush(outbox);
+
+        mailBox.setInbox(inbox);
+        mailBox.setOutbox(outbox);
+        mailBoxRepository.saveAndFlush(mailBox);
+
+        MailBox testMailBox = mailBoxRepository.findOne(mailBox.getId());
+        assertThat(testMailBox).isNotNull();
+        assertThat(testMailBox.getInbox()).isNotNull();
+        assertThat(testMailBox.getOutbox()).isNotNull();
+    }
+
+    @Test
+    @Transactional
     public void createMailBox() throws Exception {
         int databaseSizeBeforeCreate = mailBoxRepository.findAll().size();
 
@@ -90,7 +119,6 @@ public class MailBoxResourceIntTest {
         // Validate the MailBox in the database
         List<MailBox> mailBoxs = mailBoxRepository.findAll();
         assertThat(mailBoxs).hasSize(databaseSizeBeforeCreate + 1);
-        MailBox testMailBox = mailBoxs.get(mailBoxs.size() - 1);
     }
 
     @Test
@@ -145,7 +173,6 @@ public class MailBoxResourceIntTest {
         // Validate the MailBox in the database
         List<MailBox> mailBoxs = mailBoxRepository.findAll();
         assertThat(mailBoxs).hasSize(databaseSizeBeforeUpdate);
-        MailBox testMailBox = mailBoxs.get(mailBoxs.size() - 1);
     }
 
     @Test

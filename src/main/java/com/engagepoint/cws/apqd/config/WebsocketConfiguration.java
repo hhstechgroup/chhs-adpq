@@ -54,7 +54,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
             .withSockJS()
             .setInterceptors(httpSessionHandshakeInterceptor());
 
-        registry.addEndpoint("/websocket/chat")
+        registry.addEndpoint("/websocket/mailbox")
             .withSockJS();
     }
 
