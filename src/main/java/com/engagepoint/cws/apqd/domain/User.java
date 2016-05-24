@@ -72,6 +72,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date", nullable = true)
     private ZonedDateTime resetDate = null;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "mail_box", joinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "id")
+    })
+    private MailBox mailBox;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -124,6 +130,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public MailBox getMailBox() {
+        return mailBox;
+    }
+
+    public void setMailBox(MailBox mailBox) {
+        this.mailBox = mailBox;
     }
 
     public String getEmail() {
