@@ -47,6 +47,7 @@ public class Message implements Serializable {
 
     @Size(max = 2)
     @Column(name = "status", length = 2)
+    @Enumerated(EnumType.STRING)
     private MessageStatus status;
 
     @ManyToOne
