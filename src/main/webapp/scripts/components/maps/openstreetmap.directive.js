@@ -16,13 +16,15 @@ angular.module('apqdApp')
                  }
                  }
                  */
-                markers: '=',
-                doRefresh: '&'
+                //markers: '=',
+                //doRefresh: '&'
             },
             templateUrl: 'scripts/components/maps/openstreetmap.html',
 
             controller: ['$scope', '$log', '$q', '$timeout', function ($scope, $log, $q, $timeout) {
+            //controller: ['$scope', '$log', '$q', '$timeout', 'leafletData', function ($scope, $log, $q, $timeout, leafletData) {
                 $scope.defaults = {scrollWheelZoom: true};
+                $scope.center = {lat: 51.505, lng: -0.09};
 
 
                 $timeout(function() {
@@ -31,6 +33,12 @@ angular.module('apqdApp')
                     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo($scope.map);
+
+/*
+                    leafletData.getMap().then(function(map) {
+                        L.GeoIP.centerMapOnPosition(map, 15);
+                    });
+*/
                 })
             }]
         }
