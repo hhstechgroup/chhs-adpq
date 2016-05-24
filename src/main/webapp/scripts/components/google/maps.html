@@ -1,11 +1,4 @@
 <div>
-    <div class="btn-route" ng-show="buildRouteFrom" has-authority="ROLE_INVESTIGATOR">
-        <button type="button" ng-click="buildRoute();" class="btn-submit-action-green" href="" >
-            Build a Route
-        </button>
-        <div>{{routeDuration | date:'HH:mm:ss'}}</div>
-    </div>
-
     <ui-gmap-google-map center="dMap.center"
                         zoom="dMap.zoom"
                         dragging="dMap.dragging"

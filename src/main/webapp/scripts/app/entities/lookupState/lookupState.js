@@ -67,7 +67,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('lookupState', null, { reload: true });
                     }, function() {
                         $state.go('lookupState');
@@ -90,7 +90,7 @@ angular.module('apqdApp')
                                 return LookupState.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('lookupState', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -113,7 +113,7 @@ angular.module('apqdApp')
                                 return LookupState.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('lookupState', null, { reload: true });
                     }, function() {
                         $state.go('^');

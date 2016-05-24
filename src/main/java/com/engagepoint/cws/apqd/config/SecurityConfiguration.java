@@ -56,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @SuppressWarnings("squid:S00112")  // let the JHipster java code to throw the generic Exception
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -75,6 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/h2-console/**");
     }
 
+    @SuppressWarnings("squid:S00112") // let the JHipster java code to throw the generic Exception
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Enforce HTTPS except on dev
