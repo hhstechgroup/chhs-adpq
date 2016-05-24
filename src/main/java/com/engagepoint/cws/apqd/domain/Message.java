@@ -45,7 +45,7 @@ public class Message implements Serializable {
     @Column(name = "date_read")
     private ZonedDateTime dateRead;
 
-    @Column(name = "status", length = 2)
+    @Column(name = "status", length = 10)
     @Enumerated(EnumType.STRING)
     private MessageStatus status;
 

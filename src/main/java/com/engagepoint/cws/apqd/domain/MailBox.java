@@ -1,13 +1,12 @@
 package com.engagepoint.cws.apqd.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -30,6 +29,7 @@ public class MailBox implements Serializable {
     private Outbox outbox;
 
     @OneToOne
+    @JsonIgnore
     private User user;
 
     public Long getId() {

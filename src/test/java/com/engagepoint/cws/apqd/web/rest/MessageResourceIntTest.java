@@ -239,7 +239,7 @@ public class MessageResourceIntTest {
                 .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER)))
                 .andExpect(jsonPath("$.[*].dateCreated").value(hasItem(DEFAULT_DATE_CREATED_STR)))
                 .andExpect(jsonPath("$.[*].dateRead").value(hasItem(DEFAULT_DATE_READ_STR)))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.name())));
     }
 
     @Test
@@ -258,7 +258,7 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER))
             .andExpect(jsonPath("$.dateCreated").value(DEFAULT_DATE_CREATED_STR))
             .andExpect(jsonPath("$.dateRead").value(DEFAULT_DATE_READ_STR))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.name()));
     }
 
     @Test
@@ -299,7 +299,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(UPDATED_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(UPDATED_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(UPDATED_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS.name());
     }
 
     @Test
