@@ -29,6 +29,9 @@ public class MailBox implements Serializable {
     @OneToOne
     private Outbox outbox;
 
+    @OneToOne
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -51,6 +54,14 @@ public class MailBox implements Serializable {
 
     public void setOutbox(Outbox outbox) {
         this.outbox = outbox;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

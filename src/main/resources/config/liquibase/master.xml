@@ -15,5 +15,8 @@
     <include file="classpath:config/liquibase/changelog/20160521013733_added_entity_Outbox.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013731_added_entity_MailBox.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013734_added_entity_Message.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/99999999999991_alter_entity_MailBox.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/99999999999992_populate_entity_MailBox.xml" relativeToChangelogFile="false"/>
+    
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 </databaseChangeLog>
