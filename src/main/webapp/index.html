@@ -11,14 +11,15 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
-        <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' />
-        <link rel='stylesheet' href='bower_components/angular-object-diff/dist/angular-object-diff.css' />
-        <link rel='stylesheet' href='bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css' />
-        <link rel='stylesheet' href='bower_components/ui-select/dist/select.css' />
-        <link rel='stylesheet' href='bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css' />
-        <link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+        <link rel="stylesheet" href="bower_components/angular-object-diff/dist/angular-object-diff.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+        <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
+        <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -27,6 +28,7 @@
         <!-- endbuild -->
         <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
         <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
+        <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />-->
 
     </head>
     <body ng-app="apqdApp">
@@ -198,6 +200,8 @@
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+        <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+        <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -307,6 +311,7 @@
     <script src="scripts/components/cws-search/elastic.search.string.query.builder.js"></script>
     <script src="scripts/components/cws-search/cws.search.service.js"></script>
     <script src="scripts/components/google/maps.directive.js"></script>
+    <script src="scripts/components/maps/openstreetmap.directive.js"></script>
     <script src="scripts/components/calendar-dashboard/calendar-dashboard.directive.js"></script>
     <script src="scripts/app/search/search.js"></script>
     <script src="scripts/app/search/search.controller.js"></script>
@@ -412,6 +417,8 @@
     <script src="scripts/app/facilities/facilities.js"></script>
     <script src="scripts/app/facilities/facilities.controller.js"></script>
     <!-- endbuild -->
+
+    <!--<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->
 
     <!-- google places api -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyDyU4z4A9_miwhAGsT5oeKRXdBRvOV5vEM&amp;signed_in=true&amp;libraries=places"></script>

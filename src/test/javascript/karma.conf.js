@@ -59,6 +59,8 @@ module.exports = function (config) {
             'main/webapp/bower_components/moment/moment.js',
             'main/webapp/bower_components/fullcalendar/dist/fullcalendar.js',
             'main/webapp/bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js',
+            'main/webapp/bower_components/leaflet/dist/leaflet-src.js',
+            'main/webapp/bower_components/ui-leaflet/dist/ui-leaflet.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',
