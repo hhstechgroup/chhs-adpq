@@ -42,7 +42,7 @@ angular.module('apqdApp')
 
                         _.each(newMarkers, function (markerDescription) {
                             bounds.extend(new google.maps.LatLng(markerDescription.latitude, markerDescription.longitude));
-                            //console.log('marker: latitude=' + markerDescription.latitude + ', longitude=' + markerDescription.longitude);
+                            //$log.debug('marker: latitude=', markerDescription.latitude, ', longitude=', markerDescription.longitude);
                         });
 
                         if (!_.isNil($scope.dMap.control) && newMarkers.length > 1) {
@@ -54,7 +54,7 @@ angular.module('apqdApp')
                         }
                         updateCenter(bounds);
                     }, function(reason) {
-                        console.log('Google Map is not ready. \n' + reason);
+                        $log.warn('Google Map is not ready. \n', reason);
                     });
                 }
 

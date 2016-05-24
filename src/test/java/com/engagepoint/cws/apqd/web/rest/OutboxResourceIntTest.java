@@ -1,7 +1,9 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
+import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.Outbox;
+import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.search.OutboxSearchRepository;
 
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,12 +45,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class OutboxResourceIntTest {
 
-
     @Inject
     private OutboxRepository outboxRepository;
 
     @Inject
     private OutboxSearchRepository outboxSearchRepository;
+
+    @Inject
+    private MessageRepository messageRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -77,6 +82,25 @@ public class OutboxResourceIntTest {
 
     @Test
     @Transactional
+    public void getEntityFields() throws Exception {
+        Message message = new Message();
+        message.setSubject("message subject");
+        message.setBody("message body");
+        messageRepository.saveAndFlush(message);
+
+        outbox.setMessages(new HashSet<>());
+        outbox.getMessages().add(message);
+        outboxRepository.saveAndFlush(outbox);
+
+        Outbox testOutbox = outboxRepository.findOne(outbox.getId());
+        assertThat(testOutbox).isNotNull();
+        assertThat(testOutbox.getMessages()).isNotNull();
+        assertThat(testOutbox.getMessages().size()).isGreaterThan(0);
+        assertThat(testOutbox.getMessages().iterator().next()).isEqualTo(outbox.getMessages().iterator().next());
+    }
+
+    @Test
+    @Transactional
     public void createOutbox() throws Exception {
         int databaseSizeBeforeCreate = outboxRepository.findAll().size();
 
@@ -90,7 +114,6 @@ public class OutboxResourceIntTest {
         // Validate the Outbox in the database
         List<Outbox> outboxs = outboxRepository.findAll();
         assertThat(outboxs).hasSize(databaseSizeBeforeCreate + 1);
-        Outbox testOutbox = outboxs.get(outboxs.size() - 1);
     }
 
     @Test
@@ -145,7 +168,6 @@ public class OutboxResourceIntTest {
         // Validate the Outbox in the database
         List<Outbox> outboxs = outboxRepository.findAll();
         assertThat(outboxs).hasSize(databaseSizeBeforeUpdate);
-        Outbox testOutbox = outboxs.get(outboxs.size() - 1);
     }
 
     @Test
