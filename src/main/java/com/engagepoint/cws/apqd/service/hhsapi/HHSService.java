@@ -36,7 +36,7 @@ public class HHSService {
         return httpRequest.execute().parseAsString();
     }
 
-    public String findFosterFamilyAgencies(String queryString) throws Exception {
+    public String findFosterFamilyAgencies(String queryString) throws URISyntaxException, IOException {
         StringBuilder url = new StringBuilder(hhsapiProperties.getHhsApiUrl());
         if(StringUtils.isNotBlank(queryString)) {
             url.append("?").append(queryString);
