@@ -2,9 +2,13 @@
 
 angular.module('apqdApp')
     .controller('LocationsController', ['$scope', '$log', '$q', 'FosterFamilyAgenciesService', function ($scope, $log, $q, FosterFamilyAgenciesService) {
+        $scope.CENTER_ID = 'current';
+        $scope.currentLocation;
+
         if (navigator.geolocation) {
             $log.debug('Geolocation is supported!');
             getCurrentLocation().then(function(marker) {
+                $scope.currentLocation = marker;
                 $scope.markers.push(marker);
             }, $log.error);
         } else {
@@ -12,16 +16,18 @@ angular.module('apqdApp')
         }
 
         //todo: mock data
-        $scope.markers = [
-            {id:1, latitude: 39.04, longitude: -76.92, options: {visible: true}},
-            {id:2, latitude: 39.05, longitude: -76.93, options: {visible: true}},
-            {id:3, latitude: 39.06, longitude: -76.94, options: {visible: true}}
-        ];
+        function createMarkers() {
+            return [
+                {id:1, latitude: 39.04, longitude: -76.92, options: {visible: true}},
+                {id:2, latitude: 39.05, longitude: -76.93, options: {visible: true}},
+                {id:3, latitude: 39.06, longitude: -76.94, options: {visible: true}}
+            ];
+        }
 
         function getCurrentLocation() {
             var q = $q.defer();
             var geoSuccess = function(position) {
-                var marker = createMarker(position.coords.latitude, position.coords.longitude, 'current');
+                var marker = createMarker(position.coords.latitude, position.coords.longitude, $scope.CENTER_ID);
                 q.resolve(marker);
             };
             navigator.geolocation.getCurrentPosition(geoSuccess, q.reject);
@@ -44,6 +50,20 @@ angular.module('apqdApp')
 
         $scope.updateLocations = function(bounds) {
             $log.debug(bounds);
+            $scope.markers.length = 0;
+            Array.prototype.push.apply($scope.markers, createMarkers());
+            $scope.markers.push($scope.currentLocation);
+
+            var request = {
+                "northwest": {
+                    "latitude": 34.185175,
+                    "longitude": -117.77147
+                },
+                "southeast": {
+                    "latitude": 34.075175,
+                    "longitude": -117.57147
+                }
+            }
         };
 
         //TODO: sample call
