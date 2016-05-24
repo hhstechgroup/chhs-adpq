@@ -3,6 +3,7 @@ package com.engagepoint.cws.apqd.web.rest;
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.Message;
+import com.engagepoint.cws.apqd.domain.MessageStatus;
 import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
@@ -68,8 +69,8 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE_READ = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
-    private static final String DEFAULT_STATUS = "AA";
-    private static final String UPDATED_STATUS = "BB";
+    private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
+    private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 
     private static String TEST_PASSWORD_HASH = new String(new char[60]).replace("\0", "F");
 
