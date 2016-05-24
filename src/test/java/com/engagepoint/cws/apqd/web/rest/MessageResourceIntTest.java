@@ -299,7 +299,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(UPDATED_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(UPDATED_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(UPDATED_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS.name());
+        assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
