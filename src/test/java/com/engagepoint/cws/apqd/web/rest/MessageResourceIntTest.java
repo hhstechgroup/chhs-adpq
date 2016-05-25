@@ -3,7 +3,6 @@ package com.engagepoint.cws.apqd.web.rest;
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.MessageStatus;
 import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
