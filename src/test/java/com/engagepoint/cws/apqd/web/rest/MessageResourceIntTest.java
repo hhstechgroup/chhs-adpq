@@ -1,10 +1,8 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
-import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.MessageStatus;
-import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -15,6 +13,11 @@ import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareInbox;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMessage;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareOutbox;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareUser;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -72,8 +75,6 @@ public class MessageResourceIntTest {
     private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
     private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 
-    private static String TEST_PASSWORD_HASH = new String(new char[60]).replace("\0", "F");
-
     @Inject
     private MessageRepository messageRepository;
 
@@ -124,34 +125,15 @@ public class MessageResourceIntTest {
     @Test
     @Transactional
     public void getEntityFields() throws Exception {
-        Inbox inbox = new Inbox();
-        inboxRepository.saveAndFlush(inbox);
+        Message replyOn = prepareMessage(messageRepository, "replyOn message subject", "replyOn message body", null, null);
 
-        Outbox outbox = new Outbox();
-        outboxRepository.saveAndFlush(outbox);
+        User from = prepareUser(userRepository, "user1");
+        User to = prepareUser(userRepository, "user2");
 
-        Message replyOn = new Message();
-        replyOn.setSubject("replyOn message subject");
-        replyOn.setBody("replyOn message body");
-        messageRepository.saveAndFlush(replyOn);
-
-        User from = new User();
-        from.setLogin("user1");
-        from.setPassword(TEST_PASSWORD_HASH);
-        userRepository.saveAndFlush(from);
-
-        User to = new User();
-        to.setLogin("user2");
-        to.setPassword(TEST_PASSWORD_HASH);
-        userRepository.saveAndFlush(to);
-
-        message.setSubject("message subject");
-        message.setBody("message body");
-        message.setInbox(inbox);
-        message.setOutbox(outbox);
+        Message message = prepareMessage(messageRepository, "message subject", "message body", from, to);
+        message.setInbox(prepareInbox(inboxRepository));
+        message.setOutbox(prepareOutbox(outboxRepository));
         message.setReplyOn(replyOn);
-        message.setFrom(from);
-        message.setTo(to);
         messageRepository.saveAndFlush(message);
 
         Message testMessage = messageRepository.findOne(message.getId());

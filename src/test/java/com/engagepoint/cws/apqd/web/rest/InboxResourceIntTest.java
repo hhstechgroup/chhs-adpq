@@ -10,6 +10,9 @@ import com.engagepoint.cws.apqd.repository.search.InboxSearchRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.addMessage;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMessage;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -26,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -84,14 +86,8 @@ public class InboxResourceIntTest {
     @Test
     @Transactional
     public void getEntityFields() throws Exception {
-        Message message = new Message();
-        message.setSubject("message subject");
-        message.setBody("message body");
-        messageRepository.saveAndFlush(message);
-
-        inbox.setMessages(new HashSet<>());
-        inbox.getMessages().add(message);
-        inboxRepository.saveAndFlush(inbox);
+        Message message = prepareMessage(messageRepository, "message subject", "message body", null, null);
+        addMessage(inboxRepository, inbox, message);
 
         Inbox testInbox = inboxRepository.findOne(inbox.getId());
         assertThat(testInbox).isNotNull();
