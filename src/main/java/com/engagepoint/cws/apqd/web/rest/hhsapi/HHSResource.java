@@ -20,19 +20,15 @@ public class HHSResource {
     @Autowired
     private HttpServletRequest request;
 
-    @RequestMapping(value = "/hhs/findFosterFamilyAgencies",
-        method = RequestMethod.POST, produces = "application/json")
     @Timed
-    @ResponseBody
-    public String findFosterFamilyAgencies(@RequestBody Box box) throws IOException, URISyntaxException {
-        return hhsService.findFosterFamilyAgencies(box.getNorthwest().getLatitude(), box.getNorthwest().getLongitude(),
-            box.getSoutheast().getLatitude(), box.getSoutheast().getLongitude());
-    }
-
     @RequestMapping(value = "/hhs/fosterFamilyAgencies.json",
         method = RequestMethod.GET, produces = "application/json")
     public String findFosterFamilyAgencies() throws IOException, URISyntaxException {
         String queryString = request.getQueryString();
-        return hhsService.findFosterFamilyAgencies(queryString);
+        return hhsService.findFosterFamilyAgencies(prepareQuery(queryString));
+    }
+
+    private String prepareQuery(String query) {
+        return query.replaceAll("cacheBuster=\\d+&?", "");
     }
 }
