@@ -21,19 +21,19 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="county_name" type="varchar(2)">
+            <column name="county_name" type="varchar(40)">
                 <constraints nullable="false" />
             </column>
             
-            <column name="county_id" type="bigint">
+            <column name="state_id" type="bigint">
                 <constraints unique="true"/>
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
-        <addForeignKeyConstraint baseColumnNames="county_id"
+        <addForeignKeyConstraint baseColumnNames="state_id"
                                  baseTableName="lookup_county"
-                                 constraintName="fk_lookupcounty_county_id"
+                                 constraintName="fk_lookupcounty_state_id"
                                  referencedColumnNames="id"
                                  referencedTableName="lookup_state"/>
 

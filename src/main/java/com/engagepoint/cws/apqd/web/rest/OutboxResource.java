@@ -83,7 +83,14 @@ public class OutboxResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Outbox> getAllOutboxs() {
+    public List<Outbox> getAllOutboxs(@RequestParam(required = false) String filter) {
+        if ("mailbox-is-null".equals(filter)) {
+            log.debug("REST request to get all Outboxs where mailBox is null");
+            return StreamSupport
+                .stream(outboxRepository.findAll().spliterator(), false)
+                .filter(outbox -> outbox.getMailBox() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all Outboxs");
         return outboxRepository.findAll();
             }

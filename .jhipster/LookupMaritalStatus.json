@@ -1,0 +1,17 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "maritalStatusName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "changelogDate": "20160525025501",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

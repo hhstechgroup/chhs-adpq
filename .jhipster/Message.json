@@ -2,22 +2,24 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipName": "inbox",
-      "otherEntityName": "inbox",
-      "relationshipType": "many-to-one",
-      "otherEntityField": "id"
+      "relationshipName": "attachment",
+      "otherEntityName": "attachment",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "message"
     },
     {
       "relationshipId": 2,
-      "relationshipName": "outbox",
-      "otherEntityName": "outbox",
-      "relationshipType": "many-to-one",
-      "otherEntityField": "id"
+      "relationshipName": "replyOn",
+      "otherEntityName": "message",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "message"
     },
     {
       "relationshipId": 3,
-      "relationshipName": "replyOn",
-      "otherEntityName": "message",
+      "relationshipName": "to",
+      "otherEntityName": "user",
       "relationshipType": "one-to-one",
       "otherEntityField": "id",
       "ownerSide": true,
@@ -34,12 +36,17 @@
     },
     {
       "relationshipId": 5,
-      "relationshipName": "to",
-      "otherEntityName": "user",
-      "relationshipType": "one-to-one",
-      "otherEntityField": "id",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "message"
+      "relationshipName": "inbox",
+      "otherEntityName": "inbox",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 6,
+      "relationshipName": "outbox",
+      "otherEntityName": "outbox",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
     }
   ],
   "fields": [
@@ -48,8 +55,8 @@
       "fieldName": "body",
       "fieldType": "String",
       "fieldValidateRules": [
-        "maxlength",
-        "required"
+        "required",
+        "maxlength"
       ],
       "fieldValidateRulesMaxlength": 2000
     },
@@ -58,8 +65,8 @@
       "fieldName": "subject",
       "fieldType": "String",
       "fieldValidateRules": [
-        "maxlength",
-        "required"
+        "required",
+        "maxlength"
       ],
       "fieldValidateRulesMaxlength": 100
     },
@@ -85,15 +92,12 @@
     {
       "fieldId": 6,
       "fieldName": "status",
-      "fieldType": "String",
-      "fieldValidateRules": [
-        "maxlength"
-      ],
-      "fieldValidateRulesMaxlength": 2
+      "fieldType": "MessageStatus",
+      "fieldValues": "NEW,READ"
     }
   ],
   "changelogDate": "20160521013734",
   "dto": "no",
-  "pagination": "infinite-scroll",
+  "pagination": "no",
   "service": "no"
 }

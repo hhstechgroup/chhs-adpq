@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('apqdApp').controller('OutboxDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Outbox', 'Message',
-        function($scope, $stateParams, $uibModalInstance, entity, Outbox, Message) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Outbox', 'Message', 'MailBox',
+        function($scope, $stateParams, $uibModalInstance, entity, Outbox, Message, MailBox) {
 
         $scope.outbox = entity;
         $scope.messages = Message.query();
+        $scope.mailboxs = MailBox.query();
         $scope.load = function(id) {
             Outbox.get({id : id}, function(result) {
                 $scope.outbox = result;

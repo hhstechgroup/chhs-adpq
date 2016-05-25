@@ -1,0 +1,22 @@
+{
+    "apqdApp": {
+        "lookupMaritalStatus" : {
+            "home": {
+                "title": "LookupMaritalStatuss",
+                "createLabel": "Create a new LookupMaritalStatus",
+                "createOrEditLabel": "Create or edit a LookupMaritalStatus",
+                "search": "Search for LookupMaritalStatus"
+            },
+            "created": "A new LookupMaritalStatus is created with identifier {{ param }}",
+            "updated": "A LookupMaritalStatus is updated with identifier {{ param }}",
+            "deleted": "A LookupMaritalStatus is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete LookupMaritalStatus {{ id }}?"
+            },
+            "detail": {
+                "title": "LookupMaritalStatus"
+            },
+            "maritalStatusName": "MaritalStatusName"
+        }
+    }
+}

@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.MailBoxSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +30,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class MailBoxResource {
 
     private final Logger log = LoggerFactory.getLogger(MailBoxResource.class);
-        
+
     @Inject
     private MailBoxRepository mailBoxRepository;
-    
+
     @Inject
     private MailBoxSearchRepository mailBoxSearchRepository;
-    
+
     /**
      * POST  /mailBoxs -> Create a new mailBox.
      */

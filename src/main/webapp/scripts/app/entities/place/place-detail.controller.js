@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('PlaceDetailController', function ($scope, $rootScope, $stateParams, entity, Place, LookupState, LookupCounty) {
+    .controller('PlaceDetailController', function ($scope, $rootScope, $stateParams, entity, Place, LookupCounty, LookupState) {
         $scope.place = entity;
         $scope.load = function (id) {
             Place.get({id: id}, function(result) {

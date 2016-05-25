@@ -2,15 +2,15 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipName": "state",
-      "otherEntityName": "lookupState",
+      "relationshipName": "county",
+      "otherEntityName": "lookupCounty",
       "relationshipType": "many-to-one",
       "otherEntityField": "id"
     },
     {
       "relationshipId": 2,
-      "relationshipName": "county",
-      "otherEntityName": "lookupCounty",
+      "relationshipName": "state",
+      "otherEntityName": "lookupState",
       "relationshipType": "many-to-one",
       "otherEntityField": "id"
     }
@@ -30,8 +30,7 @@
       "fieldName": "cityName",
       "fieldType": "String",
       "fieldValidateRules": [
-        "maxlength",
-        "required"
+        "maxlength"
       ],
       "fieldValidateRulesMaxlength": 20
     },
@@ -40,8 +39,8 @@
       "fieldName": "streetName",
       "fieldType": "String",
       "fieldValidateRules": [
-        "maxlength",
-        "required"
+        "required",
+        "maxlength"
       ],
       "fieldValidateRulesMaxlength": 100
     },

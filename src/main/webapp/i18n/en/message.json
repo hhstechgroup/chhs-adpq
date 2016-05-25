@@ -22,11 +22,12 @@
             "dateCreated": "DateCreated",
             "dateRead": "DateRead",
             "status": "Status",
-            "inbox": "Inbox",
-            "outbox": "Outbox",
+            "attachment": "Attachment",
             "replyOn": "ReplyOn",
+            "to": "To",
             "from": "From",
-            "to": "To"
+            "inbox": "Inbox",
+            "outbox": "Outbox"
         }
     }
 }

@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('apqdApp').controller('PlaceDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Place', 'LookupState', 'LookupCounty',
-        function($scope, $stateParams, $uibModalInstance, entity, Place, LookupState, LookupCounty) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Place', 'LookupCounty', 'LookupState',
+        function($scope, $stateParams, $uibModalInstance, entity, Place, LookupCounty, LookupState) {
 
         $scope.place = entity;
-        $scope.lookupstates = LookupState.query();
         $scope.lookupcountys = LookupCounty.query();
+        $scope.lookupstates = LookupState.query();
         $scope.load = function(id) {
             Place.get({id : id}, function(result) {
                 $scope.place = result;

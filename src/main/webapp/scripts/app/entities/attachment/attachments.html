@@ -1,0 +1,82 @@
+<div>
+    <h2 translate="apqdApp.attachment.home.title">Attachments</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="attachment.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+class="hidden-xs"                        translate="apqdApp.attachment.home.createLabel">Create new Attachment
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'apqdApp.attachment.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="search()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="apqdApp.attachment.fileName">FileName</span></th>
+                    <th><span translate="apqdApp.attachment.fileMimeType">FileMimeType</span></th>
+                    <th><span translate="apqdApp.attachment.fileSize">FileSize</span></th>
+                    <th><span translate="apqdApp.attachment.fileDescription">FileDescription</span></th>
+                    <th><span translate="apqdApp.attachment.creationDate">CreationDate</span></th>
+                    <th><span translate="apqdApp.attachment.file">File</span></th>
+                    <th><span translate="apqdApp.attachment.message">message</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="attachment in attachments track by attachment.id">
+                    <td><a ui-sref="attachment.detail({id:attachment.id})">{{attachment.id}}</a></td>
+                    <td>{{attachment.fileName}}</td>
+                    <td>{{attachment.fileMimeType}}</td>
+                    <td>{{attachment.fileSize}}</td>
+                    <td>{{attachment.fileDescription}}</td>
+                    <td>{{attachment.creationDate | date:'medium'}}</td>
+                    <td>{{abbreviate(attachment.file)}} {{attachment.fileContentType}} {{byteSize(attachment.file)}}</td>
+                    <td>
+                        <a ui-sref="message.detail({id:attachment.message.id})">{{attachment.message.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="attachment.detail({id:attachment.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="attachment.edit({id:attachment.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="attachment.delete({id:attachment.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
