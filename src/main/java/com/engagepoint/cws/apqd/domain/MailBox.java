@@ -1,6 +1,5 @@
 package com.engagepoint.cws.apqd.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -34,6 +33,7 @@ public class MailBox implements Serializable {
     private Deleted deleted;
 
     @OneToOne
+    @JsonIgnore
     private User user;
 
     public Long getId() {

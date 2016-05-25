@@ -36,8 +36,8 @@ public class JSR310LocalDateDeserializer extends JsonDeserializer<LocalDate> {
         JsonToken currentToken = parser.getCurrentToken();
         if (JsonToken.START_ARRAY == currentToken) {
             int[] dateArray = new int[3];
-            fillIntArray(parser, context, dateArray);
-            return LocalDate.of(dateArray[0], dateArray[1], dateArray[2]);
+            boolean isFilled = fillIntArray(parser, context, dateArray);
+            return isFilled ? LocalDate.of(dateArray[0], dateArray[1], dateArray[2]) : null;
 
         } else if (JsonToken.VALUE_STRING == currentToken) {
             String string = parser.getText().trim();
@@ -48,15 +48,15 @@ public class JSR310LocalDateDeserializer extends JsonDeserializer<LocalDate> {
         }
     }
 
-    private void fillIntArray(JsonParser parser, DeserializationContext context, int[] targetArray) throws IOException {
+    private boolean fillIntArray(JsonParser parser, DeserializationContext context, int[] targetArray) throws IOException {
         if (parser.nextToken() == JsonToken.END_ARRAY || targetArray.length == 0) {
-            return;
+            return false;
         } else {
             targetArray[0] = parser.getIntValue();
         }
 
         for (int i = 1; i < targetArray.length; i++) {
-            if (parser.nextToken() == JsonToken.END_ARRAY) {
+            if (parser.nextToken() != JsonToken.VALUE_NUMBER_INT) {
                 throw context.wrongTokenException(parser, JsonToken.VALUE_NUMBER_INT, "Expected int value.");
             } else {
                 targetArray[i] = parser.getIntValue();
@@ -66,5 +66,7 @@ public class JSR310LocalDateDeserializer extends JsonDeserializer<LocalDate> {
         if (parser.nextToken() != JsonToken.END_ARRAY) {
             throw context.wrongTokenException(parser, JsonToken.END_ARRAY, "Expected array to end.");
         }
+
+        return true;
     }
 }

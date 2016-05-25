@@ -73,6 +73,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private ZonedDateTime resetDate = null;
 
     @OneToOne(optional = false, mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private MailBox mailBox;
 
     @Column(name = "ssn_last_4_digits", nullable = true, length = 4)
