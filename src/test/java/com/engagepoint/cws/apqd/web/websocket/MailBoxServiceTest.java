@@ -10,6 +10,7 @@ import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -65,7 +67,10 @@ public class MailBoxServiceTest {
 
         ReflectionTestUtils.setField(mailBoxService, "userRepository", userRepository);
         ReflectionTestUtils.setField(mailBoxService, "messageRepository", messageRepository);
+    }
 
+    @Before
+    public void initTest () {
         currentUser = prepareUser(null, CURRENT_LOGIN);
         addMailBox(userRepository, currentUser,
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
@@ -73,7 +78,7 @@ public class MailBoxServiceTest {
     }
 
     @Test
-    @Ignore // todo ignored until Sankin fix the model
+    @Transactional
     public void testSendMessage() throws Exception {
         User to = prepareUser(userRepository, TO_LOGIN);
         addMailBox(userRepository, to,
