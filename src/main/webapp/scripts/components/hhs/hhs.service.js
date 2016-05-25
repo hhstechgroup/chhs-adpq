@@ -4,16 +4,15 @@
  *
  */
 angular.module('apqdApp')
-    .factory('HHSService', function ($resource) {
-        return $resource('api/hhs/findFosterFamilyAgencies', {}, {
-            'findFosterFamilyAgencies': {
-                method: 'POST',
-                transformRequest: function (data) {
-                    return angular.toJson(data);
-                },
-                transformResponse: function (data) {
-                    return angular.fromJson(data);
-                }
+    .factory('HHSService', function ($http, $q) {
+        return {
+            findFosterFamilyAgencies: function (query) {
+                var deferral = $q.defer();
+                query = query ? "?" + query : "";
+                $http.get('api/hhs/fosterFamilyAgencies.json' + query).success(function (response) {
+                    deferral.resolve(angular.fromJson(response));
+                });
+                return deferral.promise;
             }
-        });
+        }
     });

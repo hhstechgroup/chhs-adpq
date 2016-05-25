@@ -3,7 +3,7 @@
 # PostgreSQL
 ################################################################################
 if [ -d ${SPRING_DATASOURCE_URL} ]; then
-  SPRING_DATASOURCE_URL="jdbc:postgresql://${POSTGRESQL_PORT_5432_TCP_ADDR}:${POSTGRESQL_PORT_5432_TCP_PORT}/intake"
+  SPRING_DATASOURCE_URL="jdbc:postgresql://${POSTGRESQL_PORT_5432_TCP_ADDR}:${POSTGRESQL_PORT_5432_TCP_PORT}/chhs-apqd"
   echo "SPRING_DATASOURCE_URL autoconfigured by docker link: ${SPRING_DATASOURCE_URL}"
 else
   echo "SPRING_DATASOURCE_URL init by configuration: ${SPRING_DATASOURCE_URL}"
