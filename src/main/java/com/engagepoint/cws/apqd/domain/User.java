@@ -79,6 +79,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "ssn_last_4_digits", nullable = true, length = 4)
     private String ssnLast4Digits;
 
+    @Column(name = "case_number", nullable = true, length = 20)
+    private String caseNumber;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -213,6 +216,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.ssnLast4Digits = ssnLast4Digits;
     }
 
+    public String getCaseNumber() {
+        return caseNumber;
+    }
+
+    public void setCaseNumber(String caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -247,6 +258,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
             ", ssnLast4Digits='" + ssnLast4Digits + '\'' +
+            ", caseNumber='" + caseNumber + '\'' +
             "}";
     }
+
 }
