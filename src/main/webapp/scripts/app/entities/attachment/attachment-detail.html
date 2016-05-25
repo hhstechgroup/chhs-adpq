@@ -59,6 +59,14 @@
                     <div>{{attachment.fileContentType}}  {{byteSize(attachment.file)}}</div>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.attachment.message">message</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="message.detail({id:attachment.message.id})">{{attachment.message.id}}</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

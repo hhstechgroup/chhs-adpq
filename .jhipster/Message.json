@@ -2,6 +2,13 @@
   "relationships": [
     {
       "relationshipId": 1,
+      "relationshipName": "attachment",
+      "otherEntityName": "attachment",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "message"
+    },
+    {
+      "relationshipId": 2,
       "relationshipName": "replyOn",
       "otherEntityName": "message",
       "relationshipType": "one-to-one",
@@ -10,7 +17,7 @@
       "otherEntityRelationshipName": "message"
     },
     {
-      "relationshipId": 2,
+      "relationshipId": 3,
       "relationshipName": "to",
       "otherEntityName": "user",
       "relationshipType": "one-to-one",
@@ -19,7 +26,7 @@
       "otherEntityRelationshipName": "message"
     },
     {
-      "relationshipId": 3,
+      "relationshipId": 4,
       "relationshipName": "from",
       "otherEntityName": "user",
       "relationshipType": "one-to-one",
@@ -28,14 +35,14 @@
       "otherEntityRelationshipName": "message"
     },
     {
-      "relationshipId": 4,
+      "relationshipId": 5,
       "relationshipName": "inbox",
       "otherEntityName": "inbox",
       "relationshipType": "many-to-one",
       "otherEntityField": "id"
     },
     {
-      "relationshipId": 5,
+      "relationshipId": 6,
       "relationshipName": "outbox",
       "otherEntityName": "outbox",
       "relationshipType": "many-to-one",

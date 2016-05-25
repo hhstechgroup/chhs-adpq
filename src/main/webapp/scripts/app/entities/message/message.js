@@ -41,6 +41,7 @@ angular.module('apqdApp')
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('message');
+                        $translatePartialLoader.addPart('messageStatus');
                         return $translate.refresh();
                     }],
                     entity: ['$stateParams', 'Message', function($stateParams, Message) {

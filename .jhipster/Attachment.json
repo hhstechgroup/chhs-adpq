@@ -1,5 +1,13 @@
 {
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "message",
+      "otherEntityName": "message",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    }
+  ],
   "fields": [
     {
       "fieldId": 1,

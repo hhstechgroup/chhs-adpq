@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('apqdApp').controller('MessageDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'User', 'Inbox', 'Outbox',
-        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, User, Inbox, Outbox) {
+    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'Attachment', 'User', 'Inbox', 'Outbox',
+        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, Attachment, User, Inbox, Outbox) {
 
         $scope.message = entity;
+        $scope.attachments = Attachment.query();
         $scope.replyons = Message.query({filter: 'message-is-null'});
         $q.all([$scope.message.$promise, $scope.replyons.$promise]).then(function() {
             if (!$scope.message.replyOn || !$scope.message.replyOn.id) {

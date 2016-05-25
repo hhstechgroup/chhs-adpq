@@ -24,19 +24,19 @@
             <column name="body" type="varchar(2000)">
                 <constraints nullable="false" />
             </column>
-
+            
             <column name="subject" type="varchar(100)">
                 <constraints nullable="false" />
             </column>
-
+            
             <column name="case_number" type="varchar(20)"/>
-
+            
             <column name="date_created" type="timestamp"/>
-
+            
             <column name="date_read" type="timestamp"/>
-
+            
             <column name="status" type="varchar(255)"/>
-
+            
             <column name="reply_on_id" type="bigint">
                 <constraints unique="true"/>
             </column>
@@ -54,7 +54,7 @@
 
         <dropDefaultValue tableName="message" columnName="date_read" columnDataType="datetime"/>
 
-
+        
         <addForeignKeyConstraint baseColumnNames="reply_on_id"
                                  baseTableName="message"
                                  constraintName="fk_message_replyon_id"

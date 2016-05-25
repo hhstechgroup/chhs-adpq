@@ -7,6 +7,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -42,6 +44,10 @@ public class Attachment implements Serializable {
     private byte[] file;
     
     @Column(name = "file_content_type")        private String fileContentType;
+    @ManyToOne
+    @JoinColumn(name = "message_id")
+    private Message message;
+
     public Long getId() {
         return id;
     }
@@ -104,6 +110,14 @@ public class Attachment implements Serializable {
 
     public void setFileContentType(String fileContentType) {
         this.fileContentType = fileContentType;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
     }
 
     @Override

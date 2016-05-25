@@ -21,7 +21,8 @@
             "fileSize": "FileSize",
             "fileDescription": "FileDescription",
             "creationDate": "CreationDate",
-            "file": "File"
+            "file": "File",
+            "message": "Message"
         }
     }
 }

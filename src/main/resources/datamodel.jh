@@ -64,6 +64,10 @@ entity Attachment {
     file AnyBlob
 }
 
+relationship OneToMany {
+  Message{attachment} to Attachment{message}
+}
+
 relationship OneToOne {
   User{mailBox} to MailBox{user}
 }

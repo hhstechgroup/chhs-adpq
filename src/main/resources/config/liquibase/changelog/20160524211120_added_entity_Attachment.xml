@@ -36,10 +36,17 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="message_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="attachment" columnName="creation_date" columnDataType="datetime"/>
 
         
+        <addForeignKeyConstraint baseColumnNames="message_id"
+                                 baseTableName="attachment"
+                                 constraintName="fk_attachment_message_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="message"/>
+
     </changeSet>
 </databaseChangeLog>

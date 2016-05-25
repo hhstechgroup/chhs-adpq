@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('AttachmentDetailController', function ($scope, $rootScope, $stateParams, DataUtils, entity, Attachment) {
+    .controller('AttachmentDetailController', function ($scope, $rootScope, $stateParams, DataUtils, entity, Attachment, Message) {
         $scope.attachment = entity;
         $scope.load = function (id) {
             Attachment.get({id: id}, function(result) {

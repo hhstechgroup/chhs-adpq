@@ -1,5 +1,6 @@
 package com.engagepoint.cws.apqd.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.time.ZonedDateTime;
@@ -31,25 +32,30 @@ public class Message implements Serializable {
     @Size(max = 2000)
     @Column(name = "body", length = 2000, nullable = false)
     private String body;
-
+    
     @NotNull
     @Size(max = 100)
     @Column(name = "subject", length = 100, nullable = false)
     private String subject;
-
+    
     @Size(max = 20)
     @Column(name = "case_number", length = 20)
     private String caseNumber;
-
+    
     @Column(name = "date_created")
     private ZonedDateTime dateCreated;
-
+    
     @Column(name = "date_read")
     private ZonedDateTime dateRead;
-
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private MessageStatus status;
+    
+    @OneToMany(mappedBy = "message")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Attachment> attachments = new HashSet<>();
 
     @OneToOne
     private Message replyOn;
@@ -79,7 +85,7 @@ public class Message implements Serializable {
     public String getBody() {
         return body;
     }
-
+    
     public void setBody(String body) {
         this.body = body;
     }
@@ -87,7 +93,7 @@ public class Message implements Serializable {
     public String getSubject() {
         return subject;
     }
-
+    
     public void setSubject(String subject) {
         this.subject = subject;
     }
@@ -95,7 +101,7 @@ public class Message implements Serializable {
     public String getCaseNumber() {
         return caseNumber;
     }
-
+    
     public void setCaseNumber(String caseNumber) {
         this.caseNumber = caseNumber;
     }
@@ -103,7 +109,7 @@ public class Message implements Serializable {
     public ZonedDateTime getDateCreated() {
         return dateCreated;
     }
-
+    
     public void setDateCreated(ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
@@ -111,7 +117,7 @@ public class Message implements Serializable {
     public ZonedDateTime getDateRead() {
         return dateRead;
     }
-
+    
     public void setDateRead(ZonedDateTime dateRead) {
         this.dateRead = dateRead;
     }
@@ -119,9 +125,17 @@ public class Message implements Serializable {
     public MessageStatus getStatus() {
         return status;
     }
-
+    
     public void setStatus(MessageStatus status) {
         this.status = status;
+    }
+
+    public Set<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(Set<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     public Message getReplyOn() {
