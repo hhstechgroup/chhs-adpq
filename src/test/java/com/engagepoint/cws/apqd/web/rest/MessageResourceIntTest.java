@@ -1,8 +1,8 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
+import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.MessageStatus;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -72,8 +72,6 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE_READ = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
-    private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
-    private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 
     @Inject
     private MessageRepository messageRepository;
@@ -119,7 +117,7 @@ public class MessageResourceIntTest {
         message.setCaseNumber(DEFAULT_CASE_NUMBER);
         message.setDateCreated(DEFAULT_DATE_CREATED);
         message.setDateRead(DEFAULT_DATE_READ);
-        message.setStatus(DEFAULT_STATUS);
+        message.setStatus(MessageStatus.NEW);
     }
 
     @Test
@@ -166,7 +164,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(DEFAULT_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(DEFAULT_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(DEFAULT_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.NEW);
     }
 
     @Test
@@ -221,7 +219,7 @@ public class MessageResourceIntTest {
                 .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER)))
                 .andExpect(jsonPath("$.[*].dateCreated").value(hasItem(DEFAULT_DATE_CREATED_STR)))
                 .andExpect(jsonPath("$.[*].dateRead").value(hasItem(DEFAULT_DATE_READ_STR)))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.name())));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(MessageStatus.NEW.name())));
     }
 
     @Test
@@ -240,7 +238,7 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER))
             .andExpect(jsonPath("$.dateCreated").value(DEFAULT_DATE_CREATED_STR))
             .andExpect(jsonPath("$.dateRead").value(DEFAULT_DATE_READ_STR))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.name()));
+            .andExpect(jsonPath("$.status").value(MessageStatus.NEW.name()));
     }
 
     @Test
@@ -265,7 +263,7 @@ public class MessageResourceIntTest {
         message.setCaseNumber(UPDATED_CASE_NUMBER);
         message.setDateCreated(UPDATED_DATE_CREATED);
         message.setDateRead(UPDATED_DATE_READ);
-        message.setStatus(UPDATED_STATUS);
+        message.setStatus(MessageStatus.READ);
 
         restMessageMockMvc.perform(put("/api/messages")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -281,7 +279,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(UPDATED_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(UPDATED_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(UPDATED_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.READ);
     }
 
     @Test
