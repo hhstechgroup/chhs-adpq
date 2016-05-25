@@ -35,19 +35,19 @@
             
             <column name="date_read" type="timestamp"/>
             
-            <column name="status" type="varchar(2)"/>
+            <column name="status" type="varchar(255)"/>
             
-            <column name="inbox_id" type="bigint"/>
-            <column name="outbox_id" type="bigint"/>
             <column name="reply_on_id" type="bigint">
-                <constraints unique="true"/>
-            </column>
-            <column name="from_id" type="bigint">
                 <constraints unique="true"/>
             </column>
             <column name="to_id" type="bigint">
                 <constraints unique="true"/>
             </column>
+            <column name="from_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+            <column name="inbox_id" type="bigint"/>
+            <column name="outbox_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="message" columnName="date_created" columnDataType="datetime"/>
@@ -55,6 +55,24 @@
         <dropDefaultValue tableName="message" columnName="date_read" columnDataType="datetime"/>
 
         
+        <addForeignKeyConstraint baseColumnNames="reply_on_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_replyon_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="message"/>
+
+        <addForeignKeyConstraint baseColumnNames="to_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_to_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="from_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_from_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
         <addForeignKeyConstraint baseColumnNames="inbox_id"
                                  baseTableName="message"
                                  constraintName="fk_message_inbox_id"
@@ -66,24 +84,6 @@
                                  constraintName="fk_message_outbox_id"
                                  referencedColumnNames="id"
                                  referencedTableName="outbox"/>
-
-        <addForeignKeyConstraint baseColumnNames="reply_on_id"
-                                 baseTableName="message"
-                                 constraintName="fk_message_replyon_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="message"/>
-
-        <addForeignKeyConstraint baseColumnNames="from_id"
-                                 baseTableName="message"
-                                 constraintName="fk_message_from_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
-
-        <addForeignKeyConstraint baseColumnNames="to_id"
-                                 baseTableName="message"
-                                 constraintName="fk_message_to_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

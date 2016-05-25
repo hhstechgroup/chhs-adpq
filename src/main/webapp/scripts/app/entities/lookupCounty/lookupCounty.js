@@ -51,7 +51,7 @@ angular.module('apqdApp')
                 parent: 'lookupCounty',
                 url: '/new',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -66,7 +66,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function() {
+                    }).result.then(function(result) {
                         $state.go('lookupCounty', null, { reload: true });
                     }, function() {
                         $state.go('lookupCounty');
@@ -77,7 +77,7 @@ angular.module('apqdApp')
                 parent: 'lookupCounty',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -89,7 +89,7 @@ angular.module('apqdApp')
                                 return LookupCounty.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function() {
+                    }).result.then(function(result) {
                         $state.go('lookupCounty', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -100,7 +100,7 @@ angular.module('apqdApp')
                 parent: 'lookupCounty',
                 url: '/{id}/delete',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -112,7 +112,7 @@ angular.module('apqdApp')
                                 return LookupCounty.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function() {
+                    }).result.then(function(result) {
                         $state.go('lookupCounty', null, { reload: true });
                     }, function() {
                         $state.go('^');

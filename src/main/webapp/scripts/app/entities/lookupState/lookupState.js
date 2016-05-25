@@ -51,7 +51,7 @@ angular.module('apqdApp')
                 parent: 'lookupState',
                 url: '/new',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -67,7 +67,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function() {
+                    }).result.then(function(result) {
                         $state.go('lookupState', null, { reload: true });
                     }, function() {
                         $state.go('lookupState');
@@ -78,7 +78,7 @@ angular.module('apqdApp')
                 parent: 'lookupState',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -90,7 +90,7 @@ angular.module('apqdApp')
                                 return LookupState.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function() {
+                    }).result.then(function(result) {
                         $state.go('lookupState', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -101,7 +101,7 @@ angular.module('apqdApp')
                 parent: 'lookupState',
                 url: '/{id}/delete',
                 data: {
-                    authorities: ['ROLE_USER']
+                    authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -113,7 +113,7 @@ angular.module('apqdApp')
                                 return LookupState.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function() {
+                    }).result.then(function(result) {
                         $state.go('lookupState', null, { reload: true });
                     }, function() {
                         $state.go('^');

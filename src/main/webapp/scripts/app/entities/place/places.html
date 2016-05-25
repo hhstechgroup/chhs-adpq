@@ -6,7 +6,7 @@
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="place.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span
+                    <span 
 class="hidden-xs"                        translate="apqdApp.place.home.createLabel">Create new Place
                     </span>
                 </button>
@@ -42,8 +42,8 @@ class="hidden-xs"                        translate="apqdApp.place.home.createLab
                     <th><span translate="apqdApp.place.validAddressFlag">ValidAddressFlag</span></th>
                     <th><span translate="apqdApp.place.validationStatus">ValidationStatus</span></th>
                     <th><span translate="apqdApp.place.validationMessage">ValidationMessage</span></th>
-                    <th><span translate="apqdApp.place.state">state</span></th>
                     <th><span translate="apqdApp.place.county">county</span></th>
+                    <th><span translate="apqdApp.place.state">state</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -62,16 +62,16 @@ class="hidden-xs"                        translate="apqdApp.place.home.createLab
                     <td>{{place.validationStatus}}</td>
                     <td>{{place.validationMessage}}</td>
                     <td>
-                        <a ui-sref="lookupState.detail({id:place.state.id})">{{place.state.id}}</a>
+                        <a ui-sref="lookupCounty.detail({id:place.county.id})">{{place.county.id}}</a>
                     </td>
                     <td>
-                        <a ui-sref="lookupCounty.detail({id:place.county.id})">{{place.county.id}}</a>
+                        <a ui-sref="lookupState.detail({id:place.state.id})">{{place.state.id}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="place.detail({id:place.id})"
-                                    class="btn btn-info btn-sm">
+                                    class="btn btn-info btn-sm"> 
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -83,7 +83,7 @@ class="hidden-xs"                        translate="apqdApp.place.home.createLab
                             </button>
                             <button type="submit"
                                     ui-sref="place.delete({id:place.id})"
-                                    class="btn btn-danger btn-sm">
+                                    class="btn btn-danger btn-sm">                                    
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

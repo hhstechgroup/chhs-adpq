@@ -28,9 +28,8 @@ public class Place implements Serializable {
     @Column(name = "unit_number", length = 10)
     private String unitNumber;
     
-    @NotNull
     @Size(max = 20)
-    @Column(name = "city_name", length = 20, nullable = false)
+    @Column(name = "city_name", length = 20)
     private String cityName;
     
     @NotNull
@@ -66,12 +65,12 @@ public class Place implements Serializable {
     private String validationMessage;
     
     @ManyToOne
-    @JoinColumn(name = "state_id")
-    private LookupState state;
-
-    @ManyToOne
     @JoinColumn(name = "county_id")
     private LookupCounty county;
+
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private LookupState state;
 
     public Long getId() {
         return id;
@@ -169,20 +168,20 @@ public class Place implements Serializable {
         this.validationMessage = validationMessage;
     }
 
-    public LookupState getState() {
-        return state;
-    }
-
-    public void setState(LookupState lookupState) {
-        this.state = lookupState;
-    }
-
     public LookupCounty getCounty() {
         return county;
     }
 
     public void setCounty(LookupCounty lookupCounty) {
         this.county = lookupCounty;
+    }
+
+    public LookupState getState() {
+        return state;
+    }
+
+    public void setState(LookupState lookupState) {
+        this.state = lookupState;
     }
 
     @Override

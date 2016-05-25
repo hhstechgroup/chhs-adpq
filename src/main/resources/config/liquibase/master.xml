@@ -8,15 +8,18 @@
     <include file="classpath:config/liquibase/changelog/20160521013726_added_entity_LookupState.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013726_populate_data_LookupState.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013727_added_entity_LookupCounty.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160521013728_added_entity_Phone.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160521013729_added_entity_Email.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160525025500_added_entity_LookupGender.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160204214554_populate_data_LookupGender.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160525025501_added_entity_LookupMaritalStatus.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160204214554_populate_data_LookupMaritalStatus.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013730_added_entity_Place.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013732_added_entity_Inbox.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013733_added_entity_Outbox.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160525025506_added_entity_Deleted.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013731_added_entity_MailBox.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160524211120_added_entity_Attachment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160521013734_added_entity_Message.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/99999999999991_alter_entity_MailBox.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/99999999999992_populate_entity_MailBox.xml" relativeToChangelogFile="false"/>
-    
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

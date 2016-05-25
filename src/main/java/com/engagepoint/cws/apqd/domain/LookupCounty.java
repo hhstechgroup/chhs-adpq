@@ -25,12 +25,12 @@ public class LookupCounty implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 2)
-    @Column(name = "county_name", length = 2, nullable = false)
+    @Size(max = 40)
+    @Column(name = "county_name", length = 40, nullable = false)
     private String countyName;
     
     @OneToOne
-    private LookupState county;
+    private LookupState state;
 
     public Long getId() {
         return id;
@@ -48,12 +48,12 @@ public class LookupCounty implements Serializable {
         this.countyName = countyName;
     }
 
-    public LookupState getCounty() {
-        return county;
+    public LookupState getState() {
+        return state;
     }
 
-    public void setCounty(LookupState lookupState) {
-        this.county = lookupState;
+    public void setState(LookupState lookupState) {
+        this.state = lookupState;
     }
 
     @Override

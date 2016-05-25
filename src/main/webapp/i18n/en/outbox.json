@@ -16,7 +16,8 @@
             "detail": {
                 "title": "Outbox"
             },
-            "message": "Message"
+            "message": "Message",
+            "mailBox": "MailBox"
         }
     }
 }

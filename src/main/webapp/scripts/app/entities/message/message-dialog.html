@@ -75,32 +75,21 @@
         </div>
         <div class="form-group">
             <label class="control-label" translate="apqdApp.message.status" for="field_status">Status</label>
-            <input type="text" class="form-control" name="status" id="field_status"
-                    ng-model="message.status"
-                    ng-maxlength="2" />
-            <div ng-show="editForm.status.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.status.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2">
-                    This field cannot be longer than 2 characters.
-                </p>
-            </div>
+            <select class="form-control" name="status" ng-model="message.status" id="field_status">
+                <option value="NEW" translate="apqdApp.MessageStatus.NEW">NEW</option>
+                <option value="READ" translate="apqdApp.MessageStatus.READ">READ</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label translate="apqdApp.message.inbox" for="field_inbox">inbox</label>
-            <select class="form-control" id="field_inbox" name="inbox" ng-model="message.inbox" ng-options="inbox as inbox.id for inbox in inboxs track by inbox.id">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label translate="apqdApp.message.outbox" for="field_outbox">outbox</label>
-            <select class="form-control" id="field_outbox" name="outbox" ng-model="message.outbox" ng-options="outbox as outbox.id for outbox in outboxs track by outbox.id">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="form-group">
             <label translate="apqdApp.message.replyOn" for="field_replyOn">replyOn</label>
             <select class="form-control" id="field_replyOn" name="replyOn" ng-model="message.replyOn" ng-options="message as message.id for message in replyons | orderBy:'id' track by message.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="apqdApp.message.to" for="field_to">to</label>
+            <select class="form-control" id="field_to" name="to" ng-model="message.to" ng-options="user as user.id for user in users track by user.id">
                 <option value=""></option>
             </select>
         </div>
@@ -111,8 +100,14 @@
             </select>
         </div>
         <div class="form-group">
-            <label translate="apqdApp.message.to" for="field_to">to</label>
-            <select class="form-control" id="field_to" name="to" ng-model="message.to" ng-options="user as user.id for user in users track by user.id">
+            <label translate="apqdApp.message.inbox" for="field_inbox">inbox</label>
+            <select class="form-control" id="field_inbox" name="inbox" ng-model="message.inbox" ng-options="inbox as inbox.id for inbox in inboxs track by inbox.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="apqdApp.message.outbox" for="field_outbox">outbox</label>
+            <select class="form-control" id="field_outbox" name="outbox" ng-model="message.outbox" ng-options="outbox as outbox.id for outbox in outboxs track by outbox.id">
                 <option value=""></option>
             </select>
         </div>

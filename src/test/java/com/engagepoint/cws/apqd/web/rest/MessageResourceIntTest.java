@@ -2,7 +2,6 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.MessageStatus;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 
@@ -35,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 
 /**
  * Test class for the MessageResource REST controller.
@@ -63,6 +63,7 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE_READ = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
+    
     private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
     private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 

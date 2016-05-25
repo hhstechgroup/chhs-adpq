@@ -1,12 +1,10 @@
 'use strict';
 
 angular.module('apqdApp').controller('MessageDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'Inbox', 'Outbox', 'User',
-        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, Inbox, Outbox, User) {
+    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'User', 'Inbox', 'Outbox',
+        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, User, Inbox, Outbox) {
 
         $scope.message = entity;
-        $scope.inboxs = Inbox.query();
-        $scope.outboxs = Outbox.query();
         $scope.replyons = Message.query({filter: 'message-is-null'});
         $q.all([$scope.message.$promise, $scope.replyons.$promise]).then(function() {
             if (!$scope.message.replyOn || !$scope.message.replyOn.id) {
@@ -17,6 +15,8 @@ angular.module('apqdApp').controller('MessageDialogController',
             $scope.replyons.push(replyOn);
         });
         $scope.users = User.query();
+        $scope.inboxs = Inbox.query();
+        $scope.outboxs = Outbox.query();
         $scope.load = function(id) {
             Message.get({id : id}, function(result) {
                 $scope.message = result;

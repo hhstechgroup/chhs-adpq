@@ -27,8 +27,8 @@
             "validAddressFlag": "ValidAddressFlag",
             "validationStatus": "ValidationStatus",
             "validationMessage": "ValidationMessage",
-            "state": "State",
-            "county": "County"
+            "county": "County",
+            "state": "State"
         }
     }
 }

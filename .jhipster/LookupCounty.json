@@ -2,7 +2,7 @@
   "relationships": [
     {
       "relationshipId": 1,
-      "relationshipName": "county",
+      "relationshipName": "state",
       "otherEntityName": "lookupState",
       "relationshipType": "one-to-one",
       "otherEntityField": "id",
@@ -19,7 +19,7 @@
         "required",
         "maxlength"
       ],
-      "fieldValidateRulesMaxlength": 2
+      "fieldValidateRulesMaxlength": 40
     }
   ],
   "changelogDate": "20160521013727",

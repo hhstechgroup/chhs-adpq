@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('apqdApp').controller('MailBoxDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'MailBox', 'Inbox', 'Outbox',
-        function($scope, $stateParams, $uibModalInstance, $q, entity, MailBox, Inbox, Outbox) {
+    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'MailBox', 'Inbox', 'Outbox', 'Deleted', 'User',
+        function($scope, $stateParams, $uibModalInstance, $q, entity, MailBox, Inbox, Outbox, Deleted, User) {
 
         $scope.mailBox = entity;
         $scope.inboxs = Inbox.query({filter: 'mailbox-is-null'});
@@ -23,6 +23,16 @@ angular.module('apqdApp').controller('MailBoxDialogController',
         }).then(function(outbox) {
             $scope.outboxs.push(outbox);
         });
+        $scope.deleteds = Deleted.query({filter: 'mailbox-is-null'});
+        $q.all([$scope.mailBox.$promise, $scope.deleteds.$promise]).then(function() {
+            if (!$scope.mailBox.deleted || !$scope.mailBox.deleted.id) {
+                return $q.reject();
+            }
+            return Deleted.get({id : $scope.mailBox.deleted.id}).$promise;
+        }).then(function(deleted) {
+            $scope.deleteds.push(deleted);
+        });
+        $scope.users = User.query();
         $scope.load = function(id) {
             MailBox.get({id : id}, function(result) {
                 $scope.mailBox = result;

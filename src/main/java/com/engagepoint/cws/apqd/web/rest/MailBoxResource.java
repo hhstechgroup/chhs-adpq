@@ -31,13 +31,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class MailBoxResource {
 
     private final Logger log = LoggerFactory.getLogger(MailBoxResource.class);
-        
+
     @Inject
     private MailBoxRepository mailBoxRepository;
-    
+
     @Inject
     private MailBoxSearchRepository mailBoxSearchRepository;
-    
+
     /**
      * POST  /mailBoxs -> Create a new mailBox.
      */

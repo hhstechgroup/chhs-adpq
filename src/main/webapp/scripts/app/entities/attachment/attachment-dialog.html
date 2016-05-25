@@ -1,0 +1,80 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAttachmentLabel" translate="apqdApp.attachment.home.createOrEditLabel">Create or edit a Attachment</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="attachment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.attachment.fileName" for="field_fileName">FileName</label>
+            <input type="text" class="form-control" name="fileName" id="field_fileName"
+                    ng-model="attachment.fileName"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.attachment.fileMimeType" for="field_fileMimeType">FileMimeType</label>
+            <input type="text" class="form-control" name="fileMimeType" id="field_fileMimeType"
+                    ng-model="attachment.fileMimeType"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.attachment.fileSize" for="field_fileSize">FileSize</label>
+            <input type="number" class="form-control" name="fileSize" id="field_fileSize"
+                    ng-model="attachment.fileSize"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.attachment.fileDescription" for="field_fileDescription">FileDescription</label>
+            <input type="text" class="form-control" name="fileDescription" id="field_fileDescription"
+                    ng-model="attachment.fileDescription"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.attachment.creationDate" for="field_creationDate">CreationDate</label>
+            <input id="field_creationDate" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="attachment.creationDate" is-open="datePickerForCreationDate.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForCreationDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+            <label class="control-label" translate="apqdApp.attachment.file" for="field_file">File</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{abbreviate(attachment.file)}} {{attachment.fileContentType}} {{byteSize(attachment.file)}}</span>
+                    <button ng-click="attachment.file=null;attachment.fileContentType=null;"
+                            ng-if="attachment.file"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setFile($file, attachment)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="file" id="field_file"
+                    ng-model="attachment.file"
+                     />
+            <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                    ng-model="attachment.fileContentType" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

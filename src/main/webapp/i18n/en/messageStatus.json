@@ -1,0 +1,9 @@
+{
+    "apqdApp": {
+        "MessageStatus" : {
+            "null": "",
+            "NEW": "NEW",
+            "READ": "READ"
+        }
+    }
+}

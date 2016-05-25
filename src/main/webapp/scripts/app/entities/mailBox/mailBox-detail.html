@@ -26,6 +26,14 @@
                     <a class="form-control-static" ui-sref="outbox.detail({id:mailBox.outbox.id})">{{mailBox.outbox.id}}</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.mailBox.deleted">deleted</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="deleted.detail({id:mailBox.deleted.id})">{{mailBox.deleted.id}}</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

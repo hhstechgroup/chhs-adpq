@@ -17,7 +17,9 @@
                 "title": "MailBox"
             },
             "inbox": "Inbox",
-            "outbox": "Outbox"
+            "outbox": "Outbox",
+            "deleted": "Deleted",
+            "user": "User"
         }
     }
 }

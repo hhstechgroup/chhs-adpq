@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "baseName": "intake",
+    "baseName": "apqd",
     "packageName": "com.engagepoint.cws.apqd",
     "packageFolder": "com/engagepoint/cws/apqd",
     "authenticationType": "session",

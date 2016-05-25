@@ -19,6 +19,7 @@ angular.module('apqdApp')
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('message');
+                        $translatePartialLoader.addPart('messageStatus');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }]

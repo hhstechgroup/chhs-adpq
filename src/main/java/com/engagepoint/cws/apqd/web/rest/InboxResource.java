@@ -83,7 +83,14 @@ public class InboxResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Inbox> getAllInboxs() {
+    public List<Inbox> getAllInboxs(@RequestParam(required = false) String filter) {
+        if ("mailbox-is-null".equals(filter)) {
+            log.debug("REST request to get all Inboxs where mailBox is null");
+            return StreamSupport
+                .stream(inboxRepository.findAll().spliterator(), false)
+                .filter(inbox -> inbox.getMailBox() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all Inboxs");
         return inboxRepository.findAll();
             }
