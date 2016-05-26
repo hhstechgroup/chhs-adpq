@@ -40,6 +40,7 @@ angular.module('apqdApp')
                 firstName: account.firstName,
                 birthDate: account.birthDate,
                 gender: account.gender,
+                phoneNumber: account.phoneNumber,
                 langKey: account.langKey,
                 lastName: account.lastName,
                 login: account.login,

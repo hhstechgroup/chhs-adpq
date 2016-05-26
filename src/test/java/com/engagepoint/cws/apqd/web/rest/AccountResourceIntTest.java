@@ -50,6 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AccountResourceIntTest {
 
     private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
+    private static final String DEFAULT_PHONE_NUMBER = "1111111111";
     private static final LookupGender GENDER = new LookupGender();
 
     static {
@@ -164,7 +165,8 @@ public class AccountResourceIntTest {
             "1111",                 //ssnLast4Digits
             "S123",
             DEFAULT_BIRTH_DATE,
-            GENDER
+            GENDER,
+            DEFAULT_PHONE_NUMBER
         );
 
         restMvc.perform(
@@ -192,7 +194,8 @@ public class AccountResourceIntTest {
             "1111",                 //ssnLast4Digits
             "S123",
             DEFAULT_BIRTH_DATE,
-            GENDER
+            GENDER,
+            DEFAULT_PHONE_NUMBER
         );
 
         restUserMockMvc.perform(
@@ -220,7 +223,8 @@ public class AccountResourceIntTest {
             "1111",                 //ssnLast4Digits
             "S123",
             DEFAULT_BIRTH_DATE,
-            GENDER
+            GENDER,
+            DEFAULT_PHONE_NUMBER
         );
 
         restUserMockMvc.perform(
@@ -249,13 +253,14 @@ public class AccountResourceIntTest {
             "1111",                 //ssnLast4Digits
             "S123",
             DEFAULT_BIRTH_DATE,
-            GENDER
+            GENDER,
+            DEFAULT_PHONE_NUMBER
         );
 
         // Duplicate login, different e-mail
         UserDTO dup = new UserDTO(u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
             "alicejr@example.com", true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
-            u.getBirthDate(), u.getGender());
+            u.getBirthDate(), u.getGender(), u.getPhoneNumber());
 
         // Good user
         restMvc.perform(
@@ -291,13 +296,14 @@ public class AccountResourceIntTest {
             "1111",                 //ssnLast4Digits
             "S123",
             DEFAULT_BIRTH_DATE,
-            GENDER
+            GENDER,
+            DEFAULT_PHONE_NUMBER
         );
 
         // Duplicate e-mail, different login
         UserDTO dup = new UserDTO("johnjr", u.getPassword(), u.getLogin(), u.getLastName(),
             u.getEmail(), true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
-            u.getBirthDate(), u.getGender());
+            u.getBirthDate(), u.getGender(), u.getPhoneNumber());
 
         // Good user
         restMvc.perform(
@@ -332,7 +338,8 @@ public class AccountResourceIntTest {
             "1111",                 //ssnLast4Digits
             "S123",
             DEFAULT_BIRTH_DATE,
-            GENDER
+            GENDER,
+            DEFAULT_PHONE_NUMBER
         );
 
         restMvc.perform(
