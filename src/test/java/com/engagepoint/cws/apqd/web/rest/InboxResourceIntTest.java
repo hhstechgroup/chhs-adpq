@@ -2,17 +2,12 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Inbox;
-import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
-import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.search.InboxSearchRepository;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.addMessage;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMessage;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -55,9 +50,6 @@ public class InboxResourceIntTest {
     private InboxSearchRepository inboxSearchRepository;
 
     @Inject
-    private MessageRepository messageRepository;
-
-    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -81,19 +73,6 @@ public class InboxResourceIntTest {
     @Before
     public void initTest() {
         inbox = new Inbox();
-    }
-
-    @Test
-    @Transactional
-    public void getEntityFields() throws Exception {
-        Message message = prepareMessage(messageRepository, "message subject", "message body", null, null);
-        addMessage(inboxRepository, inbox, message);
-
-        Inbox testInbox = inboxRepository.findOne(inbox.getId());
-        assertThat(testInbox).isNotNull();
-        assertThat(testInbox.getMessages()).isNotNull();
-        assertThat(testInbox.getMessages().size()).isGreaterThan(0);
-        assertThat(testInbox.getMessages().iterator().next()).isEqualTo(inbox.getMessages().iterator().next());
     }
 
     @Test

@@ -11,7 +11,6 @@ import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -26,11 +25,11 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.addMailBox;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMailBox;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMessage;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareUser;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.setCurrentUser;
+import static com.engagepoint.cws.apqd.APQDTestUtil.addMailBox;
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setCurrentUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)

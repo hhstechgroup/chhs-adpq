@@ -2,16 +2,12 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.MailBox;
-import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
-import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.search.MailBoxSearchRepository;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMailBox;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -54,12 +50,6 @@ public class MailBoxResourceIntTest {
     private MailBoxSearchRepository mailBoxSearchRepository;
 
     @Inject
-    private InboxRepository inboxRepository;
-
-    @Inject
-    private OutboxRepository outboxRepository;
-
-    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -83,17 +73,6 @@ public class MailBoxResourceIntTest {
     @Before
     public void initTest() {
         mailBox = new MailBox();
-    }
-
-    @Test
-    @Transactional
-    public void getEntityFields() throws Exception {
-        MailBox mailBox = prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository);
-
-        MailBox testMailBox = mailBoxRepository.findOne(mailBox.getId());
-        assertThat(testMailBox).isNotNull();
-        assertThat(testMailBox.getInbox()).isNotNull();
-        assertThat(testMailBox.getOutbox()).isNotNull();
     }
 
     @Test

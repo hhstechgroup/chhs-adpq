@@ -1,4 +1,4 @@
-package com.engagepoint.cws.apqd.web.rest;
+package com.engagepoint.cws.apqd;
 
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.MailBox;
@@ -74,19 +74,19 @@ public final class APQDTestUtil {
         return messageRepository.saveAndFlush(message);
     }
 
-    public static void addMessage(InboxRepository inboxRepository, Inbox inbox, Message message) {
+    public static Inbox addMessage(InboxRepository inboxRepository, Inbox inbox, Message message) {
         if (inbox.getMessages() == null) {
             inbox.setMessages(new HashSet<>());
         }
         inbox.getMessages().add(message);
-        inboxRepository.saveAndFlush(inbox);
+        return inboxRepository.saveAndFlush(inbox);
     }
 
-    public static void addMessage(OutboxRepository outboxRepository, Outbox outbox, Message message) {
+    public static Outbox addMessage(OutboxRepository outboxRepository, Outbox outbox, Message message) {
         if (outbox.getMessages() == null) {
             outbox.setMessages(new HashSet<>());
         }
         outbox.getMessages().add(message);
-        outboxRepository.saveAndFlush(outbox);
+        return outboxRepository.saveAndFlush(outbox);
     }
 }
