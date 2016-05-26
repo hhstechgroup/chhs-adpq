@@ -18,7 +18,7 @@ angular.module('apqdApp').controller('AttachmentDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 

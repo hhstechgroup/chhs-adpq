@@ -8,8 +8,7 @@ angular.module('apqdApp')
         return {
             findFosterFamilyAgencies: function (query) {
                 var deferral = $q.defer();
-                query = query ? "?" + query : "";
-                $http.get('api/hhs/fosterFamilyAgencies.json' + query).success(function (response) {
+                $http.get('api/hhs/fosterFamilyAgencies.json' + (query ? "?" + query : "")).success(function (response) {
                     deferral.resolve(angular.fromJson(response));
                 });
                 return deferral.promise;

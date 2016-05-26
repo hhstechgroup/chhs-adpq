@@ -79,8 +79,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @SuppressWarnings("squid:S00112") // let the JHipster java code to throw the generic Exception
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Enforce HTTPS except on dev
-//        if (env.acceptsProfiles("!dev")) http.requiresChannel().anyRequest().requiresSecure();
         http
             .sessionManagement()
             .maximumSessions(32) // maximum number of concurrent sessions for one user

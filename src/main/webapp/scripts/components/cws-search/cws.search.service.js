@@ -323,7 +323,7 @@ angular.module('apqdApp')
                     // execute search
                     var searchPromise = this.searchEntity(entitySearchService, stringQuery,
                         entitySearchParams['onResponse'],
-                        angular.isFunction(entitySearchParams['onError']) ? entitySearchParams['onError'] : function (response) {
+                        angular.isFunction(entitySearchParams['onError']) ? entitySearchParams['onError'] : function () {
                             // todo detect IndexMissingException
                             // todo add such behavior to some other explicit function via option?
                             if (angular.isFunction(entitySearchParams['onResponse'])) entitySearchParams['onResponse']([]);

@@ -30,7 +30,7 @@ angular.module('apqdApp').controller('MessageDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 

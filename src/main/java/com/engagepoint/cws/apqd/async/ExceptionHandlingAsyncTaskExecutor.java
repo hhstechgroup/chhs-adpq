@@ -1,7 +1,6 @@
 package com.engagepoint.cws.apqd.async;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -46,8 +45,7 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
     private Runnable createWrappedRunnable(final Runnable task) {
         return () -> {
             try {
-                ExecutorService executor = Executors.newFixedThreadPool(1);
-                executor.execute(task);
+                Executors.newFixedThreadPool(1).execute(task);
             } catch (Exception e) {
                 handle(e);
             }

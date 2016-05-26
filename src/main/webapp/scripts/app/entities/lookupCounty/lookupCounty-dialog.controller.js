@@ -26,7 +26,7 @@ angular.module('apqdApp').controller('LookupCountyDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 

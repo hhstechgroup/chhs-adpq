@@ -14,7 +14,7 @@ angular.module('apqdApp').controller('UserManagementDialogController',
             $uibModalInstance.close(result);
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 
