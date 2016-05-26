@@ -1,0 +1,547 @@
+
+
+.form-type__checkbox {
+
+  input[type="checkbox"] + label {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    color: #5b616b;
+  }
+
+  input[type="checkbox"]:not(:checked) + label:before {
+    background: transparent;
+  }
+
+}
+
+.form-type__checkbox_empty-label {
+
+  input[type="checkbox"] + label {
+    width: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: inline-block;
+  }
+
+  input[type="checkbox"]:not(:checked) + label:before {
+    background: transparent;
+  }
+}
+
+.form-type__search {
+  display: inline-block;
+}
+
+.form-type__search__input,
+.form-type__search__select,
+.form-type__search__button {
+  height: 3.7rem;
+  float: right;
+}
+
+.form-type__search {
+  width: 100%;
+  max-width: 100rem;
+  height: 3.7rem;
+  position: relative;
+
+  .form-type__search__input {
+    width: 50%;
+    float: right;
+    margin: 0;
+    border-right: 0;
+    background-color: transparent;
+  }
+
+  .form-type__search__select {
+    width: 80px;
+    height: 3.2rem;
+    margin: 0;
+    border: 0;    
+    background-image: url("../images/us-icon/arrow-down-small.png");
+    background-size: .9rem;
+    background-color: transparent;
+    position: absolute;
+    right: 5.7rem;
+  }
+
+  .form-type__search__button {
+    width: 5.6rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .icon {
+    height: 3.5rem;
+  }
+}
+
+/* Draft U.S. Web Design Standards Input */
+
+
+button,
+input,
+optgroup,
+select,
+textarea {
+ color: inherit;
+ /* 1 */
+ font: inherit;
+ /* 2 */
+ margin: 0;
+ /* 3 */
+}
+
+/**
+* Address `overflow` set to `hidden` in IE 8/9/10/11.
+*/
+button {
+ overflow: visible;
+}
+
+/**
+* Address inconsistent `text-transform` inheritance for `button` and `select`.
+* All other form control elements do not inherit `text-transform` values.
+* Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+* Correct `select` style inheritance in Firefox.
+*/
+button,
+select {
+ text-transform: none;
+}
+
+/**
+* 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+*    and `video` controls.
+* 2. Correct inability to style clickable `input` types in iOS.
+* 3. Improve usability and consistency of cursor style between image-type
+*    `input` and others.
+*/
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+ -webkit-appearance: button;
+ /* 2 */
+ cursor: pointer;
+ /* 3 */
+}
+
+/**
+* Re-set default cursor for disabled elements.
+*/
+button[disabled],
+html input[disabled] {
+ cursor: default;
+}
+
+/**
+* Remove inner padding and border in Firefox 4+.
+*/
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+ border: 0;
+ padding: 0;
+}
+
+/**
+* Address Firefox 4+ setting `line-height` on `input` using `!important` in
+* the UA stylesheet.
+*/
+input {
+ line-height: normal;
+}
+
+/**
+* It's recommended that you don't attempt to style these elements.
+* Firefox's implementation doesn't respect box-sizing, padding, or width.
+*
+* 1. Address box sizing set to `content-box` in IE 8/9/10.
+* 2. Remove excess padding in IE 8/9/10.
+*/
+input[type="checkbox"],
+input[type="radio"] {
+ box-sizing: border-box;
+ /* 1 */
+ padding: 0;
+ /* 2 */
+}
+
+/**
+* Fix the cursor style for Chrome's increment/decrement buttons. For certain
+* `font-size` values of the `input`, it causes the cursor style of the
+* decrement button to change from `default` to `text`.
+*/
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+ height: auto;
+}
+
+/**
+* 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+* 2. Address `box-sizing` set to `border-box` in Safari and Chrome.
+*/
+input[type="search"] {
+ -webkit-appearance: textfield;
+ /* 1 */
+ box-sizing: content-box;
+ /* 2 */
+}
+
+/**
+* Remove inner padding and search cancel button in Safari and Chrome on OS X.
+* Safari (but not Chrome) clips the cancel button when the search input has
+* padding (and `textfield` appearance).
+*/
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+ -webkit-appearance: none;
+}
+
+/**
+* Define consistent border, margin, and padding.
+*/
+fieldset {
+ border: 1px solid #c0c0c0;
+ margin: 0 2px;
+ padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+* 1. Correct `color` not being inherited in IE 8/9/10/11.
+* 2. Remove padding so people aren't caught out if they zero out fieldsets.
+*/
+legend {
+ border: 0;
+ /* 1 */
+ padding: 0;
+ /* 2 */
+}
+
+/**
+* Remove default vertical scrollbar in IE 8/9/10/11.
+*/
+textarea {
+ overflow: auto;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  position: absolute;
+  left: -999em;
+}
+
+.lt-ie9 input[type="checkbox"], .lt-ie9
+input[type="radio"] {
+  border: 0;
+  float: left;
+  margin: 0.4em 0.4em 0 0;
+  position: static;
+  width: auto;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  cursor: pointer;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+}
+
+input[type="checkbox"] + label::before,
+input[type="radio"] + label::before {
+  background: white;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 0 1px #757575;
+  content: '\a0';
+  display: inline-block;
+  height: 1.8rem;
+  line-height: 0.8;
+  margin-right: 0.6em;
+  text-indent: 0.15em;
+  vertical-align: 0.2em;
+  width: 1.8rem;
+}
+
+input[type="radio"] + label::before {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #757575;
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+input[type="radio"] + label::before {
+  border-radius: 100%;
+}
+
+input[type="checkbox"]:checked + label::before,
+input[type="radio"]:checked + label::before {
+  background-color: #0071bc;
+  box-shadow: 0 0 0 1px #0071bc;
+}
+
+input[type="radio"]:checked + label::before {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0071bc;
+}
+
+input[type="radio"]:focus + label::before {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0071bc, 0 0 3px 4px #3e94cf, 0 0 7px 4px #3e94cf;
+}
+
+input[type="checkbox"]:checked + label::before {
+  background-image: url("../images/us-icon/correct8.png");
+  background-image: url("../images/us-icon/correct8.svg");
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+input[type="checkbox"]:focus + label::before {
+  box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px #0071bc;
+}
+
+input[type="checkbox"]:disabled + label {
+  color: #5b616b;
+}
+
+input[type="checkbox"]:disabled + label::before,
+input[type="radio"]:disabled + label::before {
+  background: #d6d7d9;
+  box-shadow: 0 0 0 1px #aeb0b5;
+  cursor: not-allowed;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  border: none;
+  padding-left: 0;
+  width: 100%;
+}
+
+input[type=range]:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  background: #aeb0b5;
+  border: 1px solid #757575;
+  cursor: pointer;
+  height: 1.2rem;
+  width: 100%;
+}
+
+input[type=range]::-moz-range-track {
+  background: #0071bc;
+  border: 1px solid #757575;
+  cursor: pointer;
+  height: 1.2rem;
+  width: 100%;
+}
+
+input[type=range]::-ms-track {
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  height: 1.2rem;
+  width: 100%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #757575;
+  height: 2.2rem;
+  border-radius: 1.5rem;
+  background: #f1f1f1;
+  cursor: pointer;
+  margin-top: -.65rem;
+  width: 2.2rem;
+}
+
+input[type=range]::-moz-range-thumb {
+  background: #f1f1f1;
+  border: 1px solid #757575;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  height: 2.2rem;
+  width: 2.2rem;
+}
+
+input[type=range]::-ms-thumb {
+  background: #f1f1f1;
+  border: 1px solid #757575;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  height: 2.2rem;
+  width: 2.2rem;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #aeb0b5;
+  border: 1px solid #757575;
+  border-radius: 2rem;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #aeb0b5;
+  border: 1px solid #757575;
+  border-radius: 2rem;
+}
+
+input[type=range]:focus::-webkit-slider-thumb {
+  border: 2px solid #3e94cf;
+}
+
+input[type=range]:focus::-moz-range-thumb {
+  border: 2px solid #3e94cf;
+}
+
+input[type=range]:focus::-ms-thumb {
+  border: 2px solid #3e94cf;
+}
+
+[type="search"] {
+  -webkit-appearance: none;
+  border-bottom-right-radius: 0;
+  border-right: none;
+  border-top-right-radius: 0;
+  float: left;
+  height: 3.3rem;
+  margin: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  width: calc(100% - 4.5rem);
+}
+
+[type="submit"] {
+  background-image: url("../images/ui-icon/search.png");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  height: 3.3rem;
+  margin: 0;
+  padding: 0;
+  width: 4.5rem;
+}
+
+button
+[type="button"],
+[type="submit"],
+[type="reset"],
+[type="image"] {
+  appearance: none;
+  background-color: #0071bc;
+  border: 0;
+  border-radius: 0.3rem;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  outline: none;
+  padding: 1rem 2rem;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="file"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+textarea,
+select {
+  appearance: none;
+  border: 1px solid #5b616b;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #212121;
+  display: block;
+  font-size: 1.7rem;
+  margin: 0.2em 0;
+  max-width: 46rem;
+  outline: none;
+  padding: 1rem 0.7em;
+  width: 100%;
+}
+
+input:focus, input.usa-input-focus,
+input[type="text"]:focus,
+input[type="text"].usa-input-focus,
+input[type="email"]:focus,
+input[type="email"].usa-input-focus,
+input[type="password"]:focus,
+input[type="password"].usa-input-focus,
+input[type="url"]:focus,
+input[type="url"].usa-input-focus,
+input[type="tel"]:focus,
+input[type="tel"].usa-input-focus,
+input[type="number"]:focus,
+input[type="number"].usa-input-focus,
+input[type="search"]:focus,
+input[type="search"].usa-input-focus,
+input[type="file"]:focus,
+input[type="file"].usa-input-focus,
+input[type="date"]:focus,
+input[type="date"].usa-input-focus,
+input[type="datetime-local"]:focus,
+input[type="datetime-local"].usa-input-focus,
+input[type="month"]:focus,
+input[type="month"].usa-input-focus,
+input[type="time"]:focus,
+input[type="time"].usa-input-focus,
+input[type="week"]:focus,
+input[type="week"].usa-input-focus,
+textarea:focus,
+textarea.usa-input-focus,
+select:focus,
+select.usa-input-focus {
+  box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+}
+
+input.usa-input-success,
+input[type="text"].usa-input-success,
+input[type="email"].usa-input-success,
+input[type="password"].usa-input-success,
+input[type="url"].usa-input-success,
+input[type="tel"].usa-input-success,
+input[type="number"].usa-input-success,
+input[type="search"].usa-input-success,
+input[type="file"].usa-input-success,
+input[type="date"].usa-input-success,
+input[type="datetime-local"].usa-input-success,
+input[type="month"].usa-input-success,
+input[type="time"].usa-input-success,
+input[type="week"].usa-input-success,
+textarea.usa-input-success,
+select.usa-input-success {
+  border: 3px solid #4aa564;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #ffffff;
+  background-position: right 1.3rem center;
+  background-repeat: no-repeat;
+  background-size: 1.3rem;
+}
