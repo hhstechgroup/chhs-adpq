@@ -2,7 +2,9 @@ package com.engagepoint.cws.apqd.domain;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
+import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
+import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -13,9 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.addMessage;
 import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setMailBox;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setMessage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,15 +28,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 @IntegrationTest
 public class InboxTest {
     @Inject
+    private MailBoxRepository mailBoxRepository;
+
+    @Inject
     private InboxRepository inboxRepository;
+
+    @Inject
+    private OutboxRepository outboxRepository;
 
     @Inject
     private MessageRepository messageRepository;
 
     private Inbox createEntity(String messageSubject, String messageBody) {
         Inbox inbox = new Inbox();
+        setMailBox(inboxRepository, inbox, prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
         Message message = prepareMessage(messageRepository, messageSubject, messageBody, null, null);
-        return addMessage(inboxRepository, inbox, message);
+        return setMessage(inboxRepository, inbox, message);
     }
 
     @Test
@@ -49,6 +60,9 @@ public class InboxTest {
         Message testMessage = testInbox.getMessages().iterator().next();
         assertThat(testMessage.getSubject()).isEqualTo(message.getSubject());
         assertThat(testMessage.getBody()).isEqualTo(message.getBody());
+
+        MailBox testMailBox = testInbox.getMailBox();
+        assertThat(testMailBox).isNotNull();
     }
 
     @Test

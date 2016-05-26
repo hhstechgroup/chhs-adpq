@@ -25,11 +25,11 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.addMailBox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setCurrentUser;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setMailBox;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -71,7 +71,7 @@ public class MailBoxServiceTest {
     @Before
     public void initTest () {
         currentUser = prepareUser(null, CURRENT_LOGIN);
-        addMailBox(userRepository, currentUser,
+        setMailBox(userRepository, currentUser,
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
         setCurrentUser(currentUser);
     }
@@ -80,7 +80,7 @@ public class MailBoxServiceTest {
     @Transactional
     public void testSendMessage() throws Exception {
         User to = prepareUser(userRepository, TO_LOGIN);
-        addMailBox(userRepository, to,
+        setMailBox(userRepository, to,
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
 
         Message message = prepareMessage(messageRepository, "subject", "body", null, to);
