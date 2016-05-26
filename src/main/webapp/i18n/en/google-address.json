@@ -3,7 +3,6 @@
         "title": "Google Address",
         "address_search":"Search Address",
         "search_placeholder":"You may enter new address quickly by using google places search",
-        "validate": "Validate and correct address by USPS",
         "street_number": "Street Number",
         "street": "Street",
         "street": "Street",
@@ -13,8 +12,6 @@
         "zip": "Zipcode",
         "zip4": "Zipcode +4",
         "county": "County",
-        "country": "Country",
-        "address_is_valid": "Address is valid",
-        "cannot_validate" : "Communication with USPS error. Address cannot be validated"
+        "country": "Country"
     }
 }

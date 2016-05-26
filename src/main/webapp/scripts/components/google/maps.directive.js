@@ -52,7 +52,7 @@ angular.module('apqdApp')
                                 bounds.southwest.latitude,
                                 bounds.southwest.longitude],
                             function(value) {
-                                return Math.abs(value) !== 0;
+                                return Math.abs(value) >= .5;
                             })) {
                         $scope.doRefresh({bounds: map.bounds});
                     }

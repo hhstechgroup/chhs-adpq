@@ -26,7 +26,7 @@ import java.util.Collection;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class, HazelcastAutoConfiguration.class })
-@EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class, ContentProperties.class, UspsProperties.class, HHSAPIProperties.class})
+@EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class, ContentProperties.class, HHSAPIProperties.class})
 public class Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
@@ -35,7 +35,7 @@ public class Application {
     private Environment env;
 
     /**
-     * Initializes intake.
+     * Initializes chhs-apqd.
      * <p/>
      * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
      * <p/>

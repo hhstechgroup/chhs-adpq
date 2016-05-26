@@ -32,7 +32,7 @@ spring:
 #        key-store: keystore.p12
 #        key-store-password: qwe123
 #        keyStoreType: PKCS12
-#        keyAlias: cwsintake
+#        keyAlias: chhsapqd
 #    tomcat:
 #        remote_ip_header: x-forwarded-for
 #        protocol_header: x-forwarded-proto
@@ -99,11 +99,3 @@ intake:
 
 hhs-api:
     hhs-api-url: https://chhs.data.ca.gov/resource/mffa-c6z5.json
-
-# ===================================================================
-# USPS web service connection properties
-# ===================================================================
-usps:
-   server-url: http://production.shippingapis.com/ShippingAPI.dll
-   user-id: 286ENGAG5998
-   timeout: 10

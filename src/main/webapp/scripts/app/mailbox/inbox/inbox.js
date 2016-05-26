@@ -3,8 +3,7 @@
 angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('ch-inbox', {
-                parent: 'entity',
+            .state('ch-inbox.inbox', {
                 url: '/inbox',
                 data: {
                     authorities: ['ROLE_INTAKE_WORKER'],
@@ -12,7 +11,7 @@ angular.module('apqdApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/inbox/inbox.html',
+                        templateUrl: 'scripts/app/mailbox/inbox/inbox.html',
                         controller: 'InboxController'
                     }
                 }

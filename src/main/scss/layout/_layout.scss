@@ -47,6 +47,10 @@
     padding: 2.2rem 2.5rem;
 }
 
+.ch-main-nav-item__link_active {
+    background: #4e5664;
+}
+
 .ch-main-nav-item__text {
     font-size: 1.5rem;
     font-weight: 600;
@@ -125,6 +129,7 @@
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-top: 4px solid #fff;
+    vertical-align: 10px;
 }
 
 .ch-user-account-entry__btn_expanded:after {
@@ -135,5 +140,22 @@
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-bottom: 4px solid #fff;
+    vertical-align: 10px;
 }
 
+.ch-page-heading__pagination {
+    float: left;
+    margin-right: 10px;
+}
+
+.ch-button-group {
+
+}
+
+.ch-button-group__item {
+    display: inline-block;
+}
+.ch-button-group__btn {
+    border: .1rem solid #757575;
+    padding: 5px 15px;
+}
