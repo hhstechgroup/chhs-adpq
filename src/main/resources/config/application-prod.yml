@@ -55,13 +55,13 @@ liquibase:
 
 server:
     port: 8080
-#    context-path: /cws-intake
+#    context-path: /chhs-apqd
     compression:
         enabled: false
 #        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
 
 # management:
-#    context-path: /cws-intake
+#    context-path: /chhs-apqd
 
 # ===================================================================
 # JHipster specific properties
@@ -76,7 +76,7 @@ jhipster:
         hazelcast:
             backupCount: 1
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: intake@localhost
+        from: apqd@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
@@ -93,4 +93,4 @@ jhipster:
             host: localhost
             port: 10051
             periodSec: 60
-#            intakeInstanceName: cws-intake #optional
+#            apqdInstanceName: chhs-apqd #optional
