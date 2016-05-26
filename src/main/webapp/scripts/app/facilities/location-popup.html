@@ -1,14 +1,14 @@
 <div>
-    {{agencies[0].agency.facility_name}}<br/>
-    {{agencies[0].facility_type | capitalize:true}} {{agencies[0].facility_status | capitalize:true}}<br/>
-    Facility Number: {{agencies[0].facility_number}}<br/>
-    Licensee: {{agencies[0].licensee | uppercase}}<br/>
-    License First Date: {{agencies[0].license_first_date | date: 'MM/dd/yyyy'}}<br/>
-    Administrator: {{agencies[0].facility_administrator | capitalize:true}}<br/>
-    Telephone number: {{agencies[0].facility_telephone_number}}<br/>
-    Address: {{agencies[0].location_address | capitalize:true}}, {{agencies[0].location_city | capitalize:true}}, {{agencies[0].facility_state}} {{agencies[0].location_zip}} <br/>
-    County Name: {{agencies[0].county_name}}<br/>
-    Regional Office: {{agencies[0].regional_office}}<br/>
-    Facility Capacity: {{agencies[0].facility_capacity}}<br/>
-    <button ng-click="askAbout(agencies[0])">Ask About</button>
+    {{facility_name}}<br/>
+    {{facility_type | capitalize:true}} {{facility_status | capitalize:true}}<br/>
+    Facility Number: {{facility_number}}<br/>
+    Licensee: {{licensee | uppercase}}<br/>
+    License First Date: {{license_first_date | date: 'MM/dd/yyyy'}}<br/>
+    Administrator: {{facility_administrator | capitalize:true}}<br/>
+    Telephone number: {{facility_telephone_number}}<br/>
+    Address: {{location_address | capitalize:true}}, {{location_city | capitalize:true}}, {{facility_state}} {{location_zip}} <br/>
+    County Name: {{county_name}}<br/>
+    Regional Office: {{regional_office}}<br/>
+    Facility Capacity: {{facility_capacity}}<br/>
+    <button ng-click="askAbout()">Ask About</button>
 </div>

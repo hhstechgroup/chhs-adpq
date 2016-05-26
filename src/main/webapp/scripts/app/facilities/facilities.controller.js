@@ -147,12 +147,9 @@ angular.module('apqdApp')
                         lng: agency.location.coordinates[0],
                         message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
                         getMessageScope: function() {
-/*
                             var scope = $scope.$new();
-                            angular.extend(scope.popupData, {agency: agency});
+                            angular.extend(scope, agency);
                             return scope;
-*/
-                            return $scope;
                         }
                     }
                 });
