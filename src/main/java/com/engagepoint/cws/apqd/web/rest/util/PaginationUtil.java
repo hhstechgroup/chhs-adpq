@@ -14,7 +14,9 @@ import java.net.URISyntaxException;
  * and follow <a href="http://tools.ietf.org/html/rfc5988">RFC 5988 (Link header)</a>.
  * </p>
  */
-public class PaginationUtil {
+public final class PaginationUtil {
+    private PaginationUtil() {
+    }
 
     public static HttpHeaders generatePaginationHttpHeaders(Page<?> page, String baseUrl)
         throws URISyntaxException {

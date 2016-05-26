@@ -10,7 +10,9 @@ import java.io.StringWriter;
 /**
  * Created by dmytro.palczewski on 2/12/2016.
  */
-public class JaxbUtils {
+public final class JaxbUtils {
+    private JaxbUtils() {
+    }
 
     public static String marshal(Object obj, Marshaller marshaller) throws JAXBException {
         StringWriter sw = new StringWriter();

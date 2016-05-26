@@ -11,15 +11,15 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
-        <link rel="stylesheet" href="bower_components/angular-object-diff/dist/angular-object-diff.css" />
-        <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
-        <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
-        <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
-        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css" />
-        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
-        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
-        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' />
+        <link rel='stylesheet' href='bower_components/angular-object-diff/dist/angular-object-diff.css' />
+        <link rel='stylesheet' href='bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css' />
+        <link rel='stylesheet' href='bower_components/ui-select/dist/select.css' />
+        <link rel='stylesheet' href='bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' />
+        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css' />
+        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css' />
+        <link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
+        <link rel='stylesheet' href='bower_components/leaflet/dist/leaflet.css' />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -39,11 +39,107 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="canvas">
-            <div ui-view="main.nav"></div>
+        <div class="ch-layout">
+            <div class="ch-layout__header" >
+               <div class="ch-header">
+                   <div class="ch-header__section ch-header__section_logo">
+                        <div class="ch-logo">
+                            <a href="#" class="ch-logo__link">
+                                <img class="ch-logo__img" src="assets/images/logo.png" alt="Logo"/>
+                            </a>
+                        </div>
+                   </div>
+                   <div class="ch-header__section">
+                       <div class="ch-header__subsection">
+                           <nav class="ch-main-nav" ui-view="main.nav">
+
+                           </nav>
+                       </div>
+                       <div class="ch-header__subsection ch-header__subsection-user-account">
+                               <div class="ch-user-account-entry">
+                                   <button class="ch-user-account-entry__btn ch-user-account-entry__btn_collapsed">
+                                       <span class="icon icon-user-account ch-user-account-entry__icon-user-account"></span>
+                                   </button>
+                               </div>
+                       </div>
+                   </div>
+               </div>
+            </div>
+            <div class="ch-layout__aside clearfix" ui-view="aside.section">
+                <aside class="ch-aside-section">
+                    <div class="ch-aside-section__item">
+                        <nav class="ch-aside-nav">
+
+                            <div class="ch-aside-nav__action-btn">
+                                <button class="ch-option-btn">
+                                    <span class="ch-option-btn__text">Compose Mail</span>
+                                </button>
+                            </div>
+
+                            <ul class="ch-aside-nav-list">
+                                <li class="ch-aside-nav-list__item">
+                                    <div class="ch-aside-nav-item">
+                                        <a href="" class="ch-aside-nav-item__link">
+                                            <span class="icon icon-aside-inbox ch-aside-nav-item__icon ch-aside-nav-item__icon_inbox"></span>
+                                            <span class="ch-aside-nav-item__text">Inbox</span>
+                                            <span class="ch-aside-nav-item__counter">(1)</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="ch-aside-nav-list__item">
+                                    <div class="ch-aside-nav-item">
+                                        <a href="" class="ch-aside-nav-item__link">
+                                            <span class="icon icon-aside-sent ch-aside-nav-item__icon ch-aside-nav-item__icon_sent"></span>
+                                            <span class="ch-aside-nav-item__text">Sent mail</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="ch-aside-nav-list__item">
+                                    <div class="ch-aside-nav-item">
+                                        <a href="" class="ch-aside-nav-item__link">
+                                            <span class="icon icon-aside-drafts ch-aside-nav-item__icon ch-aside-nav-item__icon_drafts"></span>
+                                            <span class="ch-aside-nav-item__text">Drafts</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="ch-aside-nav-list__item">
+                                    <div class="ch-aside-nav-item">
+                                        <a href="" class="ch-aside-nav-item__link">
+                                            <span class="icon icon-aside-deleted ch-aside-nav-item__icon ch-aside-nav-item__icon_deleted"></span>
+                                            <span class="ch-aside-nav-item__text">Deleted</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="ch-aside-section__item">
+                        <div class="ch-contacts">
+                            <h2 class="ch-contacts__heading">Contacts</h2>
+                            <div class="ch-contacts__body">
+                                <ul class="ch-contacts-list">
+                                    <li class="ch-contacts-list__item">
+                                        <div class="ch-contact">
+                                            <div class="ch-contact__name">Sandra Derick</div>
+                                            <span class="ch-contact__role">Case Worker</span>
+                                        </div>
+                                    </li>
+                                    <li class="ch-contacts-list__item">
+                                        <div class="ch-contact">
+                                            <div class="ch-contact__name">Josh Bryceland</div>
+                                            <span class="ch-contact__role">Case Worker</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
 
             <!--start main content-->
-            <div class = "main-wrapper-content" ui-view="content">
+            <div class = "ch-layout__content" ui-view="content">
+
             </div><!--end main content-->
 
         </div>
@@ -218,6 +314,7 @@
     <script src="scripts/components/cws-search/elastic.search.string.query.builder.js"></script>
     <script src="scripts/components/cws-search/cws.search.service.js"></script>
     <script src="scripts/components/google/maps.directive.js"></script>
+    <script src="scripts/components/calendar-dashboard/calendar-dashboard.directive.js"></script>
     <script src="scripts/app/search/search.js"></script>
     <script src="scripts/app/search/search.controller.js"></script>
     <script src="scripts/components/usps/usps.service.js"></script>
@@ -240,20 +337,6 @@
     <script src="scripts/app/entities/lookupCounty/lookupCounty-detail.controller.js"></script>
     <script src="scripts/components/entities/lookupCounty/lookupCounty.service.js"></script>
     <script src="scripts/components/entities/lookupCounty/lookupCounty.search.service.js"></script>
-    <script src="scripts/app/entities/phone/phone.js"></script>
-    <script src="scripts/app/entities/phone/phone.controller.js"></script>
-    <script src="scripts/app/entities/phone/phone-dialog.controller.js"></script>
-    <script src="scripts/app/entities/phone/phone-delete-dialog.controller.js"></script>
-    <script src="scripts/app/entities/phone/phone-detail.controller.js"></script>
-    <script src="scripts/components/entities/phone/phone.service.js"></script>
-    <script src="scripts/components/entities/phone/phone.search.service.js"></script>
-    <script src="scripts/app/entities/email/email.js"></script>
-    <script src="scripts/app/entities/email/email.controller.js"></script>
-    <script src="scripts/app/entities/email/email-dialog.controller.js"></script>
-    <script src="scripts/app/entities/email/email-delete-dialog.controller.js"></script>
-    <script src="scripts/app/entities/email/email-detail.controller.js"></script>
-    <script src="scripts/components/entities/email/email.service.js"></script>
-    <script src="scripts/components/entities/email/email.search.service.js"></script>
     <script src="scripts/app/entities/place/place.js"></script>
     <script src="scripts/app/entities/place/place.controller.js"></script>
     <script src="scripts/app/entities/place/place-dialog.controller.js"></script>
