@@ -64,7 +64,7 @@ angular.module('apqdApp')
                     $scope.center.longitude = center.lng();
                 }
 
-                function onIdle(map, eventName, attrs) {
+                function onIdle(map, eventName) {
                     $log.debug(eventName);
                     $scope.doRefresh({bounds: map.bounds});
                 }

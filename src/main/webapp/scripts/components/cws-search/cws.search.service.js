@@ -26,9 +26,7 @@ angular.module('apqdApp')
                 if (stringQuery.length > 0) {
                     return EntitySearchService.query(
                         {query: stringQuery},
-                        angular.isFunction(resultsCallback) ? resultsCallback : function (results) {
-                            $log.warn('Possibly unused search results. May be processed in CWSSearchService.search(...).then(function(results){ ... });');
-                        },
+                        angular.isFunction(resultsCallback) ? resultsCallback : function () {},
                         angular.isFunction(errorCallback) ? errorCallback : function (response) {
                             // response.status === 404
                             $log.error('searchEntity failed: ' + response.data);

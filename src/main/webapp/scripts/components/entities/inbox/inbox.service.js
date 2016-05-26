@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('Inbox', function ($resource, DateUtils) {
+    .factory('Inbox', function ($resource) {
         return $resource('api/inboxs/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
