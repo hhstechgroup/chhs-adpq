@@ -112,35 +112,7 @@
                             class="glyphicon glyphicon-globe">&#xA0;</span>Locations</a></li>
                     </ul>
                 </li>
-                <!--<li ng-class="{active: $state.includes('admin')}" ng-switch-when="true" has-authority="ROLE_ADMIN" class="main-nav__item dropdown pointer">-->
-                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="">-->
-                <!--<span class = "icon icon-more"></span>-->
-                <!--<span class="title hidden-sm">-->
-                <!--Develop-->
-                <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-sublist">-->
-                <!--<li ui-sref-active="active"><a ui-sref="new-referral" data-toggle="collapse"-->
-                <!--data-target=".navbar-collapse.in"><span-->
-                <!--class="glyphicon glyphicon-asterisk"></span>-->
-                <!--&#xA0;<span>new-referral</span></a></li>-->
-                <!--<li ui-sref-active="active"><a ui-sref="dashboard" data-toggle="collapse"-->
-                <!--data-target=".navbar-collapse.in"><span-->
-                <!--class="glyphicon glyphicon-asterisk"></span>-->
-                <!--&#xA0;<span>dashboard</span></a></li>-->
-                <!--<li ui-sref-active="active">-->
-                <!--<a ui-sref="participants({id: 1})" data-toggle="collapse" data-target=".navbar-collapse.in">-->
-                <!--<span class="glyphicon glyphicon-asterisk"></span>-->
-                <!--&#xA0;<span>Participants</span></a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
             </ul>
-            <!--<button type="button" class="show-more-nav-items-btn">-->
-            <!--<span class = "icon icon-more"></span>-->
-            <!--<span class="title hidden-sm">-->
-            <!--More-->
-            <!--</span>-->
-            <!--</button>-->
             <ul class="nav navbar-nav nav-user-pane" ng-switch="isAuthenticated()">
 
                 <li class="main-nav__item">
@@ -169,14 +141,6 @@
                                                                              data-target=".navbar-collapse.in"><span
                             class="icon icon-settings"></span>
                             &#xA0;<span translate="global.menu.account.settings">Settings</span></a></li>
-                        <!--<li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password" data-toggle="collapse"-->
-                        <!--data-target=".navbar-collapse.in"><span-->
-                        <!--class="glyphicon glyphicon-lock"></span>-->
-                        <!--&#xA0;<span translate="global.menu.account.password">Password</span></a></li>-->
-                        <!--<li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions" data-toggle="collapse"-->
-                        <!--data-target=".navbar-collapse.in"><span-->
-                        <!--class="glyphicon glyphicon-cloud"></span>-->
-                        <!--&#xA0;<span translate="global.menu.account.sessions">Sessions</span></a></li>-->
                         <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login" class="user-login-btn btn-submit-action-green" data-toggle="collapse"
                                                                               data-target=".navbar-collapse.in" translate="global.menu.account.login">Sign in</a>
                         </li>
@@ -187,18 +151,6 @@
                         <li class="company-logo"><span class="icon git engagepoint-logo"></span></li>
                     </ul>
                 </li>
-                <!--<li ui-sref-active="active" class="main-nav__item dropdown pointer" ng-controller="LanguageController">-->
-                <!--<a class="dropdown-toggle" data-toggle="dropdown" href="">-->
-                <!--<span class = "icon icon-language"></span>-->
-                <!--<span class="title hidden-sm" translate="global.menu.language">Language</span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-sublist">-->
-                <!--<li active-menu="{{language}}" ng-repeat="language in languages">-->
-                <!--<a href="" ng-click="changeLanguage(language)" data-toggle="collapse"-->
-                <!--data-target=".navbar-collapse.in">{{language | findLanguageFromKey}}</a>-->
-                <!--</li>-->
-                <!--</ul>-->
-                <!--</li>-->
             </ul>
         </nav>
     </div>
