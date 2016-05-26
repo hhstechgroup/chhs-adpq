@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate) {
+    .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig) {
+        $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
         Principal.identity().then(function(account) {
@@ -34,6 +35,7 @@ angular.module('apqdApp')
                 activated: account.activated,
                 email: account.email,
                 firstName: account.firstName,
+                birthDate: account.birthDate,
                 langKey: account.langKey,
                 lastName: account.lastName,
                 login: account.login,

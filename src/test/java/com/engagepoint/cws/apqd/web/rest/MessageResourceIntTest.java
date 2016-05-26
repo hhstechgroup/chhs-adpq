@@ -1,23 +1,13 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
-import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.User;
-import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
-import com.engagepoint.cws.apqd.repository.OutboxRepository;
-import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareInbox;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMessage;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareOutbox;
-import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareUser;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -44,6 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 
 /**
  * Test class for the MessageResource REST controller.
@@ -73,20 +64,14 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
 
+    private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
+    private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
+
     @Inject
     private MessageRepository messageRepository;
 
     @Inject
     private MessageSearchRepository messageSearchRepository;
-
-    @Inject
-    private InboxRepository inboxRepository;
-
-    @Inject
-    private OutboxRepository outboxRepository;
-
-    @Inject
-    private UserRepository userRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -117,30 +102,7 @@ public class MessageResourceIntTest {
         message.setCaseNumber(DEFAULT_CASE_NUMBER);
         message.setDateCreated(DEFAULT_DATE_CREATED);
         message.setDateRead(DEFAULT_DATE_READ);
-        message.setStatus(MessageStatus.NEW);
-    }
-
-    @Test
-    @Transactional
-    public void getEntityFields() throws Exception {
-        Message replyOn = prepareMessage(messageRepository, "replyOn message subject", "replyOn message body", null, null);
-
-        User from = prepareUser(userRepository, "user1");
-        User to = prepareUser(userRepository, "user2");
-
-        Message message = prepareMessage(messageRepository, "message subject", "message body", from, to);
-        message.setInbox(prepareInbox(inboxRepository));
-        message.setOutbox(prepareOutbox(outboxRepository));
-        message.setReplyOn(replyOn);
-        messageRepository.saveAndFlush(message);
-
-        Message testMessage = messageRepository.findOne(message.getId());
-        assertThat(testMessage).isNotNull();
-        assertThat(testMessage.getInbox()).isNotNull();
-        assertThat(testMessage.getOutbox()).isNotNull();
-        assertThat(testMessage.getReplyOn()).isNotNull();
-        assertThat(testMessage.getFrom()).isNotNull();
-        assertThat(testMessage.getTo()).isNotNull();
+        message.setStatus(DEFAULT_STATUS);
     }
 
     @Test
@@ -164,7 +126,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(DEFAULT_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(DEFAULT_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(DEFAULT_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.NEW);
+        assertThat(testMessage.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -219,7 +181,7 @@ public class MessageResourceIntTest {
                 .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER)))
                 .andExpect(jsonPath("$.[*].dateCreated").value(hasItem(DEFAULT_DATE_CREATED_STR)))
                 .andExpect(jsonPath("$.[*].dateRead").value(hasItem(DEFAULT_DATE_READ_STR)))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(MessageStatus.NEW.name())));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.name())));
     }
 
     @Test
@@ -238,7 +200,7 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER))
             .andExpect(jsonPath("$.dateCreated").value(DEFAULT_DATE_CREATED_STR))
             .andExpect(jsonPath("$.dateRead").value(DEFAULT_DATE_READ_STR))
-            .andExpect(jsonPath("$.status").value(MessageStatus.NEW.name()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.name()));
     }
 
     @Test
@@ -263,7 +225,7 @@ public class MessageResourceIntTest {
         message.setCaseNumber(UPDATED_CASE_NUMBER);
         message.setDateCreated(UPDATED_DATE_CREATED);
         message.setDateRead(UPDATED_DATE_READ);
-        message.setStatus(MessageStatus.READ);
+        message.setStatus(UPDATED_STATUS);
 
         restMessageMockMvc.perform(put("/api/messages")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -279,7 +241,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(UPDATED_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(UPDATED_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(UPDATED_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.READ);
+        assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,6 +47,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @IntegrationTest
 public class AccountResourceIntTest {
+
+    private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
 
     @Inject
     private UserRepository userRepository;
@@ -153,7 +156,8 @@ public class AccountResourceIntTest {
             "en",                   // langKey
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
-            "S123"
+            "S123",
+            DEFAULT_BIRTH_DATE
         );
 
         restMvc.perform(
@@ -179,7 +183,8 @@ public class AccountResourceIntTest {
             "en",                   // langKey
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
-            "S123"
+            "S123",
+            DEFAULT_BIRTH_DATE
         );
 
         restUserMockMvc.perform(
@@ -205,7 +210,8 @@ public class AccountResourceIntTest {
             "en",               // langKey
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
-            "S123"
+            "S123",
+            DEFAULT_BIRTH_DATE
         );
 
         restUserMockMvc.perform(
@@ -232,12 +238,14 @@ public class AccountResourceIntTest {
             "en",                   // langKey
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
-            "S123"
+            "S123",
+            DEFAULT_BIRTH_DATE
         );
 
         // Duplicate login, different e-mail
         UserDTO dup = new UserDTO(u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
-            "alicejr@example.com", true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber());
+            "alicejr@example.com", true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
+            u.getBirthDate());
 
         // Good user
         restMvc.perform(
@@ -271,12 +279,14 @@ public class AccountResourceIntTest {
             "en",                   // langKey
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
-            "S123"
+            "S123",
+            DEFAULT_BIRTH_DATE
         );
 
         // Duplicate e-mail, different login
         UserDTO dup = new UserDTO("johnjr", u.getPassword(), u.getLogin(), u.getLastName(),
-            u.getEmail(), true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber());
+            u.getEmail(), true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
+            u.getBirthDate());
 
         // Good user
         restMvc.perform(
@@ -309,7 +319,8 @@ public class AccountResourceIntTest {
             "en",                   // langKey
             new HashSet<>(Arrays.asList(AuthoritiesConstants.ADMIN)), // <-- only admin should be able to do that
             "1111",                 //ssnLast4Digits
-            "S123"
+            "S123",
+            DEFAULT_BIRTH_DATE
         );
 
         restMvc.perform(
