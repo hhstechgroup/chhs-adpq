@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -47,13 +48,8 @@ public class DeletedTest {
     public void testIdentity() throws Exception {
         Deleted deleted1 = createEntity();
         Deleted deleted2 = createEntity();
+        Deleted foundEntity = deletedRepository.findOne(deleted2.getId());
 
-        assertThat(new Deleted().equals(new Deleted())).isFalse();
-        assertThat(deleted1.equals(new Deleted())).isFalse();
-        assertThat(deleted1.equals(deleted2)).isFalse();
-        assertThat(deletedRepository.findOne(deleted2.getId()).equals(deleted2)).isTrue();
-
-        assertThat(deleted1.hashCode()).isNotNull();
-        assertThat(deleted1.toString().length()).isGreaterThan(0);
+        assertIdentity(deleted1, deleted2, foundEntity, null);
     }
 }
