@@ -1,0 +1,17 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "mailBox",
+      "otherEntityName": "mailBox",
+      "relationshipType": "one-to-one",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "draft"
+    }
+  ],
+  "fields": [],
+  "changelogDate": "20160526203942",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

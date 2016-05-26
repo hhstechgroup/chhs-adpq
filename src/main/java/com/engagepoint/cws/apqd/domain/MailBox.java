@@ -30,10 +30,18 @@ public class MailBox implements Serializable {
     @OneToOne
     private Outbox outbox;
 
+    @OneToMany(mappedBy = "mailBox")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<User> contacts = new HashSet<>();
+
     @OneToOne
     private Deleted deleted;
 
     @OneToOne
+    private Draft draft;
+
+    @OneToOne(mappedBy = "mailBox")
     @JsonIgnore
     private User user;
 
@@ -61,12 +69,28 @@ public class MailBox implements Serializable {
         this.outbox = outbox;
     }
 
+    public Set<User> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Set<User> users) {
+        this.contacts = users;
+    }
+
     public Deleted getDeleted() {
         return deleted;
     }
 
     public void setDeleted(Deleted deleted) {
         this.deleted = deleted;
+    }
+
+    public Draft getDraft() {
+        return draft;
+    }
+
+    public void setDraft(Draft draft) {
+        this.draft = draft;
     }
 
     public User getUser() {

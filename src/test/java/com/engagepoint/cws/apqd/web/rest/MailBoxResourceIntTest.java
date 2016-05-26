@@ -90,6 +90,7 @@ public class MailBoxResourceIntTest {
         // Validate the MailBox in the database
         List<MailBox> mailBoxs = mailBoxRepository.findAll();
         assertThat(mailBoxs).hasSize(databaseSizeBeforeCreate + 1);
+        MailBox testMailBox = mailBoxs.get(mailBoxs.size() - 1);
     }
 
     @Test
@@ -144,6 +145,7 @@ public class MailBoxResourceIntTest {
         // Validate the MailBox in the database
         List<MailBox> mailBoxs = mailBoxRepository.findAll();
         assertThat(mailBoxs).hasSize(databaseSizeBeforeUpdate);
+        MailBox testMailBox = mailBoxs.get(mailBoxs.size() - 1);
     }
 
     @Test

@@ -42,6 +42,9 @@ entity Outbox {
 entity Deleted {
 }
 
+entity Draft {
+}
+
 enum MessageStatus {
     NEW, READ
   }
@@ -80,8 +83,16 @@ relationship OneToOne {
   MailBox{outbox} to Outbox{mailBox}
 }
 
+relationship OneToMany {
+  MailBox{contact} to User
+}
+
 relationship OneToOne {
   MailBox{deleted} to Deleted{mailBox}
+}
+
+relationship OneToOne {
+  MailBox{draft} to Draft{mailBox}
 }
 
 relationship OneToMany {

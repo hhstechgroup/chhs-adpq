@@ -2,43 +2,35 @@
 
 describe('Controller Tests', function() {
 
-    describe('MailBox Detail Controller', function() {
+    describe('Draft Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockMailBox, MockInbox, MockOutbox, MockUser, MockDeleted, MockDraft;
+        var MockEntity, MockDraft, MockMailBox;
         var createController;
 
         beforeEach(inject(function($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
-            MockMailBox = jasmine.createSpy('MockMailBox');
-            MockInbox = jasmine.createSpy('MockInbox');
-            MockOutbox = jasmine.createSpy('MockOutbox');
-            MockUser = jasmine.createSpy('MockUser');
-            MockDeleted = jasmine.createSpy('MockDeleted');
             MockDraft = jasmine.createSpy('MockDraft');
+            MockMailBox = jasmine.createSpy('MockMailBox');
             
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
                 'entity': MockEntity ,
-                'MailBox': MockMailBox,
-                'Inbox': MockInbox,
-                'Outbox': MockOutbox,
-                'User': MockUser,
-                'Deleted': MockDeleted,
-                'Draft': MockDraft
+                'Draft': MockDraft,
+                'MailBox': MockMailBox
             };
             createController = function() {
-                $injector.get('$controller')("MailBoxDetailController", locals);
+                $injector.get('$controller')("DraftDetailController", locals);
             };
         }));
 
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'apqdApp:mailBoxUpdate';
+                var eventType = 'apqdApp:draftUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

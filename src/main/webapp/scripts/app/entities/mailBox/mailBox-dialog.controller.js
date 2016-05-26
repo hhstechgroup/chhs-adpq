@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('apqdApp').controller('MailBoxDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'MailBox', 'Inbox', 'Outbox', 'Deleted', 'User',
-        function($scope, $stateParams, $uibModalInstance, $q, entity, MailBox, Inbox, Outbox, Deleted, User) {
+    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'MailBox', 'Inbox', 'Outbox', 'User', 'Deleted', 'Draft',
+        function($scope, $stateParams, $uibModalInstance, $q, entity, MailBox, Inbox, Outbox, User, Deleted, Draft) {
 
         $scope.mailBox = entity;
         $scope.inboxs = Inbox.query({filter: 'mailbox-is-null'});
@@ -23,6 +23,7 @@ angular.module('apqdApp').controller('MailBoxDialogController',
         }).then(function(outbox) {
             $scope.outboxs.push(outbox);
         });
+        $scope.users = User.query();
         $scope.deleteds = Deleted.query({filter: 'mailbox-is-null'});
         $q.all([$scope.mailBox.$promise, $scope.deleteds.$promise]).then(function() {
             if (!$scope.mailBox.deleted || !$scope.mailBox.deleted.id) {
@@ -32,7 +33,15 @@ angular.module('apqdApp').controller('MailBoxDialogController',
         }).then(function(deleted) {
             $scope.deleteds.push(deleted);
         });
-        $scope.users = User.query();
+        $scope.drafts = Draft.query({filter: 'mailbox-is-null'});
+        $q.all([$scope.mailBox.$promise, $scope.drafts.$promise]).then(function() {
+            if (!$scope.mailBox.draft || !$scope.mailBox.draft.id) {
+                return $q.reject();
+            }
+            return Draft.get({id : $scope.mailBox.draft.id}).$promise;
+        }).then(function(draft) {
+            $scope.drafts.push(draft);
+        });
         $scope.load = function(id) {
             MailBox.get({id : id}, function(result) {
                 $scope.mailBox = result;
@@ -45,7 +54,7 @@ angular.module('apqdApp').controller('MailBoxDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function () {
+        var onSaveError = function (result) {
             $scope.isSaving = false;
         };
 

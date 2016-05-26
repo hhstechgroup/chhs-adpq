@@ -32,6 +32,12 @@ public class ElasticsearchIndexService {
     private DeletedSearchRepository deletedSearchRepository;
 
     @Inject
+    private DraftRepository draftRepository;
+
+    @Inject
+    private DraftSearchRepository draftSearchRepository;
+
+    @Inject
     private InboxRepository inboxRepository;
 
     @Inject
@@ -108,6 +114,12 @@ public class ElasticsearchIndexService {
             deletedSearchRepository.save(deletedRepository.findAll());
         }
         log.info("Elasticsearch: Indexed all deleteds");
+
+        elasticsearchTemplate.deleteIndex(Draft.class);
+        if (draftRepository.count() > 0) {
+            draftSearchRepository.save(draftRepository.findAll());
+        }
+        log.info("Elasticsearch: Indexed all drafts");
 
         elasticsearchTemplate.deleteIndex(Inbox.class);
         if (inboxRepository.count() > 0) {

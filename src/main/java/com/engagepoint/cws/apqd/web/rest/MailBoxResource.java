@@ -7,6 +7,7 @@ import com.engagepoint.cws.apqd.repository.search.MailBoxSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +31,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class MailBoxResource {
 
     private final Logger log = LoggerFactory.getLogger(MailBoxResource.class);
-
+        
     @Inject
     private MailBoxRepository mailBoxRepository;
-
+    
     @Inject
     private MailBoxSearchRepository mailBoxSearchRepository;
-
+    
     /**
      * POST  /mailBoxs -> Create a new mailBox.
      */
@@ -82,7 +83,14 @@ public class MailBoxResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<MailBox> getAllMailBoxs() {
+    public List<MailBox> getAllMailBoxs(@RequestParam(required = false) String filter) {
+        if ("user-is-null".equals(filter)) {
+            log.debug("REST request to get all MailBoxs where user is null");
+            return StreamSupport
+                .stream(mailBoxRepository.findAll().spliterator(), false)
+                .filter(mailBox -> mailBox.getUser() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all MailBoxs");
         return mailBoxRepository.findAll();
             }

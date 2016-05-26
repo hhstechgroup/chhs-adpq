@@ -18,7 +18,9 @@
             },
             "inbox": "Inbox",
             "outbox": "Outbox",
+            "contact": "Contact",
             "deleted": "Deleted",
+            "draft": "Draft",
             "user": "User"
         }
     }

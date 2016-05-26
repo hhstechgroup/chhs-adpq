@@ -30,6 +30,9 @@
             <column name="deleted_id" type="bigint">
                 <constraints unique="true"/>
             </column>
+            <column name="draft_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
@@ -50,6 +53,12 @@
                                  constraintName="fk_mailbox_deleted_id"
                                  referencedColumnNames="id"
                                  referencedTableName="deleted"/>
+
+        <addForeignKeyConstraint baseColumnNames="draft_id"
+                                 baseTableName="mail_box"
+                                 constraintName="fk_mailbox_draft_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="draft"/>
 
     </changeSet>
 </databaseChangeLog>
