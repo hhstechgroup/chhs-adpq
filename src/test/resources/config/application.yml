@@ -119,14 +119,6 @@ content:
         max-items-per-page: -1
 
 # ===================================================================
-# USPS web service connection properties
-# ===================================================================
-usps:
-   server-url: http://production.shippingapis.com/ShippingAPI.dll
-   user-id: 286ENGAG5998
-   timeout: 10
-
-# ===================================================================
 # EngagePoint Notify properties
 # ===================================================================
 notify:

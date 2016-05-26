@@ -99,11 +99,3 @@ intake:
 
 hhs-api:
     hhs-api-url: https://chhs.data.ca.gov/resource/mffa-c6z5.json
-
-# ===================================================================
-# USPS web service connection properties
-# ===================================================================
-usps:
-   server-url: http://production.shippingapis.com/ShippingAPI.dll
-   user-id: 286ENGAG5998
-   timeout: 10
