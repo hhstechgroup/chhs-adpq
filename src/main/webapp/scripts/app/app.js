@@ -5,7 +5,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
     'uiGmapgoogle-maps',
     // jhipster-needle-angularjs-add-module JHipster will add new module
     'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router',  'infinite-scroll', 'angular-loading-bar',
-    'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky'])
+    'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language,
                    Auth, Principal, ENV, VERSION, VoiceAssistantService) {
@@ -84,7 +84,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
             return Principal.hasAnyAuthority(authority);
         }
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, AlertServiceProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';

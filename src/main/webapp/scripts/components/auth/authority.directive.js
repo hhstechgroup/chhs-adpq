@@ -29,9 +29,9 @@ angular.module('apqdApp')
                 if (authorities.length > 0) {
                     defineVisibility(true);
 
-                    scope.$watch(function(scope) {
+                    scope.$watch(function() {
                         return Principal.isAuthenticated();
-                    }, function(newValue) {
+                    }, function() {
                         defineVisibility(true);
                     });
                 }
@@ -68,9 +68,9 @@ angular.module('apqdApp')
                 if (authority.length > 0) {
                     defineVisibility(true);
 
-                    scope.$watch(function(scope) {
+                    scope.$watch(function() {
                         return Principal.isAuthenticated();
-                    }, function(newValue) {
+                    }, function() {
                         defineVisibility(true);
                     });
                 }

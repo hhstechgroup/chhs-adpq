@@ -24,11 +24,11 @@ angular.module('apqdApp')
                 stompClient = Stomp.over(socket);
                 var headers = {};
                 headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
-                stompClient.connect(headers, function(frame) {
+                stompClient.connect(headers, function() {
                     connected.resolve("success");
                     sendActivity();
                     if (!alreadyConnectedOnce) {
-                        $rootScope.$on('$stateChangeStart', function (event) {
+                        $rootScope.$on('$stateChangeStart', function () {
                             sendActivity();
                         });
                         alreadyConnectedOnce = true;

@@ -16,6 +16,7 @@ public class LoggerDTO {
 
     @JsonCreator
     public LoggerDTO() {
+        // tbd
     }
 
     public String getName() {

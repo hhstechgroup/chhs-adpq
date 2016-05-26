@@ -5,6 +5,7 @@ angular.module('apqdApp')
         return {
             restrict: 'E',
             scope: {
+                centerId: '=',
                 /*
                  The array of objects with structure
                  {
@@ -37,36 +38,24 @@ angular.module('apqdApp')
                         return;
                     }
 
-                    uiGmapIsReady.promise().then(function () {
-                        var bounds = new google.maps.LatLngBounds();
-
-                        _.each(newMarkers, function (markerDescription) {
-                            bounds.extend(new google.maps.LatLng(markerDescription.latitude, markerDescription.longitude));
-                            //$log.debug('marker: latitude=', markerDescription.latitude, ', longitude=', markerDescription.longitude);
-                        });
-
-                        if (!_.isNil($scope.dMap.control) && newMarkers.length > 1) {
-                            var gMap = $scope.dMap.control.getGMap();
-                            gMap.fitBounds(bounds);
-                            //google.maps.event.trigger(gMap, 'resize');
-                        } else {
-                            $scope.dMap.zoom = $scope.DEFAULT_ZOOM_LEVEL;
-                        }
-                        updateCenter(bounds);
-                    }, function(reason) {
-                        $log.warn('Google Map is not ready. \n', reason);
-                    });
+                    var center = _.find(newMarkers, {id: $scope.centerId});
+                    if (center) {
+                        angular.merge($scope.center, center);
+                    }
                 }
 
-                function updateCenter(bounds) {
-                    var center = bounds.getCenter();
-                    $scope.center.latitude = center.lat();
-                    $scope.center.longitude = center.lng();
-                }
-
-                function onIdle(map, eventName, attrs) {
+                function onIdle(map, eventName) {
                     $log.debug(eventName);
-                    $scope.doRefresh({bounds: map.bounds});
+                    var bounds = map.bounds;
+                    if (_.some([bounds.northeast.latitude,
+                                bounds.northeast.longitude,
+                                bounds.southwest.latitude,
+                                bounds.southwest.longitude],
+                            function(value) {
+                                return Math.abs(value) !== 0;
+                            })) {
+                        $scope.doRefresh({bounds: map.bounds});
+                    }
                 }
 
                 function init() {

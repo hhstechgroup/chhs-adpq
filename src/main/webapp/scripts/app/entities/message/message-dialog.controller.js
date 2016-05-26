@@ -30,7 +30,7 @@ angular.module('apqdApp').controller('MessageDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 
@@ -52,7 +52,7 @@ angular.module('apqdApp').controller('MessageDialogController',
             opened: false
         };
 
-        $scope.datePickerForDateCreatedOpen = function($event) {
+        $scope.datePickerForDateCreatedOpen = function() {
             $scope.datePickerForDateCreated.status.opened = true;
         };
         $scope.datePickerForDateRead = {};
@@ -61,7 +61,7 @@ angular.module('apqdApp').controller('MessageDialogController',
             opened: false
         };
 
-        $scope.datePickerForDateReadOpen = function($event) {
+        $scope.datePickerForDateReadOpen = function() {
             $scope.datePickerForDateRead.status.opened = true;
         };
 }]);

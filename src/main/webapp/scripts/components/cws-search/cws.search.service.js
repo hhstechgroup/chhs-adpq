@@ -26,9 +26,7 @@ angular.module('apqdApp')
                 if (stringQuery.length > 0) {
                     return EntitySearchService.query(
                         {query: stringQuery},
-                        angular.isFunction(resultsCallback) ? resultsCallback : function (results) {
-                            $log.warn('Possibly unused search results. May be processed in CWSSearchService.search(...).then(function(results){ ... });');
-                        },
+                        angular.isFunction(resultsCallback) ? resultsCallback : function () {},
                         angular.isFunction(errorCallback) ? errorCallback : function (response) {
                             // response.status === 404
                             $log.error('searchEntity failed: ' + response.data);
@@ -323,7 +321,7 @@ angular.module('apqdApp')
                     // execute search
                     var searchPromise = this.searchEntity(entitySearchService, stringQuery,
                         entitySearchParams['onResponse'],
-                        angular.isFunction(entitySearchParams['onError']) ? entitySearchParams['onError'] : function (response) {
+                        angular.isFunction(entitySearchParams['onError']) ? entitySearchParams['onError'] : function () {
                             // todo detect IndexMissingException
                             // todo add such behavior to some other explicit function via option?
                             if (angular.isFunction(entitySearchParams['onResponse'])) entitySearchParams['onResponse']([]);

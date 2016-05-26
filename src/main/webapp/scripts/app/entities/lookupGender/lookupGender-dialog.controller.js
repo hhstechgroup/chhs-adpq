@@ -17,7 +17,7 @@ angular.module('apqdApp').controller('LookupGenderDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 

@@ -2,24 +2,95 @@ html, body {
     height: 100%;
 }
 
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font: 10px/1 sans-serif;
+}
 body {
-    font-family: $open-sans;
-    background: #e7e8ec;
-    min-width: 1024px;
-    position: relative;
+    margin: 0;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
 }
 
-input:placeholder {
-    font-size: 20px;
-    color: #fff;
+* {
+    box-sizing: border-box;
 }
 
-ul, ol {
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+blockquote,
+figure,
+ol,
+ul {
     margin: 0;
     padding: 0;
-    list-style: none;
+}
+main,
+li {
+    display: block;
+}
+h1,
+h2,
+h3,
+h4 {
+    font-size: inherit;
+}
+strong {
+    font-weight: bold;
+}
+a,
+button {
+    color: inherit;
+    transition: .3s;
+}
+a {
+    text-decoration: none;
+}
+button {
+    overflow: visible;
+    border: 0;
+    font: inherit;
+    -webkit-font-smoothing: inherit;
+    letter-spacing: inherit;
+    background: none;
+    cursor: pointer;
+}
+::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+:focus {
+    outline: 0;
+}
+img {
+    //max-width: 100%;
+    height: auto;
+    border: 0;
 }
 
-dl {
-    margin: 0;
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+a {
+    display: inline-block;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
 }

@@ -605,7 +605,8 @@ angular.module('apqdApp')
             }
         }
 
-        function performUsingFuse(text) {
+        function performUsingFuse() {
+            // tbd
         }
 
         function initNarrative() {

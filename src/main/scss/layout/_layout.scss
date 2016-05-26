@@ -1,0 +1,139 @@
+.icon {
+    display: inline-block;
+}
+
+.ch-layout {
+    width: 100%;
+}
+
+
+.ch-header {
+    width: 100%;
+    background: #343c47;
+    height: 7.3rem;
+}
+
+.ch-header__section {
+    height: 100%;
+}
+
+.ch-header__section_logo {
+    float: left;
+    padding: 1.5rem 6.2rem 0 2.7rem;
+    width: 21rem;
+}
+
+.ch-header__section_control-pane {
+    margin-left: 21rem;
+}
+
+.ch-header__subsection {
+    display: inline-block;
+}
+
+.ch-main-nav-list__item {
+    display: inline-block;
+}
+
+.ch-main-nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.ch-main-nav-item__link {
+    display: block;
+    height: 7.3rem;
+    min-width: 12.5rem;
+    padding: 2.2rem 2.5rem;
+}
+
+.ch-main-nav-item__text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.ch-main-nav-item__icon {
+    margin-right: 1rem;
+}
+
+
+.ch-layout__aside {
+    position: fixed;
+    width: 21rem;
+    height: 100vh;
+    border-right: 1px solid #cbcdcf;
+}
+
+.ch-layout__content {
+    width: 100%;
+    padding-left: 21rem;
+}
+
+.ch-aside-section {
+    background: #fff;
+}
+
+.ch-aside-section__item {
+    border-bottom: 1px solid #cbcdcf;
+}
+
+.ch-aside-section__item:last-child {
+    border-bottom: none;
+}
+
+.ch-aside-nav {
+    padding-top: 2rem;
+}
+
+.ch-option-btn {
+    display: inline-block;
+    padding: 0.8rem 3rem;
+    min-width: 5rem;
+    background: #0071bc;
+    border-radius: 4px;
+}
+
+.ch-option-btn__text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+.ch-aside-nav__action-btn {
+    padding: 0 0 0 2.7rem;
+}
+
+.ch-aside-nav-item__text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #5b616b;
+}
+
+.ch-header__subsection-user-account {
+    float: right;
+    padding: 22px 25px 0 0;
+}
+
+.ch-user-account-entry__btn_collapsed:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #fff;
+}
+
+.ch-user-account-entry__btn_expanded:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #fff;
+}
+
