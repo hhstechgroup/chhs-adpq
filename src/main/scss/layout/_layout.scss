@@ -1,0 +1,107 @@
+.icon {
+    display: inline-block;
+}
+
+.ch-layout {
+    width: 100%;
+}
+
+
+.ch-header {
+    display: table;
+    width: 100%;
+    background: #343c47;
+    height: 7.3rem;
+}
+
+.ch-header__section {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.ch-header__section_logo {
+    padding: 0 6.2rem 0 2.7rem;
+    width: 2.1rem;
+}
+
+.ch-main-nav-list__item {
+    display: inline-block;
+}
+
+.ch-main-nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.ch-main-nav-item__link {
+    display: block;
+    height: 7.3rem;
+    min-width: 12.5rem;
+    padding: 2.2rem 2.5rem;
+}
+
+.ch-main-nav-item__text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.ch-main-nav-item__icon {
+    margin-right: 1rem;
+}
+
+
+.ch-layout__aside {
+    float: left;
+    width: 21rem;
+    border-right: 1px solid #cbcdcf;
+}
+
+.ch-layout__content {
+    width: 100%;
+    margin-left: -21rem;
+}
+
+.ch-aside-section {
+    background: #fff;
+}
+
+.ch-aside-section__item {
+    border-bottom: 1px solid #cbcdcf;
+}
+
+.ch-aside-section__item:last-child {
+    border-bottom: none;
+}
+
+.ch-aside-nav {
+    padding-top: 2rem;
+}
+
+.ch-option-btn {
+    display: inline-block;
+    padding: 0.8rem 3rem;
+    min-width: 5rem;
+    background: #0071bc;
+    border-radius: 4px;
+}
+
+.ch-option-btn__text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+.ch-aside-nav__action-btn {
+    padding: 0 0 0 2.7rem;
+}
+
+.ch-aside-nav-item__text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #5b616b;
+}
+

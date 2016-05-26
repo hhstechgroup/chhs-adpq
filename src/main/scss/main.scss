@@ -294,36 +294,7 @@ div.vis-network div.vis-navigation div.vis-button.vis-up {
 @import "_sprites.scss";
 @include sprites($spritesheet-sprites);
 @import "layout/_initial.scss";
-@import "layout/_common.scss";
-@import "layout/_header.scss";
-@import "layout/_canvas.scss";
-@import "layout/_media.scss";
-@import "layout/_login.scss";
-@import "components/_main-nav.scss";
-@import "components/_buttons.scss";
-@import "components/_search.scss";
-@import "components/_dashboard-widget.scss";
-@import "components/_widget-locations.scss";
-@import "components/_widget-tasks.scss";
-@import "components/_widget-calls.scss";
-@import "components/_tabs.scss";
-@import "components/_reporter-tab.scss";
-@import "components/_participants-tab.scss";
-@import "components/_allegation-tab.scss";
-@import "components/_input.scss";
-@import "components/_narrative.scss";
-@import "components/_dropdown-custom.scss";
-@import "components/_new-referral.scss";
-@import "components/_select.scss";
-@import "components/_similar-clients-widget.scss";
-@import "components/_participant-addresses-widget.scss";
-@import "components/_datepicker.scss";
-@import "components/_aside-widget.scss";
-@import "components/_contact-information-widget.scss";
-@import "components/_timepicker.scss";
-@import "components/_help-service-chat.scss";
-@import "components/_investigation-safety-plan.scss";
-@import "components/_modal.scss";
-@import "components/_participants-add-relative-dialog.scss";
-@import "components/_recycle.scss";
+@import "layout/_layout.scss";
+
+
 
