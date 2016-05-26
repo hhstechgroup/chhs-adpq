@@ -91,6 +91,19 @@
                         </p>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label" for="phoneNumber">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number"
+                           ng-model="settingsAccount.phoneNumber" ng-maxlength=20 maxlength="20"
+                           ui-mask="(999) 999-9999"
+                           ui-mask-placeholder ui-mask-placeholder-char="_" />
+                    <div ng-show="form.phoneNumber.$dirty && form.phoneNumber.$invalid">
+                        <p class="help-block"
+                           ng-show="form.phoneNumber.$error.maxlength">
+                            Your Phone Number cannot be longer than 20 characters.
+                        </p>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="control-label" for="ssnLast4Digits">Last 4 digits of SSN </label>

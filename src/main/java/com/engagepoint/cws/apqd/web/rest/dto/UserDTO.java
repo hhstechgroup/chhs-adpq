@@ -54,6 +54,9 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    @Size(max = 30)
+    private String phoneNumber;
+
     public UserDTO() {
         // tbd
     }
@@ -63,12 +66,12 @@ public class UserDTO {
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()), user.getSsnLast4Digits(),
-            user.getCaseNumber(), user.getBirthDate(), user.getGender());
+            user.getCaseNumber(), user.getBirthDate(), user.getGender(), user.getPhoneNumber());
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
         String email, boolean activated, String langKey, Set<String> authorities, String ssnLast4Digits,
-        String caseNumber, LocalDate birthDate, LookupGender gender) {
+        String caseNumber, LocalDate birthDate, LookupGender gender, String phoneNumber) {
 
         this.login = login;
         this.password = password;
@@ -82,6 +85,7 @@ public class UserDTO {
         this.caseNumber = caseNumber;
         this.birthDate = birthDate;
         this.gender = gender;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPassword() {
@@ -132,6 +136,10 @@ public class UserDTO {
         return gender;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -147,6 +155,7 @@ public class UserDTO {
             ", caseNumber=" + caseNumber +
             ", birthDate=" + birthDate +
             ", gender=" + gender +
+            ", phoneNumber=" + phoneNumber +
             "}";
     }
 

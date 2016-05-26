@@ -37,6 +37,7 @@ public class UserServiceIntTest {
 
     private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
     private static final LookupGender GENDER = new LookupGender();
+    private static final String DEFAULT_PHONE = "1111111111";
 
     static {
         GENDER.setId(1L);
@@ -79,7 +80,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
         Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
         assertThat(maybeUser.isPresent()).isFalse();
         userRepository.delete(user);
@@ -88,7 +89,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatResetKeyMustNotBeOlderThan24Hours() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         String resetKey = RandomUtil.generateResetKey();
@@ -108,7 +109,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatResetKeyMustBeValid() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         user.setActivated(true);
@@ -123,7 +124,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatUserCanResetPassword() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
         String oldPassword = user.getPassword();
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
         String resetKey = RandomUtil.generateResetKey();
