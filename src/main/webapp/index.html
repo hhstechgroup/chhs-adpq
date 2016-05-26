@@ -65,76 +65,7 @@
                    </div>
                </div>
             </div>
-            <div class="ch-layout__aside clearfix" ui-view="aside.section">
-                <aside class="ch-aside-section">
-                    <div class="ch-aside-section__item">
-                        <nav class="ch-aside-nav">
-
-                            <div class="ch-aside-nav__action-btn">
-                                <button class="ch-option-btn">
-                                    <span class="ch-option-btn__text">Compose Mail</span>
-                                </button>
-                            </div>
-
-                            <ul class="ch-aside-nav-list">
-                                <li class="ch-aside-nav-list__item">
-                                    <div class="ch-aside-nav-item">
-                                        <a href="" class="ch-aside-nav-item__link">
-                                            <span class="icon icon-aside-inbox ch-aside-nav-item__icon ch-aside-nav-item__icon_inbox"></span>
-                                            <span class="ch-aside-nav-item__text">Inbox</span>
-                                            <span class="ch-aside-nav-item__counter">(1)</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="ch-aside-nav-list__item">
-                                    <div class="ch-aside-nav-item">
-                                        <a href="" class="ch-aside-nav-item__link">
-                                            <span class="icon icon-aside-sent ch-aside-nav-item__icon ch-aside-nav-item__icon_sent"></span>
-                                            <span class="ch-aside-nav-item__text">Sent mail</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="ch-aside-nav-list__item">
-                                    <div class="ch-aside-nav-item">
-                                        <a href="" class="ch-aside-nav-item__link">
-                                            <span class="icon icon-aside-drafts ch-aside-nav-item__icon ch-aside-nav-item__icon_drafts"></span>
-                                            <span class="ch-aside-nav-item__text">Drafts</span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="ch-aside-nav-list__item">
-                                    <div class="ch-aside-nav-item">
-                                        <a href="" class="ch-aside-nav-item__link">
-                                            <span class="icon icon-aside-deleted ch-aside-nav-item__icon ch-aside-nav-item__icon_deleted"></span>
-                                            <span class="ch-aside-nav-item__text">Deleted</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="ch-aside-section__item">
-                        <div class="ch-contacts">
-                            <h2 class="ch-contacts__heading">Contacts</h2>
-                            <div class="ch-contacts__body">
-                                <ul class="ch-contacts-list">
-                                    <li class="ch-contacts-list__item">
-                                        <div class="ch-contact">
-                                            <div class="ch-contact__name">Sandra Derick</div>
-                                            <span class="ch-contact__role">Case Worker</span>
-                                        </div>
-                                    </li>
-                                    <li class="ch-contacts-list__item">
-                                        <div class="ch-contact">
-                                            <div class="ch-contact__name">Josh Bryceland</div>
-                                            <span class="ch-contact__role">Case Worker</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
+            <div class="ch-layout__aside clearfix" ui-view="aside">
             </div>
 
             <!--start main content-->
@@ -398,10 +329,19 @@
     <script src="scripts/app/entities/deleted/deleted-detail.controller.js"></script>
     <script src="scripts/components/entities/deleted/deleted.service.js"></script>
     <script src="scripts/components/entities/deleted/deleted.search.service.js"></script>
-    <script src="scripts/app/inbox/inbox.js"></script>
-    <script src="scripts/app/inbox/inbox.controller.js"></script>
+    <script src="scripts/app/mailbox/mailbox.js"></script>
+    <script src="scripts/app/mailbox/mailbox.controller.js"></script>
+    <script src="scripts/app/mailbox/inbox/inbox.js"></script>
+    <script src="scripts/app/mailbox/inbox/inbox.controller.js"></script>
+    <script src="scripts/app/mailbox/sent/sent.js"></script>
+    <script src="scripts/app/mailbox/sent/sent.controller.js"></script>
+    <script src="scripts/app/mailbox/drafts/drafts.js"></script>
+    <script src="scripts/app/mailbox/drafts/drafts.controller.js"></script>
+    <script src="scripts/app/mailbox/deleted/deleted.js"></script>
+    <script src="scripts/app/mailbox/deleted/deleted.controller.js"></script>
     <script src="scripts/app/facilities/facilities.js"></script>
     <script src="scripts/app/facilities/facilities.controller.js"></script>
+
     <!-- endbuild -->
 
     <!-- google places api -->
