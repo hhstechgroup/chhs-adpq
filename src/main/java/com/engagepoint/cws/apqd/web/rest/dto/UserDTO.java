@@ -6,6 +6,7 @@ import com.engagepoint.cws.apqd.domain.User;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 /**
@@ -46,6 +47,8 @@ public class UserDTO {
     @Size(max = 20)
     private String caseNumber;
 
+    private LocalDate birthDate;
+
     private Set<String> authorities;
 
     public UserDTO() {
@@ -55,12 +58,13 @@ public class UserDTO {
         this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()), user.getSsnLast4Digits(), user.getCaseNumber());
+                .collect(Collectors.toSet()), user.getSsnLast4Digits(),
+            user.getCaseNumber(), user.getBirthDate());
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
         String email, boolean activated, String langKey, Set<String> authorities, String ssnLast4Digits,
-        String caseNumber) {
+        String caseNumber, LocalDate birthDate) {
 
         this.login = login;
         this.password = password;
@@ -72,6 +76,7 @@ public class UserDTO {
         this.authorities = authorities;
         this.ssnLast4Digits = ssnLast4Digits;
         this.caseNumber = caseNumber;
+        this.birthDate = birthDate;
     }
 
     public String getPassword() {
@@ -114,18 +119,29 @@ public class UserDTO {
         return caseNumber;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
             "login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            ", birthDate='" + birthDate + '\'' +
             ", email='" + email + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
             ", authorities=" + authorities +
             ", ssnLast4Digits=" + ssnLast4Digits +
             ", caseNumber=" + caseNumber +
+            ", birthDate=" + birthDate +
             "}";
     }
+
 }

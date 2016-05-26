@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -81,6 +82,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "case_number", nullable = true, length = 20)
     private String caseNumber;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
     @JsonIgnore
     @ManyToMany
@@ -222,6 +226,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setCaseNumber(String caseNumber) {
         this.caseNumber = caseNumber;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     @Override
