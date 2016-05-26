@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils) {
+    .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig) {
         $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
