@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,13 +52,8 @@ public class MailBoxTest {
     public void testIdentity() throws Exception {
         MailBox mailBox1 = createEntity();
         MailBox mailBox2 = createEntity();
+        MailBox foundEntity = mailBoxRepository.findOne(mailBox2.getId());
 
-        assertThat(new MailBox().equals(new MailBox())).isFalse();
-        assertThat(mailBox1.equals(new MailBox())).isFalse();
-        assertThat(mailBox1.equals(mailBox2)).isFalse();
-        assertThat(mailBoxRepository.findOne(mailBox2.getId()).equals(mailBox2)).isTrue();
-
-        assertThat(mailBox1.hashCode()).isNotNull();
-        assertThat(mailBox1.toString().length()).isGreaterThan(0);
+        assertIdentity(mailBox1, mailBox2, foundEntity, null);
     }
 }

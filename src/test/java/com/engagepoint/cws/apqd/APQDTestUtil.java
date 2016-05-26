@@ -16,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.HashSet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public final class APQDTestUtil {
     private static final String TEST_PASSWORD_HASH = new String(new char[60]).replace("\0", "F");
 
@@ -88,5 +90,17 @@ public final class APQDTestUtil {
         }
         outbox.getMessages().add(message);
         return outboxRepository.saveAndFlush(outbox);
+    }
+
+    public static <T> void assertIdentity(T entity1, T entity2, T foundEntity, T nullEntity) throws Exception {
+        assertThat(entity1.equals(nullEntity)).isFalse(); // null
+        assertThat(entity1.equals("")).isFalse(); // other type
+        assertThat(entity1.getClass().newInstance().equals(entity1.getClass().newInstance())).isFalse(); // instances with null id
+        assertThat(entity1.equals(entity1.getClass().newInstance())).isFalse();
+        assertThat(entity1.equals(entity2)).isFalse(); // other entity
+        assertThat(foundEntity.equals(entity2)).isTrue();
+
+        assertThat(entity1.hashCode()).isNotNull();
+        assertThat(entity1.toString().length()).isGreaterThan(0);
     }
 }
