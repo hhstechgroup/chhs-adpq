@@ -44,7 +44,7 @@ angular.module('apqdApp').controller('AttachmentDialogController',
             opened: false
         };
 
-        $scope.datePickerForCreationDateOpen = function($event) {
+        $scope.datePickerForCreationDateOpen = function() {
             $scope.datePickerForCreationDate.status.opened = true;
         };
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
+    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector) {
         return {
             responseError: function(response) {
                 // If we have an unauthorized request we redirect to the login page

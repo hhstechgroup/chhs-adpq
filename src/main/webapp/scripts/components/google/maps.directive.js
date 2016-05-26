@@ -44,7 +44,7 @@ angular.module('apqdApp')
                     }
                 }
 
-                function onIdle(map, eventName, attrs) {
+                function onIdle(map, eventName) {
                     $log.debug(eventName);
                     var bounds = map.bounds;
                     if (_.some([bounds.northeast.latitude,

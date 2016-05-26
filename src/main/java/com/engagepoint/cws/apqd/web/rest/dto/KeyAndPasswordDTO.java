@@ -6,6 +6,7 @@ public class KeyAndPasswordDTO {
     private String newPassword;
 
     public KeyAndPasswordDTO() {
+        // tbd
     }
 
     public String getKey() {

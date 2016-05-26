@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('LookupGender', function ($resource, DateUtils) {
+    .factory('LookupGender', function ($resource) {
         return $resource('api/lookupGenders/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
