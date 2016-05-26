@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('LocationsController', ['$scope', '$log', '$q', 'FosterFamilyAgenciesService', function ($scope, $log, $q, FosterFamilyAgenciesService) {
+    .controller('LocationsController', ['$scope', '$log', '$q', 'leafletData', 'FosterFamilyAgenciesService', function ($scope, $log, $q, leafletData, FosterFamilyAgenciesService) {
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18
