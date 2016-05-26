@@ -4,6 +4,7 @@ import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -55,6 +56,9 @@ public class MailBoxServiceTest {
     @Inject
     private OutboxRepository outboxRepository;
 
+    @Inject
+    private DeletedRepository deletedRepository;
+
     private MailBoxService mailBoxService;
 
     private User currentUser;
@@ -72,16 +76,16 @@ public class MailBoxServiceTest {
     public void initTest () {
         currentUser = prepareUser(null, CURRENT_LOGIN);
         setMailBox(userRepository, currentUser,
-            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
+            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository));
         setCurrentUser(currentUser);
     }
 
     @Test
     @Transactional
     public void testSendMessage() throws Exception {
-        User to = prepareUser(userRepository, TO_LOGIN);
+        User to = prepareUser(null, TO_LOGIN);
         setMailBox(userRepository, to,
-            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
+            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository));
 
         Message message = prepareMessage(messageRepository, "subject", "body", null, to);
         mailBoxService.sendMessage(message);

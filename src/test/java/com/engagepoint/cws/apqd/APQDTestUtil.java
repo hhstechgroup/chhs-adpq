@@ -1,10 +1,12 @@
 package com.engagepoint.cws.apqd;
 
+import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.MailBox;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -60,8 +62,10 @@ public final class APQDTestUtil {
         return inboxRepository.saveAndFlush(new Inbox());
     }
 
-    public static Inbox setMailBox(InboxRepository inboxRepository, Inbox inbox, MailBox mailBox) {
-        inbox.setMailBox(mailBox);
+    public static Inbox setMessage(InboxRepository inboxRepository, Inbox inbox, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        inbox.setMessages(messages);
         return inboxRepository.saveAndFlush(inbox);
     }
 
@@ -73,25 +77,38 @@ public final class APQDTestUtil {
         return outboxRepository.saveAndFlush(new Outbox());
     }
 
-    public static Outbox setMailBox(OutboxRepository outboxRepository, Outbox outbox, MailBox mailBox) {
-        outbox.setMailBox(mailBox);
+    public static Outbox setMessage(OutboxRepository outboxRepository, Outbox outbox, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        outbox.setMessages(messages);
         return outboxRepository.saveAndFlush(outbox);
+    }
+
+    /*
+     * Deleted-related
+     */
+
+    public static Deleted prepareDeleted(DeletedRepository deletedRepository) {
+        return deletedRepository.saveAndFlush(new Deleted());
     }
 
     /*
      * MailBox-related
      */
 
-    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, User user) {
+    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, Deleted deleted, User user) {
         MailBox mailBox = new MailBox();
         mailBox.setInbox(inbox);
         mailBox.setOutbox(outbox);
+        mailBox.setDeleted(deleted);
         mailBox.setUser(user);
         return mailBoxRepository.saveAndFlush(mailBox);
     }
 
-    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, InboxRepository inboxRepository, OutboxRepository outboxRepository) {
-        return prepareMailBox(mailBoxRepository, prepareInbox(inboxRepository), prepareOutbox(outboxRepository), null);
+    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, InboxRepository inboxRepository,
+                                         OutboxRepository outboxRepository, DeletedRepository deletedRepository) {
+        return prepareMailBox(mailBoxRepository, prepareInbox(inboxRepository), prepareOutbox(outboxRepository),
+            prepareDeleted(deletedRepository), null);
     }
 
     /*
@@ -105,20 +122,6 @@ public final class APQDTestUtil {
         message.setFrom(from);
         message.setTo(to);
         return messageRepository.saveAndFlush(message);
-    }
-
-    public static Inbox setMessage(InboxRepository inboxRepository, Inbox inbox, Message message) {
-        Set<Message> messages = new HashSet<>();
-        messages.add(message);
-        inbox.setMessages(messages);
-        return inboxRepository.saveAndFlush(inbox);
-    }
-
-    public static Outbox setMessage(OutboxRepository outboxRepository, Outbox outbox, Message message) {
-        Set<Message> messages = new HashSet<>();
-        messages.add(message);
-        outbox.setMessages(messages);
-        return outboxRepository.saveAndFlush(outbox);
     }
 
     /*

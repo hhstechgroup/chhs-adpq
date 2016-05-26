@@ -1,6 +1,7 @@
 package com.engagepoint.cws.apqd.domain;
 
 import com.engagepoint.cws.apqd.Application;
+import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
@@ -32,8 +33,11 @@ public class MailBoxTest {
     @Inject
     private OutboxRepository outboxRepository;
 
+    @Inject
+    private DeletedRepository deletedRepository;
+
     private MailBox createEntity() {
-        return prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository);
+        return prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository);
     }
 
     @Test

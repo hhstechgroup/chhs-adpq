@@ -4,7 +4,6 @@ import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
-import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -16,9 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
-import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
-import static com.engagepoint.cws.apqd.APQDTestUtil.setMailBox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setMessage;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,14 +31,11 @@ public class InboxTest {
     private InboxRepository inboxRepository;
 
     @Inject
-    private OutboxRepository outboxRepository;
-
-    @Inject
     private MessageRepository messageRepository;
 
     private Inbox createEntity(String messageSubject, String messageBody) {
         Inbox inbox = new Inbox();
-        setMailBox(inboxRepository, inbox, prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
+        inbox.setMailBox(mailBoxRepository.saveAndFlush(new MailBox()));
         Message message = prepareMessage(messageRepository, messageSubject, messageBody, null, null);
         return setMessage(inboxRepository, inbox, message);
     }
