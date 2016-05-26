@@ -20,10 +20,16 @@ public class ElasticsearchIndexService {
     private final Logger log = LoggerFactory.getLogger(ElasticsearchIndexService.class);
 
     @Inject
-    private EmailRepository emailRepository;
+    private AttachmentRepository attachmentRepository;
 
     @Inject
-    private EmailSearchRepository emailSearchRepository;
+    private AttachmentSearchRepository attachmentSearchRepository;
+
+    @Inject
+    private DeletedRepository deletedRepository;
+
+    @Inject
+    private DeletedSearchRepository deletedSearchRepository;
 
     @Inject
     private InboxRepository inboxRepository;
@@ -36,6 +42,18 @@ public class ElasticsearchIndexService {
 
     @Inject
     private LookupCountySearchRepository lookupCountySearchRepository;
+
+    @Inject
+    private LookupGenderRepository lookupGenderRepository;
+
+    @Inject
+    private LookupGenderSearchRepository lookupGenderSearchRepository;
+
+    @Inject
+    private LookupMaritalStatusRepository lookupMaritalStatusRepository;
+
+    @Inject
+    private LookupMaritalStatusSearchRepository lookupMaritalStatusSearchRepository;
 
     @Inject
     private LookupStateRepository lookupStateRepository;
@@ -62,12 +80,6 @@ public class ElasticsearchIndexService {
     private OutboxSearchRepository outboxSearchRepository;
 
     @Inject
-    private PhoneRepository phoneRepository;
-
-    @Inject
-    private PhoneSearchRepository phoneSearchRepository;
-
-    @Inject
     private PlaceRepository placeRepository;
 
     @Inject
@@ -85,11 +97,17 @@ public class ElasticsearchIndexService {
     @Async
     @Timed
     public void reindexAll() {
-        elasticsearchTemplate.deleteIndex(Email.class);
-        if (emailRepository.count() > 0) {
-            emailSearchRepository.save(emailRepository.findAll());
+        elasticsearchTemplate.deleteIndex(Attachment.class);
+        if (attachmentRepository.count() > 0) {
+            attachmentSearchRepository.save(attachmentRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all emails");
+        log.info("Elasticsearch: Indexed all attachments");
+
+        elasticsearchTemplate.deleteIndex(Deleted.class);
+        if (deletedRepository.count() > 0) {
+            deletedSearchRepository.save(deletedRepository.findAll());
+        }
+        log.info("Elasticsearch: Indexed all deleteds");
 
         elasticsearchTemplate.deleteIndex(Inbox.class);
         if (inboxRepository.count() > 0) {
@@ -102,6 +120,18 @@ public class ElasticsearchIndexService {
             lookupCountySearchRepository.save(lookupCountyRepository.findAll());
         }
         log.info("Elasticsearch: Indexed all lookupCountys");
+
+        elasticsearchTemplate.deleteIndex(LookupGender.class);
+        if (lookupGenderRepository.count() > 0) {
+            lookupGenderSearchRepository.save(lookupGenderRepository.findAll());
+        }
+        log.info("Elasticsearch: Indexed all lookupGenders");
+
+        elasticsearchTemplate.deleteIndex(LookupMaritalStatus.class);
+        if (lookupMaritalStatusRepository.count() > 0) {
+            lookupMaritalStatusSearchRepository.save(lookupMaritalStatusRepository.findAll());
+        }
+        log.info("Elasticsearch: Indexed all lookupMaritalStatuss");
 
         elasticsearchTemplate.deleteIndex(LookupState.class);
         if (lookupStateRepository.count() > 0) {
@@ -126,12 +156,6 @@ public class ElasticsearchIndexService {
             outboxSearchRepository.save(outboxRepository.findAll());
         }
         log.info("Elasticsearch: Indexed all outboxs");
-
-        elasticsearchTemplate.deleteIndex(Phone.class);
-        if (phoneRepository.count() > 0) {
-            phoneSearchRepository.save(phoneRepository.findAll());
-        }
-        log.info("Elasticsearch: Indexed all phones");
 
         elasticsearchTemplate.deleteIndex(Place.class);
         if (placeRepository.count() > 0) {

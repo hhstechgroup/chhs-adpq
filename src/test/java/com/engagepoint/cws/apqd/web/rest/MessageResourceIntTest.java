@@ -1,10 +1,8 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
-import com.engagepoint.cws.apqd.domain.Inbox;
+import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.MessageStatus;
-import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -15,6 +13,11 @@ import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareInbox;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMessage;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareOutbox;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareUser;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -69,10 +72,6 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE_READ = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
-    private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
-    private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
-
-    private static String TEST_PASSWORD_HASH = new String(new char[60]).replace("\0", "F");
 
     @Inject
     private MessageRepository messageRepository;
@@ -118,40 +117,21 @@ public class MessageResourceIntTest {
         message.setCaseNumber(DEFAULT_CASE_NUMBER);
         message.setDateCreated(DEFAULT_DATE_CREATED);
         message.setDateRead(DEFAULT_DATE_READ);
-        message.setStatus(DEFAULT_STATUS);
+        message.setStatus(MessageStatus.NEW);
     }
 
     @Test
     @Transactional
     public void getEntityFields() throws Exception {
-        Inbox inbox = new Inbox();
-        inboxRepository.saveAndFlush(inbox);
+        Message replyOn = prepareMessage(messageRepository, "replyOn message subject", "replyOn message body", null, null);
 
-        Outbox outbox = new Outbox();
-        outboxRepository.saveAndFlush(outbox);
+        User from = prepareUser(userRepository, "user1");
+        User to = prepareUser(userRepository, "user2");
 
-        Message replyOn = new Message();
-        replyOn.setSubject("replyOn message subject");
-        replyOn.setBody("replyOn message body");
-        messageRepository.saveAndFlush(replyOn);
-
-        User from = new User();
-        from.setLogin("user1");
-        from.setPassword(TEST_PASSWORD_HASH);
-        userRepository.saveAndFlush(from);
-
-        User to = new User();
-        to.setLogin("user2");
-        to.setPassword(TEST_PASSWORD_HASH);
-        userRepository.saveAndFlush(to);
-
-        message.setSubject("message subject");
-        message.setBody("message body");
-        message.setInbox(inbox);
-        message.setOutbox(outbox);
+        Message message = prepareMessage(messageRepository, "message subject", "message body", from, to);
+        message.setInbox(prepareInbox(inboxRepository));
+        message.setOutbox(prepareOutbox(outboxRepository));
         message.setReplyOn(replyOn);
-        message.setFrom(from);
-        message.setTo(to);
         messageRepository.saveAndFlush(message);
 
         Message testMessage = messageRepository.findOne(message.getId());
@@ -184,7 +164,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(DEFAULT_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(DEFAULT_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(DEFAULT_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.NEW);
     }
 
     @Test
@@ -239,7 +219,7 @@ public class MessageResourceIntTest {
                 .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER)))
                 .andExpect(jsonPath("$.[*].dateCreated").value(hasItem(DEFAULT_DATE_CREATED_STR)))
                 .andExpect(jsonPath("$.[*].dateRead").value(hasItem(DEFAULT_DATE_READ_STR)))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.name())));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(MessageStatus.NEW.name())));
     }
 
     @Test
@@ -258,7 +238,7 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER))
             .andExpect(jsonPath("$.dateCreated").value(DEFAULT_DATE_CREATED_STR))
             .andExpect(jsonPath("$.dateRead").value(DEFAULT_DATE_READ_STR))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.name()));
+            .andExpect(jsonPath("$.status").value(MessageStatus.NEW.name()));
     }
 
     @Test
@@ -283,7 +263,7 @@ public class MessageResourceIntTest {
         message.setCaseNumber(UPDATED_CASE_NUMBER);
         message.setDateCreated(UPDATED_DATE_CREATED);
         message.setDateRead(UPDATED_DATE_READ);
-        message.setStatus(UPDATED_STATUS);
+        message.setStatus(MessageStatus.READ);
 
         restMessageMockMvc.perform(put("/api/messages")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -299,7 +279,7 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getCaseNumber()).isEqualTo(UPDATED_CASE_NUMBER);
         assertThat(testMessage.getDateCreated()).isEqualTo(UPDATED_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(UPDATED_DATE_READ);
-        assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.READ);
     }
 
     @Test

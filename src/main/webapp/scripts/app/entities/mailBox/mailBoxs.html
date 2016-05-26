@@ -6,7 +6,7 @@
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="mailBox.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span
+                    <span 
 class="hidden-xs"                        translate="apqdApp.mailBox.home.createLabel">Create new MailBox
                     </span>
                 </button>
@@ -33,6 +33,7 @@ class="hidden-xs"                        translate="apqdApp.mailBox.home.createL
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="apqdApp.mailBox.inbox">inbox</span></th>
                     <th><span translate="apqdApp.mailBox.outbox">outbox</span></th>
+                    <th><span translate="apqdApp.mailBox.deleted">deleted</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -45,11 +46,14 @@ class="hidden-xs"                        translate="apqdApp.mailBox.home.createL
                     <td>
                         <a ui-sref="outbox.detail({id:mailBox.outbox.id})">{{mailBox.outbox.id}}</a>
                     </td>
+                    <td>
+                        <a ui-sref="deleted.detail({id:mailBox.deleted.id})">{{mailBox.deleted.id}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="mailBox.detail({id:mailBox.id})"
-                                    class="btn btn-info btn-sm">
+                                    class="btn btn-info btn-sm"> 
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -61,7 +65,7 @@ class="hidden-xs"                        translate="apqdApp.mailBox.home.createL
                             </button>
                             <button type="submit"
                                     ui-sref="mailBox.delete({id:mailBox.id})"
-                                    class="btn btn-danger btn-sm">
+                                    class="btn btn-danger btn-sm">                                    
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

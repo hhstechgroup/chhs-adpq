@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Inbox Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockInbox, MockMessage;
+        var MockEntity, MockInbox, MockMessage, MockMailBox;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,14 +13,16 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockInbox = jasmine.createSpy('MockInbox');
             MockMessage = jasmine.createSpy('MockMessage');
-
+            MockMailBox = jasmine.createSpy('MockMailBox');
+            
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
                 'entity': MockEntity ,
                 'Inbox': MockInbox,
-                'Message': MockMessage
+                'Message': MockMessage,
+                'MailBox': MockMailBox
             };
             createController = function() {
                 $injector.get('$controller')("InboxDetailController", locals);

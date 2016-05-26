@@ -7,6 +7,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -27,6 +29,9 @@ public class MailBox implements Serializable {
 
     @OneToOne
     private Outbox outbox;
+
+    @OneToOne
+    private Deleted deleted;
 
     @OneToOne
     @JsonIgnore
@@ -54,6 +59,14 @@ public class MailBox implements Serializable {
 
     public void setOutbox(Outbox outbox) {
         this.outbox = outbox;
+    }
+
+    public Deleted getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Deleted deleted) {
+        this.deleted = deleted;
     }
 
     public User getUser() {

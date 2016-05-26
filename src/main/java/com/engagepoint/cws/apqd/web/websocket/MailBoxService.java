@@ -1,8 +1,8 @@
 package com.engagepoint.cws.apqd.web.websocket;
 
 import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.MessageStatus;
 import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
@@ -25,7 +25,7 @@ import java.util.List;
 @Controller
 public class MailBoxService implements ApplicationListener<SessionSubscribeEvent> {
 
-    private static final Logger log = LoggerFactory.getLogger(MailBoxService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MailBoxService.class);
 
     public static final String TOPIC_MAIL_INBOX = "/topic/mail/inbox";
     public static final String TOPIC_MAIL_OUTBOX = "/topic/mail/outbox";
@@ -87,12 +87,10 @@ public class MailBoxService implements ApplicationListener<SessionSubscribeEvent
     }
 
     public void sendInboxMessagesToUser(String toUser) {
-
         messagingTemplate.convertAndSendToUser(toUser, TOPIC_MAIL_INBOX, "");
     }
 
     public void sendOutboxMessagesToUser(String toUser) {
-
         messagingTemplate.convertAndSendToUser(toUser, TOPIC_MAIL_OUTBOX, "");
     }
 }

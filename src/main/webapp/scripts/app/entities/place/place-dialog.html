@@ -29,12 +29,8 @@
             <label class="control-label" translate="apqdApp.place.cityName" for="field_cityName">CityName</label>
             <input type="text" class="form-control" name="cityName" id="field_cityName"
                     ng-model="place.cityName"
-                    required ng-maxlength="20" />
+                    ng-maxlength="20" />
             <div ng-show="editForm.cityName.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.cityName.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
                 <p class="help-block"
                     ng-show="editForm.cityName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
                     This field cannot be longer than 20 characters.
@@ -125,14 +121,14 @@
         </div>
 
         <div class="form-group">
-            <label translate="apqdApp.place.state" for="field_state">state</label>
-            <select class="form-control" id="field_state" name="state" ng-model="place.state" ng-options="lookupState as lookupState.id for lookupState in lookupstates track by lookupState.id">
+            <label translate="apqdApp.place.county" for="field_county">county</label>
+            <select class="form-control" id="field_county" name="county" ng-model="place.county" ng-options="lookupCounty as lookupCounty.id for lookupCounty in lookupcountys track by lookupCounty.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="apqdApp.place.county" for="field_county">county</label>
-            <select class="form-control" id="field_county" name="county" ng-model="place.county" ng-options="lookupCounty as lookupCounty.id for lookupCounty in lookupcountys track by lookupCounty.id">
+            <label translate="apqdApp.place.state" for="field_state">state</label>
+            <select class="form-control" id="field_state" name="state" ng-model="place.state" ng-options="lookupState as lookupState.id for lookupState in lookupstates track by lookupState.id">
                 <option value=""></option>
             </select>
         </div>

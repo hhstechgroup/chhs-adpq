@@ -26,17 +26,13 @@ public class LoggingAspect {
 
     @Pointcut("within(com.engagepoint.cws.apqd.repository..*) || within(com.engagepoint.cws.apqd.service..*) || within(com.engagepoint.cws.apqd.web.rest..*)")
     public void loggingPointcut() {
+        // dummy
     }
 
     @AfterThrowing(pointcut = "loggingPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-//        if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            log.error("Exception in {}.{}() with cause = {} and exception {}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName(), e.getCause(), e);
-//        } else {
-//            log.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),
-//                joinPoint.getSignature().getName(), e.getCause());
-//        }
+        log.error("Exception in {}.{}() with cause = {} and exception {}", joinPoint.getSignature().getDeclaringTypeName(),
+            joinPoint.getSignature().getName(), e.getCause(), e);
     }
 
     @Around("loggingPointcut()")

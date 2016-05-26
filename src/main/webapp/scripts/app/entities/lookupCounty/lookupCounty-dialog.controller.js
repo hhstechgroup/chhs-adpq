@@ -5,14 +5,14 @@ angular.module('apqdApp').controller('LookupCountyDialogController',
         function($scope, $stateParams, $uibModalInstance, $q, entity, LookupCounty, LookupState) {
 
         $scope.lookupCounty = entity;
-        $scope.countys = LookupState.query({filter: 'lookupcounty-is-null'});
-        $q.all([$scope.lookupCounty.$promise, $scope.countys.$promise]).then(function() {
-            if (!$scope.lookupCounty.county || !$scope.lookupCounty.county.id) {
+        $scope.states = LookupState.query({filter: 'lookupcounty-is-null'});
+        $q.all([$scope.lookupCounty.$promise, $scope.states.$promise]).then(function() {
+            if (!$scope.lookupCounty.state || !$scope.lookupCounty.state.id) {
                 return $q.reject();
             }
-            return LookupState.get({id : $scope.lookupCounty.county.id}).$promise;
-        }).then(function(county) {
-            $scope.countys.push(county);
+            return LookupState.get({id : $scope.lookupCounty.state.id}).$promise;
+        }).then(function(state) {
+            $scope.states.push(state);
         });
         $scope.load = function(id) {
             LookupCounty.get({id : id}, function(result) {

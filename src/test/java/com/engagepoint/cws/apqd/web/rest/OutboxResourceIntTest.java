@@ -10,6 +10,9 @@ import com.engagepoint.cws.apqd.repository.search.OutboxSearchRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.addMessage;
+import static com.engagepoint.cws.apqd.web.rest.APQDTestUtil.prepareMessage;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -26,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -83,14 +85,8 @@ public class OutboxResourceIntTest {
     @Test
     @Transactional
     public void getEntityFields() throws Exception {
-        Message message = new Message();
-        message.setSubject("message subject");
-        message.setBody("message body");
-        messageRepository.saveAndFlush(message);
-
-        outbox.setMessages(new HashSet<>());
-        outbox.getMessages().add(message);
-        outboxRepository.saveAndFlush(outbox);
+        Message message = prepareMessage(messageRepository, "message subject", "message body", null, null);
+        addMessage(outboxRepository, outbox, message);
 
         Outbox testOutbox = outboxRepository.findOne(outbox.getId());
         assertThat(testOutbox).isNotNull();

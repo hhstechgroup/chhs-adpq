@@ -29,6 +29,10 @@ public class Inbox implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Message> messages = new HashSet<>();
 
+    @OneToOne(mappedBy = "inbox")
+    @JsonIgnore
+    private MailBox mailBox;
+
     public Long getId() {
         return id;
     }
@@ -43,6 +47,14 @@ public class Inbox implements Serializable {
 
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
+    }
+
+    public MailBox getMailBox() {
+        return mailBox;
+    }
+
+    public void setMailBox(MailBox mailBox) {
+        this.mailBox = mailBox;
     }
 
     @Override

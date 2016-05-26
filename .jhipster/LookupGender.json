@@ -1,0 +1,29 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "genderCode",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required",
+        "minlength",
+        "maxlength"
+      ],
+      "fieldValidateRulesMinlength": 1,
+      "fieldValidateRulesMaxlength": 1
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "genderName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "changelogDate": "20160525025500",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

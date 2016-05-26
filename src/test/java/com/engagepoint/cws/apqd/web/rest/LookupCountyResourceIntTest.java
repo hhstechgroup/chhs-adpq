@@ -42,8 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class LookupCountyResourceIntTest {
 
-    private static final String DEFAULT_COUNTY_NAME = "AA";
-    private static final String UPDATED_COUNTY_NAME = "BB";
+    private static final String DEFAULT_COUNTY_NAME = "AAAAA";
+    private static final String UPDATED_COUNTY_NAME = "BBBBB";
 
     @Inject
     private LookupCountyRepository lookupCountyRepository;

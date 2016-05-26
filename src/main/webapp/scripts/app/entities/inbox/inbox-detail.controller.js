@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('InboxDetailController', function ($scope, $rootScope, $stateParams, entity, Inbox, Message) {
+    .controller('InboxDetailController', function ($scope, $rootScope, $stateParams, entity, Inbox, Message, MailBox) {
         $scope.inbox = entity;
         $scope.load = function (id) {
             Inbox.get({id: id}, function(result) {

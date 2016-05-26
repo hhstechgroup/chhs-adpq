@@ -6,7 +6,7 @@
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="lookupCounty.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span
+                    <span 
 class="hidden-xs"                        translate="apqdApp.lookupCounty.home.createLabel">Create new LookupCounty
                     </span>
                 </button>
@@ -32,7 +32,7 @@ class="hidden-xs"                        translate="apqdApp.lookupCounty.home.cr
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="apqdApp.lookupCounty.countyName">CountyName</span></th>
-                    <th><span translate="apqdApp.lookupCounty.county">county</span></th>
+                    <th><span translate="apqdApp.lookupCounty.state">state</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -41,13 +41,13 @@ class="hidden-xs"                        translate="apqdApp.lookupCounty.home.cr
                     <td><a ui-sref="lookupCounty.detail({id:lookupCounty.id})">{{lookupCounty.id}}</a></td>
                     <td>{{lookupCounty.countyName}}</td>
                     <td>
-                        <a ui-sref="lookupState.detail({id:lookupCounty.county.id})">{{lookupCounty.county.id}}</a>
+                        <a ui-sref="lookupState.detail({id:lookupCounty.state.id})">{{lookupCounty.state.id}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="lookupCounty.detail({id:lookupCounty.id})"
-                                    class="btn btn-info btn-sm">
+                                    class="btn btn-info btn-sm"> 
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -59,7 +59,7 @@ class="hidden-xs"                        translate="apqdApp.lookupCounty.home.cr
                             </button>
                             <button type="submit"
                                     ui-sref="lookupCounty.delete({id:lookupCounty.id})"
-                                    class="btn btn-danger btn-sm">
+                                    class="btn btn-danger btn-sm">                                    
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

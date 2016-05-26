@@ -23,9 +23,7 @@
             </column>
             <column name="unit_number" type="varchar(10)"/>
             
-            <column name="city_name" type="varchar(20)">
-                <constraints nullable="false" />
-            </column>
+            <column name="city_name" type="varchar(20)"/>
             
             <column name="street_name" type="varchar(100)">
                 <constraints nullable="false" />
@@ -47,22 +45,22 @@
             
             <column name="validation_message" type="varchar(255)"/>
             
-            <column name="state_id" type="bigint"/>
             <column name="county_id" type="bigint"/>
+            <column name="state_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
-        <addForeignKeyConstraint baseColumnNames="state_id"
-                                 baseTableName="place"
-                                 constraintName="fk_place_state_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="lookup_state"/>
-
         <addForeignKeyConstraint baseColumnNames="county_id"
                                  baseTableName="place"
                                  constraintName="fk_place_county_id"
                                  referencedColumnNames="id"
                                  referencedTableName="lookup_county"/>
+
+        <addForeignKeyConstraint baseColumnNames="state_id"
+                                 baseTableName="place"
+                                 constraintName="fk_place_state_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lookup_state"/>
 
     </changeSet>
 </databaseChangeLog>

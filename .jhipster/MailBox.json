@@ -17,6 +17,23 @@
       "otherEntityField": "id",
       "ownerSide": true,
       "otherEntityRelationshipName": "mailBox"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipName": "deleted",
+      "otherEntityName": "deleted",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "mailBox"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "relationshipType": "one-to-one",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "mailBox"
     }
   ],
   "fields": [],

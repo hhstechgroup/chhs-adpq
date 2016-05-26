@@ -21,19 +21,10 @@ public class HHSService {
     private HHSAPIProperties hhsapiProperties;
 
     private HttpRequestFactory requestFactory;
-    private static final String WHERE_CLAUSE = "within_box(location, %1.6f, %2.6f, %3.6f, %4.6f)";
 
     @PostConstruct
     public void init() {
         requestFactory = new NetHttpTransport().createRequestFactory();
-    }
-
-    public String findFosterFamilyAgencies(double nwLatitude, double nwLongitude, double seLatitude, double seLongitude) throws URISyntaxException, IOException {
-        URIBuilder uriBuilder = new URIBuilder(hhsapiProperties.getHhsApiUrl());
-        uriBuilder.addParameter("$where", String.format(WHERE_CLAUSE, nwLatitude, nwLongitude, seLatitude, seLongitude));
-        GenericUrl genericUrl = new GenericUrl(uriBuilder.build());
-        HttpRequest httpRequest = requestFactory.buildGetRequest(genericUrl);
-        return httpRequest.execute().parseAsString();
     }
 
     public String findFosterFamilyAgencies(String queryString) throws URISyntaxException, IOException {

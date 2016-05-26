@@ -104,6 +104,7 @@
                 "outbox": "Outbox",
                 "mailBox": "MailBox",
                 "message": "Message",
+                "deleted": "Deleted",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

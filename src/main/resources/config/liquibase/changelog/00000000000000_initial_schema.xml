@@ -32,6 +32,8 @@
             <column name="email" type="varchar(100)">
                 <constraints unique="true"/>
             </column>
+            <column name="ssn_last_4_digits" type="varchar(4)"/>
+            <column name="case_number" type="varchar(20)"/>
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
             </column>
@@ -49,7 +51,6 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
-            <column name="ssn_last_4_digits" type="varchar(4)"/>
         </createTable>
 
         <createIndex indexName="idx_user_login"

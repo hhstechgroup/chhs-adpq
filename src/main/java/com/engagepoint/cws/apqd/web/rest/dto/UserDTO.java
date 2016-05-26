@@ -43,6 +43,9 @@ public class UserDTO {
     @Size(min = 2, max = 5)
     private String langKey;
 
+    @Size(max = 20)
+    private String caseNumber;
+
     private Set<String> authorities;
 
     public UserDTO() {
@@ -52,11 +55,12 @@ public class UserDTO {
         this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()), user.getSsnLast4Digits());
+                .collect(Collectors.toSet()), user.getSsnLast4Digits(), user.getCaseNumber());
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
-        String email, boolean activated, String langKey, Set<String> authorities, String ssnLast4Digits) {
+        String email, boolean activated, String langKey, Set<String> authorities, String ssnLast4Digits,
+        String caseNumber) {
 
         this.login = login;
         this.password = password;
@@ -67,6 +71,7 @@ public class UserDTO {
         this.langKey = langKey;
         this.authorities = authorities;
         this.ssnLast4Digits = ssnLast4Digits;
+        this.caseNumber = caseNumber;
     }
 
     public String getPassword() {
@@ -105,6 +110,10 @@ public class UserDTO {
         return ssnLast4Digits;
     }
 
+    public String getCaseNumber() {
+        return caseNumber;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -116,6 +125,7 @@ public class UserDTO {
             ", langKey='" + langKey + '\'' +
             ", authorities=" + authorities +
             ", ssnLast4Digits=" + ssnLast4Digits +
+            ", caseNumber=" + caseNumber +
             "}";
     }
 }

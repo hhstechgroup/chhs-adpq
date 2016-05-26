@@ -12,7 +12,7 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockLookupState = jasmine.createSpy('MockLookupState');
-
+            
 
             var locals = {
                 '$scope': $scope,

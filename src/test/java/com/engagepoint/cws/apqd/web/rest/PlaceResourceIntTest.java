@@ -142,24 +142,6 @@ public class PlaceResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCityNameIsRequired() throws Exception {
-        int databaseSizeBeforeTest = placeRepository.findAll().size();
-        // set the field null
-        place.setCityName(null);
-
-        // Create the Place, which fails.
-
-        restPlaceMockMvc.perform(post("/api/places")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(place)))
-                .andExpect(status().isBadRequest());
-
-        List<Place> places = placeRepository.findAll();
-        assertThat(places).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkStreetNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = placeRepository.findAll().size();
         // set the field null
