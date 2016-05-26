@@ -61,14 +61,7 @@
                     <input type="text" id="field_birthDate" name="birthDate" ng-model="settingsAccount.birthDate"
                            class="form-control" placeholder="" aria-describedby="basic-addon1"
                            uib-datepicker-popup is-open="popup1.opened" datepicker-options="dateOptions"
-                           close-text="Close" show-button-bar="false" ng-click="popup1.opened=true" readonly>
-
-                    <div ng-show="form.birthDate.$dirty && form.birthDate.$invalid">
-                        <p class="help-block"
-                           ng-show="form.birthDate.$error.required">
-                            Birth date is required.
-                        </p>
-                    </div>
+                           close-text="Close" show-button-bar="true" ng-click="popup1.opened=true" readonly>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="email" translate="global.form.email">E-mail</label>

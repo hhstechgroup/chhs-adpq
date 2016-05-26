@@ -4,14 +4,15 @@ angular.module('apqdApp')
     .factory('Account', function Account($resource, DateUtils) {
         return $resource('api/account', {}, {
             'get': { method: 'GET', params: {}, isArray: false,
-                transformResponse: function (data) {
-                    data = angular.fromJson(data);
-                    if (!_.isNil(data.birthDate)) {
-                        data.birthDate = DateUtils.convertLocaleDateFromServer(data.birthDate);
-                    }
-                    return data;
-                }
 
+                interceptor: {
+                    response: function(response) {
+                        if (_.isObject(response.data)) {
+                            response.data.birthDate = DateUtils.convertLocaleDateFromServer(response.data.birthDate);
+                        }
+                        return response;
+                    }
+                }
              },
             'save': {
                 method: 'POST',
