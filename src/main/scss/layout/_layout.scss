@@ -8,21 +8,27 @@
 
 
 .ch-header {
-    display: table;
     width: 100%;
     background: #343c47;
     height: 7.3rem;
 }
 
 .ch-header__section {
-    display: table-cell;
-    vertical-align: middle;
     height: 100%;
 }
 
 .ch-header__section_logo {
-    padding: 0 6.2rem 0 2.7rem;
-    width: 2.1rem;
+    float: left;
+    padding: 1.5rem 6.2rem 0 2.7rem;
+    width: 21rem;
+}
+
+.ch-header__section_control-pane {
+    margin-left: 21rem;
+}
+
+.ch-header__subsection {
+    display: inline-block;
 }
 
 .ch-main-nav-list__item {
@@ -54,13 +60,15 @@
 
 
 .ch-layout__aside {
-    float: left;
+    position: fixed;
     width: 21rem;
+    height: 100vh;
     border-right: 1px solid #cbcdcf;
 }
 
-.ch-layout__content {    
-    margin-left: 21rem;
+.ch-layout__content {
+    width: 100%;
+    padding-left: 21rem;
 }
 
 .ch-aside-section {
@@ -103,3 +111,29 @@
     font-weight: 600;
     color: #5b616b;
 }
+
+.ch-header__subsection-user-account {
+    float: right;
+    padding: 22px 25px 0 0;
+}
+
+.ch-user-account-entry__btn_collapsed:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #fff;
+}
+
+.ch-user-account-entry__btn_expanded:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #fff;
+}
+
