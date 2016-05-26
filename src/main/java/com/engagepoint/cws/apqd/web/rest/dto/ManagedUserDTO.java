@@ -18,6 +18,7 @@ public class ManagedUserDTO extends UserDTO {
     private ZonedDateTime lastModifiedDate;
 
     public ManagedUserDTO() {
+        // tbd
     }
 
     public ManagedUserDTO(User user) {

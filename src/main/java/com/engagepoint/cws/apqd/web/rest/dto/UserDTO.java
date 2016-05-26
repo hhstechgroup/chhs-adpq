@@ -49,6 +49,7 @@ public class UserDTO {
     private Set<String> authorities;
 
     public UserDTO() {
+        // tbd
     }
 
     public UserDTO(User user) {
