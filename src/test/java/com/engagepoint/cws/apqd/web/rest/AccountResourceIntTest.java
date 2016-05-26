@@ -2,6 +2,7 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Authority;
+import com.engagepoint.cws.apqd.domain.LookupGender;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
@@ -49,6 +50,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AccountResourceIntTest {
 
     private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
+    private static final LookupGender GENDER = new LookupGender();
+
+    static {
+        GENDER.setId(1L);
+    }
 
     @Inject
     private UserRepository userRepository;
@@ -157,7 +163,8 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
             "S123",
-            DEFAULT_BIRTH_DATE
+            DEFAULT_BIRTH_DATE,
+            GENDER
         );
 
         restMvc.perform(
@@ -184,7 +191,8 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
             "S123",
-            DEFAULT_BIRTH_DATE
+            DEFAULT_BIRTH_DATE,
+            GENDER
         );
 
         restUserMockMvc.perform(
@@ -211,7 +219,8 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
             "S123",
-            DEFAULT_BIRTH_DATE
+            DEFAULT_BIRTH_DATE,
+            GENDER
         );
 
         restUserMockMvc.perform(
@@ -239,13 +248,14 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
             "S123",
-            DEFAULT_BIRTH_DATE
+            DEFAULT_BIRTH_DATE,
+            GENDER
         );
 
         // Duplicate login, different e-mail
         UserDTO dup = new UserDTO(u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
             "alicejr@example.com", true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
-            u.getBirthDate());
+            u.getBirthDate(), u.getGender());
 
         // Good user
         restMvc.perform(
@@ -280,13 +290,14 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
             "1111",                 //ssnLast4Digits
             "S123",
-            DEFAULT_BIRTH_DATE
+            DEFAULT_BIRTH_DATE,
+            GENDER
         );
 
         // Duplicate e-mail, different login
         UserDTO dup = new UserDTO("johnjr", u.getPassword(), u.getLogin(), u.getLastName(),
             u.getEmail(), true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
-            u.getBirthDate());
+            u.getBirthDate(), u.getGender());
 
         // Good user
         restMvc.perform(
@@ -320,7 +331,8 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.ADMIN)), // <-- only admin should be able to do that
             "1111",                 //ssnLast4Digits
             "S123",
-            DEFAULT_BIRTH_DATE
+            DEFAULT_BIRTH_DATE,
+            GENDER
         );
 
         restMvc.perform(

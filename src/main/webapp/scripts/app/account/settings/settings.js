@@ -20,6 +20,9 @@ angular.module('apqdApp')
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('settings');
                         return $translate.refresh();
+                    }],
+                    lookupGender: ['LookupGender', function(LookupGender) {
+                        return LookupGender.query().$promise;
                     }]
                 }
             });

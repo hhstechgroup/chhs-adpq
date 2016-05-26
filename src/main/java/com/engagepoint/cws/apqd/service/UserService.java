@@ -1,6 +1,7 @@
 package com.engagepoint.cws.apqd.service;
 
 import com.engagepoint.cws.apqd.domain.Authority;
+import com.engagepoint.cws.apqd.domain.LookupGender;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
@@ -89,7 +90,7 @@ public class UserService {
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey, String ssnLast4Digits) {
+        String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
@@ -103,6 +104,8 @@ public class UserService {
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
         newUser.setSsnLast4Digits(ssnLast4Digits);
+        newUser.setBirthDate(birthDate);
+        newUser.setGender(gender);
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
@@ -122,6 +125,8 @@ public class UserService {
         user.setLastName(managedUserDTO.getLastName());
         user.setEmail(managedUserDTO.getEmail());
         user.setSsnLast4Digits(managedUserDTO.getSsnLast4Digits());
+        user.setBirthDate(managedUserDTO.getBirthDate());
+        user.setGender(managedUserDTO.getGender());
         if (managedUserDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language is English
         } else {
@@ -146,7 +151,7 @@ public class UserService {
     }
 
     public void updateUserInformation(String firstName, String lastName, String email, String langKey,
-        String ssnLast4Digits, LocalDate birthDate) {
+        String ssnLast4Digits, LocalDate birthDate, LookupGender gender) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
@@ -154,6 +159,7 @@ public class UserService {
             u.setLangKey(langKey);
             u.setSsnLast4Digits(ssnLast4Digits);
             u.setBirthDate(birthDate);
+            u.setGender(gender);
             userRepository.save(u);
             userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);

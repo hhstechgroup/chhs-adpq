@@ -1,6 +1,7 @@
 package com.engagepoint.cws.apqd.web.rest.dto;
 
 import com.engagepoint.cws.apqd.domain.Authority;
+import com.engagepoint.cws.apqd.domain.LookupGender;
 import com.engagepoint.cws.apqd.domain.User;
 
 import org.hibernate.validator.constraints.Email;
@@ -35,6 +36,8 @@ public class UserDTO {
     @Size(max = 4, min = 4)
     private String ssnLast4Digits;
 
+    private LookupGender gender;
+
     @Email
     @Size(min = 5, max = 100)
     private String email;
@@ -60,12 +63,12 @@ public class UserDTO {
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()), user.getSsnLast4Digits(),
-            user.getCaseNumber(), user.getBirthDate());
+            user.getCaseNumber(), user.getBirthDate(), user.getGender());
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
         String email, boolean activated, String langKey, Set<String> authorities, String ssnLast4Digits,
-        String caseNumber, LocalDate birthDate) {
+        String caseNumber, LocalDate birthDate, LookupGender gender) {
 
         this.login = login;
         this.password = password;
@@ -78,6 +81,7 @@ public class UserDTO {
         this.ssnLast4Digits = ssnLast4Digits;
         this.caseNumber = caseNumber;
         this.birthDate = birthDate;
+        this.gender = gender;
     }
 
     public String getPassword() {
@@ -124,8 +128,8 @@ public class UserDTO {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public LookupGender getGender() {
+        return gender;
     }
 
     @Override
@@ -142,6 +146,7 @@ public class UserDTO {
             ", ssnLast4Digits=" + ssnLast4Digits +
             ", caseNumber=" + caseNumber +
             ", birthDate=" + birthDate +
+            ", gender=" + gender +
             "}";
     }
 
