@@ -32,17 +32,7 @@
     </form>
 </div>
 
-
-
 <!-- 'Records found: X' message -->
-<!--
-<div style="margin-bottom: 15px; font-weight: bold; color: white;" ng-switch="toShow">
-    <span ng-switch-when="all">{{ 'search.records-found' | translate: { count: referrals.length + reporters.length + clients.length } }}</span>
-    <span ng-switch-when="referrals">{{ 'search.referrals-found' | translate: { count: referrals.length } }}</span>
-    <span ng-switch-when="reporters">{{ 'search.reporters-found' | translate: { count: reporters.length } }}</span>
-    <span ng-switch-when="clients">{{ 'search.clients-found' | translate: { count: clients.length } }}</span>
-</div>
--->
 <div style="margin-left: 15px; font-weight: bold; color: red;" ng-show="toShow">
     <span>{{ 'search.records-found' | translate: { count: recordCount } }}</span>
 </div>
