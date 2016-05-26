@@ -6,7 +6,9 @@ import org.springframework.http.HttpHeaders;
  * Utility class for http header creation.
  *
  */
-public class HeaderUtil {
+public final class HeaderUtil {
+    private HeaderUtil() {
+    }
 
     public static HttpHeaders createAlert(String message, String param) {
         HttpHeaders headers = new HttpHeaders();
