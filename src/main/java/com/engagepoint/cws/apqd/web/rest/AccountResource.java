@@ -68,7 +68,8 @@ public class AccountResource {
                 .orElseGet(() -> {
                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                     userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                    userDTO.getLangKey(), userDTO.getSsnLast4Digits());
+                    userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(), userDTO.getGender(),
+                    userDTO.getPhoneNumber());
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
@@ -136,7 +137,8 @@ public class AccountResource {
             .findOneByLogin(SecurityUtils.getCurrentUser().getUsername())
             .map(u -> {
                 userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-                    userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate());
+                    userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(),
+                    userDTO.getGender(), userDTO.getPhoneNumber());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));

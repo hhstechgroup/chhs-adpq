@@ -4,6 +4,7 @@ import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -25,11 +26,11 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.addMailBox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setCurrentUser;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setMailBox;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,6 +56,9 @@ public class MailBoxServiceTest {
     @Inject
     private OutboxRepository outboxRepository;
 
+    @Inject
+    private DeletedRepository deletedRepository;
+
     private MailBoxService mailBoxService;
 
     private User currentUser;
@@ -71,17 +75,17 @@ public class MailBoxServiceTest {
     @Before
     public void initTest () {
         currentUser = prepareUser(null, CURRENT_LOGIN);
-        addMailBox(userRepository, currentUser,
-            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
+        setMailBox(userRepository, currentUser,
+            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository));
         setCurrentUser(currentUser);
     }
 
     @Test
     @Transactional
     public void testSendMessage() throws Exception {
-        User to = prepareUser(userRepository, TO_LOGIN);
-        addMailBox(userRepository, to,
-            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository));
+        User to = prepareUser(null, TO_LOGIN);
+        setMailBox(userRepository, to,
+            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository));
 
         Message message = prepareMessage(messageRepository, "subject", "body", null, to);
         mailBoxService.sendMessage(message);

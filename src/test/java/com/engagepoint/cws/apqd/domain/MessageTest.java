@@ -7,6 +7,7 @@ import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareInbox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareOutbox;
@@ -23,6 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@IntegrationTest
 public class MessageTest {
     @Inject
     private MessageRepository messageRepository;
@@ -68,13 +71,8 @@ public class MessageTest {
     public void testIdentity() throws Exception {
         Message message1 = createEntity("replyOn message subject 1", "replyOn message body 1");
         Message message2 = createEntity("replyOn message subject 2", "replyOn message body 2");
+        Message foundEntity = messageRepository.findOne(message2.getId());
 
-        assertThat(new Message().equals(new Message())).isFalse();
-        assertThat(message1.equals(new Message())).isFalse();
-        assertThat(message1.equals(message2)).isFalse();
-        assertThat(messageRepository.findOne(message2.getId()).equals(message2)).isTrue();
-
-        assertThat(message1.hashCode()).isNotNull();
-        assertThat(message1.toString().length()).isGreaterThan(0);
+        assertIdentity(message1, message2, foundEntity, null);
     }
 }

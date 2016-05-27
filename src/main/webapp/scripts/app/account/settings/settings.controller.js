@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig) {
+    .controller('SettingsController',
+    function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender) {
         $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
@@ -27,6 +28,8 @@ angular.module('apqdApp')
             });
         };
 
+        $scope.lookupGender = lookupGender;
+
         /**
          * Store the "settings account" in a separate variable, and not in the shared "account" variable.
          */
@@ -36,6 +39,8 @@ angular.module('apqdApp')
                 email: account.email,
                 firstName: account.firstName,
                 birthDate: account.birthDate,
+                gender: account.gender,
+                phoneNumber: account.phoneNumber,
                 langKey: account.langKey,
                 lastName: account.lastName,
                 login: account.login,

@@ -86,6 +86,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Size(max = 20)
+    @Column(name = "phone_number", nullable = true, length = 20)
+    private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "gender_id")
+    private LookupGender gender;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -236,6 +244,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.birthDate = birthDate;
     }
 
+    public LookupGender getGender() {
+        return gender;
+    }
+
+    public void setGender(LookupGender gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -271,6 +295,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", activationKey='" + activationKey + '\'' +
             ", ssnLast4Digits='" + ssnLast4Digits + '\'' +
             ", caseNumber='" + caseNumber + '\'' +
+            ", gender='" + gender + '\'' +
+            ", phone='" + phoneNumber + '\'' +
             "}";
     }
 

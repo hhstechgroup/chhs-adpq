@@ -1,10 +1,14 @@
 'use strict';
 
 angular.module('apqdApp')
-    .filter('capitalize', function () {
-        return function (input) {
-            if (input != null)
-                input = input.toLowerCase();
-            return input.substring(0, 1).toUpperCase() + input.substring(1);
+    .filter('capitalize', function() {
+        return function(input, all) {
+            var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
+            return (!!input) ?
+                input.replace(reg, function(txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                })
+                :
+                '';
         }
     });

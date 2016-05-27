@@ -1,10 +1,12 @@
 package com.engagepoint.cws.apqd.domain;
 
 import com.engagepoint.cws.apqd.Application;
+import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -12,14 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.addMessage;
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setMessage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@IntegrationTest
 public class OutboxTest {
+    @Inject
+    private MailBoxRepository mailBoxRepository;
+
     @Inject
     private OutboxRepository outboxRepository;
 
@@ -27,9 +34,10 @@ public class OutboxTest {
     private MessageRepository messageRepository;
 
     private Outbox createEntity(String messageSubject, String messageBody) {
-        Outbox inbox = new Outbox();
+        Outbox outbox = new Outbox();
+        outbox.setMailBox(mailBoxRepository.saveAndFlush(new MailBox()));
         Message message = prepareMessage(messageRepository, messageSubject, messageBody, null, null);
-        return addMessage(outboxRepository, inbox, message);
+        return setMessage(outboxRepository, outbox, message);
     }
 
     @Test
@@ -46,6 +54,9 @@ public class OutboxTest {
         Message testMessage = testOutbox.getMessages().iterator().next();
         assertThat(testMessage.getSubject()).isEqualTo(message.getSubject());
         assertThat(testMessage.getBody()).isEqualTo(message.getBody());
+
+        MailBox testMailBox = testOutbox.getMailBox();
+        assertThat(testMailBox).isNotNull();
     }
 
     @Test
@@ -53,13 +64,8 @@ public class OutboxTest {
     public void testIdentity() throws Exception {
         Outbox outbox1 = createEntity("message subject 1", "message body 1");
         Outbox outbox2 = createEntity("message subject 2", "message body 2");
+        Outbox foundEntity = outboxRepository.findOne(outbox2.getId());
 
-        assertThat(new Outbox().equals(new Outbox())).isFalse();
-        assertThat(outbox1.equals(new Outbox())).isFalse();
-        assertThat(outbox1.equals(outbox2)).isFalse();
-        assertThat(outboxRepository.findOne(outbox2.getId()).equals(outbox2)).isTrue();
-
-        assertThat(outbox1.hashCode()).isNotNull();
-        assertThat(outbox1.toString().length()).isGreaterThan(0);
+        assertIdentity(outbox1, outbox2, foundEntity, null);
     }
 }
