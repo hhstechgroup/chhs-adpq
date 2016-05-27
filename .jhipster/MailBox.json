@@ -23,7 +23,7 @@
       "relationshipName": "contact",
       "otherEntityName": "user",
       "relationshipType": "one-to-many",
-      "otherEntityRelationshipName": "mailBox"
+      "otherEntityRelationshipName": "contact"
     },
     {
       "relationshipId": 4,

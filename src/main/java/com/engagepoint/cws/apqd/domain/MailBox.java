@@ -30,7 +30,7 @@ public class MailBox implements Serializable {
     @OneToOne
     private Outbox outbox;
 
-    @OneToMany(mappedBy = "mailBox")
+    @OneToMany
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> contacts = new HashSet<>();
@@ -41,7 +41,7 @@ public class MailBox implements Serializable {
     @OneToOne
     private Draft draft;
 
-    @OneToOne(mappedBy = "mailBox")
+    @OneToOne
     @JsonIgnore
     private User user;
 

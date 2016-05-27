@@ -84,7 +84,7 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
-  MailBox{contact} to User
+  MailBox{contact} to User{contact}
 }
 
 relationship OneToOne {

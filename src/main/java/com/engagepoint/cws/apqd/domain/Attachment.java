@@ -43,7 +43,9 @@ public class Attachment implements Serializable {
     @Column(name = "file")
     private byte[] file;
     
-    @Column(name = "file_content_type")        private String fileContentType;
+    @Column(name = "file_content_type")
+    private String fileContentType;
+
     @ManyToOne
     @JoinColumn(name = "message_id")
     private Message message;
