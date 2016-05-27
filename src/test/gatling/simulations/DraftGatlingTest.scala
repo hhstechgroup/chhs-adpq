@@ -7,15 +7,14 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the Deleted entity.
+ * Performance test for the Draft entity.
  */
-class DeletedGatlingTest extends Simulation {
+class DraftGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
     //context.getLogger("io.gatling.http").setLevel(Level.valueOf("TRACE"))
     // Log failed HTTP requests
-    context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
     context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
 
     val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:8080"""
@@ -37,11 +36,12 @@ class DeletedGatlingTest extends Simulation {
         "Accept" -> """application/json"""
     )
 
-    val scn = scenario("Test the Deleted entity")
+    val scn = scenario("Test the Draft entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
-        .check(status.is(401)))
+        .check(status.is(401))
+        .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
         .pause(10)
         .exec(http("Authentication")
         .post("/api/authentication")
@@ -54,29 +54,30 @@ class DeletedGatlingTest extends Simulation {
         .exec(http("Authenticated request")
         .get("/api/account")
         .headers(headers_http_authenticated)
-        .check(status.is(200)))
+        .check(status.is(200))
+        .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all deleteds")
-            .get("/api/deleteds")
+            exec(http("Get all drafts")
+            .get("/api/drafts")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new deleted")
-            .post("/api/deleteds")
+            .exec(http("Create new draft")
+            .post("/api/drafts")
             .headers(headers_http_authenticated)
             .body(StringBody("""{"id":null}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_deleted_url")))
+            .check(headerRegex("Location", "(.*)").saveAs("new_draft_url")))
             .pause(10)
             .repeat(5) {
-                exec(http("Get created deleted")
-                .get("${new_deleted_url}")
+                exec(http("Get created draft")
+                .get("${new_draft_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created deleted")
-            .delete("${new_deleted_url}")
+            .exec(http("Delete created draft")
+            .delete("${new_draft_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }
