@@ -4,24 +4,9 @@
     <div class="ch-page-heading">
 
         <div class="ch-page-heading__select">
-            <div class="form-type__checkbox">
+            <div class=".form-type__checkbox_empty-label">
                 <input id="selectAll" type="checkbox" name="selectAll" value="selectAll" checked="">
-                <label for="selectAll"><span>1-4 of 4</span></label>
-            </div>
-        </div>
-
-        <div class="ch-page-heading__pagination">
-            <div class="ch-button-group">
-                <div class="ch-button-group__item">
-                    <button type="button" class="ch-button-group__btn">
-                        <span class="icon icon-pagination-arrow-left"></span>
-                    </button>
-                </div>
-                <div class="ch-button-group__item">
-                    <button type="button" class="ch-button-group__btn">
-                        <span class="icon icon-pagination-arrow-right"></span>
-                    </button>
-                </div>
+                <label for="selectAll"></label>
             </div>
         </div>
 
@@ -38,18 +23,33 @@
                     <span class="icon icon-search"></span>
                 </button>
 
-                <select name="options" id="options" class="form-type__search__select">
-                    <option value="value1"></option>
-                    <option value="value2">Inbox</option>
-                    <option value="value2">Send</option>
-                    <option value="value3">Drafts</option>
-                </select>
-
                 <input id="search-field-small" type="search" name="search" class="form-type__search__input">
 
             </form>
 
+            <div class="ch-page-heading__pagination">
+                <div class="ch-button-group">
+                    <div class="ch-button-group__item">
+                        <button type="button" class="ch-button-group__btn">
+                            <span class="icon icon-pagination-arrow-left"></span>
+                        </button>
+                    </div>
+                    <div class="ch-button-group__item">
+                        <button type="button" class="ch-button-group__btn_left-border">
+                            <span class="icon icon-pagination-arrow-right"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ch-page-heading__county-messages">
+                <span>1-4 of 4</span>
+            </div>
+
         </div>
+
+
+
 
     </div>
 

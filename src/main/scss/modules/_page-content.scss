@@ -2,7 +2,7 @@
 
 .ch-page {
   padding-left: 2.5rem;
-  padding-right: 2.5rem;  
+  padding-right: 2.5rem;
   background-color: #f1f1f1;
 }
 
@@ -34,11 +34,19 @@
 }
 
 .ch-page-heading__search {
-  width: 50%;
-  float: right;
+  width: 70%;
+  float: right;   
+}
 
-  .icon {
-    width: 16px;
-    height: 16px;
+.ch-page-heading__county-messages {
+  float: right;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+
+  span {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    color: #5b616b;
   }
 }

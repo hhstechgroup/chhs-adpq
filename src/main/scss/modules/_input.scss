@@ -12,7 +12,6 @@
   input[type="checkbox"]:not(:checked) + label:before {
     background: transparent;
   }
-
 }
 
 .form-type__checkbox_empty-label {
@@ -29,10 +28,6 @@
   }
 }
 
-.form-type__search {
-  display: inline-block;
-}
-
 .form-type__search__input,
 .form-type__search__select,
 .form-type__search__button {
@@ -41,13 +36,13 @@
 }
 
 .form-type__search {
-  width: 100%;
   max-width: 100rem;
   height: 3.7rem;
-  position: relative;
+  float: right;
 
   .form-type__search__input {
-    width: 50%;
+    width: 80%;
+    height: 3.7rem;
     float: right;
     margin: 0;
     border-right: 0;
@@ -58,7 +53,7 @@
     width: 80px;
     height: 3.2rem;
     margin: 0;
-    border: 0;    
+    border: 0;
     background-image: url("../images/us-icon/arrow-down-small.png");
     background-size: .9rem;
     background-color: transparent;
@@ -68,12 +63,17 @@
 
   .form-type__search__button {
     width: 5.6rem;
+    height: 3.7rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: .5rem;
     border-bottom-right-radius: .5rem;
     margin: 0;
     padding: 0;
+    .icon {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   .icon {
