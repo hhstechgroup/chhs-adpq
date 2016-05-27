@@ -4,7 +4,7 @@ angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('ch-inbox', {
-                parent: 'entity',
+                parent: 'site',
                 url: '/mail',
                 data: {
                     authorities: ['ROLE_INTAKE_WORKER'],
