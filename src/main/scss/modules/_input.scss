@@ -35,6 +35,16 @@
   float: right;
 }
 
+.dropdown-action-arrow {
+  display: inline-block;
+  width: 4rem;
+  height: 3.6rem;
+  background: url("../images/us-icon/arrow-down-small.png") no-repeat center;
+  position: absolute;
+  right: 8rem;
+  cursor: pointer;
+}
+
 .form-type__search {
   max-width: 100rem;
   height: 3.7rem;
@@ -70,6 +80,7 @@
     border-bottom-right-radius: .5rem;
     margin: 0;
     padding: 0;
+
     .icon {
       width: 16px;
       height: 16px;
