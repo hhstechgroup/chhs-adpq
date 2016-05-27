@@ -52,10 +52,21 @@
 }
 
 .ch-main-nav-item__text {
+    display: inline-block;
     font-size: 1.5rem;
     font-weight: 600;
     color: #fff;
     text-transform: uppercase;
+    position: relative;
+}
+
+.ch-main-nav-item__text_badge-notify:after {
+    content: '\0020';
+    position: absolute;
+    border: 3px solid #fdb81e;
+    border-radius: 50%;
+    top: -.2rem;
+    right: -.9rem;
 }
 
 .ch-main-nav-item__icon {
@@ -305,4 +316,112 @@
     font-weight: 600;
     color: #5b616b;
     text-transform: uppercase;
+}
+
+.ch-mail-expanded {
+    padding: 1.8rem 3rem;
+    background: #fff;
+}
+
+.ch-mail-origin__prefix {
+    color: #6a6f78;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-right: .4rem;
+}
+
+.ch-mail-origin__name {
+    color: #000;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.ch-button-group-action {
+    vertical-align: middle;
+}
+
+.ch-button-group-action__btn {
+    float: left;
+    text-align: center;
+    min-height: 3.4rem;
+    cursor: pointer;
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background-color: #fff;
+    border: .1rem solid #000;
+    position: relative;
+}
+
+.ch-button-group-action__btn + .ch-button-group-action__btn {
+    margin-left: -1px;
+}
+
+
+.ch-button-group-action__btn_reply {
+    width: 4.8rem;
+    height: 3.6rem;
+}
+
+.ch-button-group-action__btn_mail-options {
+    width: 3rem;
+    height: 3.6rem;
+}
+
+.ch-button-group-action__btn_reply:before {
+    content: '\0020';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../images/out-sprite-icons/icon-reply-msg.png) 0 0 no-repeat;
+    vertical-align: -10px;
+}
+
+.ch-button-group-action__btn_mail-options:before {
+    content: '\0020';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -2px 0 0 -4px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #5b616b;
+}
+
+.ch-mail-header {
+    display: table;
+    width: 100%;
+}
+
+.ch-mail-header__item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.ch-mail-header__item_ch-mail-info,
+.ch-mail-header__item_ch-mail-options-group {
+    text-align: right;
+}
+
+.ch-mail-header__item_ch-mail-info {
+    width: 11rem;
+}
+
+.ch-mail-header__item_ch-mail-options-group {
+    width: 9rem;
+}
+
+.ch-mail-options-group {
+    display: inline-block;
+}
+
+.ch-mail-expanded__header {
+    padding: 0 0 1.6rem 0;
+    margin-bottom: 2rem;
+    border-bottom: .1rem solid #cbcdcf;
+}
+
+.ch-mail-expanded__body {
+    margin-bottom: 2rem;
 }
