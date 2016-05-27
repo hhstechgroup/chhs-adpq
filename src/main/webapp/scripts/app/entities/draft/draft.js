@@ -51,7 +51,7 @@ angular.module('apqdApp')
                 parent: 'draft',
                 url: '/new',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -65,7 +65,7 @@ angular.module('apqdApp')
                                 };
                             }
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('draft', null, { reload: true });
                     }, function() {
                         $state.go('draft');
@@ -76,7 +76,7 @@ angular.module('apqdApp')
                 parent: 'draft',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -88,7 +88,7 @@ angular.module('apqdApp')
                                 return Draft.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('draft', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -99,7 +99,7 @@ angular.module('apqdApp')
                 parent: 'draft',
                 url: '/{id}/delete',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -111,7 +111,7 @@ angular.module('apqdApp')
                                 return Draft.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('draft', null, { reload: true });
                     }, function() {
                         $state.go('^');
