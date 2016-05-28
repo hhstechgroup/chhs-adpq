@@ -15,7 +15,7 @@ class MessageGatlingTest extends Simulation {
     // Log all HTTP requests
     //context.getLogger("io.gatling.http").setLevel(Level.valueOf("TRACE"))
     // Log failed HTTP requests
-    context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
+    //context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
 
     val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:8080"""
 
@@ -33,14 +33,16 @@ class MessageGatlingTest extends Simulation {
     )
 
     val headers_http_authenticated = Map(
-        "Accept" -> """application/json"""
+        "Accept" -> """application/json""",
+        "X-CSRF-TOKEN" -> "${csrf_token}"
     )
 
     val scn = scenario("Test the Message entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
-        .check(status.is(401)))
+        .check(status.is(401))
+        .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
         .pause(10)
         .exec(http("Authentication")
         .post("/api/authentication")
@@ -53,7 +55,8 @@ class MessageGatlingTest extends Simulation {
         .exec(http("Authenticated request")
         .get("/api/account")
         .headers(headers_http_authenticated)
-        .check(status.is(200)))
+        .check(status.is(200))
+        .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
         .pause(10)
         .repeat(2) {
             exec(http("Get all messages")

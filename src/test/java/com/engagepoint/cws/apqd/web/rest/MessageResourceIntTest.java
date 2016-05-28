@@ -63,7 +63,7 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE_READ = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
-
+    
     private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
     private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 
@@ -176,12 +176,12 @@ public class MessageResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))
-                .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY)))
-                .andExpect(jsonPath("$.[*].subject").value(hasItem(DEFAULT_SUBJECT)))
-                .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER)))
+                .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY.toString())))
+                .andExpect(jsonPath("$.[*].subject").value(hasItem(DEFAULT_SUBJECT.toString())))
+                .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER.toString())))
                 .andExpect(jsonPath("$.[*].dateCreated").value(hasItem(DEFAULT_DATE_CREATED_STR)))
                 .andExpect(jsonPath("$.[*].dateRead").value(hasItem(DEFAULT_DATE_READ_STR)))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.name())));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
     @Test
@@ -195,12 +195,12 @@ public class MessageResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(message.getId().intValue()))
-            .andExpect(jsonPath("$.body").value(DEFAULT_BODY))
-            .andExpect(jsonPath("$.subject").value(DEFAULT_SUBJECT))
-            .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER))
+            .andExpect(jsonPath("$.body").value(DEFAULT_BODY.toString()))
+            .andExpect(jsonPath("$.subject").value(DEFAULT_SUBJECT.toString()))
+            .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER.toString()))
             .andExpect(jsonPath("$.dateCreated").value(DEFAULT_DATE_CREATED_STR))
             .andExpect(jsonPath("$.dateRead").value(DEFAULT_DATE_READ_STR))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.name()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test

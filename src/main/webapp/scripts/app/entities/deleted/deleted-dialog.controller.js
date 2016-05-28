@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('apqdApp').controller('DeletedDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Deleted', 'MailBox',
-        function($scope, $stateParams, $uibModalInstance, entity, Deleted, MailBox) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Deleted', 'Message', 'MailBox',
+        function($scope, $stateParams, $uibModalInstance, entity, Deleted, Message, MailBox) {
 
         $scope.deleted = entity;
+        $scope.messages = Message.query();
         $scope.mailboxs = MailBox.query();
         $scope.load = function(id) {
             Deleted.get({id : id}, function(result) {
@@ -18,7 +19,7 @@ angular.module('apqdApp').controller('DeletedDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function () {
+        var onSaveError = function (result) {
             $scope.isSaving = false;
         };
 

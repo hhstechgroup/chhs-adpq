@@ -74,6 +74,14 @@ public class Message implements Serializable {
     @JoinColumn(name = "outbox_id")
     private Outbox outbox;
 
+    @ManyToOne
+    @JoinColumn(name = "deleted_id")
+    private Deleted deleted;
+
+    @ManyToOne
+    @JoinColumn(name = "draft_id")
+    private Draft draft;
+
     public Long getId() {
         return id;
     }
@@ -176,6 +184,22 @@ public class Message implements Serializable {
 
     public void setOutbox(Outbox outbox) {
         this.outbox = outbox;
+    }
+
+    public Deleted getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Deleted deleted) {
+        this.deleted = deleted;
+    }
+
+    public Draft getDraft() {
+        return draft;
+    }
+
+    public void setDraft(Draft draft) {
+        this.draft = draft;
     }
 
     @Override

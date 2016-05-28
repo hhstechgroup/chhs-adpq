@@ -2,6 +2,13 @@
   "relationships": [
     {
       "relationshipId": 1,
+      "relationshipName": "message",
+      "otherEntityName": "message",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "deleted"
+    },
+    {
+      "relationshipId": 2,
       "relationshipName": "mailBox",
       "otherEntityName": "mailBox",
       "relationshipType": "one-to-one",

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('DeletedDetailController', function ($scope, $rootScope, $stateParams, entity, Deleted) {
+    .controller('DeletedDetailController', function ($scope, $rootScope, $stateParams, entity, Deleted, Message, MailBox) {
         $scope.deleted = entity;
         $scope.load = function (id) {
             Deleted.get({id: id}, function(result) {

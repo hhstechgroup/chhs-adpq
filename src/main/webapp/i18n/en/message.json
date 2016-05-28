@@ -27,7 +27,9 @@
             "to": "To",
             "from": "From",
             "inbox": "Inbox",
-            "outbox": "Outbox"
+            "outbox": "Outbox",
+            "deleted": "Deleted",
+            "draft": "Draft"
         }
     }
 }

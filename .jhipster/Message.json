@@ -47,6 +47,20 @@
       "otherEntityName": "outbox",
       "relationshipType": "many-to-one",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 7,
+      "relationshipName": "deleted",
+      "otherEntityName": "deleted",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 8,
+      "relationshipName": "draft",
+      "otherEntityName": "draft",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
     }
   ],
   "fields": [

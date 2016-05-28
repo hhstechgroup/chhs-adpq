@@ -15,7 +15,7 @@ class DraftGatlingTest extends Simulation {
     // Log all HTTP requests
     //context.getLogger("io.gatling.http").setLevel(Level.valueOf("TRACE"))
     // Log failed HTTP requests
-    context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
+    //context.getLogger("io.gatling.http").setLevel(Level.valueOf("DEBUG"))
 
     val baseURL = Option(System.getProperty("baseURL")) getOrElse """http://127.0.0.1:8080"""
 
@@ -33,7 +33,8 @@ class DraftGatlingTest extends Simulation {
     )
 
     val headers_http_authenticated = Map(
-        "Accept" -> """application/json"""
+        "Accept" -> """application/json""",
+        "X-CSRF-TOKEN" -> "${csrf_token}"
     )
 
     val scn = scenario("Test the Draft entity")

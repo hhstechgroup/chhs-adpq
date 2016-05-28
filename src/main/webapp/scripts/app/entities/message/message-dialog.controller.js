@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('apqdApp').controller('MessageDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'Attachment', 'User', 'Inbox', 'Outbox',
-        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, Attachment, User, Inbox, Outbox) {
+    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'Attachment', 'User', 'Inbox', 'Outbox', 'Deleted', 'Draft',
+        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, Attachment, User, Inbox, Outbox, Deleted, Draft) {
 
         $scope.message = entity;
         $scope.attachments = Attachment.query();
@@ -18,6 +18,8 @@ angular.module('apqdApp').controller('MessageDialogController',
         $scope.users = User.query();
         $scope.inboxs = Inbox.query();
         $scope.outboxs = Outbox.query();
+        $scope.deleteds = Deleted.query();
+        $scope.drafts = Draft.query();
         $scope.load = function(id) {
             Message.get({id : id}, function(result) {
                 $scope.message = result;
@@ -30,7 +32,7 @@ angular.module('apqdApp').controller('MessageDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function () {
+        var onSaveError = function (result) {
             $scope.isSaving = false;
         };
 
@@ -52,7 +54,7 @@ angular.module('apqdApp').controller('MessageDialogController',
             opened: false
         };
 
-        $scope.datePickerForDateCreatedOpen = function() {
+        $scope.datePickerForDateCreatedOpen = function($event) {
             $scope.datePickerForDateCreated.status.opened = true;
         };
         $scope.datePickerForDateRead = {};
@@ -61,7 +63,7 @@ angular.module('apqdApp').controller('MessageDialogController',
             opened: false
         };
 
-        $scope.datePickerForDateReadOpen = function() {
+        $scope.datePickerForDateReadOpen = function($event) {
             $scope.datePickerForDateRead.status.opened = true;
         };
 }]);
