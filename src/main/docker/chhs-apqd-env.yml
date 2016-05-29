@@ -19,14 +19,3 @@ chhs-apqd-postgresql:
     - POSTGRES_PASSWORD=
   ports:
     - "5432:5432"
-
-chhs-apqd-neo4j:
-    container_name: chhs-apqd-neo4j
-    restart: unless-stopped
-    image: neo4j:2.3.3
-    ports:
-    - "7474:7474"
-    environment:
-    - NEO4J_AUTH=neo4j/qwe123
-    ulimits:
-     nofile: 40000
