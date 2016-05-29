@@ -1,0 +1,17 @@
+<div>
+    <div>{{agency.facility_name}}</div>
+    <div>{{agency.facility_type | capitalize:true}} {{agency.facility_status | capitalize:true}}</div>
+    <div ng-hide="viewConfig.presentation === 'popup'">{{agency.facility_telephone_number}}</div>
+    <div ng-hide="viewConfig.presentation === 'popup'">{{agency.facility_administrator | capitalize:true}}</div>
+    <div ng-hide="viewConfig.presentation === 'popup'">{{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</div>
+    <div>Facility Number: {{agency.facility_number}}</div>
+    <div>Licensee: {{agency.licensee | uppercase}}</div>
+    <div>License First Date: {{agency.license_first_date | date: 'MM/dd/yyyy'}}</div>
+    <div ng-hide="viewConfig.presentation === 'list'">Administrator: {{agency.facility_administrator | capitalize:true}}</div>
+    <div ng-hide="viewConfig.presentation === 'list'">Telephone: {{agency.facility_telephone_number}}</div>
+    <div ng-hide="viewConfig.presentation === 'list'">Address: {{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</div>
+    <div>County Name: {{agency.county_name}}</div>
+    <div>Regional Office: {{agency.regional_office}}</div>
+    <div>Facility Capacity: {{agency.facility_capacity}}</div>
+    <button ng-click="askAbout(agency)">Ask About</button>
+</div>
