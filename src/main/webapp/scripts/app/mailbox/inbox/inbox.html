@@ -180,6 +180,23 @@
 
 
 
+    <div class="ch-mail-heading">
+          <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
+              <button type="button" class="ch-flat-btn ch-flat-btn_back-btn">
+              </button>
+          </div>
+          <div class="ch-mail-heading__item ch-mail-heading__item_heading">
+              <h2 class="ch-new-mail-heading">
+                  Case plan goals
+              </h2>
+          </div>
+          <div class="ch-mail-heading__item ch-mail-heading__item_action-group">
+              <div class="ch-page-heading__actions">
+                  <span class="icon icon-remove"></span>
+                  <span class="icon icon-download"></span>
+              </div>
+          </div>
+      </div>
   <section class="ch-mail-thread">
         <ul class="ch-mail-thread-list">
             <li class="ch-mail-thread-list__item">
@@ -284,29 +301,28 @@
   </section>
   </div>
 
-
+  <div class="ch-page">
   <div class="ch-mail-editor">
       <div class="ch-mail-editor__header">
           <div class="ch-mail-heading">
-              <div class="ch-mail-heading__item">
+              <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
                   <button type="button" class="ch-flat-btn ch-flat-btn_back-btn">
                   </button>
               </div>
-              <div class="ch-mail-heading__item">
+              <div class="ch-mail-heading__item ch-mail-heading__item_heading">
                     <h2 class="ch-new-mail-heading">
                         New Mail
                     </h2>
               </div>
-              <div class="ch-mail-heading__item">
-                    <div class="ch-mail-atach-files">
-                        <span class="ch-mail-atach-files__icon"></span>
-                        <div class="ch-mail-atach-files__btn">
-                            <a class="ch-link-btn" role="button">Attach files</a>
+              <div class="ch-mail-heading__item ch-mail-heading__item_attach-btn">
+                    <div class="ch-mail-attach-files">
+                        <div class="ch-mail-attach-files__btn">
+                            <a class="ch-link-btn ch-link-btn_icon ch-link-btn_icon_attach-files" role="button">Attach files</a>
                         </div>
                     </div>
               </div>
-              <div class="ch-mail-heading__item">
-                  <button type="button" class="ch-option-btn">
+              <div class="ch-mail-heading__item ch-mail-heading__item_action-btn">
+                  <button type="button" class="ch-option-btn ch-option-btn_short-text">
                       <span class="ch-option-btn__text">Send</span>
                   </button>
               </div>
@@ -316,14 +332,17 @@
             <div class="ch-new-mail">
                 <div class="ch-new-mail__row">
                     <div class="ch-new-mail-field">
-                        <span class="ch-new-mail-field__prefix">To</span>
+                        <div class="ch-new-mail-field__label">
+                            <button type="button" class="ch-dropdown-label-btn">
+                                <span class="ch-dropdown-label-btn__text">To</span>
+                            </button>
+                        </div>
                         <input type="text" class="ch-new-mail-field__input">
                     </div>
                 </div>
                 <div class="ch-new-mail__row">
                     <div class="ch-new-mail-field">
-                        <span class="ch-new-mail-field__prefix">Subject:</span>
-                        <input type="text" class="ch-new-mail-field__input">
+                        <input type="text" class="ch-new-mail-field__input" placeholder="Subject:">
                     </div>
                 </div>
                 <div class="ch-new-mail__row">
@@ -336,3 +355,4 @@
             </div>
       </div>
   </div>
+      </div>

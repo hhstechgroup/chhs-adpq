@@ -438,3 +438,117 @@
     font-size: 1.8rem;
     color: #000;
 }
+
+.ch-mail-heading {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.ch-mail-heading__item {
+
+}
+
+.ch-mail-heading__item_back-control {
+    flex: 0 0 7.5rem;
+}
+
+.ch-mail-heading__item_heading {
+    flex: 1;
+    padding-right: 2rem;
+}
+
+.ch-mail-heading__item_attach-btn {
+    flex: 0 0 13.5rem;
+    padding-right: 3.5rem;
+}
+
+.ch-mail-heading__item_action-btn {
+    flex: 0 0 10rem;
+}
+
+.ch-option-btn_short-text {
+    padding: .8rem 4rem;
+}
+
+.ch-link-btn {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.ch-link-btn_icon {
+    padding: 0 0 0 2rem;
+    position: relative;
+}
+
+.ch-link-btn_icon_attach-files:before {
+    content: '\0020';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 16px;
+    background: url("../images/us-icon/icon-attachment.png") no-repeat center;
+}
+
+.ch-new-mail {
+    background: #fff;
+    border: 1px solid #cbcdcf;
+}
+
+.ch-new-mail__row {
+    padding: 1.2rem;
+    border-bottom: 1px solid #cbcdcf;
+}
+
+.ch-new-mail__row:last-child {
+    border: none;
+}
+
+.ch-new-mail-field {
+    display: flex;
+    align-items: center;
+}
+
+.ch-new-mail-field__label {
+    display: inline-block;
+    flex: 0 0 3.6rem;
+}
+
+.ch-dropdown-label-btn {
+    display: inline-block;
+    padding: 0;
+}
+
+.ch-dropdown-label-btn:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #5b616b;
+    vertical-align: middle;
+}
+
+.ch-dropdown-label-btn__text {
+    font-size: 1.4rem;
+    color: #5b616b;
+}
+
+.ch-new-mail-field .ch-new-mail-field__input {
+    flex: 1;
+    display: inline-block;
+    border: none;
+}
+
+.ch-new-mail-text-body .ch-new-mail-text-body__text-input {
+    border: none;
+    width: 100%;
+    resize: vertical;
+}
+
+.ch-mail-heading__item_action-group {
+    flex: 0 0 11rem;
+}
