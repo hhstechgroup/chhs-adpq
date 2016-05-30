@@ -12,11 +12,13 @@ angular.module('apqdApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/mailbox/inbox/inbox.html',
-                        controller: 'MailboxController'
+                        templateUrl: 'scripts/app/mailbox/mailbox.html'
                     },
-                    'aside@': {
+                    'aside@ch-inbox': {
                         templateUrl: 'scripts/app/mailbox/mailbox-aside-nav.html'
+                    },
+                    'main@ch-inbox': {
+                        templateUrl: 'scripts/app/mailbox/inbox/inbox.html'
                     }
                 }
             });

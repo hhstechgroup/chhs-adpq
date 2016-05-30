@@ -1,0 +1,41 @@
+.ch-main-nav-list__item {
+    display: inline-block;
+}
+
+.ch-main-nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.ch-main-nav-item__link {
+    display: block;
+    height: 7.3rem;
+    min-width: 12.5rem;
+    padding: 2.2rem 2.5rem;
+}
+
+.ch-main-nav-item__link_active {
+    background: #4e5664;
+}
+
+.ch-main-nav-item__text {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.ch-main-nav-item__text_badge-notify:after {
+    content: '\0020';
+    position: absolute;
+    border: 3px solid #fdb81e;
+    border-radius: 50%;
+    top: -.2rem;
+    right: -.9rem;
+}
+
+.ch-main-nav-item__icon {
+    margin-right: 1rem;
+}

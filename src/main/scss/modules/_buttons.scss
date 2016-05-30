@@ -1,0 +1,85 @@
+.ch-option-btn {
+    display: inline-block;
+    padding: 0.8rem 3rem;
+    min-width: 5rem;
+    background: #0071bc;
+    border-radius: 4px;
+}
+
+.ch-option-btn__text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+.ch-button-group__item {
+    display: inline-block;
+}
+.ch-button-group__btn {
+    border: .1rem solid #757575;
+    padding: .5rem 1.5rem;
+}
+
+.ch-button-group__btn_left-border {
+    border-top: .1rem solid #757575;
+    border-bottom: .1rem solid #757575;
+    border-right: .1rem solid #757575;
+    border-left: 0;
+    padding: .5rem 1.5rem;
+    margin-left: -.4rem;
+}
+
+.ch-flat-btn_back-btn {
+    width: 4.8rem;
+    height: 3.6rem;
+    border: .1rem solid #757575;
+    background: url(../images/out-sprite-icons/icon-back-arrow.png) 50% 50% no-repeat;
+    background-color: #f1f1f1;
+}
+
+.ch-option-btn_short-text {
+    padding: .8rem 4rem;
+}
+
+.ch-link-btn {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.ch-link-btn_icon {
+    padding: 0 0 0 2rem;
+    position: relative;
+}
+
+.ch-link-btn_icon_attach-files:before {
+    content: '\0020';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 16px;
+    background: url("../images/us-icon/icon-attachment.png") no-repeat center;
+}
+
+.ch-dropdown-label-btn {
+    display: inline-block;
+    padding: 0;
+}
+
+.ch-dropdown-label-btn:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #5b616b;
+    vertical-align: middle;
+}
+
+.ch-dropdown-label-btn__text {
+    font-size: 1.4rem;
+    color: #5b616b;
+}

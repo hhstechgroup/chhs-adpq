@@ -1,4 +1,11 @@
-FACILITIES
-<div>
-    <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: 600px"></leaflet>
+<div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside">
+
 </div>
+
+<!--start main content-->
+<div class = "ch-layout__content" ui-view="main">
+    <div>
+        <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: 600px"></leaflet>
+    </div>
+</div><!--end main content-->
+

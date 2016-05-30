@@ -10,7 +10,7 @@ angular.module('apqdApp')
                     pageTitle: ''
                 },
                 views: {
-                    'content@': {
+                    'mailbox-content': {
                         templateUrl: 'scripts/app/mailbox/deleted/deleted.html',
                         controller: 'DeletedController'
                     }
