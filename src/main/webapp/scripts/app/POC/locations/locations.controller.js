@@ -49,36 +49,34 @@ angular.module('apqdApp')
             });
         };
 
-        $scope.$on("leafletDirectiveMap.viewreset", function(event, args) {
+        $scope.$on("leafletDirectiveMap.viewreset", function(event) {
             $log.debug(event.name);
             $scope.updateLocations();
         });
 
-        $scope.$on("leafletDirectiveMap.dragend", function(event, args) {
+        $scope.$on("leafletDirectiveMap.dragend", function(event) {
             $log.debug(event.name);
             $scope.updateLocations();
         });
 
-        $scope.$on("leafletDirectiveMap.resize", function(event, args) {
+        $scope.$on("leafletDirectiveMap.resize", function(event) {
             $log.debug(event.name);
             $scope.updateLocations();
         });
 
         //TODO: sample call
         $scope.test = function () {
-            FosterFamilyAgenciesService.findAgenciesWithinBox(
-                {
-                    northwest: {
-                        latitude: 34.185175,
-                        longitude: -117.77147
-                    },
-                    southeast : {
-                        latitude: 34.075175,
-                        longitude: -117.57147
-                    }
-
-                }).then(function (agencies) {
-                console.log(agencies);
+            FosterFamilyAgenciesService.findAgenciesWithinBox({
+                northwest: {
+                    latitude: 34.185175,
+                    longitude: -117.77147
+                },
+                southeast: {
+                    latitude: 34.075175,
+                    longitude: -117.57147
+                }
+            }).then(function (agencies) {
+                $log.debug(agencies);
             });
         };
 
