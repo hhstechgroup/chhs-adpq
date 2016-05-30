@@ -392,11 +392,11 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
-         'clean:server',
-         'wiredep:test',
-         'ngconstant:dev',
-         'sass:server',
-         'karma'
+         //'clean:server',
+         //'wiredep:test',
+         //'ngconstant:dev',
+         //'sass:server',
+         //'karma'
     ]);
 
     grunt.registerTask('utest', [
