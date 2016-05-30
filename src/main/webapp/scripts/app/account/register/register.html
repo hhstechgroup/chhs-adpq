@@ -1,7 +1,10 @@
-<div>
+<div class="ch-sign-up">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 translate="register.title">Registration</h1>
+        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+            <div class="ch-sign-up__logo-image">
+              <a href=""><span class="logo-image"></span></a>
+            </div>
 
             <div class="alert alert-success" ng-show="success" translate="register.messages.success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
@@ -22,11 +25,25 @@
             <div class="alert alert-danger" ng-show="doNotMatch" translate="global.messages.error.dontmatch">
                 The password and its confirmation do not match!
             </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
+
+        <div class="ch-sign-up__form">
+            <h3 class="ch-sign-up__form__title">Sign Up</h3>
+
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 
-                <div class="form-group">
+              <div class="ch-sign-up__form__group ch-sign-up__form__group_row">
+                  <div class="ch-sign-up__form__group_child">
+                      <label for="username" translate="">First Name</label>
+                      <input type="text" class="form-control" id="username" placeholder="Your First Name">
+                  </div>
+
+                  <div class="ch-sign-up__form__group_child">
+                      <label for="username" translate="">Last Name</label>
+                      <input type="text" class="form-control" id="username" placeholder="Your Last Name">
+                  </div>
+              </div>
+
+                <div class="ch-sign-up__form__group">
                     <label class="control-label" for="login" translate="global.form.username">Username</label>
                     <input type="text" class="form-control" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
                            ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
@@ -49,7 +66,52 @@
                     </p>
                     </div>
                 </div>
-                <div class="form-group">
+
+                <div class="ch-sign-up__form__group ch-sign-up__form__group_row">
+
+                    <div class="ch-sign-up__form__group_child">
+                        <label class="control-label" for="password" translate="global.form.newpassword">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                               ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
+                        <div ng-show="form.password.$dirty && form.password.$invalid">
+                            <p class="help-block"
+                                   ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
+                                Your password is required.
+                            </p>
+                            <p class="help-block"
+                                   ng-show="form.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
+                                Your password is required to be at least 5 characters.
+                            </p>
+                            <p class="help-block"
+                                   ng-show="form.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
+                                Your password cannot be longer than 50 characters.
+                            </p>
+                        </div>
+                        <password-strength-bar password-to-check="registerAccount.password"></password-strength-bar>
+                    </div>
+
+                    <div class="ch-sign-up__form__group_child">
+                        <label class="control-label" for="confirmPassword" translate="global.form.confirmpassword">Password confirmation</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
+                               ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
+                        <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
+                            <p class="help-block"
+                                   ng-show="form.confirmPassword.$error.required" translate="global.messages.validate.confirmpassword.required">
+                                Your confirmation password is required.
+                            </p>
+                            <p class="help-block"
+                                   ng-show="form.confirmPassword.$error.minlength" translate="global.messages.validate.confirmpassword.minlength">
+                                Your confirmation password is required to be at least 5 characters.
+                            </p>
+                            <p class="help-block"
+                                   ng-show="form.confirmPassword.$error.maxlength" translate="global.messages.validate.confirmpassword.maxlength">
+                                Your confirmation password cannot be longer than 50 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ch-sign-up__form__group">
                     <label class="control-label" for="email" >License number/Case number</label>
                     <input type="text" class="form-control" id="caseNumber" name="caseNumber" placeholder="License number/Case number"
                            ng-model="registerAccount.caseNumber" ng-maxlength=20 required>
@@ -64,8 +126,9 @@
                         </p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="email" translate="global.form.email">E-mail</label>
+
+                <div class="ch-sign-up__form__group">
+                    <label class="control-label" for="email" translate="global.form.email">E-mail Address</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
                            ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
                     <div ng-show="form.email.$dirty && form.email.$invalid">
@@ -87,52 +150,25 @@
                         </p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="password" translate="global.form.newpassword">New password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
-                           ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
-                    <div ng-show="form.password.$dirty && form.password.$invalid">
-                        <p class="help-block"
-                               ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
-                            Your password is required.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
-                            Your password is required to be at least 5 characters.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
-                            Your password cannot be longer than 50 characters.
-                        </p>
-                    </div>
-                    <password-strength-bar password-to-check="registerAccount.password"></password-strength-bar>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="confirmPassword" translate="global.form.confirmpassword">New password confirmation</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
-                           ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
-                    <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
-                        <p class="help-block"
-                               ng-show="form.confirmPassword.$error.required" translate="global.messages.validate.confirmpassword.required">
-                            Your confirmation password is required.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.confirmPassword.$error.minlength" translate="global.messages.validate.confirmpassword.minlength">
-                            Your confirmation password is required to be at least 5 characters.
-                        </p>
-                        <p class="help-block"
-                               ng-show="form.confirmPassword.$error.maxlength" translate="global.messages.validate.confirmpassword.maxlength">
-                            Your confirmation password cannot be longer than 50 characters.
-                        </p>
-                    </div>
-                </div>
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
+                <button type="submit" ng-disabled="form.$invalid"
+                        class="ch-sign-up__form__button-submit" translate="">Sign Up</button>
             </form>
+
             <p></p>
-            <div class="alert alert-warning" translate="global.messages.info.authenticated">
+
+            <!-- <div class="alert alert-warning" translate="global.messages.info.authenticated">
                 If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-            </div>
+            </div> -->
         </div>
+
+        <div class="ch-sign-up__separator">
+          <h3><span>or</span></h3>
+        </div>
+
+        <div class="ch-sign-up__new-account">
+           <a class="" href="#/registerme">I have an account</a>
+        </div>
+
     </div>
 </div>
