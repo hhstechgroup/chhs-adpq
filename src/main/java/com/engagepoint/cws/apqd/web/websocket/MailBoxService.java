@@ -45,18 +45,6 @@ public class MailBoxService implements ApplicationListener<SessionSubscribeEvent
     @SubscribeMapping(TOPIC_MAIL_SEND)
     public void sendMessage(@Payload Message mail) {
 
-        User userTo = userRepository.findOneByLogin(mail.getTo().getLogin()).get();
-        User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-
-        mail.setTo(userTo);
-        mail.setFrom(userFrom);
-        mail.setStatus(MessageStatus.NEW);
-        mail.setDateCreated(ZonedDateTime.now());
-        mail.setInbox(userTo.getMailBox().getInbox());
-        mail.setOutbox(userFrom.getMailBox().getOutbox());
-
-        messageRepository.save(mail);
-        sendInboxMessagesToUser(userTo.getLogin(), mail);
     }
 
     @SubscribeMapping(TOPIC_MAIL_CONFIRM)
@@ -73,11 +61,18 @@ public class MailBoxService implements ApplicationListener<SessionSubscribeEvent
         messageRepository.save(savedMessages);
     }
 
-    public void updateDraftCount() {
+    public void notifyClientAboutUnreadInboxCount(Message message) {
+        User userTo = message.getTo();
+
+        Long unreadInboxCount = messageRepository.countByInboxIsNotNullAndToAndStatus(userTo, MessageStatus.NEW);
+        messagingTemplate.convertAndSendToUser(userTo.getLogin(), TOPIC_MAIL_INBOX, unreadInboxCount);
+    }
+
+    public void notifyClientAboutDraftsCount() {
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
-        long i = messageRepository.countByDraftIsNotNullAndFrom(userFrom);
-        messagingTemplate.convertAndSendToUser(userFrom.getLogin(), TOPIC_MAIL_DRAFT, "FUCK OFF = " + i);
+        Long draftsCount = messageRepository.countByDraftIsNotNullAndFrom(userFrom);
+        messagingTemplate.convertAndSendToUser(userFrom.getLogin(), TOPIC_MAIL_DRAFT, draftsCount);
     }
 
     @Override

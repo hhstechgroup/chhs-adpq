@@ -2,5 +2,17 @@
 
 angular.module('apqdApp')
     .controller('MailBoxCtrl', function ($scope, Message, MailBoxService) {
-        $scope.draftsCount = 30;
+
+        $scope.$on("apqdApp:updateDraftsCount", function(event, draftsCount) {
+            $scope.draftsCount = draftsCount;
+        });
+
+        $scope.$on("apqdApp:updateUnreadInboxCount", function(event, unreadInboxCount) {
+            $scope.unreadInboxCount = unreadInboxCount;
+        });
+
+        $scope.$on("apqdApp:updateUnreadDeletedCount", function(event, unreadDeletedCount) {
+            $scope.unreadDeletedCount = unreadDeletedCount;
+        });
+
     });

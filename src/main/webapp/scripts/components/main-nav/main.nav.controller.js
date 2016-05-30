@@ -15,6 +15,7 @@ angular.module('apqdApp')
             $scope.account = account;
         });
 
-        $scope.triggerVoiceAssistant = VoiceAssistantService.triggerVoiceAssistant;
-        $scope.isVoiceAssistantActive = VoiceAssistantService.isVoiceAssistantActive;
+        $scope.$on("apqdApp:updateUnreadInboxCount", function(event, unreadInboxCount) {
+            $scope.unreadInboxCount = unreadInboxCount;
+        });
     });

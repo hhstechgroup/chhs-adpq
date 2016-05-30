@@ -13,6 +13,7 @@ angular.module('apqdApp')
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'save': { method: 'PUT' },
+            'send': { method: 'POST' }
         });
     });

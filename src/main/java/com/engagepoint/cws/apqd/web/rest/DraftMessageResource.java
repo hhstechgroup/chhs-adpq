@@ -47,13 +47,50 @@ public class DraftMessageResource {
     @Inject
     private MessageSearchRepository messageSearchRepository;
 
-    /**
-     * POST  /messages -> Create a new message.
-     */
+
+    @RequestMapping(value = "/messages/draft",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Message> saveMessage(@Valid @RequestBody Message message) throws URISyntaxException {
+        log.debug("REST request to update Message : {}", message);
+        if (message.getId() == null) {
+            return createMessage(message);
+        }
+        Message result = messageRepository.save(enhanceMessage(message));
+        mailBoxService.notifyClientAboutDraftsCount();
+        messageSearchRepository.save(result);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert("message", message.getId().toString()))
+            .body(result);
+    }
+
     @RequestMapping(value = "/messages/draft",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    public ResponseEntity<Void> sendMessage(@Valid @RequestBody Message message) throws URISyntaxException {
+
+        User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
+        User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        message.setTo(userTo);
+        message.setFrom(userFrom);
+        message.setStatus(MessageStatus.NEW);
+        message.setDateCreated(ZonedDateTime.now());
+        message.setDraft(null);
+        message.setInbox(userTo.getMailBox().getInbox());
+        message.setOutbox(userFrom.getMailBox().getOutbox());
+
+        Message result = messageRepository.save(message);
+        messageSearchRepository.save(result);
+
+        mailBoxService.notifyClientAboutDraftsCount();
+        mailBoxService.notifyClientAboutUnreadInboxCount(message);
+
+        return ResponseEntity.ok().build();
+    }
+
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
         log.debug("REST request to save Message : {}", message);
         if (message.getId() != null) {
@@ -61,30 +98,10 @@ public class DraftMessageResource {
                 "A new message cannot already have an ID")).body(null);
         }
         Message result = messageRepository.save(enhanceMessage(message));
-        mailBoxService.updateDraftCount();
+        mailBoxService.notifyClientAboutDraftsCount();
         messageSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/messages/draft" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("message", result.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * PUT  /messages -> Updates an existing message.
-     */
-    @RequestMapping(value = "/messages/draft",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<Message> updateMessage(@Valid @RequestBody Message message) throws URISyntaxException {
-        log.debug("REST request to update Message : {}", message);
-        if (message.getId() == null) {
-            return createMessage(message);
-        }
-        Message result = messageRepository.save(enhanceMessage(message));
-        mailBoxService.updateDraftCount();
-        messageSearchRepository.save(result);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("message", message.getId().toString()))
             .body(result);
     }
 

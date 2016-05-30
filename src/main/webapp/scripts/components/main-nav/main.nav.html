@@ -5,7 +5,7 @@
                 <span class="icon icon-inbox ch-main-nav-item__icon"></span>
                 <div class="ch-main-nav-item__text-bundle">
                     <span class="ch-main-nav-item__text">Inbox</span>
-                    <span class="ch-main-nav-item__inbox-counter">5</span>
+                    <span ng-if="unreadInboxCount > 0" class="ch-main-nav-item__inbox-counter">{{unreadInboxCount}}</span>
                 </div>
             </a>
         </div>

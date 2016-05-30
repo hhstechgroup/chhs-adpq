@@ -40,7 +40,15 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
 
         });
 
+        var history = [];
+        $rootScope.backToPreviousState = function () {
+            var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+            $location.path(prevUrl);
+        };
+
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+            history.push($location.$$path);
+
             var titleKey = 'global.title' ;
             VoiceAssistantService.initVoiceAssistance();
 

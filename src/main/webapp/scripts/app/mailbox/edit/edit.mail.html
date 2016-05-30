@@ -4,7 +4,7 @@
         <div class="ch-mail-editor__header">
             <div class="ch-mail-heading">
                 <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
-                    <button type="button" class="ch-flat-btn ch-flat-btn_back-btn">
+                    <button type="button" class="ch-flat-btn ch-flat-btn_back-btn" ng-click="backToPreviousState()">
                     </button>
                 </div>
                 <div class="ch-mail-heading__item ch-mail-heading__item_heading">
@@ -29,16 +29,33 @@
 
         <div class="ch-mail-editor__body">
             <div class="ch-new-mail">
+
                 <div class="ch-new-mail__row">
                     <div class="ch-new-mail-field">
                         <div class="ch-new-mail-field__label">
-                            <button type="button" class="ch-dropdown-label-btn">
+                            <button type="button" class="ch-dropdown-label-btn" ng-click="showContacts = !showContacts">
                                 <span class="ch-dropdown-label-btn__text">To</span>
                             </button>
                         </div>
-                        <input type="text" class="ch-new-mail-field__input" ng-model="mail.to.login">
+
+                        <input type="text" class="ch-new-mail-field__input" ng-click="showContacts = !showContacts"
+                               ng-readonly="true" value="{{mail.to.firstName}} {{mail.to.lastName}}">
                     </div>
                 </div>
+
+                <div ng-if="showContacts" class="ch-new-mail__row ch-new-mail__row_no-pad">
+                    <div class="ch-contacts-dropdown">
+                        <ul class="ch-contacts-list">
+                            <li ng-repeat="contact in contacts" class="ch-contacts-list__item">
+                                <div class="ch-contact-id" ng-click="selectContact(contact)">
+                                    <span class="icon icon-contact ch-contact-id__icon"></span>
+                                    <span class="ch-contact-id__name">{{contact.firstName}} {{contact.lastName}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="ch-new-mail__row">
                     <div class="ch-new-mail-field">
                         <input type="text" class="ch-new-mail-field__input" ng-model="mail.subject" placeholder="Subject:">
