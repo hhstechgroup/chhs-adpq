@@ -3,6 +3,7 @@ package com.engagepoint.cws.apqd.web.rest;
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.LookupGender;
+import com.engagepoint.cws.apqd.domain.Place;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
@@ -52,6 +53,7 @@ public class AccountResourceIntTest {
     private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
     private static final String DEFAULT_PHONE_NUMBER = "1111111111";
     private static final LookupGender GENDER = new LookupGender();
+    private static final Place DEFAULT_PLACE = new Place();
 
     static {
         GENDER.setId(1L);
@@ -166,7 +168,8 @@ public class AccountResourceIntTest {
             "S123",
             DEFAULT_BIRTH_DATE,
             GENDER,
-            DEFAULT_PHONE_NUMBER
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restMvc.perform(
@@ -195,7 +198,8 @@ public class AccountResourceIntTest {
             "S123",
             DEFAULT_BIRTH_DATE,
             GENDER,
-            DEFAULT_PHONE_NUMBER
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restUserMockMvc.perform(
@@ -224,7 +228,8 @@ public class AccountResourceIntTest {
             "S123",
             DEFAULT_BIRTH_DATE,
             GENDER,
-            DEFAULT_PHONE_NUMBER
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restUserMockMvc.perform(
@@ -254,13 +259,14 @@ public class AccountResourceIntTest {
             "S123",
             DEFAULT_BIRTH_DATE,
             GENDER,
-            DEFAULT_PHONE_NUMBER
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         // Duplicate login, different e-mail
         UserDTO dup = new UserDTO(u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
             "alicejr@example.com", true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
-            u.getBirthDate(), u.getGender(), u.getPhoneNumber());
+            u.getBirthDate(), u.getGender(), u.getPhoneNumber(), u.getPlace());
 
         // Good user
         restMvc.perform(
@@ -297,13 +303,14 @@ public class AccountResourceIntTest {
             "S123",
             DEFAULT_BIRTH_DATE,
             GENDER,
-            DEFAULT_PHONE_NUMBER
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         // Duplicate e-mail, different login
         UserDTO dup = new UserDTO("johnjr", u.getPassword(), u.getLogin(), u.getLastName(),
             u.getEmail(), true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
-            u.getBirthDate(), u.getGender(), u.getPhoneNumber());
+            u.getBirthDate(), u.getGender(), u.getPhoneNumber(), u.getPlace());
 
         // Good user
         restMvc.perform(
@@ -339,7 +346,8 @@ public class AccountResourceIntTest {
             "S123",
             DEFAULT_BIRTH_DATE,
             GENDER,
-            DEFAULT_PHONE_NUMBER
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restMvc.perform(
