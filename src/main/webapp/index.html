@@ -57,9 +57,34 @@
                        </div>
                        <div class="ch-header__subsection ch-header__subsection-user-account">
                                <div class="ch-user-account-entry">
-                                   <button type="button" class="ch-user-account-entry__btn ch-user-account-entry__btn_collapsed">
-                                       <span class="icon icon-user-account ch-user-account-entry__icon-user-account"></span>
-                                   </button>
+                                   <div class="ch-user-account-entry__dropdown">
+                                       <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed">
+                                           <span class="icon icon-user-account ch-user-account-entry__dropdown-icon ch-user-account-entry__dropdown-icon_user-account"></span>
+                                       </button>
+                                   </div>
+                                   <div class="ch-user-account-entry__popup">
+                                       <div class="ch-user-account-popup">
+                                            <div class="ch-user-account-popup__info">
+                                                <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
+                                                <p class="ch-user-account-popup__user-name">
+                                                    SheylaUsername
+                                                </p>
+                                                <p class="ch-user-account-popup__user-email">
+                                                    sheyla@ca.com
+                                                </p>
+                                            </div>
+                                           <div class="ch-user-account-popup__controls">
+                                               <div class="ch-user-account-popup__profile-btn">
+                                                   <button type="button" class="ch-option-btn">
+                                                       <span class="ch-option-btn__text" ui-sref="ch-inbox.edit-mail">My Profile</span>
+                                                   </button>
+                                               </div>
+                                               <div class="ch-user-account-popup__exit-btn">
+                                                   Sign Out
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
                                </div>
                        </div>
                    </div>
