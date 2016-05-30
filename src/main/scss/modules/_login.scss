@@ -1,0 +1,125 @@
+/* Temp fix */
+// .ch-layout__header,
+// .ch-layout__aside {
+//   display: none !important;
+// }
+// .ch-layout__content {
+//   padding-left: 0 !important;
+// }
+/* Temp fix */
+
+.ch-login {
+    width: 95%;
+    padding-top: 10rem;
+    margin-left: 2%;
+    margin-right: 2%;
+    min-width: 40rem;
+}
+
+.ch-login__logo-image {
+    width: 100%;
+
+  a {
+      width: 100%;
+  }
+}
+
+.logo-image {
+    width: 100%;
+    height: 8.5rem;
+    display: inline-block;
+    background: url("../images/us-icon/login-logo.png") no-repeat center;
+}
+
+.ch-login__form {
+    margin-top: 6rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    border: .1rem solid #cbcdcf;
+}
+
+.ch-login__form__title {
+    font-size: 2.4rem;
+    text-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.ch-login__form__group {
+    padding-top: 1rem;
+
+    label {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+
+    input {
+        height: 4.3rem;
+    }
+}
+
+.ch-login__form__alert-link {
+    padding-top: 1rem;
+
+    .alert-link {
+        text-decoration: underline;
+        color: #0071bc;
+    }
+}
+
+.ch-login__form__button-submit {
+    height: 3.6rem;
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.ch-login__separator {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: #000;
+}
+
+.ch-login__separator span:before,
+.ch-login__separator span:after {
+    content: "";
+    display: inline-block;
+    width: 7rem;
+    height: .1rem;
+    position: relative;
+    border-top: .1rem solid #cbcdcf;
+}
+
+.ch-login__separator span:before {
+    top: -.3rem;
+    left: -1.5rem;
+}
+
+.ch-login__separator span:after {
+    top: -.3rem;
+    right: -1rem;
+}
+
+.ch-login__new-account {
+    margin-left: 4rem;
+    margin-right: 4rem;
+
+    a {
+        font-size: 1.4rem;
+        background-color: #5b616b;
+        color: #fff;
+        border-radius: .3rem;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 700;
+        line-height: 1;
+        outline: none;
+        padding: 1rem 2rem;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+        -webkit-font-smoothing: antialiased;
+    }
+}
