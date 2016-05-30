@@ -18,6 +18,11 @@
     background: #4e5664;
 }
 
+.ch-main-nav-item__text-bundle {
+    display: inline-block;
+    position: relative;
+}
+
 .ch-main-nav-item__text {
     display: inline-block;
     font-size: 1.5rem;
@@ -38,4 +43,18 @@
 
 .ch-main-nav-item__icon {
     margin-right: 1rem;
+}
+
+.ch-main-nav-item__inbox-counter {
+    position: absolute;
+    border-radius: 50%;
+    top: -.8rem;
+    right: -1.6rem;
+    background: #fdb81e;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.1rem;
+    color: #fff;
+    text-align: center;
+    padding: .2rem 0 0;
 }
