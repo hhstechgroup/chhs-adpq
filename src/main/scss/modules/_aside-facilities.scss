@@ -1,0 +1,108 @@
+.ch-facilities__item {
+    padding: 1.9rem 4rem 2.4rem 2.5rem;
+    border: 0.1rem solid #cbcdcf;
+    border-top: none;
+    background-color: #f1f1f1;
+}
+
+.ch-facility__header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.3rem;
+    text-transform: uppercase;
+}
+
+.ch-facility__tags {
+    margin-bottom: 2.3rem;
+}
+
+.ch-facility-tags__tag {
+    float: left;
+    margin-right: 1rem;
+}
+
+.ch-facility-tags__tag:last-of-type {
+    margin-right: 0;
+}
+
+.ch-facilities-tag {
+    padding: 0.5rem 1rem 0.5rem 0.9rem;
+    display: block;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.1rem;
+    color: #ffffff;
+    border-radius: 0.4rem;
+}
+
+.ch-facilities-tag_foster-family {
+    background-color: #4e5664;
+}
+
+.ch-facilities-tag_status_green {
+    background-color: #4aa564;
+}
+
+.ch-facilities-tag_status_red {
+    background-color: #df4962;
+}
+
+.ch-facility__info {
+    margin-bottom: 1.3rem;
+}
+
+.ch-facility-info__part {
+    margin-bottom: 0.7rem;
+}
+
+.ch-facility-info__part:last-of-type {
+    margin-bottom: 0;
+}
+
+.ch-facility-info-text {
+    position: relative;
+    color: #5b616b;
+    font-size: 1.4rem;
+    padding-left: 2.5rem;
+    display: block;
+    line-height: 2rem;
+}
+
+.ch-facility-info-text_address {
+    max-width: 18rem;
+    display: block;
+}
+
+.ch-facility-info-text_address:before {
+    content: "\0020";
+    position: absolute;
+    height: 1.6rem;
+    width: 1.2rem;
+    top: 0;
+    left: 0;
+    background: url('../images/out-sprite-icons/icon-map-sign.png') no-repeat center;
+}
+
+.ch-facility-info-text_phone {
+    display: block;
+}
+
+.ch-facility-info-text_phone:before {
+    content: "\0020";
+    position: absolute;
+    height: 1.6rem;
+    width: 1.5rem;
+    top: 0;
+    left: 0;
+    background: url('../images/out-sprite-icons/icon-phone-sign.png') no-repeat center;
+}
+
+.ch-facilities-btn-group__btn {
+    margin-right: 0.8rem;
+    float: left;
+}
+
+.ch-facilities-btn-group__btn:last-of-type {
+    margin-right: 0;
+}

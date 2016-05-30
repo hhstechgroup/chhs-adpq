@@ -12,10 +12,9 @@ angular.module('apqdApp')
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/facilities/facilities.html',
-                        controller: 'FacilitiesController'
+                        templateUrl: 'scripts/app/facilities/facilities.html'
                     },
-                    'aside@': {
+                    'aside@ch-facilities': {
                         templateUrl: 'scripts/app/facilities/facilities-agencies.html',
                         controller: 'FacilitiesController'
                     }
