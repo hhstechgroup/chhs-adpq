@@ -6,7 +6,7 @@ angular.module('apqdApp')
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18
         };
-
+        $scope.viewConfig = {presentation: 'list'};
         $scope.center = {autoDiscover: true, zoom: 13};
         $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {
@@ -148,7 +148,8 @@ angular.module('apqdApp')
                         message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
                         getMessageScope: function() {
                             var scope = $scope.$new();
-                            angular.extend(scope, agency);
+                            scope.agency = agency;
+                            scope.viewConfig = {presentation: 'popup'};
                             return scope;
                         }
                     }
