@@ -2,6 +2,7 @@ package com.engagepoint.cws.apqd.service;
 
 import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.LookupGender;
+import com.engagepoint.cws.apqd.domain.Place;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
@@ -153,7 +154,7 @@ public class UserService {
     }
 
     public void updateUserInformation(String firstName, String lastName, String email, String langKey,
-        String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber) {
+        String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, Place place) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
@@ -163,6 +164,7 @@ public class UserService {
             u.setBirthDate(birthDate);
             u.setPhoneNumber(phoneNumber);
             u.setGender(gender);
+            u.setPlace(place);
             userRepository.save(u);
             userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);
