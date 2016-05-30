@@ -38,7 +38,6 @@ chhs-apqd:
   links:
     - "chhs-apqd-postgresql:POSTGRESQL"
     - "chhs-apqd-elasticsearch:ELASTIC"
-    - "chhs-apqd-neo4j:NEO4J"
 
 chhs-apqd-lb:
   container_name: chhs-apqd-haproxy
