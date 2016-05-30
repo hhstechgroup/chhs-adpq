@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setCurrentUser;
-import static com.engagepoint.cws.apqd.config.WebsocketConfiguration.*;
+import static com.engagepoint.cws.apqd.config.WebsocketConfiguration.IP_ADDRESS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)

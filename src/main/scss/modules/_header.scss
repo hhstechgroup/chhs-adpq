@@ -53,4 +53,44 @@
     background: #fff;
     box-shadow: 0 1px 1px #cbcdcf;
     padding: 3rem;
+    min-width: 28.3rem;
+}
+
+.ch-user-account-popup__icon {
+    float: left;
+}
+
+.ch-user-account-popup__user-name,
+.ch-user-account-popup__user-email {
+    padding-left: 6rem;
+}
+
+.ch-user-account-popup__user-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #313135;
+}
+
+.ch-user-account-popup__user-email {
+    font-size: 1.4rem;
+    color: #5b616b;
+}
+
+.ch-user-account-popup__info {
+    padding: 0 0 2.4rem;
+}
+
+.ch-user-account-popup__profile-btn {
+    display: inline-block;
+    margin-right: 2.5rem;
+}
+
+.ch-user-account-popup__exit-btn {
+    display: inline-block;
+    margin: 0;
+}
+
+.ch-plane-btn__icon {
+    vertical-align: middle;
+    margin-right: .6rem;
 }

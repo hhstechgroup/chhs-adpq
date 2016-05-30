@@ -1,6 +1,4 @@
-<div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+
             <h2 translate="settings.title" translate-values="{username: '{{settingsAccount.login}}'}">User settings for [<b>{{settingsAccount.login}}</b>]</h2>
 
             <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
@@ -127,3 +125,200 @@
     </div>
 
 </div>
+
+<form class="profile-form">
+    <div class="profile-form__header">
+        <h1 class="profile-form__header-text">My Profile</h1>
+        <div class="profile-form__submit-btn">
+            <button type="submit" class="ch-plane-btn ch-plane-btn_save">Save Changes</button>
+        </div>
+    </div>
+    <section class="profile-form__section">
+        <div class="ch-section">
+            <h1 class="ch-section__header">General information</h1>
+            <div class="ch-section__content">
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="user-name" class="ch-input-block__label">Username</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="user-name" id="user-name" class="ch-form-input ch-form-input_disable" placeholder="SheylaUsername" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="first-name" class="ch-input-block__label">First Name</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="first-name" id="first-name" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="last-name" class="ch-input-block__label">Last Name</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="last-name" id="last-name" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="license" class="ch-input-block__label">License/Case number</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name=license" id="license" class="ch-form-input ch-form-input_disable" placeholder="0000-1215-5858" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="birth-date" class="ch-input-block__label">Date of Birth <span class="ch-input-block__addition">(For example: 04 28 1986)</span></label>
+                            <div class="ch-input-block__form-group">
+                                <div class="ch-input-block__form-input ch-input-block__form-input_2dig ch-input-block__form-input_mr_10">
+                                    <input type="text" name="birth-date-month" id="birth-date" class="ch-form-input" placeholder="Month" />
+                                </div>
+                                <div class="ch-input-block__form-input ch-input-block__form-input_2dig ch-input-block__form-input_mr_10">
+                                    <input type="text" name="birth-date-day" class="ch-form-input" placeholder="Day" />
+                                </div>
+                                <div class="ch-input-block__form-input ch-input-block__form-input_4dig ch-input-block__form-input_mr_10">
+                                    <input type="text" name="birth-date-year" class="ch-form-input" placeholder="Year" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label class="ch-input-block__label">Gender</label>
+                            <div class="ch-input-block__form-input">
+                                <label for="gender-male" class="ch-input-block__label ch-input-block__label_radio"><input type="radio" name=gender" id="gender-male" class="ch-form-input" /> Male</label>
+                                <label for="gender-female" class="ch-input-block__label ch-input-block__label_radio ch-input-block__label_radio_active"><input type="radio" name=gender" id="gender-female" class="ch-form-input" /> Female</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="profile-form__section">
+        <div class="ch-section">
+            <h1 class="ch-section__header">Contact information</h1>
+            <div class="ch-section__content">
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="search-address" class="ch-input-block__label">Search Address</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="search-address" id="search-address" class="ch-form-input ch-form-input_search" placeholder="Search Address" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="street" class="ch-input-block__label">Street Address</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="street" id="street" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="city" class="ch-input-block__label">City</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="city" id="city" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="state" class="ch-input-block__label">State</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="state" id="state" class="ch-form-input ch-form-input_drop-down" placeholder=" " />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="zip" class="ch-input-block__label">Zip</label>
+                            <div class="ch-input-block__form-input ch-input-block__form-input_4dig">
+                                <input type="text" name="zip" id="zip" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="email" class="ch-input-block__label">Email Address</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="email" id="email" class="ch-form-input" />
+                            </div>
+                            <div class="ch-input-block__btn">
+                                <button type="button" class="ch-plane-btn ch-plane-btn_primary">Add Email Address</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="telephone" class="ch-input-block__label">Telephone</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="telephone" id="telephone" class="ch-form-input" />
+                            </div>
+                            <div class="ch-input-block__btn">
+                                <button type="button" class="ch-plane-btn ch-plane-btn_primary">Add Telephone</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="profile-form__section">
+        <div class="ch-section">
+            <h1 class="ch-section__header">Change password</h1>
+            <div class="ch-section__content">
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="old-pass" class="ch-input-block__label">Old Password</label>
+                            <div class="ch-input-block__form-input ch-input-block__form-input_half-width">
+                                <input type="text" name="old-pass" id="old-pass" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-flex-row">
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="new-pass" class="ch-input-block__label">New Password</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="new-pass" id="new-pass" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-flex-row__input-block">
+                        <div class="ch-input-block">
+                            <label for="confirm-pass" class="ch-input-block__label">Confirm New Password</label>
+                            <div class="ch-input-block__form-input">
+                                <input type="text" name="confirm-pass" id="confirm-pass" class="ch-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
