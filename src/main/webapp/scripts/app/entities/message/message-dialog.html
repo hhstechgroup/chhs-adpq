@@ -80,6 +80,20 @@
                 <option value="READ" translate="apqdApp.MessageStatus.READ">READ</option>
             </select>
         </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.message.dateUpdated" for="field_dateUpdated">DateUpdated</label>
+            <input id="field_dateUpdated" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="message.dateUpdated" is-open="datePickerForDateUpdated.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForDateUpdatedOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="apqdApp.message.unreadMessagesCount" for="field_unreadMessagesCount">UnreadMessagesCount</label>
+            <input type="number" class="form-control" name="unreadMessagesCount" id="field_unreadMessagesCount"
+                    ng-model="message.unreadMessagesCount"
+                     />
+        </div>
 
         <div class="form-group">
             <label translate="apqdApp.message.replyOn" for="field_replyOn">replyOn</label>
@@ -112,14 +126,14 @@
             </select>
         </div>
         <div class="form-group">
-            <label translate="apqdApp.message.deleted" for="field_deleted">deleted</label>
-            <select class="form-control" id="field_deleted" name="deleted" ng-model="message.deleted" ng-options="deleted as deleted.id for deleted in deleteds track by deleted.id">
+            <label translate="apqdApp.message.draft" for="field_draft">draft</label>
+            <select class="form-control" id="field_draft" name="draft" ng-model="message.draft" ng-options="draft as draft.id for draft in drafts track by draft.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="apqdApp.message.draft" for="field_draft">draft</label>
-            <select class="form-control" id="field_draft" name="draft" ng-model="message.draft" ng-options="draft as draft.id for draft in drafts track by draft.id">
+            <label translate="apqdApp.message.deleted" for="field_deleted">deleted</label>
+            <select class="form-control" id="field_deleted" name="deleted" ng-model="message.deleted" ng-options="deleted as deleted.id for deleted in deleteds track by deleted.id">
                 <option value=""></option>
             </select>
         </div>

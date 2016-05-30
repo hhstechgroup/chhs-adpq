@@ -67,6 +67,13 @@ public class MessageResourceIntTest {
     private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
     private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 
+    private static final ZonedDateTime DEFAULT_DATE_UPDATED = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_DATE_UPDATED = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DATE_UPDATED_STR = dateTimeFormatter.format(DEFAULT_DATE_UPDATED);
+
+    private static final Integer DEFAULT_UNREAD_MESSAGES_COUNT = 1;
+    private static final Integer UPDATED_UNREAD_MESSAGES_COUNT = 2;
+
     @Inject
     private MessageRepository messageRepository;
 
@@ -103,6 +110,8 @@ public class MessageResourceIntTest {
         message.setDateCreated(DEFAULT_DATE_CREATED);
         message.setDateRead(DEFAULT_DATE_READ);
         message.setStatus(DEFAULT_STATUS);
+        message.setDateUpdated(DEFAULT_DATE_UPDATED);
+        message.setUnreadMessagesCount(DEFAULT_UNREAD_MESSAGES_COUNT);
     }
 
     @Test
@@ -127,6 +136,8 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getDateCreated()).isEqualTo(DEFAULT_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(DEFAULT_DATE_READ);
         assertThat(testMessage.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testMessage.getDateUpdated()).isEqualTo(DEFAULT_DATE_UPDATED);
+        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(DEFAULT_UNREAD_MESSAGES_COUNT);
     }
 
     @Test
@@ -181,7 +192,9 @@ public class MessageResourceIntTest {
                 .andExpect(jsonPath("$.[*].caseNumber").value(hasItem(DEFAULT_CASE_NUMBER.toString())))
                 .andExpect(jsonPath("$.[*].dateCreated").value(hasItem(DEFAULT_DATE_CREATED_STR)))
                 .andExpect(jsonPath("$.[*].dateRead").value(hasItem(DEFAULT_DATE_READ_STR)))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+                .andExpect(jsonPath("$.[*].dateUpdated").value(hasItem(DEFAULT_DATE_UPDATED_STR)))
+                .andExpect(jsonPath("$.[*].unreadMessagesCount").value(hasItem(DEFAULT_UNREAD_MESSAGES_COUNT)));
     }
 
     @Test
@@ -200,7 +213,9 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.caseNumber").value(DEFAULT_CASE_NUMBER.toString()))
             .andExpect(jsonPath("$.dateCreated").value(DEFAULT_DATE_CREATED_STR))
             .andExpect(jsonPath("$.dateRead").value(DEFAULT_DATE_READ_STR))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.dateUpdated").value(DEFAULT_DATE_UPDATED_STR))
+            .andExpect(jsonPath("$.unreadMessagesCount").value(DEFAULT_UNREAD_MESSAGES_COUNT));
     }
 
     @Test
@@ -226,6 +241,8 @@ public class MessageResourceIntTest {
         message.setDateCreated(UPDATED_DATE_CREATED);
         message.setDateRead(UPDATED_DATE_READ);
         message.setStatus(UPDATED_STATUS);
+        message.setDateUpdated(UPDATED_DATE_UPDATED);
+        message.setUnreadMessagesCount(UPDATED_UNREAD_MESSAGES_COUNT);
 
         restMessageMockMvc.perform(put("/api/messages")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -242,6 +259,8 @@ public class MessageResourceIntTest {
         assertThat(testMessage.getDateCreated()).isEqualTo(UPDATED_DATE_CREATED);
         assertThat(testMessage.getDateRead()).isEqualTo(UPDATED_DATE_READ);
         assertThat(testMessage.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testMessage.getDateUpdated()).isEqualTo(UPDATED_DATE_UPDATED);
+        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(UPDATED_UNREAD_MESSAGES_COUNT);
     }
 
     @Test

@@ -1,18 +1,19 @@
 package com.engagepoint.cws.apqd.domain;
 
-import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.time.ZonedDateTime;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
+
+import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 
 /**
  * A Message.
@@ -49,6 +50,12 @@ public class Message implements Serializable {
     @Column(name = "status")
     private MessageStatus status;
 
+    @Column(name = "date_updated")
+    private ZonedDateTime dateUpdated;
+
+    @Column(name = "unread_messages_count")
+    private Integer unreadMessagesCount;
+
     @OneToMany(mappedBy = "message")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -72,12 +79,12 @@ public class Message implements Serializable {
     private Outbox outbox;
 
     @ManyToOne
-    @JoinColumn(name = "deleted_id")
-    private Deleted deleted;
-
-    @ManyToOne
     @JoinColumn(name = "draft_id")
     private Draft draft;
+
+    @ManyToOne
+    @JoinColumn(name = "deleted_id")
+    private Deleted deleted;
 
     public Long getId() {
         return id;
@@ -135,6 +142,22 @@ public class Message implements Serializable {
         this.status = status;
     }
 
+    public ZonedDateTime getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(ZonedDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public Integer getUnreadMessagesCount() {
+        return unreadMessagesCount;
+    }
+
+    public void setUnreadMessagesCount(Integer unreadMessagesCount) {
+        this.unreadMessagesCount = unreadMessagesCount;
+    }
+
     public Set<Attachment> getAttachments() {
         return attachments;
     }
@@ -183,20 +206,20 @@ public class Message implements Serializable {
         this.outbox = outbox;
     }
 
-    public Deleted getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Deleted deleted) {
-        this.deleted = deleted;
-    }
-
     public Draft getDraft() {
         return draft;
     }
 
     public void setDraft(Draft draft) {
         this.draft = draft;
+    }
+
+    public Deleted getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Deleted deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -229,6 +252,8 @@ public class Message implements Serializable {
             ", dateCreated='" + dateCreated + "'" +
             ", dateRead='" + dateRead + "'" +
             ", status='" + status + "'" +
+            ", dateUpdated='" + dateUpdated + "'" +
+            ", unreadMessagesCount='" + unreadMessagesCount + "'" +
             '}';
     }
 }

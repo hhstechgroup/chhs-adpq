@@ -10,6 +10,7 @@ angular.module('apqdApp')
                     data = angular.fromJson(data);
                     data.dateCreated = DateUtils.convertDateTimeFromServer(data.dateCreated);
                     data.dateRead = DateUtils.convertDateTimeFromServer(data.dateRead);
+                    data.dateUpdated = DateUtils.convertDateTimeFromServer(data.dateUpdated);
                     return data;
                 }
             },

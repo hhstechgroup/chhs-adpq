@@ -50,15 +50,15 @@
     },
     {
       "relationshipId": 7,
-      "relationshipName": "deleted",
-      "otherEntityName": "deleted",
+      "relationshipName": "draft",
+      "otherEntityName": "draft",
       "relationshipType": "many-to-one",
       "otherEntityField": "id"
     },
     {
       "relationshipId": 8,
-      "relationshipName": "draft",
-      "otherEntityName": "draft",
+      "relationshipName": "deleted",
+      "otherEntityName": "deleted",
       "relationshipType": "many-to-one",
       "otherEntityField": "id"
     }
@@ -108,6 +108,16 @@
       "fieldName": "status",
       "fieldType": "MessageStatus",
       "fieldValues": "NEW,READ"
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "dateUpdated",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "unreadMessagesCount",
+      "fieldType": "Integer"
     }
   ],
   "changelogDate": "20160521013734",

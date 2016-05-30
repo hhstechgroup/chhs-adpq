@@ -21,40 +21,48 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-
-            <column name="body" type="varchar(2000)"/>
-
-            <column name="subject" type="varchar(100)"/>
-
+            <column name="body" type="varchar(2000)">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="subject" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            
             <column name="case_number" type="varchar(20)"/>
-
+            
             <column name="date_created" type="timestamp"/>
-
+            
             <column name="date_read" type="timestamp"/>
-
+            
             <column name="status" type="varchar(255)"/>
-
+            
+            <column name="date_updated" type="timestamp"/>
+            
+            <column name="unread_messages_count" type="integer"/>
+            
             <column name="reply_on_id" type="bigint">
                 <constraints unique="true"/>
             </column>
-
             <column name="to_id" type="bigint">
-
+                <constraints unique="true"/>
             </column>
             <column name="from_id" type="bigint">
-
+                <constraints unique="true"/>
             </column>
             <column name="inbox_id" type="bigint"/>
             <column name="outbox_id" type="bigint"/>
-            <column name="deleted_id" type="bigint"/>
             <column name="draft_id" type="bigint"/>
+            <column name="deleted_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="message" columnName="date_created" columnDataType="datetime"/>
 
         <dropDefaultValue tableName="message" columnName="date_read" columnDataType="datetime"/>
 
+        <dropDefaultValue tableName="message" columnName="date_updated" columnDataType="datetime"/>
 
+        
         <addForeignKeyConstraint baseColumnNames="reply_on_id"
                                  baseTableName="message"
                                  constraintName="fk_message_replyon_id"
@@ -85,17 +93,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="outbox"/>
 
-        <addForeignKeyConstraint baseColumnNames="deleted_id"
-                                 baseTableName="message"
-                                 constraintName="fk_message_deleted_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="deleted"/>
-
         <addForeignKeyConstraint baseColumnNames="draft_id"
                                  baseTableName="message"
                                  constraintName="fk_message_draft_id"
                                  referencedColumnNames="id"
                                  referencedTableName="draft"/>
+
+        <addForeignKeyConstraint baseColumnNames="deleted_id"
+                                 baseTableName="message"
+                                 constraintName="fk_message_deleted_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="deleted"/>
 
     </changeSet>
 </databaseChangeLog>
