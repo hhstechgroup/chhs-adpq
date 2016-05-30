@@ -69,17 +69,15 @@
       "fieldName": "body",
       "fieldType": "String",
       "fieldValidateRules": [
-        "required",
         "maxlength"
       ],
-      "fieldValidateRulesMaxlength": 2000
+      "fieldValidateRulesMaxlength": 4000
     },
     {
       "fieldId": 2,
       "fieldName": "subject",
       "fieldType": "String",
       "fieldValidateRules": [
-        "required",
         "maxlength"
       ],
       "fieldValidateRulesMaxlength": 100

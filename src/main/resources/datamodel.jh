@@ -50,8 +50,8 @@ enum MessageStatus {
   }
 
 entity Message {
-    body String required maxlength(2000),
-    subject String required maxlength(100),
+    body String maxlength(4000),
+    subject String maxlength(100),
     caseNumber String maxlength(20),
     dateCreated ZonedDateTime,
     dateRead ZonedDateTime,
