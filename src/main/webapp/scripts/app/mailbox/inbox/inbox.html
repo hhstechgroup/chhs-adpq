@@ -58,7 +58,7 @@
 
     <ul class="ch-page-content">
 
-        <li class="ch-content-item ch-content-item_active">
+        <li ng-repeat="mail in mails" class="ch-content-item ch-content-item_active">
 
             <div class="ch-content-item__checkbox">
                 <div class="form-type__checkbox_empty-label">
@@ -68,19 +68,17 @@
             </div>
 
             <div class="ch-content-item__person">
-                <span class="person-name">Sandra Derick</span>
-                <span class="person-chain-count">(3)</span>
+                <span class="person-name">{{mail.from.firstName}} {{mail.from.lastName}}</span>
+                <span ng-if="mail.threadUnreadMessages > 0" class="person-chain-count">({{mail.threadUnreadMessages}})</span>
             </div>
 
             <div class="ch-content-item__entry">
-                <span class="entry-name">Case plan goals</span>
-                <span class="entry-main">
-                  - Chapin Hall Center for Children &
-                  American Public Human Services</span>
+                <span class="entry-name">{{mail.subject}}</span>
+                <span class="entry-main">{{mail.body | cutMailBody}}</span>
             </div>
 
             <div class="ch-content-item__date">
-                <span class="item_date"> 20:12</span>
+                <span class="item_date">{{mail.dateCreated | formatMailDate}}</span>
             </div>
 
             <div class="ch-content-item__attachments">

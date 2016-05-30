@@ -1,0 +1,55 @@
+<div class="ch-page">
+    <div class="ch-mail-editor">
+
+        <div class="ch-mail-editor__header">
+            <div class="ch-mail-heading">
+                <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
+                    <button type="button" class="ch-flat-btn ch-flat-btn_back-btn">
+                    </button>
+                </div>
+                <div class="ch-mail-heading__item ch-mail-heading__item_heading">
+                    <h2 class="ch-new-mail-heading">
+                        New Mail
+                    </h2>
+                </div>
+                <div class="ch-mail-heading__item ch-mail-heading__item_attach-btn">
+                    <div class="ch-mail-attach-files">
+                        <div class="ch-mail-attach-files__btn">
+                            <a class="ch-link-btn ch-link-btn_icon ch-link-btn_icon_attach-files" role="button">Attach files</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ch-mail-heading__item ch-mail-heading__item_action-btn">
+                    <button type="button" class="ch-option-btn ch-option-btn_short-text" ng-click="sendMail()">
+                        <span class="ch-option-btn__text">Send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-mail-editor__body">
+            <div class="ch-new-mail">
+                <div class="ch-new-mail__row">
+                    <div class="ch-new-mail-field">
+                        <div class="ch-new-mail-field__label">
+                            <button type="button" class="ch-dropdown-label-btn">
+                                <span class="ch-dropdown-label-btn__text">To</span>
+                            </button>
+                        </div>
+                        <input type="text" class="ch-new-mail-field__input" ng-model="mail.to.login">
+                    </div>
+                </div>
+                <div class="ch-new-mail__row">
+                    <div class="ch-new-mail-field">
+                        <input type="text" class="ch-new-mail-field__input" ng-model="mail.subject" placeholder="Subject:">
+                    </div>
+                </div>
+                <div class="ch-new-mail__row">
+                    <div class="ch-new-mail-text-body">
+                        <textarea cols="30" rows="20" ng-model="mail.body" class="ch-new-mail-text-body__text-input"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

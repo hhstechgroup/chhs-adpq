@@ -65,8 +65,11 @@
                    </div>
                </div>
             </div>
-            <div class="ch-layout__body" ui-view="content">
 
+            <div class="ch-layout__aside clearfix" ui-view="aside">
+            </div>
+
+            <div class = "ch-layout__content" ui-view="content">
             </div>
 
         </div>
@@ -283,11 +286,17 @@
     <script src="scripts/app/entities/outbox/outbox-detail.controller.js"></script>
     <script src="scripts/components/entities/outbox/outbox.service.js"></script>
     <script src="scripts/components/entities/outbox/outbox.search.service.js"></script>
-    <script src="scripts/app/entities/mailBox/mailBox.js"></script>
-    <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
-    <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
-    <script src="scripts/app/entities/mailBox/mailBox-delete-dialog.controller.js"></script>
-    <script src="scripts/app/entities/mailBox/mailBox-detail.controller.js"></script>
+    <script src="scripts/components/mailbox/mailbox.service.js"></script>
+    <script src="scripts/app/mailbox/mailbox.controller.js"></script>
+    <script src="scripts/app/mailbox/inbox/inbox.controller.js"></script>
+    <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
+    <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
+    <script src="scripts/components/entities/message/draft.message.service.js"></script>
+    <!--<script src="scripts/app/entities/mailBox/mailBox.js"></script>-->
+    <!--<script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>-->
+    <!--<script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>-->
+    <!--<script src="scripts/app/entities/mailBox/mailBox-delete-dialog.controller.js"></script>-->
+    <!--<script src="scripts/app/entities/mailBox/mailBox-detail.controller.js"></script>-->
     <script src="scripts/components/entities/mailBox/mailBox.service.js"></script>
     <script src="scripts/components/entities/mailBox/mailBox.search.service.js"></script>
     <script src="scripts/app/entities/message/message.js"></script>

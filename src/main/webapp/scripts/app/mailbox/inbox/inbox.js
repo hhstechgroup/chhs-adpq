@@ -12,7 +12,7 @@ angular.module('apqdApp')
                 views: {
                     'mailbox-content': {
                         templateUrl: 'scripts/app/mailbox/inbox/inbox.html',
-                        controller: 'InboxController'
+                        controller: 'InboxCtrl'
                     }
                 }
             });

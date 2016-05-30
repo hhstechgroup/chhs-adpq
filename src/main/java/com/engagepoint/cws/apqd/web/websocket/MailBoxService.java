@@ -29,6 +29,7 @@ public class MailBoxService implements ApplicationListener<SessionSubscribeEvent
 
     public static final String TOPIC_MAIL_INBOX = "/topic/mail/inbox";
     public static final String TOPIC_MAIL_OUTBOX = "/topic/mail/outbox";
+    public static final String TOPIC_MAIL_DRAFT = "/topic/mail/draft";
     public static final String TOPIC_MAIL_SEND = "/topic/mail/send";
     public static final String TOPIC_MAIL_CONFIRM = "/topic/mail/confirm";
 
@@ -42,19 +43,20 @@ public class MailBoxService implements ApplicationListener<SessionSubscribeEvent
     private SimpMessageSendingOperations messagingTemplate;
 
     @SubscribeMapping(TOPIC_MAIL_SEND)
-    public void sendMessage(@Payload Message message) {
+    public void sendMessage(@Payload Message mail) {
 
-        User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
+        User userTo = userRepository.findOneByLogin(mail.getTo().getLogin()).get();
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
-        message.setTo(userTo);
-        message.setFrom(userFrom);
-        message.setStatus(MessageStatus.NEW);
-        message.setDateCreated(ZonedDateTime.now());
-        message.setInbox(userTo.getMailBox().getInbox());
-        message.setOutbox(userFrom.getMailBox().getOutbox());
+        mail.setTo(userTo);
+        mail.setFrom(userFrom);
+        mail.setStatus(MessageStatus.NEW);
+        mail.setDateCreated(ZonedDateTime.now());
+        mail.setInbox(userTo.getMailBox().getInbox());
+        mail.setOutbox(userFrom.getMailBox().getOutbox());
 
-        messageRepository.save(message);
+        messageRepository.save(mail);
+        sendInboxMessagesToUser(userTo.getLogin(), mail);
     }
 
     @SubscribeMapping(TOPIC_MAIL_CONFIRM)
@@ -71,6 +73,13 @@ public class MailBoxService implements ApplicationListener<SessionSubscribeEvent
         messageRepository.save(savedMessages);
     }
 
+    public void updateDraftCount() {
+        User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        long i = messageRepository.countByDraftIsNotNullAndFrom(userFrom);
+        messagingTemplate.convertAndSendToUser(userFrom.getLogin(), TOPIC_MAIL_DRAFT, "FUCK OFF = " + i);
+    }
+
     @Override
     public void onApplicationEvent(SessionSubscribeEvent sessionSubscribeEvent) {
         String userName = sessionSubscribeEvent.getUser().getName();
@@ -78,19 +87,19 @@ public class MailBoxService implements ApplicationListener<SessionSubscribeEvent
             .getNativeHeader("destination");
 
         if (destinations.size() > 0 && destinations.get(0).contains(TOPIC_MAIL_INBOX)) {
-            sendInboxMessagesToUser(userName);
+            //sendInboxMessagesToUser(userName);
         }
 
         if (destinations.size() > 0 && destinations.get(0).contains(TOPIC_MAIL_OUTBOX)) {
-            sendOutboxMessagesToUser(userName);
+            //sendOutboxMessagesToUser(userName);
         }
     }
 
-    public void sendInboxMessagesToUser(String toUser) {
-        messagingTemplate.convertAndSendToUser(toUser, TOPIC_MAIL_INBOX, "");
+    public void sendInboxMessagesToUser(String toUser, Message mail) {
+        messagingTemplate.convertAndSendToUser(toUser, TOPIC_MAIL_INBOX, mail);
     }
 
-    public void sendOutboxMessagesToUser(String toUser) {
+    public void sendOutboxMessagesToUser(String toUser, Message mail) {
         messagingTemplate.convertAndSendToUser(toUser, TOPIC_MAIL_OUTBOX, "");
     }
 }

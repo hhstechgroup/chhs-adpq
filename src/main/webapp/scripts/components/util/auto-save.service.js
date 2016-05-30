@@ -4,7 +4,7 @@ angular.module('apqdApp')
     .service('AutoSaveService', function ($rootScope, DateUtils) {
 
         var ACTIVITY_AUTO_SAVE_INTERVAL = 30000;
-        var INACTIVITY_AUTO_SAVE_INTERVAL = 3000;
+        var INACTIVITY_AUTO_SAVE_INTERVAL = 1000;
         var autoSaveInvoked = false;
 
         function invokeAutoSave(formScope) {
