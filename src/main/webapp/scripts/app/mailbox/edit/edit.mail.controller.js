@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('EditMailCtrl', function ($scope, $state, mail, MailBoxService, AutoSaveService, DraftMessage) {
+    .controller('EditMailCtrl', function ($scope, $state, $log, mail, MailBoxService, AutoSaveService, DraftMessage) {
 
         if (!_.isNil(mail)) {
             $scope.mail = mail;
@@ -18,7 +18,7 @@ angular.module('apqdApp')
                     }, console.log);
                 } else {
                     DraftMessage.update($scope.mail, function() {
-                        console.log('draft mail saved');
+                        $log.info('draft mail saved');
                     }, console.log);
                 }
             }
