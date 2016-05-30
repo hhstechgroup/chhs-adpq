@@ -6,7 +6,7 @@ angular.module('apqdApp')
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18
         };
-        $scope.viewConfig = {presentation: 'list'};
+        $scope.viewConfig = {presentation: 'list', hidePartFlag: true};
         $scope.center = {autoDiscover: true, zoom: 13};
         $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {
