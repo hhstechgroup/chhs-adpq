@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('InboxCtrl', function ($scope, $log, Message, ParseLinks, EMailMessage) {
+    .controller('MessagesCtrl', function ($scope, $stateParams, $log, Message, ParseLinks, EMailMessage) {
 
         $scope.pageSize = 10;
 
@@ -10,7 +10,8 @@ angular.module('apqdApp')
         $scope.totalItems = 0;
 
         $scope.loadPage = function(pageNum) {
-            EMailMessage.get({dir: 'inbox', page: pageNum, size: $scope.pageSize}, function(results, headers) {
+            var query = {dir: $stateParams.directory, page: pageNum, size: $scope.pageSize};
+            EMailMessage.get(query, function(results, headers) {
                 $scope.allSelected = false;
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
@@ -50,8 +51,15 @@ angular.module('apqdApp')
         $scope.loadPage(0);
     })
     .filter('formatMailDate', ['DateUtils', function (DateUtils) {
-        return function (dateAsString) {
+        return function (mail) {
+            var dateAsString;
             var ONE_DAY = 24 * 60 * 60 * 1000;
+
+            if (!_.isNil(mail.dateUpdated)) {
+                dateAsString = mail.dateUpdated;
+            } else if (!_.isNil(mail.dateCreated)) {
+                dateAsString = mail.dateCreated;
+            }
 
             var date = DateUtils.convertDateTimeFromServer(dateAsString);
             if (new Date().getTime() - date.getTime() < ONE_DAY) {

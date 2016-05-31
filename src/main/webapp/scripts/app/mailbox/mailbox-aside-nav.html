@@ -11,7 +11,9 @@
             <ul class="ch-aside-nav-list">
                 <li class="ch-aside-nav-list__item">
                     <div class="ch-aside-nav-item">
-                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_inbox" ui-sref="ch-inbox.inbox" ui-sref-active="ch-aside-nav-item__link_active">
+                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_inbox"
+                           ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-aside-nav-item__link_active">
+
                             <span class="ch-aside-nav-item__text">Inbox</span>
                             <span ng-if="unreadInboxCount > 0" class="ch-aside-nav-item__counter">({{unreadInboxCount}})</span>
                         </a>
@@ -19,14 +21,18 @@
                 </li>
                 <li class="ch-aside-nav-list__item">
                     <div class="ch-aside-nav-item">
-                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_sent" ui-sref="ch-inbox.sent" ui-sref-active="ch-aside-nav-item__link_active">
+                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_sent"
+                           ui-sref="ch-inbox.messages({directory: 'sent'})" ui-sref-active="ch-aside-nav-item__link_active">
+
                             <span class="ch-aside-nav-item__text">Sent mail</span>
                         </a>
                     </div>
                 </li>
                 <li class="ch-aside-nav-list__item">
                     <div class="ch-aside-nav-item">
-                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_drafts" ui-sref="ch-inbox.drafts" ui-sref-active="ch-aside-nav-item__link_active">
+                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_drafts"
+                           ui-sref="ch-inbox.messages({directory: 'drafts'})" ui-sref-opts="{directory: 'drafts'}" ui-sref-active="ch-aside-nav-item__link_active">
+
                             <span class="ch-aside-nav-item__text">Drafts</span>
                             <span ng-if="draftsCount > 0" class="ch-aside-nav-item__counter">({{draftsCount}})</span>
                         </a>
@@ -34,7 +40,9 @@
                 </li>
                 <li class="ch-aside-nav-list__item">
                     <div class="ch-aside-nav-item">
-                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_deleted" ui-sref="ch-inbox.deleted" ui-sref-active="ch-aside-nav-item__link_active">
+                        <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_deleted"
+                           ui-sref="ch-inbox.messages({directory: 'deleted'})" ui-sref-active="ch-aside-nav-item__link_active">
+
                             <span class="ch-aside-nav-item__text">Deleted</span>
                             <span ng-if="unreadDeletedCount > 0" class="ch-aside-nav-item__counter">({{unreadDeletedCount}})</span>
                         </a>

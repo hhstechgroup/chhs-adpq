@@ -16,12 +16,12 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 
     Long countByInboxIsNotNullAndToAndStatus(User to, MessageStatus status);
 
-    Page<Message> findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(User to, Pageable pageable);
+    Page<Message> findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(User to, Pageable pageable);
 
-    Page<Message> findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(User to, Pageable pageable);
+    Page<Message> findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(User to, Pageable pageable);
 
     Page<Message> findAllByDraftIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(User to, Pageable pageable);
 
-    Page<Message> findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(User to, Pageable pageable);
+    Page<Message> findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(User to, Pageable pageable);
 
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('EditMailCtrl', function ($rootScope, $scope, $state, mail,
+    .controller('EditMailCtrl', function ($rootScope, $scope, $state, $log, mail,
                                           MailBoxService, AutoSaveService, DraftMessage,
                                           Contacts)
     {
@@ -28,21 +28,21 @@ angular.module('apqdApp')
                         $scope.mail.id = savedMail.id;
                         $state.go('.', {mailId: savedMail.id}, {notify: false});
                     }
-                }, console.log);
+                }, $log.info);
 
             }
         };
 
         $scope.backToPreviousState = function() {
             if (!_.isUndefined($scope.mail)) {
-                DraftMessage.save($scope.mail, $rootScope.backToPreviousState, console.log);
+                DraftMessage.save($scope.mail, $rootScope.backToPreviousState, $log.info);
             } else {
                 $rootScope.backToPreviousState();
             }
         };
 
         $scope.sendMail = function() {
-            DraftMessage.send($scope.mail, $rootScope.backToPreviousState, console.log);
+            DraftMessage.send($scope.mail, $rootScope.backToPreviousState, $log.info);
         };
 
         AutoSaveService.setUpAutoSave($scope, 'mail');

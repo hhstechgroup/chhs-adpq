@@ -63,13 +63,13 @@ public class EMailResource {
         User userTo = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         if (directory == EMailDirectory.inbox) {
-            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
+            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.sent) {
-            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
+            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.drafts) {
             page = messageRepository.findAllByDraftIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.deleted) {
-            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
+            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
         }
 
         if (page == null) {
@@ -111,7 +111,7 @@ public class EMailResource {
         message.setTo(userTo);
         message.setFrom(userFrom);
         message.setStatus(MessageStatus.NEW);
-        message.setDateCreated(ZonedDateTime.now());
+        message.setDateUpdated(ZonedDateTime.now());
         message.setDraft(null);
         message.setInbox(userTo.getMailBox().getInbox());
         message.setOutbox(userFrom.getMailBox().getOutbox());
@@ -152,6 +152,7 @@ public class EMailResource {
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         message.setFrom(userFrom);
         message.setStatus(MessageStatus.NEW);
+        message.setDateCreated(ZonedDateTime.now());
         message.setDraft(userFrom.getMailBox().getDraft());
 
         return message;
