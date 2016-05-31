@@ -136,10 +136,12 @@
                 <div class="ch-flex-row">
                     <div class="ch-flex-row__input-block">
                         <div class="ch-input-block">
-                            <label for="search-address" class="ch-input-block__label">Search Address</label>
-                            <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
-                                <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
-                                <input type="search" name="search-address" id="search-address" class="ch-form-input ch-form-input_search" placeholder="Search Address" />
+                            <label for="geocoder" class="ch-input-block__label">Search Address</label>
+                            <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
+                               <!-- <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>-->
+                                <span id="geocoder">
+                                   <!-- <input type="search" name="search-address" id="search-address" class="ch-form-input ch-form-input_search" placeholder="Search Address" />-->
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -149,7 +151,7 @@
                         <div class="ch-input-block">
                             <label for="street" class="ch-input-block__label">Street Address</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name="street" id="street" class="ch-form-input" />
+                                <input type="text" name="street" id="street" class="ch-form-input" ng-model="street" />
                             </div>
                         </div>
                     </div>
@@ -159,7 +161,7 @@
                         <div class="ch-input-block">
                             <label for="city" class="ch-input-block__label">City</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name="city" id="city" class="ch-form-input" />
+                                <input type="text" name="city" id="city" class="ch-form-input" ng-model="city"/>
                             </div>
                         </div>
                     </div>
@@ -168,9 +170,9 @@
                             <label for="state" class="ch-input-block__label">State</label>
                             <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_right">
                                 <span class="ch-form-input-icon ch-form-input-icon_right ch-form-input-icon_arrow-down"></span>
-                                <select type="text" name="state" id="state" class="ch-form-input">
-                                    <option value="1"></option>
-                                    <option value="2"></option>
+                                <select type="text" name="state" id="state" class="ch-form-input" ng-model="state">
+                                    <option value="MD">MD</option>
+                                    <option value="MO">MO</option>
                                 </select>
                             </div>
                         </div>
@@ -181,7 +183,7 @@
                         <div class="ch-input-block">
                             <label for="zip" class="ch-input-block__label">Zip</label>
                             <div class="ch-input-block__form-input ch-input-block__form-input_4dig">
-                                <input type="text" name="zip" id="zip" class="ch-form-input" />
+                                <input type="text" name="zip" id="zip" class="ch-form-input" ng-model="zip"/>
                             </div>
                         </div>
                     </div>
@@ -275,6 +277,9 @@
             </div>
         </div>
     </section>
+    <div id="map"  style="display: none;">
+        <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: calc(100vh - 14.8rem);"></leaflet>
+    </div>
 </form>
 
                 <!--<contact-address address="settingsAccount.place" ></contact-address>-->
