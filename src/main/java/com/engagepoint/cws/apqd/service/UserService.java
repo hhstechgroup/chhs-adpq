@@ -31,7 +31,7 @@ import java.util.*;
 @Transactional
 public class UserService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Inject
     private PasswordEncoder passwordEncoder;
@@ -49,7 +49,7 @@ public class UserService {
     private AuthorityRepository authorityRepository;
 
     public Optional<User> activateRegistration(String key) {
-        log.debug("Activating user for activation key {}", key);
+        LOGGER.debug("Activating user for activation key {}", key);
         userRepository.findOneByActivationKey(key)
             .map(user -> {
                 // activate given user for the registration key.
@@ -57,14 +57,14 @@ public class UserService {
                 user.setActivationKey(null);
                 userRepository.save(user);
                 userSearchRepository.save(user);
-                log.debug("Activated user: {}", user);
+                LOGGER.debug("Activated user: {}", user);
                 return user;
             });
         return Optional.empty();
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-       log.debug("Reset user password for reset key {}", key);
+       LOGGER.debug("Reset user password for reset key {}", key);
 
        return userRepository.findOneByResetKey(key)
             .filter(user -> {
@@ -117,7 +117,7 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         userSearchRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
+        LOGGER.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
@@ -150,7 +150,7 @@ public class UserService {
         user.setActivated(true);
         userRepository.save(user);
         userSearchRepository.save(user);
-        log.debug("Created Information for User: {}", user);
+        LOGGER.debug("Created Information for User: {}", user);
         return user;
     }
 
@@ -168,7 +168,7 @@ public class UserService {
             u.setPlace(place);
             userRepository.save(u);
             userSearchRepository.save(u);
-            log.debug("Changed Information for User: {}", u);
+            LOGGER.debug("Changed Information for User: {}", u);
         });
     }
 
@@ -176,7 +176,7 @@ public class UserService {
         userRepository.findOneByLogin(login).ifPresent(u -> {
             userRepository.delete(u);
             userSearchRepository.delete(u);
-            log.debug("Deleted User: {}", u);
+            LOGGER.debug("Deleted User: {}", u);
         });
     }
 
@@ -185,7 +185,7 @@ public class UserService {
             String encryptedPassword = passwordEncoder.encode(password);
             u.setPassword(encryptedPassword);
             userRepository.save(u);
-            log.debug("Changed password for User: {}", u);
+            LOGGER.debug("Changed password for User: {}", u);
         });
     }
 
@@ -223,7 +223,7 @@ public class UserService {
     public void removeOldPersistentTokens() {
         LocalDate now = LocalDate.now();
         persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream().forEach(token -> {
-            log.debug("Deleting token {}", token.getSeries());
+            LOGGER.debug("Deleting token {}", token.getSeries());
             User user = token.getUser();
             user.getPersistentTokens().remove(token);
             persistentTokenRepository.delete(token);
@@ -242,7 +242,7 @@ public class UserService {
         ZonedDateTime now = ZonedDateTime.now();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
-            log.debug("Deleting not activated user {}", user.getLogin());
+            LOGGER.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
             userSearchRepository.delete(user);
         }

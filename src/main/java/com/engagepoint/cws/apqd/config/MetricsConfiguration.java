@@ -40,7 +40,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
     private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
     private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
 
-    private final Logger log = LoggerFactory.getLogger(MetricsConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MetricsConfiguration.class);
 
     private MetricRegistry metricRegistry = new MetricRegistry();
 
@@ -63,14 +63,14 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
     @PostConstruct
     public void init() {
-        log.debug("Registering JVM gauges");
+        LOGGER.debug("Registering JVM gauges");
         metricRegistry.register(PROP_METRIC_REG_JVM_MEMORY, new MemoryUsageGaugeSet());
         metricRegistry.register(PROP_METRIC_REG_JVM_GARBAGE, new GarbageCollectorMetricSet());
         metricRegistry.register(PROP_METRIC_REG_JVM_THREADS, new ThreadStatesGaugeSet());
         metricRegistry.register(PROP_METRIC_REG_JVM_FILES, new FileDescriptorRatioGauge());
         metricRegistry.register(PROP_METRIC_REG_JVM_BUFFERS, new BufferPoolMetricSet(ManagementFactory.getPlatformMBeanServer()));
         if (jHipsterProperties.getMetrics().getJmx().isEnabled()) {
-            log.debug("Initializing Metrics JMX reporting");
+            LOGGER.debug("Initializing Metrics JMX reporting");
             JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();
             jmxReporter.start();
         }
@@ -81,7 +81,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
     @Profile("!" + Constants.SPRING_PROFILE_FAST)
     public static class GraphiteRegistry {
 
-        private final Logger log = LoggerFactory.getLogger(GraphiteRegistry.class);
+        private static final Logger LOGGER = LoggerFactory.getLogger(GraphiteRegistry.class);
 
         @Inject
         private MetricRegistry metricRegistry;
@@ -92,7 +92,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         @PostConstruct
         private void init() {
             if (jHipsterProperties.getMetrics().getGraphite().isEnabled()) {
-                log.info("Initializing Metrics Graphite reporting");
+                LOGGER.info("Initializing Metrics Graphite reporting");
                 String graphiteHost = jHipsterProperties.getMetrics().getGraphite().getHost();
                 Integer graphitePort = jHipsterProperties.getMetrics().getGraphite().getPort();
                 String graphitePrefix = jHipsterProperties.getMetrics().getGraphite().getPrefix();
@@ -112,7 +112,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
     @Profile("!" + Constants.SPRING_PROFILE_FAST)
     public static class SparkRegistry {
 
-        private final Logger log = LoggerFactory.getLogger(SparkRegistry.class);
+        private static final Logger LOGGER = LoggerFactory.getLogger(SparkRegistry.class);
 
         @Inject
         private MetricRegistry metricRegistry;
@@ -123,7 +123,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         @PostConstruct
         private void init() {
             if (jHipsterProperties.getMetrics().getSpark().isEnabled()) {
-                log.info("Initializing Metrics Spark reporting");
+                LOGGER.info("Initializing Metrics Spark reporting");
                 String sparkHost = jHipsterProperties.getMetrics().getSpark().getHost();
                 Integer sparkPort = jHipsterProperties.getMetrics().getSpark().getPort();
                 SparkReporter sparkReporter = SparkReporter.forRegistry(metricRegistry)
@@ -140,7 +140,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
     @Profile("!" + Constants.SPRING_PROFILE_FAST)
     public static class ZabbixRegistry {
 
-        private final Logger log = LoggerFactory.getLogger(ZabbixRegistry.class);
+        private static final Logger LOGGER = LoggerFactory.getLogger(ZabbixRegistry.class);
 
         @Inject
         private MetricRegistry metricRegistry;
@@ -154,7 +154,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         @PostConstruct
         private void init() {
             if (jHipsterProperties.getMetrics().getZabbix().isEnabled()) {
-                log.info("Initializing Metrics Zabbix reporting");
+                LOGGER.info("Initializing Metrics Zabbix reporting");
                 String zabbixHost = jHipsterProperties.getMetrics().getZabbix().getHost();
                 Integer zabbixPort = jHipsterProperties.getMetrics().getZabbix().getPort();
                 Integer periodSec = jHipsterProperties.getMetrics().getZabbix().getPeriodSec();
@@ -184,7 +184,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
                 joiner.add(ipAddress);
                 joiner.add(severPort);
             } catch (UnknownHostException e) {
-                log.error("get hostName error!", e);
+                LOGGER.error("get hostName error!", e);
             }
 
             return joiner.toString();

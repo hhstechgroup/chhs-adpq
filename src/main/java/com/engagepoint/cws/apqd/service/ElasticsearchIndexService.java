@@ -17,7 +17,7 @@ import javax.inject.Inject;
 @Transactional
 public class ElasticsearchIndexService {
 
-    private final Logger log = LoggerFactory.getLogger(ElasticsearchIndexService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchIndexService.class);
 
     @Inject
     private AttachmentRepository attachmentRepository;
@@ -107,80 +107,80 @@ public class ElasticsearchIndexService {
         if (attachmentRepository.count() > 0) {
             attachmentSearchRepository.save(attachmentRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all attachments");
+        LOGGER.info("Elasticsearch: Indexed all attachments");
 
         elasticsearchTemplate.deleteIndex(Deleted.class);
         if (deletedRepository.count() > 0) {
             deletedSearchRepository.save(deletedRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all deleteds");
+        LOGGER.info("Elasticsearch: Indexed all deleteds");
 
         elasticsearchTemplate.deleteIndex(Draft.class);
         if (draftRepository.count() > 0) {
             draftSearchRepository.save(draftRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all drafts");
+        LOGGER.info("Elasticsearch: Indexed all drafts");
 
         elasticsearchTemplate.deleteIndex(Inbox.class);
         if (inboxRepository.count() > 0) {
             inboxSearchRepository.save(inboxRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all inboxs");
+        LOGGER.info("Elasticsearch: Indexed all inboxs");
 
         elasticsearchTemplate.deleteIndex(LookupCounty.class);
         if (lookupCountyRepository.count() > 0) {
             lookupCountySearchRepository.save(lookupCountyRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all lookupCountys");
+        LOGGER.info("Elasticsearch: Indexed all lookupCountys");
 
         elasticsearchTemplate.deleteIndex(LookupGender.class);
         if (lookupGenderRepository.count() > 0) {
             lookupGenderSearchRepository.save(lookupGenderRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all lookupGenders");
+        LOGGER.info("Elasticsearch: Indexed all lookupGenders");
 
         elasticsearchTemplate.deleteIndex(LookupMaritalStatus.class);
         if (lookupMaritalStatusRepository.count() > 0) {
             lookupMaritalStatusSearchRepository.save(lookupMaritalStatusRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all lookupMaritalStatuss");
+        LOGGER.info("Elasticsearch: Indexed all lookupMaritalStatuss");
 
         elasticsearchTemplate.deleteIndex(LookupState.class);
         if (lookupStateRepository.count() > 0) {
             lookupStateSearchRepository.save(lookupStateRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all lookupStates");
+        LOGGER.info("Elasticsearch: Indexed all lookupStates");
 
         elasticsearchTemplate.deleteIndex(MailBox.class);
         if (mailBoxRepository.count() > 0) {
             mailBoxSearchRepository.save(mailBoxRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all mailBoxs");
+        LOGGER.info("Elasticsearch: Indexed all mailBoxs");
 
         elasticsearchTemplate.deleteIndex(Message.class);
         if (messageRepository.count() > 0) {
             messageSearchRepository.save(messageRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all messages");
+        LOGGER.info("Elasticsearch: Indexed all messages");
 
         elasticsearchTemplate.deleteIndex(Outbox.class);
         if (outboxRepository.count() > 0) {
             outboxSearchRepository.save(outboxRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all outboxs");
+        LOGGER.info("Elasticsearch: Indexed all outboxs");
 
         elasticsearchTemplate.deleteIndex(Place.class);
         if (placeRepository.count() > 0) {
             placeSearchRepository.save(placeRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all places");
+        LOGGER.info("Elasticsearch: Indexed all places");
 
         elasticsearchTemplate.deleteIndex(User.class);
         if (userRepository.count() > 0) {
             userSearchRepository.save(userRepository.findAll());
         }
-        log.info("Elasticsearch: Indexed all users");
+        LOGGER.info("Elasticsearch: Indexed all users");
 
-        log.info("Elasticsearch: Successfully performed reindexing");
+        LOGGER.info("Elasticsearch: Successfully performed reindexing");
     }
 }

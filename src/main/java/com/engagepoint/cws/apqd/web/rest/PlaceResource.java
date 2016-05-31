@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.PlaceSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +30,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class PlaceResource {
 
-    private final Logger log = LoggerFactory.getLogger(PlaceResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlaceResource.class);
+
     @Inject
     private PlaceRepository placeRepository;
-    
+
     @Inject
     private PlaceSearchRepository placeSearchRepository;
-    
+
     /**
      * POST  /places -> Create a new place.
      */
@@ -47,7 +46,7 @@ public class PlaceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Place> createPlace(@Valid @RequestBody Place place) throws URISyntaxException {
-        log.debug("REST request to save Place : {}", place);
+        LOGGER.debug("REST request to save Place : {}", place);
         if (place.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("place", "idexists", "A new place cannot already have an ID")).body(null);
         }
@@ -66,7 +65,7 @@ public class PlaceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Place> updatePlace(@Valid @RequestBody Place place) throws URISyntaxException {
-        log.debug("REST request to update Place : {}", place);
+        LOGGER.debug("REST request to update Place : {}", place);
         if (place.getId() == null) {
             return createPlace(place);
         }
@@ -85,7 +84,7 @@ public class PlaceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Place> getAllPlaces() {
-        log.debug("REST request to get all Places");
+        LOGGER.debug("REST request to get all Places");
         return placeRepository.findAll();
             }
 
@@ -97,7 +96,7 @@ public class PlaceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Place> getPlace(@PathVariable Long id) {
-        log.debug("REST request to get Place : {}", id);
+        LOGGER.debug("REST request to get Place : {}", id);
         Place place = placeRepository.findOne(id);
         return Optional.ofNullable(place)
             .map(result -> new ResponseEntity<>(
@@ -114,7 +113,7 @@ public class PlaceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deletePlace(@PathVariable Long id) {
-        log.debug("REST request to delete Place : {}", id);
+        LOGGER.debug("REST request to delete Place : {}", id);
         placeRepository.delete(id);
         placeSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("place", id.toString())).build();
@@ -129,7 +128,7 @@ public class PlaceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Place> searchPlaces(@PathVariable String query) {
-        log.debug("REST request to search Places for query {}", query);
+        LOGGER.debug("REST request to search Places for query {}", query);
         return StreamSupport
             .stream(placeSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
