@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.LookupMaritalStatusSearchRepos
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +30,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class LookupMaritalStatusResource {
 
-    private final Logger log = LoggerFactory.getLogger(LookupMaritalStatusResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(LookupMaritalStatusResource.class);
+
     @Inject
     private LookupMaritalStatusRepository lookupMaritalStatusRepository;
-    
+
     @Inject
     private LookupMaritalStatusSearchRepository lookupMaritalStatusSearchRepository;
-    
+
     /**
      * POST  /lookupMaritalStatuss -> Create a new lookupMaritalStatus.
      */
@@ -47,7 +46,7 @@ public class LookupMaritalStatusResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<LookupMaritalStatus> createLookupMaritalStatus(@Valid @RequestBody LookupMaritalStatus lookupMaritalStatus) throws URISyntaxException {
-        log.debug("REST request to save LookupMaritalStatus : {}", lookupMaritalStatus);
+        LOGGER.debug("REST request to save LookupMaritalStatus : {}", lookupMaritalStatus);
         if (lookupMaritalStatus.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("lookupMaritalStatus", "idexists", "A new lookupMaritalStatus cannot already have an ID")).body(null);
         }
@@ -66,7 +65,7 @@ public class LookupMaritalStatusResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<LookupMaritalStatus> updateLookupMaritalStatus(@Valid @RequestBody LookupMaritalStatus lookupMaritalStatus) throws URISyntaxException {
-        log.debug("REST request to update LookupMaritalStatus : {}", lookupMaritalStatus);
+        LOGGER.debug("REST request to update LookupMaritalStatus : {}", lookupMaritalStatus);
         if (lookupMaritalStatus.getId() == null) {
             return createLookupMaritalStatus(lookupMaritalStatus);
         }
@@ -85,7 +84,7 @@ public class LookupMaritalStatusResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<LookupMaritalStatus> getAllLookupMaritalStatuss() {
-        log.debug("REST request to get all LookupMaritalStatuss");
+        LOGGER.debug("REST request to get all LookupMaritalStatuss");
         return lookupMaritalStatusRepository.findAll();
             }
 
@@ -97,7 +96,7 @@ public class LookupMaritalStatusResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<LookupMaritalStatus> getLookupMaritalStatus(@PathVariable Long id) {
-        log.debug("REST request to get LookupMaritalStatus : {}", id);
+        LOGGER.debug("REST request to get LookupMaritalStatus : {}", id);
         LookupMaritalStatus lookupMaritalStatus = lookupMaritalStatusRepository.findOne(id);
         return Optional.ofNullable(lookupMaritalStatus)
             .map(result -> new ResponseEntity<>(
@@ -114,7 +113,7 @@ public class LookupMaritalStatusResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteLookupMaritalStatus(@PathVariable Long id) {
-        log.debug("REST request to delete LookupMaritalStatus : {}", id);
+        LOGGER.debug("REST request to delete LookupMaritalStatus : {}", id);
         lookupMaritalStatusRepository.delete(id);
         lookupMaritalStatusSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("lookupMaritalStatus", id.toString())).build();
@@ -129,7 +128,7 @@ public class LookupMaritalStatusResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<LookupMaritalStatus> searchLookupMaritalStatuss(@PathVariable String query) {
-        log.debug("REST request to search LookupMaritalStatuss for query {}", query);
+        LOGGER.debug("REST request to search LookupMaritalStatuss for query {}", query);
         return StreamSupport
             .stream(lookupMaritalStatusSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());

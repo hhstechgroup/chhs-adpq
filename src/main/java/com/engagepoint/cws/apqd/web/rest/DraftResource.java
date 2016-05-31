@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.DraftSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class DraftResource {
 
-    private final Logger log = LoggerFactory.getLogger(DraftResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(DraftResource.class);
+
     @Inject
     private DraftRepository draftRepository;
-    
+
     @Inject
     private DraftSearchRepository draftSearchRepository;
-    
+
     /**
      * POST  /drafts -> Create a new draft.
      */
@@ -46,7 +45,7 @@ public class DraftResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Draft> createDraft(@RequestBody Draft draft) throws URISyntaxException {
-        log.debug("REST request to save Draft : {}", draft);
+        LOGGER.debug("REST request to save Draft : {}", draft);
         if (draft.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("draft", "idexists", "A new draft cannot already have an ID")).body(null);
         }
@@ -65,7 +64,7 @@ public class DraftResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Draft> updateDraft(@RequestBody Draft draft) throws URISyntaxException {
-        log.debug("REST request to update Draft : {}", draft);
+        LOGGER.debug("REST request to update Draft : {}", draft);
         if (draft.getId() == null) {
             return createDraft(draft);
         }
@@ -85,13 +84,13 @@ public class DraftResource {
     @Timed
     public List<Draft> getAllDrafts(@RequestParam(required = false) String filter) {
         if ("mailbox-is-null".equals(filter)) {
-            log.debug("REST request to get all Drafts where mailBox is null");
+            LOGGER.debug("REST request to get all Drafts where mailBox is null");
             return StreamSupport
                 .stream(draftRepository.findAll().spliterator(), false)
                 .filter(draft -> draft.getMailBox() == null)
                 .collect(Collectors.toList());
         }
-        log.debug("REST request to get all Drafts");
+        LOGGER.debug("REST request to get all Drafts");
         return draftRepository.findAll();
             }
 
@@ -103,7 +102,7 @@ public class DraftResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Draft> getDraft(@PathVariable Long id) {
-        log.debug("REST request to get Draft : {}", id);
+        LOGGER.debug("REST request to get Draft : {}", id);
         Draft draft = draftRepository.findOne(id);
         return Optional.ofNullable(draft)
             .map(result -> new ResponseEntity<>(
@@ -120,7 +119,7 @@ public class DraftResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteDraft(@PathVariable Long id) {
-        log.debug("REST request to delete Draft : {}", id);
+        LOGGER.debug("REST request to delete Draft : {}", id);
         draftRepository.delete(id);
         draftSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("draft", id.toString())).build();
@@ -135,7 +134,7 @@ public class DraftResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Draft> searchDrafts(@PathVariable String query) {
-        log.debug("REST request to search Drafts for query {}", query);
+        LOGGER.debug("REST request to search Drafts for query {}", query);
         return StreamSupport
             .stream(draftSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());

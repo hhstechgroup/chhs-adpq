@@ -38,7 +38,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class EMailResource {
 
-    private final Logger log = LoggerFactory.getLogger(EMailResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EMailResource.class);
 
     @Inject
     private UserRepository userRepository;
@@ -91,7 +91,7 @@ public class EMailResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Message> saveMessage(@Valid @RequestBody Message message) throws URISyntaxException {
-        log.debug("REST request to update Message : {}", message);
+        LOGGER.debug("REST request to update Message : {}", message);
         if (message.getId() == null) {
             return createMessage(message);
         }
@@ -149,7 +149,7 @@ public class EMailResource {
     }
 
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
-        log.debug("REST request to save Message : {}", message);
+        LOGGER.debug("REST request to save Message : {}", message);
         if (message.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("message", "idexists",
                 "A new message cannot already have an ID")).body(null);

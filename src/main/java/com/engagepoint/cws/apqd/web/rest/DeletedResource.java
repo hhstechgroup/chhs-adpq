@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.DeletedSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class DeletedResource {
 
-    private final Logger log = LoggerFactory.getLogger(DeletedResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeletedResource.class);
+
     @Inject
     private DeletedRepository deletedRepository;
-    
+
     @Inject
     private DeletedSearchRepository deletedSearchRepository;
-    
+
     /**
      * POST  /deleteds -> Create a new deleted.
      */
@@ -46,7 +45,7 @@ public class DeletedResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Deleted> createDeleted(@RequestBody Deleted deleted) throws URISyntaxException {
-        log.debug("REST request to save Deleted : {}", deleted);
+        LOGGER.debug("REST request to save Deleted : {}", deleted);
         if (deleted.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("deleted", "idexists", "A new deleted cannot already have an ID")).body(null);
         }
@@ -65,7 +64,7 @@ public class DeletedResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Deleted> updateDeleted(@RequestBody Deleted deleted) throws URISyntaxException {
-        log.debug("REST request to update Deleted : {}", deleted);
+        LOGGER.debug("REST request to update Deleted : {}", deleted);
         if (deleted.getId() == null) {
             return createDeleted(deleted);
         }
@@ -85,13 +84,13 @@ public class DeletedResource {
     @Timed
     public List<Deleted> getAllDeleteds(@RequestParam(required = false) String filter) {
         if ("mailbox-is-null".equals(filter)) {
-            log.debug("REST request to get all Deleteds where mailBox is null");
+            LOGGER.debug("REST request to get all Deleteds where mailBox is null");
             return StreamSupport
                 .stream(deletedRepository.findAll().spliterator(), false)
                 .filter(deleted -> deleted.getMailBox() == null)
                 .collect(Collectors.toList());
         }
-        log.debug("REST request to get all Deleteds");
+        LOGGER.debug("REST request to get all Deleteds");
         return deletedRepository.findAll();
             }
 
@@ -103,7 +102,7 @@ public class DeletedResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Deleted> getDeleted(@PathVariable Long id) {
-        log.debug("REST request to get Deleted : {}", id);
+        LOGGER.debug("REST request to get Deleted : {}", id);
         Deleted deleted = deletedRepository.findOne(id);
         return Optional.ofNullable(deleted)
             .map(result -> new ResponseEntity<>(
@@ -120,7 +119,7 @@ public class DeletedResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteDeleted(@PathVariable Long id) {
-        log.debug("REST request to delete Deleted : {}", id);
+        LOGGER.debug("REST request to delete Deleted : {}", id);
         deletedRepository.delete(id);
         deletedSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("deleted", id.toString())).build();
@@ -135,7 +134,7 @@ public class DeletedResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Deleted> searchDeleteds(@PathVariable String query) {
-        log.debug("REST request to search Deleteds for query {}", query);
+        LOGGER.debug("REST request to search Deleteds for query {}", query);
         return StreamSupport
             .stream(deletedSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
