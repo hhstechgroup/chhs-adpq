@@ -156,4 +156,33 @@ angular.module('apqdApp')
             $log.debug(event.name);
             $scope.updateLocations();
         });
+
+
+        $scope.addGeocoder = function () {
+            if($scope.geocoder) {
+                return;
+            }
+            $scope.geocoder = L.control.geocoder('search-JrJjTaE', {
+                fullWidth: 650,
+                expanded: true,
+                markers: true,
+                latlng: true,
+                place : true
+            });
+            $scope.geocoder.on('select', function (e) {
+                $scope.onSelectAddress(e);
+            });
+            leafletData.getMap().then(function (map) {
+                $scope.geocoder.addTo(map);
+               // document.getElementById("geocoder").appendChild($scope.geocoder._container);
+            });
+        };
+
+
+        //See geojson
+        $scope.onSelectAddress = function (addressFeature) {
+            //TODO
+        };
+
+        $scope.addGeocoder();
     }]);
