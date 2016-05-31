@@ -2,9 +2,12 @@ package com.engagepoint.cws.apqd.cucumber;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.web.rest.UserResource;
+import cucumber.api.Transform;
+import cucumber.api.Transformer;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.openqa.selenium.By;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.http.MediaType;
@@ -18,6 +21,7 @@ import javax.inject.Inject;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.engagepoint.cws.apqd.cucumber.SessionStorage.session;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -63,7 +67,7 @@ public class UserStepDefs {
     }
 
     @When("^register new user with email '(.*)', login '(.*)' and password '(.*)'$")
-    public void open_home_page(String email, String login, String password) throws Throwable {
+    public void open_home_page(String email, @Transform(VarsConverter.class) String login, String password) throws Throwable {
         $("a[href*='#/registerme']").click();
         $("#email").setValue(email);
         $("#caseNumber").setValue("12345");
@@ -102,6 +106,14 @@ public class UserStepDefs {
         $("#password").setValue(password);
         $("[type*='submit']").click();
         $("[type*='submit']").shouldBe(disappear);
+    }
+
+    public static class VarsConverter extends Transformer<String> {
+
+        public String transform(String value) {
+            StrSubstitutor sub = new StrSubstitutor(session);
+            return sub.replace(value);
+        }
     }
 
 }
