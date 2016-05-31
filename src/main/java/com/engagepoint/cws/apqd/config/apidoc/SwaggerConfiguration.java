@@ -29,7 +29,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Profile("!" + Constants.SPRING_PROFILE_PRODUCTION)
 public class SwaggerConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(SwaggerConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SwaggerConfiguration.class);
 
     public static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
 
@@ -39,7 +39,7 @@ public class SwaggerConfiguration {
     @Bean
     @Profile("!" + Constants.SPRING_PROFILE_FAST)
     public Docket swaggerSpringfoxDocket(JHipsterProperties jHipsterProperties) {
-        log.debug("Starting Swagger");
+        LOGGER.debug("Starting Swagger");
         StopWatch watch = new StopWatch();
         watch.start();
         ApiInfo apiInfo = new ApiInfo(
@@ -64,7 +64,7 @@ public class SwaggerConfiguration {
             .paths(regex(DEFAULT_INCLUDE_PATTERN))
             .build();
         watch.stop();
-        log.debug("Started Swagger in {} ms", watch.getTotalTimeMillis());
+        LOGGER.debug("Started Swagger in {} ms", watch.getTotalTimeMillis());
         return docket;
     }
 }

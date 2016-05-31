@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.AttachmentSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class AttachmentResource {
 
-    private final Logger log = LoggerFactory.getLogger(AttachmentResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(AttachmentResource.class);
+
     @Inject
     private AttachmentRepository attachmentRepository;
-    
+
     @Inject
     private AttachmentSearchRepository attachmentSearchRepository;
-    
+
     /**
      * POST  /attachments -> Create a new attachment.
      */
@@ -46,7 +45,7 @@ public class AttachmentResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Attachment> createAttachment(@RequestBody Attachment attachment) throws URISyntaxException {
-        log.debug("REST request to save Attachment : {}", attachment);
+        LOGGER.debug("REST request to save Attachment : {}", attachment);
         if (attachment.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("attachment", "idexists", "A new attachment cannot already have an ID")).body(null);
         }
@@ -65,7 +64,7 @@ public class AttachmentResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Attachment> updateAttachment(@RequestBody Attachment attachment) throws URISyntaxException {
-        log.debug("REST request to update Attachment : {}", attachment);
+        LOGGER.debug("REST request to update Attachment : {}", attachment);
         if (attachment.getId() == null) {
             return createAttachment(attachment);
         }
@@ -84,7 +83,7 @@ public class AttachmentResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Attachment> getAllAttachments() {
-        log.debug("REST request to get all Attachments");
+        LOGGER.debug("REST request to get all Attachments");
         return attachmentRepository.findAll();
             }
 
@@ -96,7 +95,7 @@ public class AttachmentResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Attachment> getAttachment(@PathVariable Long id) {
-        log.debug("REST request to get Attachment : {}", id);
+        LOGGER.debug("REST request to get Attachment : {}", id);
         Attachment attachment = attachmentRepository.findOne(id);
         return Optional.ofNullable(attachment)
             .map(result -> new ResponseEntity<>(
@@ -113,7 +112,7 @@ public class AttachmentResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteAttachment(@PathVariable Long id) {
-        log.debug("REST request to delete Attachment : {}", id);
+        LOGGER.debug("REST request to delete Attachment : {}", id);
         attachmentRepository.delete(id);
         attachmentSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("attachment", id.toString())).build();
@@ -128,7 +127,7 @@ public class AttachmentResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Attachment> searchAttachments(@PathVariable String query) {
-        log.debug("REST request to search Attachments for query {}", query);
+        LOGGER.debug("REST request to search Attachments for query {}", query);
         return StreamSupport
             .stream(attachmentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());

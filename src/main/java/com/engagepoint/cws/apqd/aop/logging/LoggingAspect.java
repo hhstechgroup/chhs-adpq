@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Aspect
 public class LoggingAspect {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
 
     @Inject
     private Environment env;

@@ -22,7 +22,7 @@ angular.module('apqdApp')
             },
             templateUrl: 'scripts/components/google/maps.html',
 
-            controller: ['$scope', '$log', '$q', 'uiGmapIsReady', function ($scope, $log, $q, uiGmapIsReady) {
+            controller: ['$scope', '$log', function ($scope, $log) {
                 init();
 
                 if (_.isNil($scope.markers)) {

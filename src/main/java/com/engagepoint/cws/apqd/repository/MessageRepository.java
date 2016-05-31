@@ -20,7 +20,7 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 
     Page<Message> findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(User to, Pageable pageable);
 
-    Page<Message> findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(User to, Pageable pageable);
+    Page<Message> findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(User from, Pageable pageable);
 
     Page<Message> findAllByDraftIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(User to, Pageable pageable);
 

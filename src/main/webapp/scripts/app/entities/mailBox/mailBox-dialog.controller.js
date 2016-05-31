@@ -54,7 +54,7 @@ angular.module('apqdApp').controller('MailBoxDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 

@@ -1,9 +1,15 @@
 'use strict';
 
 angular.module('apqdApp')
-    .service('MailBoxService', function ($rootScope, $cookies, $http, $q) {
+    .service('MailBoxService', function ($rootScope, $cookies, $http) {
 
         var stompClient = null;
+
+        var receiveUnreadCounts = function() {
+            if (stompClient != null && stompClient.connected) {
+                stompClient.send('/topic/mail/inbox', {}, JSON.stringify({}));
+            }
+        };
 
         var connect = function () {
             var loc = window.location;
@@ -35,12 +41,6 @@ angular.module('apqdApp')
         };
 
         connect();
-
-        var receiveUnreadCounts = function() {
-            if (stompClient != null && stompClient.connected) {
-                stompClient.send('/topic/mail/inbox', {}, JSON.stringify({}));
-            }
-        };
 
         return {
             receiveUnreadCounts: receiveUnreadCounts

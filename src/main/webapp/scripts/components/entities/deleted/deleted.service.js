@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('Deleted', function ($resource, DateUtils) {
+    .factory('Deleted', function ($resource) {
         return $resource('api/deleteds/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
