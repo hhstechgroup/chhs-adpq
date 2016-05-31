@@ -45,7 +45,7 @@
             </li>
         </ul>
     </div>
-    <div class="ch-facility__info" ng-hide="agency.hidePartFlag">
+    <div class="ch-facility__info" ng-hide="viewConfig.presentation === 'list' && agency.hidePartFlag">
         <ul class="ch-facility-info">
             <li class="ch-facility-info__part">
                 <div class="ch-facility-info-text">Facility Number: {{agency.facility_number}}</div>
