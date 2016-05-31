@@ -1,24 +1,38 @@
 .ch-facilities__item {
-    padding: 1.9rem 4rem 2.4rem 2.5rem;
+    padding: 1.9rem 3.2rem 2.4rem 2.5rem;
     border: 0.1rem solid #cbcdcf;
     border-top: none;
     background-color: #f1f1f1;
 }
 
 .ch-facility__header {
+    padding-left: 3.9rem;
+    position: relative;
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1.3rem;
     text-transform: uppercase;
 }
 
+.ch-facility__header:before {
+    position: absolute;
+    left: 0;
+    height: 3.9rem;
+    width: 2.6rem;
+    top: 50%;
+    margin-top: -2rem;
+    content: "\0020";
+    background: url("../images/out-sprite-icons/icon-map-sign-lg.png") no-repeat;
+}
+
 .ch-facility__tags {
-    margin-bottom: 2.3rem;
+    margin-bottom: 1.4rem;
 }
 
 .ch-facility-tags__tag {
     float: left;
     margin-right: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .ch-facility-tags__tag:last-of-type {
@@ -49,7 +63,7 @@
 }
 
 .ch-facility__info {
-    margin-bottom: 1.3rem;
+    margin-bottom: 1.8rem;
 }
 
 .ch-facility-info__part {
@@ -64,38 +78,16 @@
     position: relative;
     color: #5b616b;
     font-size: 1.4rem;
-    padding-left: 2.5rem;
     display: block;
     line-height: 2rem;
 }
 
-.ch-facility-info-text_address {
-    max-width: 18rem;
-    display: block;
+.ch-facility-info-text_mgb_10 {
+    margin-bottom: 1.5rem;
 }
 
-.ch-facility-info-text_address:before {
-    content: "\0020";
-    position: absolute;
-    height: 1.6rem;
-    width: 1.2rem;
-    top: 0;
-    left: 0;
-    background: url('../images/out-sprite-icons/icon-map-sign.png') no-repeat center;
-}
-
-.ch-facility-info-text_phone {
-    display: block;
-}
-
-.ch-facility-info-text_phone:before {
-    content: "\0020";
-    position: absolute;
-    height: 1.6rem;
-    width: 1.5rem;
-    top: 0;
-    left: 0;
-    background: url('../images/out-sprite-icons/icon-phone-sign.png') no-repeat center;
+.ch-facility-info__firm {
+    text-transform: uppercase;
 }
 
 .ch-facilities-btn-group__btn {
@@ -105,4 +97,26 @@
 
 .ch-facilities-btn-group__btn:last-of-type {
     margin-right: 0;
+}
+
+.ch-plane-btn {
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
+
+.ch-plane-btn_primary {
+    padding: 0.8rem 1.8rem;
+    border: 0.2rem solid #0071bc;
+    border-radius: 0.4rem;
+    color: #0071bc;
+    background-color: #f1f1f1;
+    font-weight: 700;
+}
+
+.ch-plane-btn_secondary {
+    padding: 1rem;
+    background-color: #f1f1f1;
+    color: #5b616b;
+    text-decoration: underline;
 }

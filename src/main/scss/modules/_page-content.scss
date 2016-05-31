@@ -1,12 +1,10 @@
 /* ========================   Modules/Page Content  ======================= */
 
 .ch-page {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  padding: 2.5rem;
   background-color: #f1f1f1;
 }
 
-.ch-page-heading,
 .ch-page-content {
   padding-top: 1.8rem;
 }
@@ -35,7 +33,7 @@
 
 .ch-page-heading__search {
   width: 70%;
-  float: right;   
+  float: right;
 }
 
 .ch-page-heading__county-messages {
