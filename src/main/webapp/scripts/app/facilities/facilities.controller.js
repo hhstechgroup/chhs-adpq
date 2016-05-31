@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('FacilitiesController', ['$scope', '$log', '$q', 'leafletData', function ($scope, $log, $q, leafletData) {
+    .controller('FacilitiesController', ['$scope', '$log', '$q', 'leafletData', 'GeocoderService', function ($scope, $log, $q, leafletData, GeocoderService) {
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18
@@ -159,27 +159,11 @@ angular.module('apqdApp')
 
 
         $scope.addGeocoder = function () {
-            if($scope.geocoder) {
-                return;
+            if(!$scope.geocoder) {
+                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
             }
-            $scope.geocoder = L.control.geocoder('search-JrJjTaE', {
-                fullWidth: 650,
-                expanded: true,
-                markers: true,
-                latlng: true,
-                place : true
-            });
-            $scope.geocoder.on('select', function (e) {
-                $scope.onSelectAddress(e);
-            });
-            leafletData.getMap().then(function (map) {
-                $scope.geocoder.addTo(map);
-                document.getElementById("geocoder").appendChild($scope.geocoder._container);
-            });
         };
 
-
-        //See geojson
         $scope.onSelectAddress = function (addressFeature) {
             //TODO
         };
