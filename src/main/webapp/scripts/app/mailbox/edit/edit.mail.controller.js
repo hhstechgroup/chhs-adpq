@@ -42,7 +42,10 @@ angular.module('apqdApp')
         };
 
         $scope.sendMail = function() {
-            DraftMessage.send($scope.mail, $rootScope.backToPreviousState, $log.info);
+            DraftMessage.send($scope.mail, function() {
+                $rootScope.$broadcast("apqdApp:updateContactList");
+                $rootScope.backToPreviousState();
+            }, $log.info);
         };
 
         AutoSaveService.setUpAutoSave($scope, 'mail');

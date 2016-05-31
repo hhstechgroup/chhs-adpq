@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
+import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
@@ -47,6 +48,9 @@ public class EMailResource {
 
     @Inject
     private MailBoxService mailBoxService;
+
+    @Inject
+    private MailBoxRepository mailBoxRepository;
 
     @Inject
     private MessageSearchRepository messageSearchRepository;
@@ -103,10 +107,11 @@ public class EMailResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Transactional
     public ResponseEntity<Void> sendMessage(@Valid @RequestBody Message message) throws URISyntaxException {
-
         User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        updateContacts(userFrom, userTo);
 
         message.setTo(userTo);
         message.setFrom(userFrom);
@@ -156,5 +161,16 @@ public class EMailResource {
         message.setDraft(userFrom.getMailBox().getDraft());
 
         return message;
+    }
+
+    private void updateContacts(User userFrom, User userTo) {
+        for (User user : userFrom.getMailBox().getContacts()) {
+            if (user.equals(userTo)) {
+                return;
+            }
+        }
+
+        userFrom.getMailBox().getContacts().add(userTo);
+        mailBoxRepository.save(userFrom.getMailBox());
     }
 }

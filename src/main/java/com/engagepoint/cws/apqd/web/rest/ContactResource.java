@@ -3,6 +3,7 @@ package com.engagepoint.cws.apqd.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.UserRepository;
+import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.web.rest.dto.ContactDTO;
 import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,7 @@ public class ContactResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<ContactDTO>> getAllUsers(Pageable pageable)
+    public ResponseEntity<List<ContactDTO>> getAllContacts(Pageable pageable)
         throws URISyntaxException {
         Page<User> page = userRepository.findAll(pageable);
         List<ContactDTO> managedUserDTOs = page.getContent().stream()
@@ -41,5 +42,21 @@ public class ContactResource {
             .collect(Collectors.toList());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/contacts");
         return new ResponseEntity<>(managedUserDTOs, headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/contacts",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<ContactDTO>> getContacts()
+        throws URISyntaxException {
+        User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        List<ContactDTO> contactDTOs = userFrom.getMailBox().getContacts().stream()
+            .map(ContactDTO::new)
+            .collect(Collectors.toList());
+
+        return new ResponseEntity<>(contactDTOs, HttpStatus.OK);
     }
 }
