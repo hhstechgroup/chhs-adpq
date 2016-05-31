@@ -9,7 +9,7 @@
                 </div>
                 <div class="ch-mail-heading__item ch-mail-heading__item_heading">
                     <h2 class="ch-new-mail-heading">
-                        {{isNewMail ? 'New Mail' : mail.subject}}
+                        {{!isReplyOn ? 'New Mail' : mail.subject}}
                     </h2>
                 </div>
                 <div class="ch-mail-heading__item ch-mail-heading__item_attach-btn">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="ch-mail-heading__item ch-mail-heading__item_action-btn">
                     <button type="button" class="ch-option-btn ch-option-btn_short-text" ng-click="sendMail()">
-                        <span class="ch-option-btn__text">{{isNewMail ? 'Send' : 'Reply'}}</span>
+                        <span class="ch-option-btn__text">{{isReplyOn ? 'Reply' : 'Send'}}</span>
                     </button>
                 </div>
             </div>
@@ -33,13 +33,13 @@
                 <div class="ch-new-mail__row">
                     <div class="ch-new-mail-field">
 
-                        <div ng-if="isNewMail" class="ch-new-mail-field__label">
+                        <div ng-if="!isReplyOn" class="ch-new-mail-field__label">
                             <button type="button" class="ch-dropdown-label-btn" ng-click="showContacts = !showContacts">
                                 <span class="ch-dropdown-label-btn__text">To:</span>
                             </button>
                         </div>
 
-                        <div ng-if="!isNewMail" class="ch-new-mail-field__label">
+                        <div ng-if="isReplyOn" class="ch-new-mail-field__label">
                             <span class="ch-dropdown-label-btn__text">To:</span>
                         </div>
 
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div ng-if="showContacts && isNewMail" class="ch-new-mail__row ch-new-mail__row_no-pad">
+                <div ng-if="showContacts && !isReplyOn" class="ch-new-mail__row ch-new-mail__row_no-pad">
                     <div class="ch-contacts-dropdown">
                         <ul class="ch-contacts-list">
                             <li ng-repeat="contact in contacts" class="ch-contacts-list__item">
