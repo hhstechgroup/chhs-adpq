@@ -66,13 +66,13 @@ public class EMailResource {
         Page<Message> page = null;
         User userTo = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
-        if (directory == EMailDirectory.inbox) {
+        if (directory == EMailDirectory.INBOX) {
             page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
-        } else if (directory == EMailDirectory.sent) {
+        } else if (directory == EMailDirectory.SENT) {
             page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(userTo, pageable);
-        } else if (directory == EMailDirectory.drafts) {
-            page = messageRepository.findAllByDraftIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
-        } else if (directory == EMailDirectory.deleted) {
+        } else if (directory == EMailDirectory.DRAFTS) {
+            page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(userTo, pageable);
+        } else if (directory == EMailDirectory.DELETED) {
             page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
         }
 
