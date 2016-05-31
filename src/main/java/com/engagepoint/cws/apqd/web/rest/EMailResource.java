@@ -69,7 +69,7 @@ public class EMailResource {
         if (directory == EMailDirectory.inbox) {
             page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.sent) {
-            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
+            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.drafts) {
             page = messageRepository.findAllByDraftIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.deleted) {

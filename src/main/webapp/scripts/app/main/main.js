@@ -10,11 +10,10 @@ angular.module('apqdApp')
                     authorities: []
                 },
                 views: {
-                    'content@': {
+                    'global@': {
                         templateUrl: 'scripts/app/account/login/login.html',
                         controller: 'LoginController'
-                    },
-                    'main.nav@': {}
+                    }
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
