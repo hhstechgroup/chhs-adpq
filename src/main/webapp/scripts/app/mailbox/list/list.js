@@ -11,7 +11,7 @@ angular.module('apqdApp')
                 },
                 views: {
                     'mailbox-content': {
-                        templateUrl: 'scripts/app/mailbox/messages/messages.html',
+                        templateUrl: 'scripts/app/mailbox/list/list.html',
                         controller: 'MessagesCtrl'
                     }
                 }

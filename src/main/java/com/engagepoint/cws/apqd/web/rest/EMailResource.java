@@ -130,6 +130,24 @@ public class EMailResource {
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping(value = "/emails/confirm",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<Void> confirmReading(@RequestBody Message message) throws URISyntaxException {
+
+        Message saved = messageRepository.findOne(message.getId());
+        saved.setStatus(MessageStatus.READ);
+        saved.setDateRead(ZonedDateTime.now());
+        messageRepository.saveAndFlush(saved);
+
+        mailBoxService.notifyClientAboutDraftsCount();
+        mailBoxService.notifyClientAboutUnreadInboxCount(saved.getTo());
+
+        return ResponseEntity.ok().build();
+    }
+
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
         log.debug("REST request to save Message : {}", message);
         if (message.getId() != null) {

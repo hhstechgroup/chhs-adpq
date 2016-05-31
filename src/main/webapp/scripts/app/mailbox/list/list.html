@@ -53,7 +53,7 @@
 
     <ul class="ch-page-content">
 
-        <li ng-repeat="mail in mails" class="ch-content-item ch-content-item_active">
+        <li ng-repeat="mail in mails" class="ch-content-item ch-content-item_active" ui-sref="ch-inbox.view({mailId: mail.id})">
 
             <div class="ch-content-item__checkbox">
                 <div class="form-type__checkbox_empty-label">
