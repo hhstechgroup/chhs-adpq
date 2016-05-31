@@ -7,7 +7,7 @@ angular.module('apqdApp')
                 parent: 'account',
                 url: '/settings',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER', 'ROLE_INVESTIGATOR', 'ROLE_ADMIN', 'ROLE_USER'],
+                    authorities: ['CASE_WORKER', 'ROLE_ADMIN', 'PARENT'],
                     pageTitle: 'global.menu.account.settings'
                 },
                 views: {

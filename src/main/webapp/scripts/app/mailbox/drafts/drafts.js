@@ -6,7 +6,7 @@ angular.module('apqdApp')
             .state('ch-inbox.drafts', {
                 url: '/drafts',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER'],
+                    authorities: ['CASE_WORKER'],
                     pageTitle: ''
                 },
                 views: {
