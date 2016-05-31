@@ -28,6 +28,8 @@
         <!-- endbuild -->
         <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
         <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
+        <!-- leaflet geocoder-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.css">
 
     </head>
     <body ng-app="apqdApp">
@@ -373,6 +375,8 @@
 
     <!-- google places api -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyDyU4z4A9_miwhAGsT5oeKRXdBRvOV5vEM&amp;signed_in=true&amp;libraries=places"></script>
+    <!-- Load geocoding plugin after Leaflet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.js"></script>
 
     <script type="text/ng-template" id="serverUnreachable.html">
         <div class="modal-body">
