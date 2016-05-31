@@ -36,7 +36,6 @@ module.exports = function (config) {
             'main/webapp/bower_components/sockjs-client/dist/sockjs.js',
             'main/webapp/bower_components/stomp-websocket/lib/stomp.min.js',
             'main/webapp/bower_components/angular-object-diff/dist/angular-object-diff.js',
-            'main/webapp/bower_components/ngDraggable/ngDraggable.js',
             'main/webapp/bower_components/bootstrap/dist/js/bootstrap.js',
             'main/webapp/bower_components/bootstrap-switch/dist/js/bootstrap-switch.js',
             'main/webapp/bower_components/ui-select/dist/select.js',

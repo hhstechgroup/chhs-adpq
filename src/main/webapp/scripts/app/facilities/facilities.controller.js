@@ -174,7 +174,7 @@ angular.module('apqdApp')
             });
             leafletData.getMap().then(function (map) {
                 $scope.geocoder.addTo(map);
-               // document.getElementById("geocoder").appendChild($scope.geocoder._container);
+                document.getElementById("geocoder").appendChild($scope.geocoder._container);
             });
         };
 

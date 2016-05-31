@@ -4,7 +4,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
     // jhipster-needle-angularjs-add-module JHipster will add new module
     'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router',  'infinite-scroll', 'angular-loading-bar',
-    'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
+    'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language,
                    Auth, Principal, ENV, VERSION) {
