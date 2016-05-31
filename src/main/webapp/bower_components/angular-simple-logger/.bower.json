@@ -43,6 +43,6 @@
     "commit": "9f0e640b4cebffbc6d35fdf92ef7472774fc401a"
   },
   "_source": "https://github.com/nmccready/angular-simple-logger.git",
-  "_target": ">=0.0.1",
+  "_target": "~0.1.4",
   "_originalSource": "angular-simple-logger"
 }
