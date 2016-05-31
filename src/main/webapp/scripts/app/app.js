@@ -8,7 +8,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
     'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language,
-                   Auth, Principal, ENV, VERSION, VoiceAssistantService) {
+                   Auth, Principal, ENV, VERSION) {
         // update the window title using params in the following
         // precendence
         // 1. titleKey parameter
@@ -50,7 +50,6 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
             history.push($location.$$path);
 
             var titleKey = 'global.title' ;
-            VoiceAssistantService.initVoiceAssistance();
 
             // Remember previous state unless we've been redirected to login or we've just
             // reset the state memory after logout. If we're redirected to login, our

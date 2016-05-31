@@ -7,7 +7,7 @@ angular.module('apqdApp')
                 parent: 'site',
                 url: '/facilities',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER'],
+                    authorities: ['PARENT'],
                     pageTitle: ''
                 },
                 views: {

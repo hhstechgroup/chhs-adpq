@@ -7,7 +7,7 @@ angular.module('apqdApp')
                 parent: 'site',
                 url: '/mail',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER'],
+                    authorities: ['CASE_WORKER', 'PARENT'],
                     pageTitle: ''
                 },
                 views: {

@@ -8,7 +8,7 @@ angular.module('apqdApp')
 
                 url: '/search/{searchString}',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER', 'ROLE_INVESTIGATOR'],
+                    authorities: ['CASE_WORKER', 'PARENT'],
                     pageTitle: 'search.title'
                 },
                 views: {

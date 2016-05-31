@@ -38,7 +38,6 @@ module.exports = function (config) {
             'main/webapp/bower_components/angular-simple-logger/dist/angular-simple-logger.js',
             'main/webapp/bower_components/lodash/lodash.js',
             'main/webapp/bower_components/angular-google-maps/dist/angular-google-maps.js',
-            'main/webapp/bower_components/annyang/annyang.js',
             'main/webapp/bower_components/angular-object-diff/dist/angular-object-diff.js',
             'main/webapp/bower_components/ngDraggable/ngDraggable.js',
             'main/webapp/bower_components/bootstrap/dist/js/bootstrap.js',
