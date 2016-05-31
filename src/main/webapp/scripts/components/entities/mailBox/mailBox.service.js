@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('MailBox', function ($resource, DateUtils) {
+    .factory('MailBox', function ($resource) {
         return $resource('api/mailBoxs/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {

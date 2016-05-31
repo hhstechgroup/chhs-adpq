@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .service('MailBoxService', function ($rootScope, $cookies, $http, $q) {
+    .service('MailBoxService', function ($rootScope, $cookies, $http) {
 
         var stompClient = null;
 

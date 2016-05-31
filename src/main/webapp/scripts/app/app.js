@@ -83,7 +83,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
                                 if(result) {
                                     $state.go('ch-facilities', {}, {reload: true});
                                 } else {
-                                    $state.go('ch-inbox', {}, {reload: true});
+                                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
                                 }
                             })
 

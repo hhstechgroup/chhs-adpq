@@ -15,7 +15,7 @@ angular.module('apqdApp')
             $scope.unreadDeletedCount = unreadDeletedCount;
         });
 
-        $scope.$on("apqdApp:updateContactList", function(event, unreadDeletedCount) {
+        $scope.$on("apqdApp:updateContactList", function() {
             $scope.updateContactList();
         });
 
