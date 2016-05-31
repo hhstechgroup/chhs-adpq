@@ -60,7 +60,7 @@ angular.module('apqdApp')
                 $scope.street = addressFeature.feature.properties.name;
                 $scope.city = addressFeature.feature.properties.locality;
                 $scope.state = addressFeature.feature.properties.region_a;
-                $scope.zip = "";
+                $scope.zip = addressFeature.feature.properties.postalcode;
         };
 
         $scope.addGeocoder();
