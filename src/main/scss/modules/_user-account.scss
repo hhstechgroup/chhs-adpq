@@ -41,7 +41,7 @@
 
 .profile-form__section {
     max-width: 53.6rem;
-    margin: 3.1rem auto 4.7rem;
+    margin: 3.1rem auto 4rem;
 }
 
 .ch-section__header {
@@ -55,13 +55,21 @@
 
 .ch-flex-row {
     display: flex;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.8rem;
+}
+
+.ch-flex-row:last-of-type {
+    margin-bottom: 0;
 }
 
 .ch-flex-row__input-block {
     flex-basis: 0;
     flex-grow: 1;
     margin-right: 2rem;
+}
+
+.ch-input-block__form-input .ch-form-input {
+    margin: 0;
 }
 
 .ch-flex-row__input-block:last-of-type {
@@ -71,13 +79,17 @@
 .ch-input-block__label {
     font-size: 1.4rem;
     color: #000000;
-    line-height: 2.2rem;
+    line-height: 2.4rem;
+    margin-bottom: 0.3rem;
+    display: block;
 }
 
-.ch-form-input_disable {
+.ch-form-input.ch-form-input_disable {
     background-color: #f1f1f1;
-    cursor: default;
-    pointer-events: none;
+    color: #5b616b;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding: 1.2rem 0 1.1rem 1.3rem;
 }
 
 .ch-form-input_disable::-webkit-input-placeholder {
@@ -110,16 +122,16 @@
     font-size: 1.4rem;
 }
 
-.ch-input-block__label_radio {
+.ch-input-block__label-radio {
     font-weight: 600;
     display: block;
     position: relative;
     padding-left: 3rem;
-    margin-top: 1rem;
+    margin-top: 0.9rem;
     cursor: pointer;
 }
 
-.ch-input-block__label_radio_active:after {
+input[type="radio"]:checked + .ch-input-block__label-radio:after {
     position: absolute;
     content: "\0020";
     top: 0.4rem;
@@ -129,7 +141,7 @@
     background-color: #0071BC;
 }
 
-.ch-input-block__label_radio:before {
+.ch-input-block__label-radio:before {
     position: absolute;
     content: "\0020";
     top: 0;
@@ -139,13 +151,59 @@
     border-radius: 50%;
 }
 
-.ch-form-input_search::-webkit-input-placeholder {
-    padding-left: 2.5rem;
-    background: url(../images/out-sprite-icons/icon-search.png) no-repeat 0 0;
+.ch-input-block__form-input_icon {
+    position: relative;
 }
 
-.ch-form-input_drop-down::-webkit-input-placeholder {
-    background: url(../images/out-sprite-icons/icon-arrow-down.png) no-repeat right;
+.ch-input-block__form-input_icon_left .ch-form-input {
+    padding-left: 3.7rem;
+    float: none;
+}
+.ch-input-block__form-input_icon_right .ch-form-input {
+    padding-right: 3.7rem;
+    float: none;
+}
+
+.ch-form-input-icon {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 3.7rem;
+    pointer-events: none;
+}
+
+.ch-form-input-icon_left {
+    left: 0;
+}
+.ch-form-input-icon_right {
+    right: 0;
+}
+
+.ch-form-input-icon_search:after {
+    background: url(../images/out-sprite-icons/icon-search.png) no-repeat center;
+    content: "\0020";
+    position: absolute;
+    height: 1.6rem;
+    width: 1.6rem;
+    top: 50%;
+    left: 50%;
+    margin: -0.8rem 0 0 -0.8rem;
+
+}
+
+.ch-form-input-icon_arrow-down:after {
+    background: url(../images/out-sprite-icons/icon-arrow-down.png) no-repeat center;
+    content: "\0020";
+    position: absolute;
+    height: 0.7rem;
+    width: 1rem;
+    top: 50%;
+    right: 50%;
+    margin: -0.35rem -0.3rem 0 0 ;
+}
+
+.ch-form-input.ch-form-input_search {
+    height: auto;
 }
 
 .ch-input-block__btn {
