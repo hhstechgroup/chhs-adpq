@@ -1,25 +1,21 @@
-
-  <div class="ch-page">
+<div class="ch-page">
 
     <div class="ch-page-heading">
 
         <div class="ch-page-heading__select">
             <div class="form-type__checkbox_empty-label">
-                <input id="selectAll" type="checkbox" name="selectAll" value="selectAll" checked="">
+                <input id="selectAll" type="checkbox" ng-click="selectAll()" ng-model="allSelected">
                 <label for="selectAll"></label>
             </div>
         </div>
 
         <div class="ch-page-heading__actions">
-            <span class="icon icon-remove"></span>
-            <span class="icon icon-download"></span>
+            <span class="icon icon-remove" ng-click="deleteSelected()"></span>
         </div>
 
         <div class="ch-page-heading__search">
 
             <form class="form-type__search">
-
-                <span class="dropdown-action-arrow"></span>
 
                 <button type="submit" class="form-type__search__button">
                     <span class="icon icon-search"></span>
@@ -31,28 +27,27 @@
 
             <div class="ch-page-heading__pagination">
                 <div class="ch-button-group">
+
                     <div class="ch-button-group__item">
-                        <button type="button" class="ch-button-group__btn">
+                        <button type="button" class="ch-button-group__btn" ng-click="prevPage()">
                             <span class="icon icon-pagination-arrow-left"></span>
                         </button>
                     </div>
+
                     <div class="ch-button-group__item">
-                        <button type="button" class="ch-button-group__btn_left-border">
+                        <button type="button" class="ch-button-group__btn_left-border" ng-click="nextPage()">
                             <span class="icon icon-pagination-arrow-right"></span>
                         </button>
                     </div>
+
                 </div>
             </div>
 
             <div class="ch-page-heading__county-messages">
-                <span>1-4 of 4</span>
+                <span>{{fromItem}}-{{toItem}} of {{totalItems}}</span>
             </div>
 
         </div>
-
-
-
-
 
     </div>
 
@@ -62,320 +57,33 @@
 
             <div class="ch-content-item__checkbox">
                 <div class="form-type__checkbox_empty-label">
-                    <input id="select1" type="checkbox" name="select1" value="select1" checked="">
-                    <label for="select1"><span></span></label>
+                    <input id="select{{mail.id}}" type="checkbox" name="select{{mail.id}}"
+                           ng-model="mail.selected">
+                    <label for="select{{mail.id}}"><span></span></label>
                 </div>
             </div>
 
             <div class="ch-content-item__person">
                 <span class="person-name">{{mail.from.firstName}} {{mail.from.lastName}}</span>
-                <span ng-if="mail.threadUnreadMessages > 0" class="person-chain-count">({{mail.threadUnreadMessages}})</span>
+                <span ng-if="mail.threadUnreadMessages > 0"
+                      class="person-chain-count">({{mail.threadUnreadMessages}})</span>
             </div>
 
             <div class="ch-content-item__entry">
                 <span class="entry-name">{{mail.subject}}</span>
-                <span class="entry-main">{{mail.body | cutMailBody}}</span>
+                <span class="entry-main"> - {{mail.body}}</span>
             </div>
 
             <div class="ch-content-item__date">
                 <span class="item_date">{{mail.dateCreated | formatMailDate}}</span>
             </div>
 
-            <div class="ch-content-item__attachments">
+            <div ng-if="mail.attachments.length > 0" class="ch-content-item__attachments">
                 <span class="icon icon-attachment"></span>
             </div>
 
-        </li>
-
-        <li class="ch-content-item">
-            <div class="ch-content-item__checkbox">
-                <div class="form-type__checkbox_empty-label">
-                    <input id="select2" type="checkbox" name="select2" value="select2" checked="">
-                    <label for="select2"><span></span></label>
-                </div>
-            </div>
-
-            <div class="ch-content-item__person">
-                <span class="person-name">Sandra Derick</span>
-                <span class="person-chain-count"></span>
-            </div>
-
-            <div class="ch-content-item__entry">
-                <span class="entry-name">New Contact person</span>
-                <span class="entry-main">
-                  - This factsheet provides the most recent national
-                  statistical esti</span>
-            </div>
-
-            <div class="ch-content-item__date">
-                <span class="item_date"> 22 May</span>
-            </div>
-
-            <div class="ch-content-item__attachments">
-                <span class="icon"></span>
-            </div>
-        </li>
-
-        <li class="ch-content-item ch-content-item_active">
-            <div class="ch-content-item__checkbox">
-                <div class="form-type__checkbox_empty-label">
-                    <input id="select3" type="checkbox" name="select3" value="select3" checked="">
-                    <label for="select3"><span></span></label>
-                </div>
-            </div>
-
-            <div class="ch-content-item__person">
-                <span class="person-name">Josh Bryceland</span>
-                <span class="person-chain-count"></span>
-            </div>
-
-            <div class="ch-content-item__entry">
-                <span class="entry-name">New Contact person</span>
-                <span class="entry-main">
-                  - This factsheet provides the most recent national
-                  statistical esti</span>
-            </div>
-
-            <div class="ch-content-item__date">
-                <span class="item_date"> 22 May</span>
-            </div>
-
-            <div class="ch-content-item__attachments">
-                <span class="icon"></span>
-            </div>
-        </li>
-
-        <li class="ch-content-item">
-            <div class="ch-content-item__checkbox">
-                <div class="form-type__checkbox_empty-label">
-                    <input id="select4" type="checkbox" name="select4" value="select4" checked="">
-                    <label for="select4"><span></span></label>
-                </div>
-            </div>
-
-            <div class="ch-content-item__person">
-                <span class="person-name">County Support</span>
-                <span class="person-chain-count"></span>
-            </div>
-
-            <div class="ch-content-item__entry">
-                <span class="entry-name">Welcome</span>
-                <span class="entry-main">
-                  - Hello Sheyla! Mandated by the Adoption and Safe Families
-                  Act of 1997, thi</span>
-            </div>
-
-            <div class="ch-content-item__date">
-                <span class="item_date"> 13 May</span>
-            </div>
-
-            <div class="ch-content-item__attachments">
-                <span class="icon icon-attachment"></span>
-            </div>
         </li>
 
     </ul>
 
-
-
-    <div class="ch-mail-heading">
-          <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
-              <button type="button" class="ch-flat-btn ch-flat-btn_back-btn">
-              </button>
-          </div>
-          <div class="ch-mail-heading__item ch-mail-heading__item_heading">
-              <h2 class="ch-new-mail-heading">
-                  Case plan goals
-              </h2>
-          </div>
-          <div class="ch-mail-heading__item ch-mail-heading__item_action-group">
-              <div class="ch-page-heading__actions">
-                  <span class="icon icon-remove"></span>
-                  <span class="icon icon-download"></span>
-              </div>
-          </div>
-      </div>
-  <section class="ch-mail-thread">
-        <ul class="ch-mail-thread-list">
-            <li class="ch-mail-thread-list__item">
-                <div class="ch-mail-expanded">
-                    <div class="ch-mail-expanded__header">
-                        <div class="ch-mail-header">
-                            <div class="ch-mail-header__item">
-                                <div class="ch-mail-origin">
-                                    <span class="ch-mail-origin__prefix">
-                                        From:
-                                    </span>
-                                    <span class="ch-mail-origin__name">
-                                        Sandra Derick
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-info">
-                                <div class="ch-mail-info">
-                                    <div class="ch-mail-info__attachments-badge">
-
-                                    </div>
-                                    <div class="ch-mail-info__date">
-                                        <span class="ch-text">20:02</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-options-group">
-                                <div class="ch-mail-options-group">
-                                    <div class="ch-button-group-action">
-                                        <a href="#" role="button" class="ch-button-group-action__btn ch-button-group-action__btn_reply">
-                                            <span></span>
-                                        </a>
-                                        <a href="#" role="button" class="ch-button-group-action__btn ch-button-group-action__btn_mail-options">
-                                            <span></span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ch-mail-expanded__body">
-                        <div class="ch-mail-body">
-                            <p>
-                                Hello Sheyla,
-                                This factsheet provides the most recent national statistical estimates for children and youth in foster care from fiscal year (FY) 2014 and also provides earlier data from FY 2005 to allow for some estimate of trends over time. Data were obtained from the Federal Adoption and Foster Care Analysis and Reporting System (AFCARS). AFCARS collects information on all children in foster care for whom State child welfare agencies have responsibility for placement, care, or supervision and on children who are adopted with public child welfare agency involvement.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="ch-mail-expanded__footer">
-                        <div class="ch-attachments">
-
-                            <div class="ch-attachments__heading">
-                                <h3><span class="attachments-count"> 2 attachments</span>
-                                    <span class="attachments-download">Download All</span></h3>
-                            </div>
-
-                            <ol class="ch-attachments__list">
-
-                                <li class="ch-attachments__list__item">
-                                    <div class="ch-attachments__list__item__icon">
-                                        <span class="icon icon-attachment"></span>
-                                    </div>
-
-                                    <div class="ch-attachments__list__item__file">
-                                        <span class="attachments-filename">Foster Care Services.jpg</span>
-                                        <span class="attachments-filesize">120 MB</span>
-                                    </div>
-
-                                    <div class="ch-attachments__list__item__actions">
-                                        <span class="icon icon-view"></span>
-                                        <span class="icon icon-download"></span>
-                                    </div>
-                                </li>
-
-                                <li class="ch-attachments__list__item">
-                                    <div class="ch-attachments__list__item__icon">
-                                        <span class="icon icon-attachment"></span>
-                                    </div>
-
-                                    <div class="ch-attachments__list__item__file">
-                                        <span class="attachments-filename">Services Info.doc</span>
-                                        <span class="attachments-filesize">25 MB</span>
-                                    </div>
-
-                                    <div class="ch-attachments__list__item__actions">
-                                        <span class="icon icon-view"></span>
-                                        <span class="icon icon-download"></span>
-                                    </div>
-                                </li>
-                            </ol>
-                        </div>
-
-                    </div>
-                </div>
-            </li>
-            <li class="ch-mail-thread-list__item">
-                <div class="ch-mail-collapsed">
-                    <div class="ch-mail-collapsed__container"></div>
-                </div>
-            </li>
-        </ul>
-  </section>
-  </div>
-
-  <div class="ch-page">
-  <div class="ch-mail-editor">
-      <div class="ch-mail-editor__header">
-          <div class="ch-mail-heading">
-              <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
-                  <button type="button" class="ch-flat-btn ch-flat-btn_back-btn">
-                  </button>
-              </div>
-              <div class="ch-mail-heading__item ch-mail-heading__item_heading">
-                    <h2 class="ch-new-mail-heading">
-                        New Mail
-                    </h2>
-              </div>
-              <div class="ch-mail-heading__item ch-mail-heading__item_attach-btn">
-                    <div class="ch-mail-attach-files">
-                        <div class="ch-mail-attach-files__btn">
-                            <a class="ch-link-btn ch-link-btn_icon ch-link-btn_icon_attach-files" role="button">Attach files</a>
-                        </div>
-                    </div>
-              </div>
-              <div class="ch-mail-heading__item ch-mail-heading__item_action-btn">
-                  <button type="button" class="ch-option-btn ch-option-btn_short-text">
-                      <span class="ch-option-btn__text">Send</span>
-                  </button>
-              </div>
-          </div>
-      </div>
-      <div class="ch-mail-editor__body">
-            <div class="ch-new-mail">
-                <div class="ch-new-mail__row">
-                    <div class="ch-new-mail-field">
-                        <div class="ch-new-mail-field__label">
-                            <button type="button" class="ch-dropdown-label-btn">
-                                <span class="ch-dropdown-label-btn__text">To</span>
-                            </button>
-                        </div>
-                        <input type="text" class="ch-new-mail-field__input">
-                    </div>
-                </div>
-                <div class="ch-new-mail__row ch-new-mail__row_no-pad">
-                    <div class="ch-contacts-dropdown">
-                        <a href="" class="ch-close-btn"></a>
-                        <ul class="ch-contacts-list">
-                            <li class="ch-contacts-list__item">
-                                <div class="ch-contact-id">
-                                    <span class="icon icon-contact ch-contact-id__icon"></span>
-                                    <span class="ch-contact-id__name">Sandra Derick </span>
-                                </div>
-                            </li>
-                            <li class="ch-contacts-list__item">
-                                <div class="ch-contact-id">
-                                    <span class="icon icon-contact ch-contact-id__icon"></span>
-                                    <span class="ch-contact-id__name">Josh Bryceland</span>
-                                </div>
-                            </li>
-                            <li class="ch-contacts-list__item">
-                                <div class="ch-contact-id">
-                                    <span class="icon icon-contact ch-contact-id__icon"></span>
-                                    <span class="ch-contact-id__name">Lee Sally</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="ch-new-mail__row">
-                    <div class="ch-new-mail-field">
-                        <input type="text" class="ch-new-mail-field__input" placeholder="Subject:">
-                    </div>
-                </div>
-                <div class="ch-new-mail__row">
-                    <div class="ch-new-mail-text-body">
-                        <textarea name="" id="" cols="30" rows="10" class="ch-new-mail-text-body__text-input">
-
-                        </textarea>
-                    </div>
-                </div>
-            </div>
-      </div>
-  </div>
-      </div>
+</div>

@@ -9,21 +9,25 @@ import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
+import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,9 +35,9 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-public class DraftMessageResource {
+public class EMailResource {
 
-    private final Logger log = LoggerFactory.getLogger(DraftMessageResource.class);
+    private final Logger log = LoggerFactory.getLogger(EMailResource.class);
 
     @Inject
     private UserRepository userRepository;
@@ -47,8 +51,38 @@ public class DraftMessageResource {
     @Inject
     private MessageSearchRepository messageSearchRepository;
 
+    @RequestMapping(value = "/emails/{directory}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<Message>> getMessages(@PathVariable EMailDirectory directory, Pageable pageable)
+        throws URISyntaxException
+    {
+        Page<Message> page = null;
+        User userTo = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
-    @RequestMapping(value = "/messages/draft",
+        if (directory == EMailDirectory.inbox) {
+            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
+        } else if (directory == EMailDirectory.sent) {
+            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
+        } else if (directory == EMailDirectory.drafts) {
+            page = messageRepository.findAllByDraftIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
+        } else if (directory == EMailDirectory.deleted) {
+            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
+        }
+
+        if (page == null) {
+            throw new URISyntaxException("page", "this should not happen");
+        }
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page,
+            "/api/messages/" + directory);
+
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/emails/draft",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -65,7 +99,7 @@ public class DraftMessageResource {
             .body(result);
     }
 
-    @RequestMapping(value = "/messages/draft",
+    @RequestMapping(value = "/emails/draft",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

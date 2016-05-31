@@ -11,7 +11,6 @@ angular.module('apqdApp')
 
         Contacts.all({page: 0, size: 20}, function(result) {
             $scope.contacts = result;
-            console.log(result);
         });
 
         $scope.selectContact = function(contact) {
