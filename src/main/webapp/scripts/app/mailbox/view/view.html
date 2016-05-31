@@ -27,6 +27,7 @@
                 <div class="ch-mail-expanded">
                     <div class="ch-mail-expanded__header">
                         <div class="ch-mail-header">
+
                             <div class="ch-mail-header__item">
                                 <div class="ch-mail-origin">
                                     <span class="ch-mail-origin__prefix">
@@ -37,6 +38,7 @@
                                     </span>
                                 </div>
                             </div>
+
                             <div class="ch-mail-header__item ch-mail-header__item_ch-mail-info">
                                 <div class="ch-mail-info">
                                     <div class="ch-mail-info__attachments-badge">
@@ -47,25 +49,25 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="ch-mail-header__item ch-mail-header__item_ch-mail-options-group">
                                 <div class="ch-mail-options-group">
                                     <div class="ch-button-group-action">
-                                        <a href="" role="button" class="ch-button-group-action__btn ch-button-group-action__btn_reply">
-                                            <span></span>
-                                        </a>
-                                        <a href="" role="button" class="ch-button-group-action__btn ch-button-group-action__btn_mail-options">
-                                            <span></span>
-                                        </a>
+                                        <a href="" role="button" ui-sref="ch-inbox.reply-mail({replyTo: mail.id})"
+                                           class="ch-button-group-action__btn ch-button-group-action__btn_reply"></a>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
                     <div class="ch-mail-expanded__body">
                         <div class="ch-mail-body">
                             <p>{{mail.body}}</p>
                         </div>
                     </div>
+
                     <div class="ch-mail-expanded__footer">
                         <div class="ch-attachments">
 
