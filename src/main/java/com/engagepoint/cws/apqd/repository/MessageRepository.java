@@ -16,6 +16,8 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 
     Long countByInboxIsNotNullAndToAndStatus(User to, MessageStatus status);
 
+    Long countByDeletedIsNotNullAndToAndStatus(User to, MessageStatus status);
+
     Page<Message> findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(User to, Pageable pageable);
 
     Page<Message> findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(User to, Pageable pageable);

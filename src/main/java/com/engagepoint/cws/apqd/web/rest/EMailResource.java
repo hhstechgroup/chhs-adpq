@@ -120,7 +120,7 @@ public class EMailResource {
         messageSearchRepository.save(result);
 
         mailBoxService.notifyClientAboutDraftsCount();
-        mailBoxService.notifyClientAboutUnreadInboxCount(message);
+        mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
 
         return ResponseEntity.ok().build();
     }

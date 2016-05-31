@@ -4,7 +4,6 @@ angular.module('apqdApp')
     .service('MailBoxService', function ($rootScope, $cookies, $http, $q) {
 
         var stompClient = null;
-        var connected = $q.defer();
 
         var connect = function () {
             var loc = window.location;
@@ -15,9 +14,8 @@ angular.module('apqdApp')
             var headers = {};
             headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
             stompClient.connect(headers, function() {
-                connected.resolve("success");
 
-                stompClient.subscribe("/user/topic/mail/draft", function (data) {
+                stompClient.subscribe("/user/topic/mail/drafts", function (data) {
                     $rootScope.$broadcast("apqdApp:updateDraftsCount", JSON.parse(data.body));
                     data.ack();
                 }, {ack: 'client'});
@@ -31,14 +29,20 @@ angular.module('apqdApp')
                     $rootScope.$broadcast("apqdApp:updateUnreadDeletedCount", JSON.parse(data.body));
                     data.ack();
                 }, {ack: 'client'});
-            });
 
-            return connected.promise;
+                receiveUnreadCounts();
+            });
         };
 
         connect();
 
-        return {
+        var receiveUnreadCounts = function() {
+            if (stompClient != null && stompClient.connected) {
+                stompClient.send('/topic/mail/inbox', {}, JSON.stringify({}));
+            }
+        };
 
+        return {
+            receiveUnreadCounts: receiveUnreadCounts
         }
     });
