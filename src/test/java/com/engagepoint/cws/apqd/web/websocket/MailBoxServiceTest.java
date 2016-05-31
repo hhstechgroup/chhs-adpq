@@ -88,7 +88,7 @@ public class MailBoxServiceTest {
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository));
 
         Message message = prepareMessage(messageRepository, "subject", "body", null, to);
-        mailBoxService.sendMessage(message);
+        //mailBoxService.sendMessage(message);
 
         List<Message> messageList = messageRepository.findAll();
         assertThat(messageList).isNotNull();

@@ -58,11 +58,11 @@
                        <div class="ch-header__subsection ch-header__subsection-user-account">
                                <div class="ch-user-account-entry">
                                    <div class="ch-user-account-entry__dropdown">
-                                       <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed">
+                                       <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed" ng-click="isAccountPopupVisible=!isAccountPopupVisible">
                                            <span class="icon icon-user-account ch-user-account-entry__dropdown-icon ch-user-account-entry__dropdown-icon_user-account"></span>
                                        </button>
                                    </div>
-                                   <div class="ch-user-account-entry__popup" style="display:none">
+                                   <div class="ch-user-account-entry__popup" ng-show="isAccountPopupVisible">
                                        <div class="ch-user-account-popup">
                                             <div class="ch-user-account-popup__info">
                                                 <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
@@ -80,7 +80,7 @@
                                                    </button>
                                                </div>
                                                <div class="ch-user-account-popup__exit-btn">
-                                                   <button type="button" class="ch-plane-btn">
+                                                   <button type="button" class="ch-plane-btn" ng-click="logout()">
                                                        <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
                                                        <span class="ch-plane-btn__text">Sign out</span>
                                                    </button>
@@ -314,15 +314,21 @@
     <script src="scripts/components/entities/outbox/outbox.search.service.js"></script>
     <script src="scripts/components/mailbox/mailbox.service.js"></script>
     <script src="scripts/app/mailbox/mailbox.controller.js"></script>
-    <script src="scripts/app/mailbox/inbox/inbox.controller.js"></script>
+    <script src="scripts/app/mailbox/view/view.js"></script>
+    <script src="scripts/app/mailbox/view/view.controller.js"></script>
+    <script src="scripts/app/mailbox/list/list.js"></script>
+    <script src="scripts/app/mailbox/list/list.controller.js"></script>
     <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
     <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
     <script src="scripts/components/entities/message/draft.message.service.js"></script>
-    <!--<script src="scripts/app/entities/mailBox/mailBox.js"></script>-->
-    <!--<script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>-->
-    <!--<script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>-->
-    <!--<script src="scripts/app/entities/mailBox/mailBox-delete-dialog.controller.js"></script>-->
-    <!--<script src="scripts/app/entities/mailBox/mailBox-detail.controller.js"></script>-->
+    <script src="scripts/components/mailbox/contacts.service.js"></script>
+    <script src="scripts/components/entities/message/confirm.message.service.js"></script>
+    <script src="scripts/components/entities/message/email.service.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox-detail.controller.js"></script>
     <script src="scripts/components/entities/mailBox/mailBox.service.js"></script>
     <script src="scripts/components/entities/mailBox/mailBox.search.service.js"></script>
     <script src="scripts/app/entities/message/message.js"></script>
@@ -362,14 +368,6 @@
     <script src="scripts/components/entities/deleted/deleted.search.service.js"></script>
     <script src="scripts/app/mailbox/mailbox.js"></script>
     <script src="scripts/app/mailbox/mailbox.controller.js"></script>
-    <script src="scripts/app/mailbox/inbox/inbox.js"></script>
-    <script src="scripts/app/mailbox/inbox/inbox.controller.js"></script>
-    <script src="scripts/app/mailbox/sent/sent.js"></script>
-    <script src="scripts/app/mailbox/sent/sent.controller.js"></script>
-    <script src="scripts/app/mailbox/drafts/drafts.js"></script>
-    <script src="scripts/app/mailbox/drafts/drafts.controller.js"></script>
-    <script src="scripts/app/mailbox/deleted/deleted.js"></script>
-    <script src="scripts/app/mailbox/deleted/deleted.controller.js"></script>
     <script src="scripts/app/facilities/facilities.js"></script>
     <script src="scripts/app/facilities/facilities.controller.js"></script>
     <script src="scripts/app/facilities/facilities-agency.directive.js"></script>

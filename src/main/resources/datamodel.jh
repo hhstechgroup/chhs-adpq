@@ -50,12 +50,14 @@ enum MessageStatus {
   }
 
 entity Message {
-    body String required maxlength(2000),
-    subject String required maxlength(100),
+    body String maxlength(4000),
+    subject String maxlength(100),
     caseNumber String maxlength(20),
     dateCreated ZonedDateTime,
     dateRead ZonedDateTime,
-    status MessageStatus
+    status MessageStatus,
+    dateUpdated ZonedDateTime,
+    unreadMessagesCount Integer
 }
 
 entity Attachment {
@@ -101,6 +103,14 @@ relationship OneToMany {
 
 relationship OneToMany {
   Outbox{message} to Message{outbox}
+}
+
+relationship OneToMany {
+  Draft{message} to Message{draft}
+}
+
+relationship OneToMany {
+  Deleted{message} to Message{deleted}
 }
 
 relationship OneToOne {

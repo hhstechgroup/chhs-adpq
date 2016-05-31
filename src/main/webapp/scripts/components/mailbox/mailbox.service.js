@@ -5,10 +5,6 @@ angular.module('apqdApp')
 
         var stompClient = null;
 
-        var draftCount;
-
-        var connected = $q.defer();
-
         var connect = function () {
             var loc = window.location;
             var url = '//' + loc.host + loc.pathname + 'websocket/mailbox';
@@ -18,25 +14,35 @@ angular.module('apqdApp')
             var headers = {};
             headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
             stompClient.connect(headers, function() {
-                connected.resolve("success");
 
-                stompClient.subscribe("/user/topic/mail/draft", function (data) {
-                    draftCount++;
-                    $rootScope.$broadcast("apqdApp:draft", JSON.parse(data.body));
+                stompClient.subscribe("/user/topic/mail/drafts", function (data) {
+                    $rootScope.$broadcast("apqdApp:updateDraftsCount", JSON.parse(data.body));
                     data.ack();
                 }, {ack: 'client'});
-            });
 
-            return connected.promise;
+                stompClient.subscribe("/user/topic/mail/inbox", function (data) {
+                    $rootScope.$broadcast("apqdApp:updateUnreadInboxCount", JSON.parse(data.body));
+                    data.ack();
+                }, {ack: 'client'});
+
+                stompClient.subscribe("/user/topic/mail/deleted", function (data) {
+                    $rootScope.$broadcast("apqdApp:updateUnreadDeletedCount", JSON.parse(data.body));
+                    data.ack();
+                }, {ack: 'client'});
+
+                receiveUnreadCounts();
+            });
         };
 
         connect();
 
-        var getDraftCount = function () {
-
+        var receiveUnreadCounts = function() {
+            if (stompClient != null && stompClient.connected) {
+                stompClient.send('/topic/mail/inbox', {}, JSON.stringify({}));
+            }
         };
 
         return {
-            getDraftCount: getDraftCount
+            receiveUnreadCounts: receiveUnreadCounts
         }
     });

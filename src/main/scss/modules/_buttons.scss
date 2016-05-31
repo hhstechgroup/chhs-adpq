@@ -18,7 +18,11 @@
 }
 .ch-button-group__btn {
     border: .1rem solid #757575;
-    padding: .5rem 1.5rem;
+    padding: .7rem 1.5rem;
+
+    .icon {
+        vertical-align: middle;
+    }
 }
 
 .ch-button-group__btn_left-border {
@@ -26,7 +30,7 @@
     border-bottom: .1rem solid #757575;
     border-right: .1rem solid #757575;
     border-left: 0;
-    padding: .5rem 1.5rem;
+    padding: .7rem 1.5rem;
     margin-left: -.4rem;
 }
 

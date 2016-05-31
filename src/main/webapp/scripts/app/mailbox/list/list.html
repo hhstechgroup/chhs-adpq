@@ -1,0 +1,89 @@
+<div class="ch-page">
+
+    <div class="ch-page-heading">
+
+        <div class="ch-page-heading__select">
+            <div class="form-type__checkbox_empty-label">
+                <input id="selectAll" type="checkbox" ng-click="selectAll()" ng-model="allSelected">
+                <label for="selectAll"></label>
+            </div>
+        </div>
+
+        <div class="ch-page-heading__actions">
+            <span class="icon icon-remove" ng-click="deleteSelected()"></span>
+        </div>
+
+        <div class="ch-page-heading__search">
+
+            <form class="form-type__search">
+
+                <button type="submit" class="form-type__search__button">
+                    <span class="icon icon-search"></span>
+                </button>
+
+                <input id="search-field-small" type="search" name="search" class="form-type__search__input">
+
+            </form>
+
+            <div class="ch-page-heading__pagination">
+                <div class="ch-button-group">
+
+                    <div class="ch-button-group__item">
+                        <button type="button" class="ch-button-group__btn" ng-click="prevPage()">
+                            <span class="icon icon-pagination-arrow-left"></span>
+                        </button>
+                    </div>
+
+                    <div class="ch-button-group__item">
+                        <button type="button" class="ch-button-group__btn ch-button-group__btn_left-border" ng-click="nextPage()">
+                            <span class="icon icon-pagination-arrow-right"></span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ch-page-heading__county-messages">
+                <span>{{fromItem}}-{{toItem}} of {{totalItems}}</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <ul class="ch-page-content">
+
+        <li ng-repeat="mail in mails" class="ch-content-item ch-content-item_active" ui-sref="ch-inbox.view({mailId: mail.id})">
+
+            <div class="ch-content-item__checkbox">
+                <div class="form-type__checkbox_empty-label">
+                    <input id="select{{mail.id}}" type="checkbox" name="select{{mail.id}}"
+                           ng-model="mail.selected">
+                    <label for="select{{mail.id}}"><span></span></label>
+                </div>
+            </div>
+
+            <div class="ch-content-item__person">
+                <span class="person-name">{{mail.from.firstName}} {{mail.from.lastName}}</span>
+                <span ng-if="mail.threadUnreadMessages > 0"
+                      class="person-chain-count">({{mail.threadUnreadMessages}})</span>
+            </div>
+
+            <div class="ch-content-item__entry">
+                <span class="entry-name">{{mail.subject}}</span>
+                <span class="entry-main"> - {{mail.body}}</span>
+            </div>
+
+            <div class="ch-content-item__date">
+                <span class="item_date">{{mail | formatMailDate}}</span>
+            </div>
+
+            <div ng-if="mail.attachments.length > 0" class="ch-content-item__attachments">
+                <span class="icon icon-attachment"></span>
+            </div>
+
+        </li>
+
+    </ul>
+
+</div>

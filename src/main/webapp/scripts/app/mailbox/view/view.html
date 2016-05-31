@@ -1,0 +1,128 @@
+
+<div class="ch-page">
+
+    <div class="ch-mail-heading">
+        <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
+            <button type="button" class="ch-flat-btn ch-flat-btn_back-btn" ng-click="backToPreviousState()">
+            </button>
+        </div>
+
+        <div class="ch-mail-heading__item ch-mail-heading__item_heading">
+            <h2 class="ch-new-mail-heading">
+                {{mail.subject}}
+            </h2>
+        </div>
+
+        <div class="ch-mail-heading__item ch-mail-heading__item_action-group">
+            <div class="ch-page-heading__actions">
+                <span class="icon icon-remove"></span>
+                <span class="icon icon-download"></span>
+            </div>
+        </div>
+    </div>
+
+    <section class="ch-mail-thread">
+        <ul class="ch-mail-thread-list">
+            <li class="ch-mail-thread-list__item">
+                <div class="ch-mail-expanded">
+                    <div class="ch-mail-expanded__header">
+                        <div class="ch-mail-header">
+                            <div class="ch-mail-header__item">
+                                <div class="ch-mail-origin">
+                                    <span class="ch-mail-origin__prefix">
+                                        From:
+                                    </span>
+                                    <span class="ch-mail-origin__name">
+                                        {{mail.from.firstName}} {{mail.from.LastName}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-info">
+                                <div class="ch-mail-info">
+                                    <div class="ch-mail-info__attachments-badge">
+
+                                    </div>
+                                    <div class="ch-mail-info__date">
+                                        <span class="ch-text">20:02</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-options-group">
+                                <div class="ch-mail-options-group">
+                                    <div class="ch-button-group-action">
+                                        <a href="" role="button" class="ch-button-group-action__btn ch-button-group-action__btn_reply">
+                                            <span></span>
+                                        </a>
+                                        <a href="" role="button" class="ch-button-group-action__btn ch-button-group-action__btn_mail-options">
+                                            <span></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-mail-expanded__body">
+                        <div class="ch-mail-body">
+                            <p>{{mail.body}}</p>
+                        </div>
+                    </div>
+                    <div class="ch-mail-expanded__footer">
+                        <div class="ch-attachments">
+
+                            <div class="ch-attachments__heading">
+                                <h3>
+                                    <span class="attachments-count">attachments</span>
+                                    <!--<span class="attachments-download">Download All</span>-->
+                                </h3>
+                            </div>
+
+                            <!--<ol class="ch-attachments__list">-->
+
+                                <!--<li class="ch-attachments__list__item">-->
+                                    <!--<div class="ch-attachments__list__item__icon">-->
+                                        <!--<span class="icon icon-attachment"></span>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="ch-attachments__list__item__file">-->
+                                        <!--<span class="attachments-filename">Foster Care Services.jpg</span>-->
+                                        <!--<span class="attachments-filesize">120 MB</span>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="ch-attachments__list__item__actions">-->
+                                        <!--<span class="icon icon-view"></span>-->
+                                        <!--<span class="icon icon-download"></span>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+
+                                <!--<li class="ch-attachments__list__item">-->
+                                    <!--<div class="ch-attachments__list__item__icon">-->
+                                        <!--<span class="icon icon-attachment"></span>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="ch-attachments__list__item__file">-->
+                                        <!--<span class="attachments-filename">Services Info.doc</span>-->
+                                        <!--<span class="attachments-filesize">25 MB</span>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="ch-attachments__list__item__actions">-->
+                                        <!--<span class="icon icon-view"></span>-->
+                                        <!--<span class="icon icon-download"></span>-->
+                                    <!--</div>-->
+                                <!--</li>-->
+                            <!--</ol>-->
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+            <li class="ch-mail-thread-list__item">
+                <div class="ch-mail-collapsed">
+                    <div class="ch-mail-collapsed__container"></div>
+                </div>
+            </li>
+
+        </ul>
+
+    </section>
+</div>
