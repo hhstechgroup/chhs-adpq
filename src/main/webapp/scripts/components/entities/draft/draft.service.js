@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('Draft', function ($resource, DateUtils) {
+    .factory('Draft', function ($resource) {
         return $resource('api/drafts/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
