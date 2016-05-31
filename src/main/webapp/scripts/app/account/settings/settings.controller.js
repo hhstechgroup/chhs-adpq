@@ -7,16 +7,24 @@ angular.module('apqdApp')
         $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
+
+        /**
+         * Store the "settings account" in a separate variable, and not in the shared "account" variable.
+         */
+        $scope.copyAccount = function (account) {
+            return angular.extend({}, account);
+        };
+
         Principal.identity().then(function(account) {
             if (_.isNil(account.place)) {
                 Place.save({streetName: ''}, function(place) {
-                        $scope.settingsAccount = copyAccount(account);
+                        $scope.settingsAccount = $scope.copyAccount(account);
                         $scope.settingsAccount.place = place;
                         Auth.updateAccount($scope.settingsAccount);
                     }
                 );
             } else {
-                 $scope.settingsAccount = copyAccount(account);
+                 $scope.settingsAccount = $scope.copyAccount(account);
             }
         });
 
@@ -26,7 +34,7 @@ angular.module('apqdApp')
                 $scope.success = 'OK';
                 Place.update($scope.settingsAccount.place).$promise.then(function() {
                     Principal.identity(true).then(function(account) {
-                        $scope.settingsAccount = copyAccount(account);
+                        $scope.settingsAccount = $scope.copyAccount(account);
                     });
                 });
                 Language.getCurrent().then(function(current) {
@@ -41,23 +49,4 @@ angular.module('apqdApp')
         };
 
         $scope.lookupGender = lookupGender;
-
-        /**
-         * Store the "settings account" in a separate variable, and not in the shared "account" variable.
-         */
-        var copyAccount = function (account) {
-            return {
-                activated: account.activated,
-                email: account.email,
-                firstName: account.firstName,
-                birthDate: account.birthDate,
-                gender: account.gender,
-                phoneNumber: account.phoneNumber,
-                langKey: account.langKey,
-                lastName: account.lastName,
-                login: account.login,
-                ssnLast4Digits: account.ssnLast4Digits,
-                place: account.place
-            }
-        }
     });

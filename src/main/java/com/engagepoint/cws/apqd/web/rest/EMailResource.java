@@ -61,15 +61,15 @@ public class EMailResource {
     @Timed
     @Transactional(readOnly = true)
     public ResponseEntity<List<Message>> getMessages(@PathVariable EMailDirectory directory, Pageable pageable)
-        throws URISyntaxException
-    {
+        throws URISyntaxException {
+
         Page<Message> page = null;
         User userTo = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         if (directory == EMailDirectory.inbox) {
             page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.sent) {
-            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
+            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.drafts) {
             page = messageRepository.findAllByDraftIsNotNullAndReplyOnIsNullAndToIsOrderByDateCreatedDesc(userTo, pageable);
         } else if (directory == EMailDirectory.deleted) {

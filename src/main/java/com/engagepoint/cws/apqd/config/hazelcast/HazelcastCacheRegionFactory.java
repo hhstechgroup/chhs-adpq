@@ -42,8 +42,7 @@ public class HazelcastCacheRegionFactory implements RegionFactory {
     }
 
     @Override
-    public NaturalIdRegion buildNaturalIdRegion(String regionName, Properties properties, CacheDataDescription metadata)
-    {
+    public NaturalIdRegion buildNaturalIdRegion(String regionName, Properties properties, CacheDataDescription metadata) {
         return new HazelcastNaturalIdRegion(hazelcastInstance, regionName, properties, metadata);
     }
 

@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('EditMailCtrl', function ($rootScope, $scope, $state, $log, mail,
+    .controller('EditMailCtrl', function ($rootScope, $stateParams, $scope, $state, $log, mail,
                                           MailBoxService, AutoSaveService, DraftMessage,
                                           Contacts)
     {
+        $scope.isNewMail = _.isUndefined($stateParams.replyTo);
+
         if (!_.isNil(mail)) {
             $scope.mail = mail;
         }
