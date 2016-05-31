@@ -1,18 +1,19 @@
 package com.engagepoint.cws.apqd.domain;
 
-import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.time.ZonedDateTime;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
+
+import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 
 /**
  * A Message.
@@ -28,27 +29,33 @@ public class Message implements Serializable {
     private Long id;
 
     @Size(max = 4000)
-    @Column(name = "body", length = 2000, nullable = false)
+    @Column(name = "body", length = 4000)
     private String body;
-
+    
     @Size(max = 100)
-    @Column(name = "subject", length = 100, nullable = false)
+    @Column(name = "subject", length = 100)
     private String subject;
-
+    
     @Size(max = 20)
     @Column(name = "case_number", length = 20)
     private String caseNumber;
-
+    
     @Column(name = "date_created")
     private ZonedDateTime dateCreated;
-
+    
     @Column(name = "date_read")
     private ZonedDateTime dateRead;
-
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private MessageStatus status;
-
+    
+    @Column(name = "date_updated")
+    private ZonedDateTime dateUpdated;
+    
+    @Column(name = "unread_messages_count")
+    private Integer unreadMessagesCount;
+    
     @OneToMany(mappedBy = "message")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -72,12 +79,12 @@ public class Message implements Serializable {
     private Outbox outbox;
 
     @ManyToOne
-    @JoinColumn(name = "deleted_id")
-    private Deleted deleted;
-
-    @ManyToOne
     @JoinColumn(name = "draft_id")
     private Draft draft;
+
+    @ManyToOne
+    @JoinColumn(name = "deleted_id")
+    private Deleted deleted;
 
     public Long getId() {
         return id;
@@ -90,7 +97,7 @@ public class Message implements Serializable {
     public String getBody() {
         return body;
     }
-
+    
     public void setBody(String body) {
         this.body = body;
     }
@@ -98,7 +105,7 @@ public class Message implements Serializable {
     public String getSubject() {
         return subject;
     }
-
+    
     public void setSubject(String subject) {
         this.subject = subject;
     }
@@ -106,7 +113,7 @@ public class Message implements Serializable {
     public String getCaseNumber() {
         return caseNumber;
     }
-
+    
     public void setCaseNumber(String caseNumber) {
         this.caseNumber = caseNumber;
     }
@@ -114,7 +121,7 @@ public class Message implements Serializable {
     public ZonedDateTime getDateCreated() {
         return dateCreated;
     }
-
+    
     public void setDateCreated(ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
@@ -122,7 +129,7 @@ public class Message implements Serializable {
     public ZonedDateTime getDateRead() {
         return dateRead;
     }
-
+    
     public void setDateRead(ZonedDateTime dateRead) {
         this.dateRead = dateRead;
     }
@@ -130,9 +137,25 @@ public class Message implements Serializable {
     public MessageStatus getStatus() {
         return status;
     }
-
+    
     public void setStatus(MessageStatus status) {
         this.status = status;
+    }
+
+    public ZonedDateTime getDateUpdated() {
+        return dateUpdated;
+    }
+    
+    public void setDateUpdated(ZonedDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public Integer getUnreadMessagesCount() {
+        return unreadMessagesCount;
+    }
+    
+    public void setUnreadMessagesCount(Integer unreadMessagesCount) {
+        this.unreadMessagesCount = unreadMessagesCount;
     }
 
     public Set<Attachment> getAttachments() {
@@ -183,20 +206,20 @@ public class Message implements Serializable {
         this.outbox = outbox;
     }
 
-    public Deleted getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Deleted deleted) {
-        this.deleted = deleted;
-    }
-
     public Draft getDraft() {
         return draft;
     }
 
     public void setDraft(Draft draft) {
         this.draft = draft;
+    }
+
+    public Deleted getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Deleted deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -229,6 +252,8 @@ public class Message implements Serializable {
             ", dateCreated='" + dateCreated + "'" +
             ", dateRead='" + dateRead + "'" +
             ", status='" + status + "'" +
+            ", dateUpdated='" + dateUpdated + "'" +
+            ", unreadMessagesCount='" + unreadMessagesCount + "'" +
             '}';
     }
 }
