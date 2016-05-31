@@ -52,7 +52,7 @@
 
                            </nav>
                        </div>
-                       <div class="ch-header__subsection ch-header__subsection-user-account">
+                       <div class="ch-header__subsection ch-header__subsection-user-account" ng-controller="MyProfileAndLogoutController">
                                <div class="ch-user-account-entry">
                                    <div class="ch-user-account-entry__dropdown">
                                        <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed" ng-click="isAccountPopupVisible=!isAccountPopupVisible">
@@ -64,10 +64,10 @@
                                             <div class="ch-user-account-popup__info">
                                                 <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
                                                 <p class="ch-user-account-popup__user-name">
-                                                    SheylaUsername
+                                                    {{accountName}}
                                                 </p>
                                                 <p class="ch-user-account-popup__user-email">
-                                                    sheyla@ca.com
+                                                    {{account.email}}
                                                 </p>
                                             </div>
                                            <div class="ch-user-account-popup__controls">
@@ -135,7 +135,6 @@
         <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
         <script src="bower_components/lodash/lodash.js"></script>
         <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
-        <script src="bower_components/annyang/annyang.js"></script>
         <script src="bower_components/angular-object-diff/dist/angular-object-diff.js"></script>
         <script src="bower_components/ngDraggable/ngDraggable.js"></script>
         <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
@@ -184,8 +183,6 @@
     <script src="scripts/components/interceptor/auth.interceptor.js"></script>
     <script src="scripts/components/interceptor/errorhandler.interceptor.js"></script>
     <script src="scripts/components/interceptor/notification.interceptor.js"></script>
-    <script src="scripts/components/navbar/navbar.directive.js"></script>
-    <script src="scripts/components/navbar/navbar.controller.js"></script>
     <script src="scripts/components/main-nav/main.nav.directive.js"></script>
     <script src="scripts/components/main-nav/main.nav.controller.js"></script>
     <script src="scripts/components/user/user.service.js"></script>
@@ -200,7 +197,6 @@
     <script src="scripts/components/util/data-util.service.js"></script>
     <script src="scripts/components/util/sort.directive.js"></script>
     <script src="scripts/components/util/auto-save.service.js"></script>
-    <script src="scripts/components/util/participants.utils.js"></script>
     <script src="scripts/components/util/cws.storage.service.js"></script>
     <script src="scripts/app/dashboard/dashboard.js"></script>
     <script src="scripts/app/dashboard/dashboard.controller.js"></script>
@@ -220,6 +216,7 @@
     <script src="scripts/app/account/register/register.controller.js"></script>
     <script src="scripts/app/account/settings/settings.js"></script>
     <script src="scripts/app/account/settings/settings.controller.js"></script>
+    <script src="scripts/app/account/logout/profile.logout.controller.js"></script>
     <script src="scripts/app/account/reset/finish/reset.finish.controller.js"></script>
     <script src="scripts/app/account/reset/finish/reset.finish.js"></script>
     <script src="scripts/app/account/reset/request/reset.request.controller.js"></script>
