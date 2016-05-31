@@ -94,6 +94,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinColumn(name = "gender_id")
     private LookupGender gender;
 
+    @ManyToOne
+    @JoinColumn(name = "place_id")
+    private Place place;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -258,6 +262,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 
     @Override

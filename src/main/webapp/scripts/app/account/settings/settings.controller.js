@@ -2,20 +2,32 @@
 
 angular.module('apqdApp')
     .controller('SettingsController',
-    function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender) {
+    function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender,
+     Place) {
         $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
         Principal.identity().then(function(account) {
-            $scope.settingsAccount = copyAccount(account);
+            if (_.isNil(account.place)) {
+                Place.save({streetName: ''}, function(place) {
+                        $scope.settingsAccount = copyAccount(account);
+                        $scope.settingsAccount.place = place;
+                        Auth.updateAccount($scope.settingsAccount);
+                    }
+                );
+            } else {
+                 $scope.settingsAccount = copyAccount(account);
+            }
         });
 
         $scope.save = function () {
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = 'OK';
-                Principal.identity(true).then(function(account) {
-                    $scope.settingsAccount = copyAccount(account);
+                Place.update($scope.settingsAccount.place).$promise.then(function() {
+                    Principal.identity(true).then(function(account) {
+                        $scope.settingsAccount = copyAccount(account);
+                    });
                 });
                 Language.getCurrent().then(function(current) {
                     if ($scope.settingsAccount.langKey !== current) {
@@ -44,7 +56,8 @@ angular.module('apqdApp')
                 langKey: account.langKey,
                 lastName: account.lastName,
                 login: account.login,
-                ssnLast4Digits: account.ssnLast4Digits
+                ssnLast4Digits: account.ssnLast4Digits,
+                place: account.place
             }
         }
     });

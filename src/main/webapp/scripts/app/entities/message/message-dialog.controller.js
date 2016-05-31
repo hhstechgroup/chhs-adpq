@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('apqdApp').controller('MessageDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'Attachment', 'User', 'Inbox', 'Outbox', 'Deleted', 'Draft',
-        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, Attachment, User, Inbox, Outbox, Deleted, Draft) {
+    ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Message', 'Attachment', 'User', 'Inbox', 'Outbox', 'Draft', 'Deleted',
+        function($scope, $stateParams, $uibModalInstance, $q, entity, Message, Attachment, User, Inbox, Outbox, Draft, Deleted) {
 
         $scope.message = entity;
         $scope.attachments = Attachment.query();
@@ -18,8 +18,8 @@ angular.module('apqdApp').controller('MessageDialogController',
         $scope.users = User.query();
         $scope.inboxs = Inbox.query();
         $scope.outboxs = Outbox.query();
-        $scope.deleteds = Deleted.query();
         $scope.drafts = Draft.query();
+        $scope.deleteds = Deleted.query();
         $scope.load = function(id) {
             Message.get({id : id}, function(result) {
                 $scope.message = result;
@@ -65,5 +65,14 @@ angular.module('apqdApp').controller('MessageDialogController',
 
         $scope.datePickerForDateReadOpen = function($event) {
             $scope.datePickerForDateRead.status.opened = true;
+        };
+        $scope.datePickerForDateUpdated = {};
+
+        $scope.datePickerForDateUpdated.status = {
+            opened: false
+        };
+
+        $scope.datePickerForDateUpdatedOpen = function($event) {
+            $scope.datePickerForDateUpdated.status.opened = true;
         };
 }]);

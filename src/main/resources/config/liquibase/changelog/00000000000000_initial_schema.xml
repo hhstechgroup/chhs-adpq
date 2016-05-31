@@ -37,6 +37,7 @@
             <column name="phone_number" type="varchar(20)"/>
             <column name="ssn_last_4_digits" type="varchar(4)"/>
             <column name="case_number" type="varchar(20)"/>
+            <column name="place_id" type="bigint"/>
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
             </column>
