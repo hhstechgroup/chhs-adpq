@@ -61,8 +61,8 @@ public class EMailResource {
     @Timed
     @Transactional(readOnly = true)
     public ResponseEntity<List<Message>> getMessages(@PathVariable EMailDirectory directory, Pageable pageable)
-        throws URISyntaxException
-    {
+        throws URISyntaxException {
+
         Page<Message> page = null;
         User userTo = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 

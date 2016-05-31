@@ -331,8 +331,10 @@ angular.module('apqdApp')
                         allSearchPromises[currentEntityName] = searchPromise;
                     }
 
-                    if (angular.isObject(extraParams) && extraParams.resetResultsOnEmptyQuery && !stringQuery) {
-                        if (angular.isFunction(entitySearchParams['onResponse'])) entitySearchParams['onResponse']([]);
+                    if (angular.isObject(extraParams) && extraParams.resetResultsOnEmptyQuery && !stringQuery
+                        && angular.isFunction(entitySearchParams['onResponse'])
+                    ) {
+                        entitySearchParams['onResponse']([]);
                     }
                 }, this);
 
