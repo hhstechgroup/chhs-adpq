@@ -79,7 +79,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
                         if (result) {
                             $state.go('metrics');
                         } else {
-                            $state.go('dashboard', {}, {reload: true});
+                            $state.go('ch-facilities', {}, {reload: true});
                         }
                     });
             } else {

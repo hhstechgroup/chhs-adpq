@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.OutboxSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class OutboxResource {
 
-    private final Logger log = LoggerFactory.getLogger(OutboxResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(OutboxResource.class);
+
     @Inject
     private OutboxRepository outboxRepository;
-    
+
     @Inject
     private OutboxSearchRepository outboxSearchRepository;
-    
+
     /**
      * POST  /outboxs -> Create a new outbox.
      */
@@ -46,7 +45,7 @@ public class OutboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Outbox> createOutbox(@RequestBody Outbox outbox) throws URISyntaxException {
-        log.debug("REST request to save Outbox : {}", outbox);
+        LOGGER.debug("REST request to save Outbox : {}", outbox);
         if (outbox.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("outbox", "idexists", "A new outbox cannot already have an ID")).body(null);
         }
@@ -65,7 +64,7 @@ public class OutboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Outbox> updateOutbox(@RequestBody Outbox outbox) throws URISyntaxException {
-        log.debug("REST request to update Outbox : {}", outbox);
+        LOGGER.debug("REST request to update Outbox : {}", outbox);
         if (outbox.getId() == null) {
             return createOutbox(outbox);
         }
@@ -85,13 +84,13 @@ public class OutboxResource {
     @Timed
     public List<Outbox> getAllOutboxs(@RequestParam(required = false) String filter) {
         if ("mailbox-is-null".equals(filter)) {
-            log.debug("REST request to get all Outboxs where mailBox is null");
+            LOGGER.debug("REST request to get all Outboxs where mailBox is null");
             return StreamSupport
                 .stream(outboxRepository.findAll().spliterator(), false)
                 .filter(outbox -> outbox.getMailBox() == null)
                 .collect(Collectors.toList());
         }
-        log.debug("REST request to get all Outboxs");
+        LOGGER.debug("REST request to get all Outboxs");
         return outboxRepository.findAll();
             }
 
@@ -103,7 +102,7 @@ public class OutboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Outbox> getOutbox(@PathVariable Long id) {
-        log.debug("REST request to get Outbox : {}", id);
+        LOGGER.debug("REST request to get Outbox : {}", id);
         Outbox outbox = outboxRepository.findOne(id);
         return Optional.ofNullable(outbox)
             .map(result -> new ResponseEntity<>(
@@ -120,7 +119,7 @@ public class OutboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteOutbox(@PathVariable Long id) {
-        log.debug("REST request to delete Outbox : {}", id);
+        LOGGER.debug("REST request to delete Outbox : {}", id);
         outboxRepository.delete(id);
         outboxSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("outbox", id.toString())).build();
@@ -135,7 +134,7 @@ public class OutboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Outbox> searchOutboxs(@PathVariable String query) {
-        log.debug("REST request to search Outboxs for query {}", query);
+        LOGGER.debug("REST request to search Outboxs for query {}", query);
         return StreamSupport
             .stream(outboxSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());

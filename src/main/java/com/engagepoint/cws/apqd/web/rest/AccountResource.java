@@ -39,7 +39,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class AccountResource {
 
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
     private UserRepository userRepository;
@@ -104,7 +104,7 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
+        LOGGER.debug("REST request to check if the current user is authenticated");
         return request.getRemoteUser();
     }
 

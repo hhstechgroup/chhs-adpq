@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.MailBoxSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class MailBoxResource {
 
-    private final Logger log = LoggerFactory.getLogger(MailBoxResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(MailBoxResource.class);
+
     @Inject
     private MailBoxRepository mailBoxRepository;
-    
+
     @Inject
     private MailBoxSearchRepository mailBoxSearchRepository;
-    
+
     /**
      * POST  /mailBoxs -> Create a new mailBox.
      */
@@ -46,7 +45,7 @@ public class MailBoxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<MailBox> createMailBox(@RequestBody MailBox mailBox) throws URISyntaxException {
-        log.debug("REST request to save MailBox : {}", mailBox);
+        LOGGER.debug("REST request to save MailBox : {}", mailBox);
         if (mailBox.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("mailBox", "idexists", "A new mailBox cannot already have an ID")).body(null);
         }
@@ -65,7 +64,7 @@ public class MailBoxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<MailBox> updateMailBox(@RequestBody MailBox mailBox) throws URISyntaxException {
-        log.debug("REST request to update MailBox : {}", mailBox);
+        LOGGER.debug("REST request to update MailBox : {}", mailBox);
         if (mailBox.getId() == null) {
             return createMailBox(mailBox);
         }
@@ -85,13 +84,13 @@ public class MailBoxResource {
     @Timed
     public List<MailBox> getAllMailBoxs(@RequestParam(required = false) String filter) {
         if ("user-is-null".equals(filter)) {
-            log.debug("REST request to get all MailBoxs where user is null");
+            LOGGER.debug("REST request to get all MailBoxs where user is null");
             return StreamSupport
                 .stream(mailBoxRepository.findAll().spliterator(), false)
                 .filter(mailBox -> mailBox.getUser() == null)
                 .collect(Collectors.toList());
         }
-        log.debug("REST request to get all MailBoxs");
+        LOGGER.debug("REST request to get all MailBoxs");
         return mailBoxRepository.findAll();
             }
 
@@ -103,7 +102,7 @@ public class MailBoxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<MailBox> getMailBox(@PathVariable Long id) {
-        log.debug("REST request to get MailBox : {}", id);
+        LOGGER.debug("REST request to get MailBox : {}", id);
         MailBox mailBox = mailBoxRepository.findOne(id);
         return Optional.ofNullable(mailBox)
             .map(result -> new ResponseEntity<>(
@@ -120,7 +119,7 @@ public class MailBoxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteMailBox(@PathVariable Long id) {
-        log.debug("REST request to delete MailBox : {}", id);
+        LOGGER.debug("REST request to delete MailBox : {}", id);
         mailBoxRepository.delete(id);
         mailBoxSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("mailBox", id.toString())).build();
@@ -135,7 +134,7 @@ public class MailBoxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<MailBox> searchMailBoxs(@PathVariable String query) {
-        log.debug("REST request to search MailBoxs for query {}", query);
+        LOGGER.debug("REST request to search MailBoxs for query {}", query);
         return StreamSupport
             .stream(mailBoxSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());

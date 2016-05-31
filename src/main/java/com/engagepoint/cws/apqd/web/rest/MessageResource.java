@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +30,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class MessageResource {
 
-    private final Logger log = LoggerFactory.getLogger(MessageResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(MessageResource.class);
+
     @Inject
     private MessageRepository messageRepository;
-    
+
     @Inject
     private MessageSearchRepository messageSearchRepository;
-    
+
     /**
      * POST  /messages -> Create a new message.
      */
@@ -47,7 +46,7 @@ public class MessageResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
-        log.debug("REST request to save Message : {}", message);
+        LOGGER.debug("REST request to save Message : {}", message);
         if (message.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("message", "idexists", "A new message cannot already have an ID")).body(null);
         }
@@ -66,7 +65,7 @@ public class MessageResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Message> updateMessage(@Valid @RequestBody Message message) throws URISyntaxException {
-        log.debug("REST request to update Message : {}", message);
+        LOGGER.debug("REST request to update Message : {}", message);
         if (message.getId() == null) {
             return createMessage(message);
         }
@@ -85,7 +84,7 @@ public class MessageResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Message> getAllMessages() {
-        log.debug("REST request to get all Messages");
+        LOGGER.debug("REST request to get all Messages");
         return messageRepository.findAll();
             }
 
@@ -97,7 +96,7 @@ public class MessageResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Message> getMessage(@PathVariable Long id) {
-        log.debug("REST request to get Message : {}", id);
+        LOGGER.debug("REST request to get Message : {}", id);
         Message message = messageRepository.findOne(id);
         return Optional.ofNullable(message)
             .map(result -> new ResponseEntity<>(
@@ -114,7 +113,7 @@ public class MessageResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteMessage(@PathVariable Long id) {
-        log.debug("REST request to delete Message : {}", id);
+        LOGGER.debug("REST request to delete Message : {}", id);
         messageRepository.delete(id);
         messageSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("message", id.toString())).build();
@@ -129,7 +128,7 @@ public class MessageResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Message> searchMessages(@PathVariable String query) {
-        log.debug("REST request to search Messages for query {}", query);
+        LOGGER.debug("REST request to search Messages for query {}", query);
         return StreamSupport
             .stream(messageSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
