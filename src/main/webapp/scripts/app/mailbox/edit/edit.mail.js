@@ -6,7 +6,7 @@ angular.module('apqdApp')
             .state('ch-inbox.edit-mail', {
                 url: '/new/:mailId',
                 data: {
-                    authorities: ['CASE_WORKER'],
+                    authorities: ['CASE_WORKER', 'PARENT'],
                     pageTitle: ''
                 },
                 views: {
