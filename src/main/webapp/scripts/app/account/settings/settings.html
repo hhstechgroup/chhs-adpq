@@ -82,7 +82,7 @@
                         <div class="ch-input-block">
                             <label for="license" class="ch-input-block__label">License/Case number</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name=license" id="license" class="ch-form-input ch-form-input_disable" value="0000-1215-5858" disabled />
+                                <input type="text" name=license" id="license" class="ch-form-input ch-form-input_disable" ng-model="settingsAccount.caseNumber" disabled />
                             </div>
                         </div>
                     </div>
@@ -211,9 +211,11 @@
                                     Your e-mail cannot be longer than 100 characters.
                                 </p>
                             </div>
+<!--
                             <div class="ch-input-block__btn">
                                 <button type="button" class="ch-plane-btn ch-plane-btn_primary">Add Email Address</button>
                             </div>
+-->
                         </div>
                     </div>
                     <div class="ch-flex-row__input-block">
@@ -231,9 +233,11 @@
                                     Your Phone Number cannot be longer than 20 characters.
                                 </p>
                             </div>
+<!--
                             <div class="ch-input-block__btn">
                                 <button type="button" class="ch-plane-btn ch-plane-btn_primary">Add Telephone</button>
                             </div>
+-->
                         </div>
                     </div>
                 </div>

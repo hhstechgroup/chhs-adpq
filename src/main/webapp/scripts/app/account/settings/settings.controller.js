@@ -57,7 +57,8 @@ angular.module('apqdApp')
                 lastName: account.lastName,
                 login: account.login,
                 ssnLast4Digits: account.ssnLast4Digits,
-                place: account.place
+                place: account.place,
+                caseNumber: account.caseNumber
             }
         }
     });

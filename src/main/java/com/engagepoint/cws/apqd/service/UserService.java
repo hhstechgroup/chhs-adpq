@@ -92,7 +92,7 @@ public class UserService {
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber) {
+        String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, String caseNumber) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.PARENT);
@@ -109,6 +109,7 @@ public class UserService {
         newUser.setBirthDate(birthDate);
         newUser.setGender(gender);
         newUser.setPhoneNumber(phoneNumber);
+        newUser.setCaseNumber(caseNumber);
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
