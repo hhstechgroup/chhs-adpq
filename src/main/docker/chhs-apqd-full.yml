@@ -1,5 +1,5 @@
-chhs-apqd-elasticsearch:
-  container_name: chhs-apqd-elasticsearch
+chhs-apqd-full-elasticsearch:
+  container_name: chhs-apqd-full-elasticsearch
   restart: unless-stopped
   image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
   # volumes:
@@ -8,8 +8,8 @@ chhs-apqd-elasticsearch:
     - "9200:9200"
     - "9300:9300"
 
-chhs-apqd-postgresql:
-  container_name: chhs-apqd-postgresql
+chhs-apqd-full-postgresql:
+  container_name: chhs-apqd-full-postgresql
   restart: unless-stopped
   image: postgres:9.4.5
   # volumes:
@@ -21,8 +21,8 @@ chhs-apqd-postgresql:
   ports:
     - "5432:5432"
 
-chhs-apqd:
-  container_name: chhs-apqd
+chhs-apqd-full:
+  container_name: chhs-apqd-full
   restart: unless-stopped
   image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd
   environment:
@@ -33,5 +33,5 @@ chhs-apqd:
   ports:
     - "8080:8080"
   links:
-    - "chhs-apqd-postgresql:POSTGRESQL"
-    - "chhs-apqd-elasticsearch:ELASTIC"
+    - "chhs-apqd-full-postgresql:POSTGRESQL"
+    - "chhs-apqd-full-elasticsearch:ELASTIC"
