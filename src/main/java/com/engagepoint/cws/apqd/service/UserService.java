@@ -8,6 +8,7 @@ import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.UserSearchRepository;
+import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
@@ -94,7 +95,7 @@ public class UserService {
         String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber) {
 
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.PARENT);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);

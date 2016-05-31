@@ -27,6 +27,10 @@
     padding: 22px 25px 0 0;
 }
 
+.ch-user-account-entry {
+    position: relative;
+}
+
 .ch-user-account-entry__dropdown-btn_collapsed:after {
     content: '\0020';
     display: inline-block;
@@ -49,11 +53,28 @@
     vertical-align: 10px;
 }
 
+.ch-user-account-entry__popup:before {
+    content: '\0020';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -1rem;
+    right: 2rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+
+}
+
 .ch-user-account-entry__popup {
     background: #fff;
     box-shadow: 0 1px 1px #cbcdcf;
     padding: 3rem;
-    min-width: 28.3rem;
+    min-width: 32.2rem;
+    position: absolute;
+    top: 5.2rem;
+    right: 0;
+    z-index: 10000;
 }
 
 .ch-user-account-popup__icon {

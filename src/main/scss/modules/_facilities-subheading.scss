@@ -1,0 +1,119 @@
+.ch-layout__subheader {
+    border-bottom: .1rem solid #d6d7da;
+}
+
+.ch-input-block__form-input .ch-form-input {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.ch-form-input.ch-form-input_small {
+    padding: 0.7rem 0;
+}
+
+.ch-facilities-heading__row {
+    display: flex;
+    align-items: stretch;
+}
+
+.ch-facilities-heading__item {
+    padding: 1.8rem 1rem 2rem;
+}
+.ch-facilities-heading__item:first-of-type {
+    padding-left: 2.5rem;
+}
+
+.ch-facilities-heading__item:last-of-type {
+    padding-right: 2.5rem;
+}
+
+.ch-facilities-heading__item_2 {
+    flex-grow: 2.2;
+    flex-basis: 0;
+}
+
+.ch-facilities-heading__item_1 {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.ch-input-block__form-input_icon {
+    position: relative;
+}
+
+.ch-input-block__form-input_icon_left .ch-form-input {
+    padding-left: 3.7rem;
+    float: none;
+}
+
+.ch-form-input-icon {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 3.7rem;
+    pointer-events: none;
+}
+
+.ch-form-input-icon_left {
+    left: 0;
+}
+
+.ch-form-input-icon_map:after {
+    background: url(../images/out-sprite-icons/icon-map-input.png) no-repeat center;
+    content: "\0020";
+    position: absolute;
+    height: 1.6rem;
+    width: 1.2rem;
+    top: 50%;
+    left: 50%;
+    margin: -0.8rem 0 0 -0.6rem;
+}
+
+.ch-form-input-icon_search:after {
+    background: url(../images/out-sprite-icons/icon-search.png) no-repeat center;
+    content: "\0020";
+    position: absolute;
+    height: 1.6rem;
+    width: 1.6rem;
+    top: 50%;
+    left: 50%;
+    margin: -0.8rem 0 0 -0.8rem;
+}
+
+.ch-input-block__form-input .ch-form-input::-webkit-input-placeholder {
+    font-weight: 400;
+}
+
+.ch-form-input.ch-form-input_search {
+    height: auto;
+}
+
+.ch-multi-select-dropdown__btn {
+    padding: 0.7rem 0 0.7rem 1.2rem;
+    border: 0.1rem solid #5b616b;
+    text-align: left;
+    width: 100%;
+    font-size: 1.4rem;
+    position: relative;
+}
+
+.ch-multi-select-dropdown__btn-icon {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 3.7rem;
+    pointer-events: none;
+    right: 0;
+}
+
+.ch-multi-select-dropdown__btn-icon::after {
+    background: url(../images/out-sprite-icons/icon-arrow-down.png) no-repeat right center;
+    content: "\0020";
+    position: absolute;
+    height: 0.7rem;
+    width: 1rem;
+    top: 50%;
+    right: 50%;
+    margin: -0.35rem -0.6rem 0 0 ;
+}

@@ -6,7 +6,7 @@ angular.module('apqdApp')
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18
         };
-        $scope.viewConfig = {presentation: 'list', hidePartFlag: true};
+        $scope.viewConfig = {presentation: 'list'};
         $scope.center = {autoDiscover: true, zoom: 13};
         $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {
@@ -105,6 +105,10 @@ angular.module('apqdApp')
                     regional_office: "26"
                 }
             ];
+
+            _.each($scope.agencies, function(agency) {
+                agency.hidePartFlag = true;
+            });
         };
 
         $scope.updateLocations = function() {

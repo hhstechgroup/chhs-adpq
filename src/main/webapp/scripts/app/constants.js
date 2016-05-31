@@ -3,8 +3,8 @@
 angular.module('apqdApp')
     .constant('SecurityRole', {
         ADMIN: 'ROLE_ADMIN',
-        INTAKE_WORKER: 'ROLE_INTAKE_WORKER',
-        INVESTIGATOR: 'ROLE_INVESTIGATOR'
+        CASE_WORKER: 'CASE_WORKER',
+        PARENT: 'PARENT'
     })
     .constant('uibCustomDatepickerConfig', {
         formatYear: 'yyyy',

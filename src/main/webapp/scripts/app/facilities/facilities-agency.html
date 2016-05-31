@@ -33,19 +33,19 @@
     <div class="ch-facility__info" ng-hide="viewConfig.presentation === 'popup'">
         <ul class="ch-facility-info">
             <li class="ch-facility-info__part">
-                <div class="ch-facility-info-text ch-facility-info-text_phone">
+                <div class="ch-facility-info-text">
                     <p class="ch-facility-info__phone">{{agency.facility_telephone_number}}</p>
                     <p class="ch-facility-info__name">{{agency.facility_administrator | capitalize:true}}</p>
                 </div>
             </li>
             <li class="ch-facility-info__part">
-                <div class="ch-facility-info-text ch-facility-info-text_address">
+                <div class="ch-facility-info-text">
                     <span class="ch-facility-info__address">{{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</span>
                 </div>
             </li>
         </ul>
     </div>
-    <div class="ch-facility__info" ng-hide="viewConfig.hidePartFlag">
+    <div class="ch-facility__info" ng-hide="viewConfig.presentation === 'list' && agency.hidePartFlag">
         <ul class="ch-facility-info">
             <li class="ch-facility-info__part">
                 <div class="ch-facility-info-text">Facility Number: {{agency.facility_number}}</div>
@@ -81,10 +81,10 @@
             <div class="ch-facilities-btn-group__btn">
                 <button type="button" class="ch-plane-btn ch-plane-btn_primary">Ask about</button>
             </div>
-            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || !viewConfig.hidePartFlag" ng-click="viewConfig.hidePartFlag = !viewConfig.hidePartFlag">
+            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || !agency.hidePartFlag" ng-click="agency.hidePartFlag = !agency.hidePartFlag">
                 <button type="button" class="ch-plane-btn ch-plane-btn_secondary">Show more</button>
             </div>
-            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || viewConfig.hidePartFlag" ng-click="viewConfig.hidePartFlag = !viewConfig.hidePartFlag">
+            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || agency.hidePartFlag" ng-click="agency.hidePartFlag = !agency.hidePartFlag">
                 <button type="button" class="ch-plane-btn ch-plane-btn_secondary">Show less</button>
             </div>
         </div>
