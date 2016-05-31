@@ -18,9 +18,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 import java.util.List;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -51,6 +53,11 @@ public class UserServiceIntTest {
 
     @Inject
     private UserService userService;
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testLoginConstraint() {
+        prepareUser(userRepository, "INVALID LOGIN");
+    }
 
     @Test
     public void testRemoveOldPersistentTokens() {
