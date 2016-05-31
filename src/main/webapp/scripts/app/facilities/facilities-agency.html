@@ -45,7 +45,7 @@
             </li>
         </ul>
     </div>
-    <div class="ch-facility__info" ng-hide="viewConfig.hidePartFlag">
+    <div class="ch-facility__info" ng-hide="agency.hidePartFlag">
         <ul class="ch-facility-info">
             <li class="ch-facility-info__part">
                 <div class="ch-facility-info-text">Facility Number: {{agency.facility_number}}</div>
@@ -81,10 +81,10 @@
             <div class="ch-facilities-btn-group__btn">
                 <button type="button" class="ch-plane-btn ch-plane-btn_primary">Ask about</button>
             </div>
-            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || !viewConfig.hidePartFlag" ng-click="viewConfig.hidePartFlag = !viewConfig.hidePartFlag">
+            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || !agency.hidePartFlag" ng-click="agency.hidePartFlag = !agency.hidePartFlag">
                 <button type="button" class="ch-plane-btn ch-plane-btn_secondary">Show more</button>
             </div>
-            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || viewConfig.hidePartFlag" ng-click="viewConfig.hidePartFlag = !viewConfig.hidePartFlag">
+            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || agency.hidePartFlag" ng-click="agency.hidePartFlag = !agency.hidePartFlag">
                 <button type="button" class="ch-plane-btn ch-plane-btn_secondary">Show less</button>
             </div>
         </div>
