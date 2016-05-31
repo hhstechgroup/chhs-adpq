@@ -1,0 +1,44 @@
+.ch-input-block__form-input_search-field-map {
+    .leaflet-pelias-results {
+        top: 100%;
+        border: 1px solid #5b616b;
+        margin: -9px 0px;
+    }
+
+    .leaflet-bar {
+        box-shadow: none;
+        border-radius: 0;
+        z-index: 9000;
+    }
+
+    .leaflet-pelias-expanded {
+        width: 100%;
+
+        .leaflet-pelias-input {
+            height: auto;
+            padding-top: .7rem;
+            padding-bottom: .7rem;
+            line-height: inherit;
+        }
+
+        .leaflet-pelias-close {
+            border-radius: 0;
+            margin-top: .1rem;
+            height: 34px;
+            margin-right: .1rem;
+        }
+    }
+
+    .leaflet-pelias-input {
+        border: 1px solid #5b616b;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .leaflet-bar a.leaflet-pelias-search-icon {
+        border-radius: 0;
+        margin-top: .1rem;
+        height: 34px;
+        margin-left: .1rem;
+    }
+}
