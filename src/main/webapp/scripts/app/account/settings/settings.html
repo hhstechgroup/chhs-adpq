@@ -110,16 +110,10 @@
                         <div class="ch-input-block">
                             <label class="ch-input-block__label">Gender</label>
                             <ul class="ch-input-block__form-input">
-                                <li class="ch-input-block__form-input-li">
-                                    <label for="gender-male" class="ch-input-block__label">
-                                        <input type="radio" name=gender" id="gender-male" class="ch-form-input" />
-                                        <span class="ch-input-block__label-radio">Male</span>
-                                    </label>
-                                </li>
-                                <li class="ch-input-block__form-input-li">
-                                    <label for="gender-female" class="ch-input-block__label">
-                                        <input type="radio" name=gender" id="gender-female" class="ch-form-input" />
-                                        <span class="ch-input-block__label-radio">Female</span>
+                                <li class="ch-input-block__form-input-li" ng-repeat="gender in lookupGender track by gender.id">
+                                    <label for="gender{{gender.id}}" class="ch-input-block__label">
+                                        <input id="gender{{gender.id}}" ng-value="gender" ng-model="settingsAccount.gender" type="radio" name=gender" class="ch-form-input" />
+                                        <span class="ch-input-block__label-radio">{{gender.genderName}}</span>
                                     </label>
                                 </li>
                             </ul>

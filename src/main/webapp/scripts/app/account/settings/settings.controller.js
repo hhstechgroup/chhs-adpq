@@ -7,12 +7,20 @@ angular.module('apqdApp')
         $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
+        $scope.lookupGender = lookupGender;
 
         /**
          * Store the "settings account" in a separate variable, and not in the shared "account" variable.
          */
         $scope.copyAccount = function (account) {
             return angular.extend({}, account);
+        };
+
+        $scope.locateGender = function() {
+            $scope.settingsAccount.gender = _.find(lookupGender,
+                function(gender) {
+                  return gender.id == $scope.settingsAccount.gender.id;
+            });
         };
 
         Principal.identity().then(function(account) {
@@ -25,6 +33,7 @@ angular.module('apqdApp')
                 );
             } else {
                  $scope.settingsAccount = $scope.copyAccount(account);
+                 $scope.locateGender();
             }
         });
 
@@ -35,6 +44,7 @@ angular.module('apqdApp')
                 Place.update($scope.settingsAccount.place).$promise.then(function() {
                     Principal.identity(true).then(function(account) {
                         $scope.settingsAccount = $scope.copyAccount(account);
+                        $scope.locateGender();
                     });
                 });
                 Language.getCurrent().then(function(current) {
@@ -47,8 +57,6 @@ angular.module('apqdApp')
                 $scope.error = 'ERROR';
             });
         };
-
-        $scope.lookupGender = lookupGender;
 
         $scope.addGeocoder = function () {
             if(!$scope.geocoder) {
