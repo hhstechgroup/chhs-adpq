@@ -1,22 +1,33 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('FacilitiesController', ['$scope', '$log', '$q', 'leafletData', function ($scope, $log, $q, leafletData) {
+    .controller('FacilitiesController', ['$scope', '$state', '$log', '$q', 'leafletData', 'FosterFamilyAgenciesService', 'GeocoderService', function ($scope, $state, $log, $q, leafletData, FosterFamilyAgenciesService, GeocoderService) {
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18
         };
         $scope.viewConfig = {presentation: 'list'};
         $scope.center = {autoDiscover: true, zoom: 13};
+
+        $scope.searchText = '';
+        $scope.statuses = [];
+        $scope.types = [];
+
+        $scope.viewConfig = {presentation: 'list'};
+
         $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {
                 $scope.currentLocation = {
                     lat: $scope.center.lat,
                     lng: $scope.center.lng,
-                    focus: true,
-                    message: 'You are here'
+                    //focus: true,
+                    message: 'You are here',
+                    icon: {
+                        iconUrl: 'assets/images/icon_pin_home.png',
+                        iconAnchor: [46, 46]
+                    }
                 };
-                $scope.updateLocations();
+                $scope.findAgenciesWithinBox();
 
                 $scope.$watch('center.autoDiscover');
             }
@@ -88,7 +99,7 @@ angular.module('apqdApp')
                     facility_name: "ADOPT INTERNATIONAL",
                     facility_number: "385201715",
                     facility_state: "CA",
-                    facility_status: "LICENSED",
+                    facility_status: "PENDING",
                     facility_telephone_number: "(415) 934-0300",
                     facility_type: "FOSTER FAMILY AGENCY",
                     facility_zip: "94103",
@@ -112,48 +123,120 @@ angular.module('apqdApp')
         };
 
         $scope.updateLocations = function() {
+            $scope.clearLocations();
+
+            _.each($scope.agencies, function(agency) {
+                $scope.locations['fn' + agency.facility_number] = {
+                    lat: agency.location.coordinates[1],
+                    lng: agency.location.coordinates[0],
+                    message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
+                    getMessageScope: function() {
+                        var scope = $scope.$new();
+                        scope.agency = agency;
+                        scope.viewConfig = {presentation: 'popup'};
+                        return scope;
+                    },
+                    icon: {
+                        iconUrl: $scope.defineIcon(agency),
+                        iconAnchor: [13, 13]
+                    }
+                };
+            });
+
+            if ($scope.currentLocation) {
+                $scope.locations.current = $scope.currentLocation;
+            }
+        };
+
+        $scope.defineIcon = function(agency) {
+            if (agency.facility_type === 'ADOPTION AGENCY' && agency.facility_status === 'LICENSED') {
+                return 'assets/images/icon_pin_adoption_green.png';
+            }
+        };
+
+        $scope.findLocationByAddress = function(address) {
+            $log.debug('findLocationByAddress', address);
+        };
+
+        $scope.findAgenciesByTextQuery = function(event) {
+            var keyCode = event.which || event.keyCode;
+            if (keyCode === 13) {
+                $scope.searchText = $scope.text;
+            } else {
+                return;
+            }
+            $scope.findAgenciesWithinBox();
+        };
+
+        $scope.findAgenciesWithinBox = function() {
+            $log.debug('findAgenciesWithinBox');
+            $scope.text = $scope.searchText;
             leafletData.getMap().then(function (map) {
                 var bounds = map.getBounds();
                 $log.debug('map bounds:', bounds);
 
                 $scope.initAgencies();
-                $scope.clearLocations();
+                $scope.updateLocations();
 
-                _.each($scope.agencies, function(agency) {
-                    $scope.locations['fn' + agency.facility_number] = {
-                        lat: agency.location.coordinates[1],
-                        lng: agency.location.coordinates[0],
-                        message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
-                        getMessageScope: function() {
-                            var scope = $scope.$new();
-                            scope.agency = agency;
-                            scope.viewConfig = {presentation: 'popup'};
-                            return scope;
+                var northEast = bounds._northEast;
+                var southWest = bounds._southWest;
+                var request = {
+                    bounds: {
+                        northwest: {
+                            latitude: northEast.lat,
+                            longitude: southWest.lng
+                        },
+                        southeast: {
+                            latitude: southWest.lat,
+                            longitude: northEast.lng
                         }
-                    };
-                });
+                    },
+                    text: $scope.searchText,
+                    statuses: $scope.statuses,
+                    types: $scope.types
+                };
 
-                if ($scope.currentLocation) {
-                    $scope.locations.current = $scope.currentLocation;
-                }
+                /*
+                 FosterFamilyAgenciesService.findAgenciesByTextQuery($scope.searchText).then(
+                     function(agencies) {
+                         $scope.agencies = agencies;
+                         $scope.updateLocations();
+                     },
+                     function(reason) {
+                         $log.error('Failed to get agencies from findAgenciesByTextQuery', reason);
+                     }
+                 );
+                 */
+            }, function(reason) {
+                $log.error("Cannot get map instance. ", reason)
             });
-        };
-
-        $scope.askAbout = function(agency) {
-            $log.info(agency);
         };
 
         $scope.$on("leafletDirectiveMap.viewreset", function(event) {
             $log.debug(event.name);
-            $scope.updateLocations();
+            $scope.findAgenciesWithinBox();
         });
 
         $scope.$on("leafletDirectiveMap.dragend", function(event) {
             $log.debug(event.name);
-            $scope.updateLocations();                                                                                                                  });
+            $scope.findAgenciesWithinBox();
+        });
 
         $scope.$on("leafletDirectiveMap.resize", function(event) {
             $log.debug(event.name);
-            $scope.updateLocations();
+            $scope.findAgenciesWithinBox();
         });
+
+
+        $scope.addGeocoder = function () {
+            if(!$scope.geocoder) {
+                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
+            }
+        };
+
+        $scope.onSelectAddress = function (addressFeature) {
+            //TODO
+        };
+
+        $scope.addGeocoder();
     }]);

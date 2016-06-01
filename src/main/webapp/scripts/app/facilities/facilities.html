@@ -3,9 +3,10 @@
         <div class="ch-facilities-heading__row">
             <div class="ch-facilities-heading__item ch-facilities-heading__item_2">
                 <div class="ch-input-block">
-                    <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
-                        <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_map"></span>
-                        <input type="search" name="search-address" id="search-address" class="ch-form-input ch-form-input_small ch-form-input_search" value="7025 E McKiney Ave, Fresno, CA 93737" />
+                    <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon_left">
+                        <div id="geocoder" >
+                          <!--<input type="search" name="search-address" id="search-address"  class="ch-form-input ch-form-input_small ch-form-input_search" value="7025 E McKiney Ave, Fresno, CA 93737" />-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -13,18 +14,74 @@
                 <div class="ch-input-block">
                     <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
                         <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
-                        <input type="search" name="search-address" id="search-address" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put agency data here" />
+                        <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put agency data here" />
                     </div>
                 </div>
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
                 <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn">All Types<span class="ch-multi-select-dropdown__btn-icon"></span></button>
+                    <button type="button" class="ch-multi-select-dropdown__btn">
+                        <span class="ch-multi-select-dropdown__btn-text">All Types</span>
+                        <span class="ch-multi-select-dropdown__btn-icon"></span>
+                    </button>
+                    <div class="ch-multi-select-dropdown__popup" style="display: none;">
+                        <ul class="ch-checkboxes-list">
+                            <li class="ch-checkboxes-list__item">
+                                <div class="form-type__checkbox_empty-label">
+                                    <input id="adoptionAgency" type="checkbox">
+                                    <label for="adoptionAgency">Adoption Agency</label>
+                                </div>
+                            </li>
+                            <li class="ch-checkboxes-list__item">
+                                <div class="form-type__checkbox_empty-label">
+                                    <input id="fosterFamilyAgency" type="checkbox">
+                                    <label for="fosterFamilyAgency">Foster Family Agency</label>
+                                </div>
+                            </li>
+                            <li class="ch-checkboxes-list__item">
+                                <div class="form-type__checkbox_empty-label">
+                                    <input id="fosterFamilyAgencySub" type="checkbox">
+                                    <label for="fosterFamilyAgencySub">Foster Family Agency Sub</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
                 <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn">All Status<span class="ch-multi-select-dropdown__btn-icon"></span></button>
+                    <button type="button" class="ch-multi-select-dropdown__btn">
+                        <span class="ch-multi-select-dropdown__btn-text">All Status</span>
+                        <span class="ch-multi-select-dropdown__btn-icon"></span>
+                    </button>
+                    <div class="ch-multi-select-dropdown__popup" style="display: none;">
+                        <ul class="ch-checkboxes-list">
+                            <li class="ch-checkboxes-list__item">
+                                <div class="form-type__checkbox_empty-label">
+                                    <input id="closed" type="checkbox">
+                                    <label for="closed">Closed</label>
+                                </div>
+                            </li>
+                            <li class="ch-checkboxes-list__item">
+                                <div class="form-type__checkbox_empty-label">
+                                    <input id="licensed" type="checkbox">
+                                    <label for="licensed">Licensed</label>
+                                </div>
+                            </li>
+                            <li class="ch-checkboxes-list__item">
+                                <div class="form-type__checkbox_empty-label">
+                                    <input id="pending" type="checkbox">
+                                    <label for="pending">Pending</label>
+                                </div>
+                            </li>
+                            <li class="ch-checkboxes-list__item">
+                                <div class="form-type__checkbox_empty-label">
+                                    <input id="unlicensed" type="checkbox">
+                                    <label for="unlicensed">Unlicensed</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,7 +95,7 @@
 <!--start main content-->
 <div class = "ch-layout__content ch-layout__content_facilities" ui-view="main">
     <div>
-        <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: 600px"></leaflet>
+        <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: calc(100vh - 14.8rem);"></leaflet>
     </div>
 </div><!--end main content-->
 

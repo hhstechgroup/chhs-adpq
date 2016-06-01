@@ -18,7 +18,7 @@ angular.module('apqdApp')
                 resolve: {
                     mail: ['$stateParams', 'Message', function($stateParams, Message) {
                         if (!_.isEmpty($stateParams.mailId)) {
-                            return Message.get({id: $stateParams.mailId});
+                            return Message.get({id: $stateParams.mailId}).$promise;
                         } else {
                             return null;
                         }
@@ -26,7 +26,7 @@ angular.module('apqdApp')
                 }
             })
             .state('ch-inbox.reply-mail', {
-                url: '/reply/:replyTo',
+                url: '/reply/:replyOn',
                 data: {
                     authorities: ['CASE_WORKER', 'PARENT'],
                     pageTitle: ''
@@ -39,7 +39,7 @@ angular.module('apqdApp')
                 },
                 resolve: {
                     mail: ['$stateParams', 'Message', function($stateParams, Message) {
-                        return Message.get({id: $stateParams.replyTo});
+                        return Message.get({id: $stateParams.replyOn}).$promise;
                     }]
                 }
             });

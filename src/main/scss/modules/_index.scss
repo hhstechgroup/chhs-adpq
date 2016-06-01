@@ -30,7 +30,7 @@
 /* Facilities entities */
 @import "aside-facilities";
 
-/* User Account */
+/* Facilities subheading */
 @import "facilities-subheading";
 
 /* Variety of buttons */
@@ -48,3 +48,8 @@
 /* User Account */
 @import "user-account";
 
+/* Miscellaneous items */
+@import "miscellaneous";
+
+/* Leaflet overrides */
+@import "map";

@@ -6,20 +6,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Portal for Parents of Foster Kids</title>
         <meta name="description" content="">
-        <meta name="google" value="notranslate">
+        <meta name="google" content="notranslate">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
-        <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' />
-        <link rel='stylesheet' href='bower_components/angular-object-diff/dist/angular-object-diff.css' />
-        <link rel='stylesheet' href='bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css' />
-        <link rel='stylesheet' href='bower_components/ui-select/dist/select.css' />
-        <link rel='stylesheet' href='bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css' />
-        <link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
-        <link rel='stylesheet' href='bower_components/leaflet/dist/leaflet.css' />
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+        <link rel="stylesheet" href="bower_components/angular-object-diff/dist/angular-object-diff.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+        <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
+        <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -28,6 +28,8 @@
         <!-- endbuild -->
         <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
         <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
+        <!-- leaflet geocoder-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.css">
 
     </head>
     <body ng-app="apqdApp">
@@ -36,7 +38,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="ch-layout">
+        <div class="ch-layout" ui-view="global">
             <div class="ch-layout__header" >
                <div class="ch-header">
                    <div class="ch-header__section ch-header__section_logo">
@@ -61,7 +63,7 @@
                                    </div>
                                    <div class="ch-user-account-entry__popup" ng-show="isAccountPopupVisible">
                                        <div class="ch-user-account-popup">
-                                            <div class="ch-user-account-popup__info">
+                                            <div class="ch-user-account-popup__info clearfix">
                                                 <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
                                                 <p class="ch-user-account-popup__user-name">
                                                     {{accountName}}
@@ -132,11 +134,7 @@
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
         <script src="bower_components/sockjs-client/dist/sockjs.js"></script>
         <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
-        <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
-        <script src="bower_components/lodash/lodash.js"></script>
-        <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
         <script src="bower_components/angular-object-diff/dist/angular-object-diff.js"></script>
-        <script src="bower_components/ngDraggable/ngDraggable.js"></script>
         <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
         <script src="bower_components/ui-select/dist/select.js"></script>
         <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
@@ -154,8 +152,10 @@
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+        <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
         <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
         <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
+        <script src="bower_components/lodash/lodash.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -261,11 +261,9 @@
     <script src="scripts/components/cws-search/elastic.search.index.service.js"></script>
     <script src="scripts/components/cws-search/elastic.search.string.query.builder.js"></script>
     <script src="scripts/components/cws-search/cws.search.service.js"></script>
-    <script src="scripts/components/google/maps.directive.js"></script>
     <script src="scripts/components/contact-address/contact-address.directive.js"></script>
     <script src="scripts/app/search/search.js"></script>
     <script src="scripts/app/search/search.controller.js"></script>
-    <script src="scripts/components/google/google.place.utility.js"></script>
     <script src="scripts/components/entities/attachment/attachment.service.js"></script>
     <script src="scripts/components/entities/attachment/attachment.search.service.js"></script>
     <script src="scripts/components/entities/calendarTask/calendarTask.service.js"></script>
@@ -372,10 +370,13 @@
     <script src="scripts/app/entities/draft/draft-detail.controller.js"></script>
     <script src="scripts/components/entities/draft/draft.service.js"></script>
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
+    <script src="scripts/components/geocoder/geocoder.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyDyU4z4A9_miwhAGsT5oeKRXdBRvOV5vEM&amp;signed_in=true&amp;libraries=places"></script>
+    <!-- Load geocoding plugin after Leaflet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.js"></script>
 
     <script type="text/ng-template" id="serverUnreachable.html">
         <div class="modal-body">
