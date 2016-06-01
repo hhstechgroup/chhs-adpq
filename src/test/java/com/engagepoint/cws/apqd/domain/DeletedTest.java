@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertObjectIdentity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -50,6 +50,6 @@ public class DeletedTest {
         Deleted deleted2 = createEntity();
         Deleted foundEntity = deletedRepository.findOne(deleted2.getId());
 
-        assertIdentity(deleted1, deleted2, foundEntity, null);
+        assertObjectIdentity(deleted1, deleted2, foundEntity, null);
     }
 }
