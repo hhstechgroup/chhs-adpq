@@ -141,3 +141,12 @@
 button[type="submit"]:disabled {
     opacity: 0.7;
 }
+
+.ch-sign-up-success {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.4rem;
+    color: #2e8540;
+    transition: display 0.3s ease-in-out 0.1s;
+    transition-delay: 0.2s;
+}
