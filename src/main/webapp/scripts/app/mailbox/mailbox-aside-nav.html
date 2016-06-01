@@ -56,20 +56,40 @@
         <div class="ch-contacts">
             <h2 class="ch-contacts__heading">Contacts</h2>
             <div class="ch-contacts__body">
-                <ul class="ch-contacts-list">
 
-                    <li ng-repeat="contact in contacts" class="ch-contacts-list__item">
-                        <div class="ch-contact">
-                            <a href="" class="ch-contact__link">
-                                <div class="ch-contact__name">{{contact.firstName}} {{contact.lastName}}</div>
-                                <!--<div class="ch-contact__role">Case Worker</div>-->
-                                <span class="icon icon-add-contact ch-contact__icon"></span>
-                            </a>
+                <ul class="ch-aside-contacts">
 
-                        </div>
-                    </li>
+                      <li ng-repeat="contact in contacts" class="ch-aside-contacts__item">
+                            <div class="ch-aside-contacts__short clearfix" ng-click="showFullDetails = !showFullDetails">
+                                <div class="ch-aside-contacts__image">
+                                    <span class="icon icon-user"></span>
+                                </div>
+                                <div class="ch-aside-contacts__person">
+                                    <h3 class="ch-aside-contacts__person-name"><span>{{contact.firstName}} {{contact.lastName}}</span></h3>
+                                    <h4 class="ch-aside-contacts__person-role"><span>Case Worker</span></h4>
+                                </div>
+                                <span class="ch-aside-contacts__short__arrow up" ng-show="showFullDetails"></span>
+                                <span class="ch-aside-contacts__short__arrow down" ng-show="!showFullDetails"></span>
+                            </div>
 
-                </ul>
+                            <div class="ch-aside-contacts__full" ng-show="showFullDetails">
+                                <div class="ch-aside-contacts__action-btn">
+                                    <button type="button" class="ch-contacts-btn">
+                                        <span class="ch-contacts-btn__icon"></span>
+                                        <span class="ch-contacts-btn__text">Compose</span>
+                                    </button>
+                                </div>
+                                <div class="ch-aside-contacts__description">
+                                    <h3 class="ch-contacts-description__phone"><span>(510) 268-2422</span></h3>
+                                    <h4 class="ch-contacts-description__address"><span>
+                                      401 Broadway, Oakland, CA 94604</span></h4>
+                                    <a href="" class="ch-contacts-description__filter"><span>Filter Mails By Contact</span></a>
+                                </div>
+                            </div>
+                      </li>
+
+                </ul>               
+
             </div>
         </div>
     </div>

@@ -5,10 +5,18 @@ angular.module('apqdApp')
                                           MailBoxService, AutoSaveService, DraftMessage,
                                           Contacts)
     {
-        $scope.isNewMail = _.isUndefined($stateParams.replyTo);
-
         if (!_.isNil(mail)) {
-            $scope.mail = mail;
+            $scope.mail = _.cloneDeep(mail);
+        }
+
+        $scope.isReplyOn = !_.isUndefined($stateParams.replyOn) || (!_.isNil(mail) && !_.isNil(mail.replyOn));
+        if ($scope.isReplyOn && !_.isUndefined($stateParams.replyOn)) {
+            $scope.mail = {
+                body: '',
+                subject: 'RE: ' + (!_.isNil($scope.mail.subject) ? $scope.mail.subject : ''),
+                to: mail.to,
+                replyOn: mail
+            }
         }
 
         Contacts.all({page: 0, size: 20}, function(result) {
@@ -22,6 +30,9 @@ angular.module('apqdApp')
         };
 
         $scope.saveWithoutValidation = function() {
+            if ($scope.isReplyOn && _.isEmpty($scope.mail.body.trim())) {
+                return;
+            }
 
             if (!_.isUndefined($scope.mail)) {
 

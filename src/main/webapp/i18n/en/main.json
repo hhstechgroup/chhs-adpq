@@ -1,6 +1,6 @@
 {
     "main": {
-        "title": "Welcome to CWS Intake Demo!",
+        "title": "Welcome to CWS APQD Demo!",
         "subtitle": "This is landing page",
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."

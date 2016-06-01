@@ -3,7 +3,7 @@
 angular.module('apqdApp')
     .controller('SettingsController',
     function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender,
-     Place) {
+     Place, GeocoderService) {
         $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
@@ -50,22 +50,18 @@ angular.module('apqdApp')
 
         $scope.lookupGender = lookupGender;
 
-        /**
-         * Store the "settings account" in a separate variable, and not in the shared "account" variable.
-         */
-        var copyAccount = function (account) {
-            return {
-                activated: account.activated,
-                email: account.email,
-                firstName: account.firstName,
-                birthDate: account.birthDate,
-                gender: account.gender,
-                phoneNumber: account.phoneNumber,
-                langKey: account.langKey,
-                lastName: account.lastName,
-                login: account.login,
-                ssnLast4Digits: account.ssnLast4Digits,
-                place: account.place
+        $scope.addGeocoder = function () {
+            if(!$scope.geocoder) {
+                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
             }
-        }
+        };
+
+        $scope.onSelectAddress = function (addressFeature) {
+                $scope.street = addressFeature.feature.properties.name;
+                $scope.city = addressFeature.feature.properties.locality;
+                $scope.state = addressFeature.feature.properties.region_a;
+                $scope.zip = addressFeature.feature.properties.postalcode;
+        };
+
+        $scope.addGeocoder();
     });

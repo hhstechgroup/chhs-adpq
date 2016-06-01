@@ -53,7 +53,7 @@
 
     <ul class="ch-page-content">
 
-        <li ng-repeat="mail in mails" class="ch-content-item ch-content-item_active" ui-sref="ch-inbox.view({mailId: mail.id})">
+        <li ng-repeat="mail in mails" class="ch-content-item ch-content-item_active">
 
             <div class="ch-content-item__checkbox">
                 <div class="form-type__checkbox_empty-label">
@@ -63,25 +63,26 @@
                 </div>
             </div>
 
-            <div class="ch-content-item__person">
-                <span class="person-name">{{mail.from.firstName}} {{mail.from.lastName}}</span>
-                <span ng-if="mail.threadUnreadMessages > 0"
-                      class="person-chain-count">({{mail.threadUnreadMessages}})</span>
-            </div>
+            <div ng-click="openMail(mail)">
+                <div class="ch-content-item__person">
+                    <span class="person-name">{{getTargetName(mail)}}</span>
+                    <span ng-if="mail.threadUnreadMessages > 0"
+                          class="person-chain-count">({{mail.threadUnreadMessages}})</span>
+                </div>
 
-            <div class="ch-content-item__entry">
-                <span class="entry-name">{{mail.subject}}</span>
-                <span class="entry-main"> - {{mail.body}}</span>
-            </div>
+                <div class="ch-content-item__entry">
+                    <span class="entry-name">{{mail.subject}}</span>
+                    <span class="entry-main"> - {{mail.body}}</span>
+                </div>
 
-            <div class="ch-content-item__date">
-                <span class="item_date">{{mail | formatMailDate}}</span>
-            </div>
+                <div class="ch-content-item__date">
+                    <span class="item_date">{{mail | formatMailDate}}</span>
+                </div>
 
-            <div ng-if="mail.attachments.length > 0" class="ch-content-item__attachments">
-                <span class="icon icon-attachment"></span>
+                <div ng-if="mail.attachments.length > 0" class="ch-content-item__attachments">
+                    <span class="icon icon-attachment"></span>
+                </div>
             </div>
-
         </li>
 
     </ul>
