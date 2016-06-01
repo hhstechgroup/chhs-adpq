@@ -63,8 +63,8 @@ public class MessageResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE_READ = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_READ = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_READ_STR = dateTimeFormatter.format(DEFAULT_DATE_READ);
-    
-    private static final MessageStatus DEFAULT_STATUS = MessageStatus.NEW;
+
+    private static final MessageStatus DEFAULT_STATUS = MessageStatus.UNREAD;
     private static final MessageStatus UPDATED_STATUS = MessageStatus.READ;
 
     private static final ZonedDateTime DEFAULT_DATE_UPDATED = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());

@@ -65,23 +65,4 @@ angular.module('apqdApp')
         };
 
         $scope.loadPage(0);
-    })
-    .filter('formatMailDate', ['DateUtils', function (DateUtils) {
-        return function (mail) {
-            var dateAsString;
-            var ONE_DAY = 24 * 60 * 60 * 1000;
-
-            if (!_.isNil(mail.dateUpdated)) {
-                dateAsString = mail.dateUpdated;
-            } else if (!_.isNil(mail.dateCreated)) {
-                dateAsString = mail.dateCreated;
-            }
-
-            var date = DateUtils.convertDateTimeFromServer(dateAsString);
-            if (new Date().getTime() - date.getTime() < ONE_DAY) {
-                return date.toLocaleString("en-US", {hour: 'numeric', minute: 'numeric'});
-            } else {
-                return date.toLocaleString("en-US", {day: 'numeric', month: 'short'});
-            }
-        }
-    }]);
+    });

@@ -1,6 +1,5 @@
 package com.engagepoint.cws.apqd.web.websocket;
 
-import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -38,7 +37,7 @@ public class MailBoxService {
     }
 
     public void notifyClientAboutUnreadInboxCount(User userTo) {
-        Long unreadInboxCount = messageRepository.countByInboxIsNotNullAndToAndStatus(userTo, MessageStatus.NEW);
+        Long unreadInboxCount = messageRepository.countByInboxIsNotNullAndToAndStatus(userTo, MessageStatus.UNREAD);
         messagingTemplate.convertAndSendToUser(userTo.getLogin(), TOPIC_MAIL_INBOX, unreadInboxCount);
     }
 
@@ -50,7 +49,7 @@ public class MailBoxService {
 
     public void notifyClientAboutDeletedCount() {
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-        Long draftsCount = messageRepository.countByDeletedIsNotNullAndToAndStatus(userFrom, MessageStatus.NEW);
+        Long draftsCount = messageRepository.countByDeletedIsNotNullAndToAndStatus(userFrom, MessageStatus.UNREAD);
         messagingTemplate.convertAndSendToUser(userFrom.getLogin(), TOPIC_MAIL_DELETED, draftsCount);
     }
 }

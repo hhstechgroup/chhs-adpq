@@ -2,7 +2,7 @@
 
 angular.module('apqdApp')
     .factory('ConfirmMessage', function ($resource) {
-        return $resource('api/emails/confirm', {}, {
+        return $resource('api/mails/confirm', {}, {
             'confirm': { method: 'POST' }
         });
     });

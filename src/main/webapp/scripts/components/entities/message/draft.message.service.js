@@ -2,7 +2,7 @@
 
 angular.module('apqdApp')
     .factory('DraftMessage', function ($resource, DateUtils) {
-        return $resource('api/emails/draft/:id', {}, {
+        return $resource('api/mails/draft/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

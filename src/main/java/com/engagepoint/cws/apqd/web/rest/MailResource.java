@@ -2,12 +2,14 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.engagepoint.cws.apqd.domain.Message;
+import com.engagepoint.cws.apqd.domain.MessageThread;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
+import com.engagepoint.cws.apqd.repository.search.MessageThreadSearchRepository;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
@@ -23,22 +25,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * REST controller for managing Message.
  */
 @RestController
 @RequestMapping("/api")
-public class EMailResource {
+public class MailResource {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EMailResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MailResource.class);
 
     @Inject
     private UserRepository userRepository;
@@ -55,7 +61,15 @@ public class EMailResource {
     @Inject
     private MessageSearchRepository messageSearchRepository;
 
-    @RequestMapping(value = "/emails/{directory}",
+    @Inject
+    private MessageThreadSearchRepository messageThreadSearchRepository;
+
+    @PostConstruct
+    public void init() {
+        messageThreadSearchRepository.save(new MessageThread());
+    }
+
+    @RequestMapping(value = "/mails/{directory}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -86,7 +100,16 @@ public class EMailResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/emails/draft",
+    @RequestMapping(value = "/mails/thread/{messageId}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public ResponseEntity<MessageThread> messageThreadSearchRepository(@PathVariable Long messageId) {
+        return new ResponseEntity<>(findOrCreateMessageThreadByMessageId(messageId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/mails/draft",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -95,7 +118,7 @@ public class EMailResource {
         if (message.getId() == null) {
             return createMessage(message);
         }
-        Message result = messageRepository.save(enrichMessage(message));
+        Message result = messageRepository.save(enrichDraftMessage(message));
         mailBoxService.notifyClientAboutDraftsCount();
         messageSearchRepository.save(result);
         return ResponseEntity.ok()
@@ -103,7 +126,7 @@ public class EMailResource {
             .body(result);
     }
 
-    @RequestMapping(value = "/emails/draft",
+    @RequestMapping(value = "/mails/draft",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -111,18 +134,11 @@ public class EMailResource {
     public ResponseEntity<Void> sendMessage(@Valid @RequestBody Message message) throws URISyntaxException {
         User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-        updateContacts(userFrom, userTo);
 
-        message.setTo(userTo);
-        message.setFrom(userFrom);
-        message.setStatus(MessageStatus.NEW);
-        message.setDateUpdated(ZonedDateTime.now());
-        message.setDraft(null);
-        message.setInbox(userTo.getMailBox().getInbox());
-        message.setOutbox(userFrom.getMailBox().getOutbox());
-
-        Message result = messageRepository.save(message);
-        messageSearchRepository.save(result);
+        updateUserContacts(userFrom, userTo);
+        moveMessageFromDraftToInbox(message, userTo, userFrom);
+        updateUnreadCount(message);
+        updateMessageThread(message);
 
         mailBoxService.notifyClientAboutDraftsCount();
         mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
@@ -130,20 +146,15 @@ public class EMailResource {
         return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/emails/confirm",
+    @RequestMapping(value = "/mails/confirm",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
     public ResponseEntity<Void> confirmReading(@RequestBody Message message) throws URISyntaxException {
-
-        Message saved = messageRepository.findOne(message.getId());
-        saved.setStatus(MessageStatus.READ);
-        saved.setDateRead(ZonedDateTime.now());
-        messageRepository.saveAndFlush(saved);
-
+        setReadStatusToAllMessagesInThread(message);
         mailBoxService.notifyClientAboutDraftsCount();
-        mailBoxService.notifyClientAboutUnreadInboxCount(saved.getTo());
+        mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
 
         return ResponseEntity.ok().build();
     }
@@ -154,7 +165,7 @@ public class EMailResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("message", "idexists",
                 "A new message cannot already have an ID")).body(null);
         }
-        Message result = messageRepository.save(enrichMessage(message));
+        Message result = messageRepository.save(enrichDraftMessage(message));
         mailBoxService.notifyClientAboutDraftsCount();
         messageSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/messages/draft" + result.getId()))
@@ -162,7 +173,7 @@ public class EMailResource {
             .body(result);
     }
 
-    private Message enrichMessage(Message message) {
+    private Message enrichDraftMessage(Message message) {
         if (message.getTo() != null && message.getTo().getLogin() != null) {
             Optional<User> userTo = userRepository.findOneByLogin(message.getTo().getLogin());
             if (userTo.isPresent()) {
@@ -174,14 +185,14 @@ public class EMailResource {
 
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         message.setFrom(userFrom);
-        message.setStatus(MessageStatus.NEW);
+        message.setStatus(MessageStatus.DRAFT);
         message.setDateCreated(ZonedDateTime.now());
         message.setDraft(userFrom.getMailBox().getDraft());
 
         return message;
     }
 
-    private void updateContacts(User userFrom, User userTo) {
+    private void updateUserContacts(User userFrom, User userTo) {
         for (User user : userFrom.getMailBox().getContacts()) {
             if (user.equals(userTo)) {
                 return;
@@ -190,5 +201,85 @@ public class EMailResource {
 
         userFrom.getMailBox().getContacts().add(userTo);
         mailBoxRepository.save(userFrom.getMailBox());
+    }
+
+    private void moveMessageFromDraftToInbox(Message message, User userTo, User userFrom) {
+        message.setTo(userTo);
+        message.setFrom(userFrom);
+        message.setStatus(MessageStatus.UNREAD);
+        message.setDateUpdated(ZonedDateTime.now());
+        message.setDraft(null);
+        message.setInbox(userTo.getMailBox().getInbox());
+        message.setOutbox(userFrom.getMailBox().getOutbox());
+        messageRepository.save(message);
+    }
+
+    private void updateUnreadCount(Message message) {
+        Long rootId = message.getReplyOn() != null ? message.getReplyOn().getId() : message.getId();
+
+        MessageThread thread = findOrCreateMessageThreadByMessageId(rootId);
+        Message root = thread.getThread().get(0);
+
+        int unread = root.getUnreadMessagesCount() + 1;
+        ZonedDateTime updated = ZonedDateTime.now();
+
+        root.setDateUpdated(updated);
+        root.setUnreadMessagesCount(unread);
+        messageThreadSearchRepository.save(thread);
+
+        root = messageRepository.findOne(root.getId());
+        root.setUnreadMessagesCount(unread);
+        root.setDateUpdated(updated);
+        messageRepository.save(root);
+    }
+
+    private void setReadStatusToAllMessagesInThread(Message message) {
+        MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
+        thread.getThread().get(0).setUnreadMessagesCount(0);
+
+        for (Message msg : thread.getThread()) {
+            if (msg.getStatus() == MessageStatus.UNREAD) {
+                msg.setStatus(MessageStatus.READ);
+                msg.setDateRead(ZonedDateTime.now());
+
+                Message saved = messageRepository.findOne(msg.getId());
+                saved.setStatus(MessageStatus.READ);
+                saved.setDateRead(msg.getDateRead());
+                messageRepository.save(saved);
+            }
+        }
+
+        messageThreadSearchRepository.save(thread);
+    }
+
+    private void updateMessageThread(Message message) {
+        MessageThread thread;
+
+        if (message.getReplyOn() != null) {
+            thread = findOrCreateMessageThreadByMessageId(message.getReplyOn().getId());
+        } else {
+            thread = findOrCreateMessageThreadByMessageId(message.getId());
+        }
+
+        thread.addMessage(message);
+        messageThreadSearchRepository.save(thread);
+    }
+
+    private MessageThread findOrCreateMessageThreadByMessageId(Long messageId) {
+        MessageThread thread;
+
+        String query = "+thread.id:" + messageId;
+        Iterator<MessageThread> iterator = messageThreadSearchRepository.search(
+            queryStringQuery(query)).iterator();
+
+        if (iterator.hasNext()) {
+            thread = iterator.next();
+        } else {
+            thread = new MessageThread();
+            thread.addMessage(messageRepository.findOne(messageId));
+            messageThreadSearchRepository.save(thread);
+        }
+
+        return thread;
     }
 }

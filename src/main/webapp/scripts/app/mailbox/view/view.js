@@ -16,8 +16,8 @@ angular.module('apqdApp')
                     }
                 },
                 resolve: {
-                    mail: ['Message', '$stateParams', function(Message, $stateParams) {
-                        return Message.get({id: $stateParams.mailId}).$promise;
+                    messageThread: ['MessageThread', '$stateParams', function(MessageThread, $stateParams) {
+                        return MessageThread.get({id: $stateParams.mailId}).$promise;
                     }]
                 }
             });

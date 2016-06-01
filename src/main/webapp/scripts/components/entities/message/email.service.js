@@ -2,7 +2,7 @@
 
 angular.module('apqdApp')
     .factory('EMailMessage', function ($resource) {
-        return $resource('api/emails/:dir', {}, {
+        return $resource('api/mails/:dir', {}, {
             'get': { method: 'GET', isArray: true}
         });
     });
