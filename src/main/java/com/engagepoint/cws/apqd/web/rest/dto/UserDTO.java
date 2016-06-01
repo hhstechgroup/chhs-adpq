@@ -61,7 +61,7 @@ public class UserDTO {
     private Place place;
 
     public UserDTO() {
-        // tbd
+        // nothing to do
     }
 
     public UserDTO(User user) {
