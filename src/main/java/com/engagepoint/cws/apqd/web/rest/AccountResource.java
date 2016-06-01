@@ -138,7 +138,7 @@ public class AccountResource {
             .map(u -> {
                 userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
                     userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(),
-                    userDTO.getGender(), userDTO.getPhoneNumber(), userDTO.getPlace());
+                    userDTO.getGender(), userDTO.getPhoneNumber(), userDTO.getPlace(), userDTO.getCaseNumber());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
