@@ -33,8 +33,9 @@
 
 .ch-layout__aside.ch-layout__aside_facilities {
     width: 30rem;
-    border: none;
-    overflow-y: scroll;
+    height: auto;
+    border-right: .1rem solid #cbcdcf;
+    z-index: 1;
 }
 
 .ch-layout__content.ch-layout__content_facilities {
