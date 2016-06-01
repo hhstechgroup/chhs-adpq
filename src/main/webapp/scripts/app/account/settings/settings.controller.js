@@ -17,11 +17,9 @@ angular.module('apqdApp')
             return angular.extend({}, account);
         };
 
-        $scope.locateGender = function() {
-            $scope.settingsAccount.gender = _.find(lookupGender,
-                function(gender) {
-                  return _.isNil($scope.settingsAccount.gender) ? false : gender.id == $scope.settingsAccount.gender.id;
-            });
+        $scope.locateGender = function () {
+            $scope.settingsAccount.gender = _.isNil($scope.settingsAccount.gender) ? null
+                : _.find(lookupGender, {id: $scope.settingsAccount.gender.id});
         };
 
         Principal.identity().then(function(account) {
