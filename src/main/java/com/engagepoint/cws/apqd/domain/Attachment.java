@@ -7,8 +7,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -26,23 +24,23 @@ public class Attachment implements Serializable {
 
     @Column(name = "file_name")
     private String fileName;
-    
+
     @Column(name = "file_mime_type")
     private String fileMimeType;
-    
+
     @Column(name = "file_size")
     private Integer fileSize;
-    
+
     @Column(name = "file_description")
     private String fileDescription;
-    
+
     @Column(name = "creation_date")
     private ZonedDateTime creationDate;
-    
+
     @Lob
     @Column(name = "file")
     private byte[] file;
-    
+
     @Column(name = "file_content_type")
     private String fileContentType;
 
@@ -61,7 +59,7 @@ public class Attachment implements Serializable {
     public String getFileName() {
         return fileName;
     }
-    
+
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
@@ -69,7 +67,7 @@ public class Attachment implements Serializable {
     public String getFileMimeType() {
         return fileMimeType;
     }
-    
+
     public void setFileMimeType(String fileMimeType) {
         this.fileMimeType = fileMimeType;
     }
@@ -77,7 +75,7 @@ public class Attachment implements Serializable {
     public Integer getFileSize() {
         return fileSize;
     }
-    
+
     public void setFileSize(Integer fileSize) {
         this.fileSize = fileSize;
     }
@@ -85,7 +83,7 @@ public class Attachment implements Serializable {
     public String getFileDescription() {
         return fileDescription;
     }
-    
+
     public void setFileDescription(String fileDescription) {
         this.fileDescription = fileDescription;
     }
@@ -93,7 +91,7 @@ public class Attachment implements Serializable {
     public ZonedDateTime getCreationDate() {
         return creationDate;
     }
-    
+
     public void setCreationDate(ZonedDateTime creationDate) {
         this.creationDate = creationDate;
     }
@@ -101,7 +99,7 @@ public class Attachment implements Serializable {
     public byte[] getFile() {
         return file;
     }
-    
+
     public void setFile(byte[] file) {
         this.file = file;
     }
