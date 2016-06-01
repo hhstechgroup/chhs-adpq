@@ -5,6 +5,12 @@ angular.module('apqdApp')
 
         var stompClient = null;
 
+        var receiveUnreadCounts = function() {
+            if (stompClient != null && stompClient.connected) {
+                stompClient.send('/topic/mail/inbox', {}, JSON.stringify({}));
+            }
+        };
+
         var connect = function () {
             var loc = window.location;
             var url = '//' + loc.host + loc.pathname + 'websocket/mailbox';
@@ -35,12 +41,6 @@ angular.module('apqdApp')
         };
 
         connect();
-
-        var receiveUnreadCounts = function() {
-            if (stompClient != null && stompClient.connected) {
-                stompClient.send('/topic/mail/inbox', {}, JSON.stringify({}));
-            }
-        };
 
         return {
             receiveUnreadCounts: receiveUnreadCounts

@@ -5,6 +5,7 @@ import com.engagepoint.cws.apqd.domain.User;
 public class ContactDTO {
 
     public ContactDTO() {
+        // default
     }
 
     public ContactDTO(User user) {

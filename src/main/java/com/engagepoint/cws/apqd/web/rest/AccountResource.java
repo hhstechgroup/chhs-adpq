@@ -192,11 +192,10 @@ public class AccountResource {
     @Timed
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
-        userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u ->
             persistentTokenRepository.findByUser(u).stream()
                 .filter(persistentToken -> StringUtils.equals(persistentToken.getSeries(), decodedSeries))
-                .findAny().ifPresent(t -> persistentTokenRepository.delete(decodedSeries));
-        });
+                .findAny().ifPresent(t -> persistentTokenRepository.delete(decodedSeries)));
     }
 
     @RequestMapping(value = "/account/reset_password/init",
@@ -230,8 +229,8 @@ public class AccountResource {
     }
 
     private boolean checkPasswordLength(String password) {
-        return (!StringUtils.isEmpty(password) &&
+        return !StringUtils.isEmpty(password) &&
             password.length() >= UserDTO.PASSWORD_MIN_LENGTH &&
-            password.length() <= UserDTO.PASSWORD_MAX_LENGTH);
+            password.length() <= UserDTO.PASSWORD_MAX_LENGTH;
     }
 }

@@ -1,0 +1,22 @@
+.ch-multi-select-dropdown {
+    position: relative;
+}
+
+.ch-multi-select-dropdown__popup {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9000;
+    padding: 1.5rem 1.4rem;
+    border: .1rem solid #cbcdcf;
+    background: #fff;
+}
+
+.ch-checkboxes-list__item {
+    margin-bottom: 1.4rem;
+}
+
+.ch-checkboxes-list__item:last-child {
+    margin: 0;
+}
