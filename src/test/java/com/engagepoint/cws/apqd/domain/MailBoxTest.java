@@ -2,6 +2,7 @@ package com.engagepoint.cws.apqd.domain;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.repository.DeletedRepository;
+import com.engagepoint.cws.apqd.repository.DraftRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertObjectIdentity;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,8 +37,11 @@ public class MailBoxTest {
     @Inject
     private DeletedRepository deletedRepository;
 
+    @Inject
+    private DraftRepository draftRepository;
+
     private MailBox createEntity() {
-        return prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository);
+        return prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository, draftRepository);
     }
 
     @Test
@@ -49,6 +53,8 @@ public class MailBoxTest {
         assertThat(testMailBox).isNotNull();
         assertThat(testMailBox.getInbox()).isNotNull();
         assertThat(testMailBox.getOutbox()).isNotNull();
+        assertThat(testMailBox.getDeleted()).isNotNull();
+        assertThat(testMailBox.getDraft()).isNotNull();
     }
 
     @Test
@@ -58,6 +64,6 @@ public class MailBoxTest {
         MailBox mailBox2 = createEntity();
         MailBox foundEntity = mailBoxRepository.findOne(mailBox2.getId());
 
-        assertIdentity(mailBox1, mailBox2, foundEntity, null);
+        assertObjectIdentity(mailBox1, mailBox2, foundEntity, null);
     }
 }

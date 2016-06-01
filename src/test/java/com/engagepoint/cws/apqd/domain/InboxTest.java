@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertObjectIdentity;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setMessage;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,6 +66,6 @@ public class InboxTest {
         Inbox inbox2 = createEntity("message subject 2", "message body 2");
         Inbox foundEntity = inboxRepository.findOne(inbox2.getId());
 
-        assertIdentity(inbox1, inbox2, foundEntity, null);
+        assertObjectIdentity(inbox1, inbox2, foundEntity, null);
     }
 }

@@ -64,16 +64,16 @@ public class EMailResource {
         throws URISyntaxException {
 
         Page<Message> page = null;
-        User userTo = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         if (directory == EMailDirectory.INBOX) {
-            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
+            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
         } else if (directory == EMailDirectory.SENT) {
-            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(userTo, pageable);
+            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(user, pageable);
         } else if (directory == EMailDirectory.DRAFTS) {
-            page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(userTo, pageable);
+            page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(user, pageable);
         } else if (directory == EMailDirectory.DELETED) {
-            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(userTo, pageable);
+            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
         }
 
         if (page == null) {
@@ -95,7 +95,7 @@ public class EMailResource {
         if (message.getId() == null) {
             return createMessage(message);
         }
-        Message result = messageRepository.save(enhanceMessage(message));
+        Message result = messageRepository.save(enrichMessage(message));
         mailBoxService.notifyClientAboutDraftsCount();
         messageSearchRepository.save(result);
         return ResponseEntity.ok()
@@ -154,7 +154,7 @@ public class EMailResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("message", "idexists",
                 "A new message cannot already have an ID")).body(null);
         }
-        Message result = messageRepository.save(enhanceMessage(message));
+        Message result = messageRepository.save(enrichMessage(message));
         mailBoxService.notifyClientAboutDraftsCount();
         messageSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/messages/draft" + result.getId()))
@@ -162,7 +162,7 @@ public class EMailResource {
             .body(result);
     }
 
-    private Message enhanceMessage(Message message) {
+    private Message enrichMessage(Message message) {
         if (message.getTo() != null && message.getTo().getLogin() != null) {
             Optional<User> userTo = userRepository.findOneByLogin(message.getTo().getLogin());
             if (userTo.isPresent()) {
