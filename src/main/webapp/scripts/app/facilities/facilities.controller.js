@@ -6,6 +6,7 @@ angular.module('apqdApp')
     function ($scope, $state, $log, $q, leafletData, FacilityStatus, FacilityType, FosterFamilyAgenciesService, GeocoderService) {
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+            zoomControlPosition: 'bottomright',
             maxZoom: 18
         };
         $scope.viewConfig = {presentation: 'list'};
