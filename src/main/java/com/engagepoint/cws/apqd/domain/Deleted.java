@@ -18,7 +18,6 @@ import java.util.Objects;
 @Table(name = "deleted")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "deleted")
-@SuppressWarnings("squid:common-java:DuplicatedBlocks")
 public class Deleted implements Serializable {
 
     @Id

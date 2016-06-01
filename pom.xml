@@ -69,25 +69,6 @@
         <sonar.sources>${project.basedir}/src/main/</sonar.sources>
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
-        <!--
-        http://mdc-lad-jenkins.engagepoint.us:9000/overview?id=com.engagepoint.chhs-apqd%3Achhs-apqd
-            v. 5.5
-
-        http://mdc-apdq-inf-a1.engagepoint.us:9999/dashboard/index/com.engagepoint.chhs-apqd:chhs-apqd
-            v. 4.5.6
-sonar.jdbc.url=jdbc:postgresql://POSTGRESQL/sonar
-MDC-APDQ-INF-A1.engagepoint.us:15432
-l/p: sonar/sonar
-
-jdbc:postgresql://MDC-APDQ-INF-A1.engagepoint.us:15432/sonar
-
-        -->
-        <sonar.host.url>http://mdc-lad-jenkins.engagepoint.us:9000</sonar.host.url>
-<!--
-        <sonar.host.url>http://mdc-apdq-inf-a1.engagepoint.us:9999</sonar.host.url>
-        <sonar.jdbc.url>jdbc:postgresql://MDC-APDQ-INF-A1.engagepoint.us:15432/sonar</sonar.jdbc.url>
-        -->
-
         <spring-security.version>4.0.2.RELEASE</spring-security.version>
         <springfox.version>2.0.3</springfox.version>
     </properties>

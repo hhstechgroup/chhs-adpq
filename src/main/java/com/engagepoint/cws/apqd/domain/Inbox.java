@@ -18,7 +18,6 @@ import java.util.Objects;
 @Table(name = "inbox")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "inbox")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Inbox implements Serializable {
 
     @Id
