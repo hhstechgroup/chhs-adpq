@@ -12,8 +12,10 @@ angular.module('apqdApp')
 
         Principal.identity().then(function(account) {
             $scope.account = account;
-            $scope.accountName = ((_.isNil(account.firstName) ? '' : account.firstName)
-                            + (_.isNil(account.lastName) ? '' : ' ' + account.lastName)).trim();
+            if (!_.isNil(account)) {
+                 $scope.accountName = ((_.isNil(account.firstName) ? '' : account.firstName)
+                    + (_.isNil(account.lastName) ? '' : ' ' + account.lastName)).trim();
+            }
         });
 
     });

@@ -7,9 +7,9 @@
               <a href=""><span class="logo-image"></span></a>
             </div>
 
-            <div class="alert alert-success" ng-show="success" translate="register.messages.success">
+            <!-- <div class="alert alert-success" ng-show="success" translate="register.messages.success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
+            </div> -->
 
             <div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
                 <strong>Registration failed!</strong> Please try again later.
@@ -28,7 +28,11 @@
             </div>
 
         <div class="ch-sign-up__form">
-            <h3 class="ch-sign-up__form__title">Sign Up</h3>
+            <h3 class="ch-sign-up__form__title" ng-show="!success">Sign Up</h3>
+
+            <div class="ch-sign-up-success" ng-show="success" translate="register.messages.success">
+                <strong>Registration saved!</strong> Please check your email for confirmation.
+            </div>
 
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 
@@ -163,7 +167,7 @@
             </div> -->
         </div>
 
-        <div class="ch-sign-up__new-account">
+        <div class="ch-sign-up__new-account" ng-show="!success">
            <a class="" href="#">I have an account</a>
         </div>
 

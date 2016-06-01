@@ -11,5 +11,13 @@ angular.module('apqdApp')
         startingDay: 1,
         showWeeks: false
     })
-
-;
+    .constant('FacilityType', {
+        ADOPTION_AGENCY: 'ADOPTION AGENCY',
+        FOSTER_FAMILY_AGENCY: 'FOSTER FAMILY AGENCY',
+        FOSTER_FAMILY_AGENCY_SUB: 'FOSTER FAMILY AGENCY SUB'
+    })
+    .constant('FacilityStatus', {
+        LICENSED: 'LICENSED',
+        CLOSED: 'CLOSED',
+        PENDING: 'PENDING'
+    });

@@ -14,7 +14,7 @@
                 <div class="ch-input-block">
                     <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
                         <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
-                        <input type="search" name="search-address" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put agency data here" />
+                        <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put agency data here" />
                     </div>
                 </div>
             </div>

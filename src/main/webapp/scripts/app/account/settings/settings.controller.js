@@ -3,7 +3,7 @@
 angular.module('apqdApp')
     .controller('SettingsController',
     function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender,
-     Place) {
+     Place, GeocoderService) {
         $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
@@ -49,4 +49,19 @@ angular.module('apqdApp')
         };
 
         $scope.lookupGender = lookupGender;
+
+        $scope.addGeocoder = function () {
+            if(!$scope.geocoder) {
+                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
+            }
+        };
+
+        $scope.onSelectAddress = function (addressFeature) {
+                $scope.street = addressFeature.feature.properties.name;
+                $scope.city = addressFeature.feature.properties.locality;
+                $scope.state = addressFeature.feature.properties.region_a;
+                $scope.zip = addressFeature.feature.properties.postalcode;
+        };
+
+        $scope.addGeocoder();
     });
