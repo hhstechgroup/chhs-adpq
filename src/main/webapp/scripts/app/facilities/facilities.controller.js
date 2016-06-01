@@ -159,7 +159,8 @@ angular.module('apqdApp')
         $scope.onSelectAddress = function (addressFeature) {
             $log.debug(addressFeature);
             var latLng = addressFeature.latlng;
-            $scope.center = {lat: latLng.lat, lng: latLng.lng};
+            $scope.center.lat = latLng.lat;
+            $scope.center.lng = latLng.lng;
             $scope.currentLocation = $scope.getHomeLocation($scope.center, addressFeature.feature.properties.label);
             $scope.findAgenciesWithinBox();
         };

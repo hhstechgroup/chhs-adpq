@@ -28,7 +28,7 @@
                         <ul class="ch-checkboxes-list">
                             <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.code">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="{{type.code}}" type="checkbox" ng-click="type.selected = !type.selected">
+                                    <input id="{{type.code}}" type="checkbox" ng-click="type.selected = !type.selected; findAgenciesWithinBox();">
                                     <label for="{{type.code}}">{{type.name | capitalize:true}}</label>
                                 </div>
                             </li>
@@ -46,7 +46,7 @@
                         <ul class="ch-checkboxes-list">
                             <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.code">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="{{status.code}}" type="checkbox" ng-click="status.selected = !status.selected">
+                                    <input id="{{status.code}}" type="checkbox" ng-click="status.selected = !status.selected; findAgenciesWithinBox();">
                                     <label for="{{status.code}}">{{status.name | capitalize:true}}</label>
                                 </div>
                             </li>
