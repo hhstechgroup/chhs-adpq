@@ -69,7 +69,7 @@ public class AccountResource {
                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                     userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
                     userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(), userDTO.getGender(),
-                    userDTO.getPhoneNumber());
+                    userDTO.getPhoneNumber(), userDTO.getCaseNumber());
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
