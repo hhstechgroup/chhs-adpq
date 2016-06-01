@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('FacilitiesController', ['$scope', '$state', '$log', '$q', 'leafletData', 'FosterFamilyAgenciesService', 'GeocoderService', function ($scope, $state, $log, $q, leafletData, FosterFamilyAgenciesService, GeocoderService) {
+    .controller('FacilitiesController',
+    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityStatus', 'FacilityType', 'FosterFamilyAgenciesService', 'GeocoderService',
+    function ($scope, $state, $log, $q, leafletData, FacilityStatus, FacilityType, FosterFamilyAgenciesService, GeocoderService) {
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18
@@ -17,16 +19,7 @@ angular.module('apqdApp')
 
         $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {
-                $scope.currentLocation = {
-                    lat: $scope.center.lat,
-                    lng: $scope.center.lng,
-                    //focus: true,
-                    message: 'You are here',
-                    icon: {
-                        iconUrl: 'assets/images/icon_pin_home.png',
-                        iconAnchor: [46, 46]
-                    }
-                };
+                $scope.currentLocation = $scope.getHomeLocation($scope.center);
                 $scope.findAgenciesWithinBox();
 
                 $scope.$watch('center.autoDiscover');
@@ -149,7 +142,7 @@ angular.module('apqdApp')
         };
 
         $scope.defineIcon = function(agency) {
-            if (agency.facility_type === 'ADOPTION AGENCY' && agency.facility_status === 'LICENSED') {
+            if (agency.facility_type === FacilityType.ADOPTION_AGENCY && agency.facility_status === FacilityStatus.LICENSED) {
                 return 'assets/images/icon_pin_adoption_green.png';
             }
         };
@@ -198,18 +191,34 @@ angular.module('apqdApp')
 
                 /*
                  FosterFamilyAgenciesService.findAgenciesByTextQuery($scope.searchText).then(
-                     function(agencies) {
-                         $scope.agencies = agencies;
-                         $scope.updateLocations();
-                     },
-                     function(reason) {
-                         $log.error('Failed to get agencies from findAgenciesByTextQuery', reason);
-                     }
+                 function(agencies) {
+                 $scope.agencies = agencies;
+                 $scope.updateLocations();
+                 },
+                 function(reason) {
+                 $log.error('Failed to get agencies from findAgenciesByTextQuery', reason);
+                 }
                  );
                  */
             }, function(reason) {
                 $log.error("Cannot get map instance. ", reason)
             });
+        };
+
+        $scope.getHomeLocation = function (latLng, message) {
+            if (!message) {
+                message = 'You are here';
+            }
+            return {
+                lat: latLng.lat,
+                lng: latLng.lng,
+                //focus: true,
+                message: message,
+                icon: {
+                    iconUrl: 'assets/images/icon_pin_home.png',
+                    iconAnchor: [46, 46]
+                }
+            }
         };
 
         $scope.$on("leafletDirectiveMap.viewreset", function(event) {
@@ -235,7 +244,9 @@ angular.module('apqdApp')
         };
 
         $scope.onSelectAddress = function (addressFeature) {
-            //TODO
+            $log.debug(addressFeature);
+            $scope.currentLocation = $scope.getHomeLocation(addressFeature.latlng, addressFeature.feature.properties.label);
+            $scope.findAgenciesWithinBox();
         };
 
         $scope.addGeocoder();

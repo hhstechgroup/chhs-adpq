@@ -1,5 +1,5 @@
 angular.module('apqdApp')
-    .factory('GeocoderService', function (leafletData) {
+    .factory('GeocoderService', ['leafletData', function (leafletData) {
         return {
 
             createGeocoder: function (containerId, onSelect) {
@@ -19,4 +19,4 @@ angular.module('apqdApp')
             }
 
         }
-    });
+    }]);
