@@ -17,7 +17,7 @@ angular.module('apqdApp')
                     },
                     'aside@ch-facilities': {
                         templateUrl: 'scripts/app/facilities/facilities-agencies.html',
-                        controller: 'FacilitiesController'
+                        controller: 'FacilitiesAgenciesController'
                     }
                 }
             });

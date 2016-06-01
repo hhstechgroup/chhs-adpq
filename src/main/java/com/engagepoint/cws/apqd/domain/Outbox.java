@@ -18,6 +18,7 @@ import java.util.Objects;
 @Table(name = "outbox")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "outbox")
+@SuppressWarnings("squid:DuplicatedBlocks")
 public class Outbox implements Serializable {
 
     @Id

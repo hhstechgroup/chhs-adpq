@@ -193,7 +193,7 @@ public class UserService {
     }
 
     public void updateUserInformation(String firstName, String lastName, String email, String langKey,
-        String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, Place place) {
+        String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, Place place, String caseNumber) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
@@ -204,6 +204,7 @@ public class UserService {
             u.setPhoneNumber(phoneNumber);
             u.setGender(gender);
             u.setPlace(place);
+            u.setCaseNumber(caseNumber);
             userRepository.save(u);
             userSearchRepository.save(u);
             LOGGER.debug("Changed Information for User: {}", u);
