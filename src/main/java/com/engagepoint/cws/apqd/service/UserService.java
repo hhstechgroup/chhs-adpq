@@ -1,10 +1,16 @@
 package com.engagepoint.cws.apqd.service;
 
 import com.engagepoint.cws.apqd.domain.Authority;
+import com.engagepoint.cws.apqd.domain.Deleted;
+import com.engagepoint.cws.apqd.domain.Draft;
+import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.LookupGender;
+import com.engagepoint.cws.apqd.domain.MailBox;
+import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.Place;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
+import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.UserSearchRepository;
@@ -12,8 +18,6 @@ import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
-import java.time.ZonedDateTime;
-import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,7 +26,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class for managing users.
@@ -47,6 +56,9 @@ public class UserService {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
+    @Inject
+    private MailBoxRepository mailBoxRepository;
 
     public Optional<User> activateRegistration(String key) {
         LOGGER.debug("Activating user for activation key {}", key);
@@ -95,6 +107,9 @@ public class UserService {
         String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, String caseNumber) {
 
         User newUser = new User();
+        MailBox mailBox = prepareMailbox();
+        mailBox.setUser(newUser);
+        newUser.setMailBox(mailBox);
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.PARENT);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
@@ -120,6 +135,28 @@ public class UserService {
         userSearchRepository.save(newUser);
         LOGGER.debug("Created Information for User: {}", newUser);
         return newUser;
+    }
+
+    private MailBox prepareMailbox() {
+        MailBox mailBox = new MailBox();
+
+        Inbox inbox = new Inbox();
+        inbox.setMailBox(mailBox);
+        mailBox.setInbox(inbox);
+
+        Outbox outbox = new Outbox();
+        outbox.setMailBox(mailBox);
+        mailBox.setOutbox(outbox);
+
+        Draft draft = new Draft();
+        draft.setMailBox(mailBox);
+        mailBox.setDraft(draft);
+
+        Deleted deleted = new Deleted();
+        deleted.setMailBox(mailBox);
+        mailBox.setDeleted(deleted);
+
+        return mailBoxRepository.save(mailBox);
     }
 
     public User createUser(ManagedUserDTO managedUserDTO) {

@@ -24,16 +24,16 @@ public class MailBox implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Inbox inbox;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Outbox outbox;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Deleted deleted;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Draft draft;
 
     @OneToOne
