@@ -82,7 +82,7 @@
                         <div class="ch-input-block">
                             <label for="license" class="ch-input-block__label">License/Case number</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name=license" id="license" class="ch-form-input ch-form-input_disable" ng-model="settingsAccount.caseNumber" disabled />
+                                <input type="text" name=license" id="license" class="ch-form-input" ng-model="settingsAccount.caseNumber" />
                             </div>
                         </div>
                     </div>
@@ -110,16 +110,10 @@
                         <div class="ch-input-block">
                             <label class="ch-input-block__label">Gender</label>
                             <ul class="ch-input-block__form-input">
-                                <li class="ch-input-block__form-input-li">
-                                    <label for="gender-male" class="ch-input-block__label">
-                                        <input type="radio" name=gender" id="gender-male" class="ch-form-input" />
-                                        <span class="ch-input-block__label-radio">Male</span>
-                                    </label>
-                                </li>
-                                <li class="ch-input-block__form-input-li">
-                                    <label for="gender-female" class="ch-input-block__label">
-                                        <input type="radio" name=gender" id="gender-female" class="ch-form-input" />
-                                        <span class="ch-input-block__label-radio">Female</span>
+                                <li class="ch-input-block__form-input-li" ng-repeat="gender in lookupGender track by gender.id">
+                                    <label for="gender{{gender.id}}" class="ch-input-block__label">
+                                        <input id="gender{{gender.id}}" ng-value="gender" ng-model="settingsAccount.gender" type="radio" name=gender" class="ch-form-input" />
+                                        <span class="ch-input-block__label-radio">{{gender.genderName}}</span>
                                     </label>
                                 </li>
                             </ul>
@@ -151,7 +145,7 @@
                         <div class="ch-input-block">
                             <label for="street" class="ch-input-block__label">Street Address</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name="street" id="street" class="ch-form-input" ng-model="street" />
+                                <input type="text" name="street" id="street" class="ch-form-input" ng-model="settingsAccount.place.streetName" />
                             </div>
                         </div>
                     </div>
@@ -161,7 +155,7 @@
                         <div class="ch-input-block">
                             <label for="city" class="ch-input-block__label">City</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name="city" id="city" class="ch-form-input" ng-model="city"/>
+                                <input type="text" name="city" id="city" class="ch-form-input" ng-model="settingsAccount.place.cityName"/>
                             </div>
                         </div>
                     </div>
@@ -170,20 +164,19 @@
                             <label for="state" class="ch-input-block__label">State</label>
                             <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_right">
                                 <span class="ch-form-input-icon ch-form-input-icon_right ch-form-input-icon_arrow-down"></span>
-                                <select type="text" name="state" id="state" class="ch-form-input" ng-model="state">
-                                    <option value="MD">MD</option>
-                                    <option value="MO">MO</option>
+                                <select type="text" name="state" id="state" class="ch-form-input" ng-model="settingsAccount.place.state" ng-options="state.stateName for state in states track by state.id">
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="ch-flex-row">
                     <div class="ch-flex-row__input-block">
                         <div class="ch-input-block">
                             <label for="zip" class="ch-input-block__label">Zip</label>
                             <div class="ch-input-block__form-input ch-input-block__form-input_4dig">
-                                <input type="text" name="zip" id="zip" class="ch-form-input" ng-model="zip"/>
+                                <input type="text" name="zip" id="zip" class="ch-form-input" ng-model="settingsAccount.place.zipCode"/>
                             </div>
                         </div>
                     </div>
@@ -243,21 +236,12 @@
                 <div class="ch-flex-row">
                     <div class="ch-flex-row__input-block">
                         <div class="ch-input-block">
-                            <label for="old-pass" class="ch-input-block__label">Old Password</label>
-                            <div class="ch-input-block__form-input ch-input-block__form-input_half-width">
-                                <input type="text" name="old-pass" id="old-pass" class="ch-form-input" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
                             <label for="new-pass" class="ch-input-block__label">New Password</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name="new-pass" id="new-pass" class="ch-form-input" />
+                                <input type="text" name="new-pass" id="new-pass" class="ch-form-input" ng-model="newPassword" />
                             </div>
                         </div>
+                        <password-strength-bar password-to-check="newPassword"></password-strength-bar>
                     </div>
                     <div class="ch-flex-row__input-block">
                         <div class="ch-input-block">

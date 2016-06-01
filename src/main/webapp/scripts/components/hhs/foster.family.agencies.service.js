@@ -3,7 +3,7 @@
  */
 angular.module('apqdApp')
     .factory('FosterFamilyAgenciesService', function (HHSService) {
-        createInClause = function (field, values) {
+        var createInClause = function (field, values) {
             if(!values || values.length == 0) {
                 return " TRUE ";
             }
@@ -11,7 +11,7 @@ angular.module('apqdApp')
             return field + ' IN ( ' + joinedValues + ' ) ';
         };
 
-        joinValues = function (values) {
+        var joinValues = function (values) {
             var result = '';
             angular.forEach(values , function (value) {
                 result= result.concat("'", value, "'", ",");
@@ -19,7 +19,7 @@ angular.module('apqdApp')
             return result.slice(0, -1);
         };
 
-        createWithinBoxClause = function (box) {
+        var createWithinBoxClause = function (box) {
             return "within_box(location, nw_lat, nw_long, se_lat, se_long)".
                     replace("nw_lat", box.northwest.latitude.toString()).
                     replace("nw_long", box.northwest.longitude.toString()).
