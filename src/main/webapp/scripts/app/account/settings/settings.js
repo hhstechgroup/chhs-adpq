@@ -23,6 +23,9 @@ angular.module('apqdApp')
                     }],
                     lookupGender: ['LookupGender', function(LookupGender) {
                         return LookupGender.query().$promise;
+                    }],
+                    lookupState: ['LookupState', function(LookupState) {
+                        return LookupState.query().$promise;
                     }]
                 }
             });
