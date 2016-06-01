@@ -236,7 +236,6 @@ angular.module('apqdApp')
             $scope.findAgenciesWithinBox();
         });
 
-
         $scope.addGeocoder = function () {
             if(!$scope.geocoder) {
                 $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
@@ -245,7 +244,10 @@ angular.module('apqdApp')
 
         $scope.onSelectAddress = function (addressFeature) {
             $log.debug(addressFeature);
-            $scope.currentLocation = $scope.getHomeLocation(addressFeature.latlng, addressFeature.feature.properties.label);
+            var latLng = addressFeature.latlng;
+            $scope.center.lat = latLng.lat;
+            $scope.center.lng = latLng.lng;
+            $scope.currentLocation = $scope.getHomeLocation($scope.center, addressFeature.feature.properties.label);
             $scope.findAgenciesWithinBox();
         };
 
