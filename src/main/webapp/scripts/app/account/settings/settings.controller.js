@@ -17,11 +17,9 @@ angular.module('apqdApp')
             return angular.extend({}, account);
         };
 
-        $scope.locateGender = function() {
-            $scope.settingsAccount.gender = _.find(lookupGender,
-                function(gender) {
-                  return gender.id == $scope.settingsAccount.gender.id;
-            });
+        $scope.locateGender = function () {
+            $scope.settingsAccount.gender = _.isNil($scope.settingsAccount.gender) ? null
+                : _.find(lookupGender, {id: $scope.settingsAccount.gender.id});
         };
 
         Principal.identity().then(function(account) {
@@ -69,7 +67,7 @@ angular.module('apqdApp')
             $scope.settingsAccount.place.streetName = addressFeature.feature.properties.name;
             $scope.settingsAccount.place.cityName = addressFeature.feature.properties.locality;
             $scope.settingsAccount.place.state = _.find($scope.states, function(state) {
-                return _.upperCase(state.stateCode) == _.upperCase(addressFeature.feature.properties.region_a);
+                return _.upperCase(state.stateCode) === _.upperCase(addressFeature.feature.properties.region_a);
             });
             $scope.settingsAccount.place.zipCode = addressFeature.feature.properties.postalcode;
         };

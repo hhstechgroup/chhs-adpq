@@ -90,6 +90,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         private JHipsterProperties jHipsterProperties;
 
         @PostConstruct
+        @SuppressWarnings("squid:UnusedPrivateMethod")
         private void init() {
             if (jHipsterProperties.getMetrics().getGraphite().isEnabled()) {
                 LOGGER.info("Initializing Metrics Graphite reporting");
@@ -121,6 +122,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         private JHipsterProperties jHipsterProperties;
 
         @PostConstruct
+        @SuppressWarnings("squid:UnusedPrivateMethod")
         private void init() {
             if (jHipsterProperties.getMetrics().getSpark().isEnabled()) {
                 LOGGER.info("Initializing Metrics Spark reporting");
@@ -152,6 +154,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         private Environment env;
 
         @PostConstruct
+        @SuppressWarnings("squid:UnusedPrivateMethod")
         private void init() {
             if (jHipsterProperties.getMetrics().getZabbix().isEnabled()) {
                 LOGGER.info("Initializing Metrics Zabbix reporting");

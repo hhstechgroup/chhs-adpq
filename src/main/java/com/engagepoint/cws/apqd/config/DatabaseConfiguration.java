@@ -52,6 +52,7 @@ public class DatabaseConfiguration {
 
     @Bean(destroyMethod = "close")
     @ConditionalOnExpression("#{!environment.acceptsProfiles('cloud') && !environment.acceptsProfiles('heroku')}")
+    @SuppressWarnings("squid:S1172")
     public DataSource dataSource(DataSourceProperties dataSourceProperties, CacheManager cacheManager) {
         LOG.debug("Configuring Datasource");
         if (dataSourceProperties.getUrl() == null) {

@@ -4,7 +4,7 @@
 angular.module('apqdApp')
     .factory('FosterFamilyAgenciesService', function (HHSService) {
         var createInClause = function (field, values) {
-            if(!values || values.length == 0) {
+            if(!values || values.length === 0) {
                 return " TRUE ";
             }
             var joinedValues = joinValues(values);

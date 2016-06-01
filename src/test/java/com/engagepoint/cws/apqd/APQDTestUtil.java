@@ -1,12 +1,14 @@
 package com.engagepoint.cws.apqd;
 
 import com.engagepoint.cws.apqd.domain.Deleted;
+import com.engagepoint.cws.apqd.domain.Draft;
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.MailBox;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.DeletedRepository;
+import com.engagepoint.cws.apqd.repository.DraftRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
@@ -92,23 +94,47 @@ public final class APQDTestUtil {
         return deletedRepository.saveAndFlush(new Deleted());
     }
 
+    public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        deleted.setMessages(messages);
+        return deletedRepository.saveAndFlush(deleted);
+    }
+
+    /*
+     * Draft-related
+     */
+
+    public static Draft prepareDraft(DraftRepository draftRepository) {
+        return draftRepository.saveAndFlush(new Draft());
+    }
+
+    public static Draft setMessage(DraftRepository draftRepository, Draft draft, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        draft.setMessages(messages);
+        return draftRepository.saveAndFlush(draft);
+    }
+
     /*
      * MailBox-related
      */
 
-    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, Deleted deleted, User user) {
+    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, Deleted deleted, Draft draft, User user) {
         MailBox mailBox = new MailBox();
         mailBox.setInbox(inbox);
         mailBox.setOutbox(outbox);
         mailBox.setDeleted(deleted);
+        mailBox.setDraft(draft);
         mailBox.setUser(user);
         return mailBoxRepository.saveAndFlush(mailBox);
     }
 
     public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, InboxRepository inboxRepository,
-                                         OutboxRepository outboxRepository, DeletedRepository deletedRepository) {
+                                         OutboxRepository outboxRepository, DeletedRepository deletedRepository,
+                                         DraftRepository draftRepository) {
         return prepareMailBox(mailBoxRepository, prepareInbox(inboxRepository), prepareOutbox(outboxRepository),
-            prepareDeleted(deletedRepository), null);
+            prepareDeleted(deletedRepository), prepareDraft(draftRepository), null);
     }
 
     /*
@@ -121,14 +147,14 @@ public final class APQDTestUtil {
         message.setBody(body);
         message.setFrom(from);
         message.setTo(to);
-        return messageRepository.saveAndFlush(message);
+        return messageRepository == null ? message : messageRepository.saveAndFlush(message);
     }
 
     /*
      * Generic assertions
      */
 
-    public static <T> void assertIdentity(T entity1, T entity2, T foundEntity, T nullEntity) throws Exception {
+    public static <T> void assertObjectIdentity(T entity1, T entity2, T foundEntity, T nullEntity) throws Exception {
         assertThat(entity1.equals(nullEntity)).isFalse(); // null
         assertThat(entity1.equals("")).isFalse(); // other type
         assertThat(entity1.getClass().newInstance().equals(entity1.getClass().newInstance())).isFalse(); // instances with null id

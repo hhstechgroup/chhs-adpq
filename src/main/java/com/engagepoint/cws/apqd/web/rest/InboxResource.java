@@ -92,7 +92,7 @@ public class InboxResource {
         }
         LOGGER.debug("REST request to get all Inboxs");
         return inboxRepository.findAll();
-            }
+    }
 
     /**
      * GET  /inboxs/:id -> get the "id" inbox.
