@@ -19,13 +19,14 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
+import java.net.InetAddress;
 
 @Configuration
 @EnableCaching
 @AutoConfigureAfter(value = { MetricsConfiguration.class, DatabaseConfiguration.class })
 public class CacheConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CacheConfiguration.class);
 
     private static HazelcastInstance hazelcastInstance;
 
@@ -36,29 +37,28 @@ public class CacheConfiguration {
 
     @PreDestroy
     public void destroy() {
-        log.info("Closing Cache Manager");
+        LOGGER.info("Closing Cache Manager");
         Hazelcast.shutdownAll();
     }
 
     @Bean
     public CacheManager cacheManager(HazelcastInstance hazelcastInstance) {
-        log.debug("Starting HazelcastCacheManager");
+        LOGGER.debug("Starting HazelcastCacheManager");
         cacheManager = new com.hazelcast.spring.cache.HazelcastCacheManager(hazelcastInstance);
         return cacheManager;
     }
 
     @Bean
     public HazelcastInstance hazelcastInstance(JHipsterProperties jHipsterProperties) {
-        log.debug("Configuring Hazelcast");
+        LOGGER.debug("Configuring Hazelcast");
         Config config = new Config();
-        config.setInstanceName("intake");
+        config.setInstanceName("apqd");
         config.getNetworkConfig().setPort(5701);
         config.getNetworkConfig().setPortAutoIncrement(true);
 
         // In development, remove multicast auto-configuration
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            System.setProperty("hazelcast.local.localAddress", "127.0.0.1");
-
+            System.setProperty("hazelcast.local.localAddress", InetAddress.getLoopbackAddress().getHostAddress());
             config.getNetworkConfig().getJoin().getAwsConfig().setEnabled(false);
             config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
             config.getNetworkConfig().getJoin().getTcpIpConfig().setEnabled(false);

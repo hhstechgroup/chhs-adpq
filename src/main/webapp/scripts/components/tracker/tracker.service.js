@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('Tracker', function ($rootScope, $cookies, $http, $q) {
         var stompClient = null;
         var subscriber = null;
@@ -24,11 +24,11 @@ angular.module('intakeApp')
                 stompClient = Stomp.over(socket);
                 var headers = {};
                 headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
-                stompClient.connect(headers, function(frame) {
+                stompClient.connect(headers, function() {
                     connected.resolve("success");
                     sendActivity();
                     if (!alreadyConnectedOnce) {
-                        $rootScope.$on('$stateChangeStart', function (event) {
+                        $rootScope.$on('$stateChangeStart', function () {
                             sendActivity();
                         });
                         alreadyConnectedOnce = true;

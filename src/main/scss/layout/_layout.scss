@@ -1,0 +1,42 @@
+.icon {
+    display: inline-block;
+}
+
+.ch-layout {
+    width: 100%;
+}
+
+.ch-layout__aside {
+    position: fixed;
+    width: 21rem;
+    height: 100vh;
+    border-right: 1px solid #cbcdcf;
+}
+
+.ch-layout__content {
+    width: 100%;
+    padding-left: 21rem;
+}
+
+.ch-aside-section {
+    background: #fff;
+}
+
+.ch-aside-section__item {
+    border-bottom: 1px solid #cbcdcf;
+    padding-top: 2rem;
+}
+
+.ch-aside-section__item:last-child {
+    border-bottom: none;
+}
+
+.ch-layout__aside.ch-layout__aside_facilities {
+    width: 30rem;
+    border: none;
+    overflow-y: scroll;
+}
+
+.ch-layout__content.ch-layout__content_facilities {
+    padding-left: 30rem;
+}

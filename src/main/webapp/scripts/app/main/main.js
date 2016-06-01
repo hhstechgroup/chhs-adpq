@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('home', {
@@ -10,11 +10,10 @@ angular.module('intakeApp')
                     authorities: []
                 },
                 views: {
-                    'content@': {
+                    'global@': {
                         templateUrl: 'scripts/app/account/login/login.html',
                         controller: 'LoginController'
-                    },
-                    'main.nav@': {}
+                    }
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {

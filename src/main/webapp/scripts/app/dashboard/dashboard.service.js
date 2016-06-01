@@ -1,55 +1,19 @@
 'use strict';
 
-angular.module('intakeApp')
+//todo: dashboard example
+angular.module('apqdApp')
     .factory('widgetDefinitions', function() {
         return [
             {
-                name: 'performance',
+                name: 'locations',
                 size: {
-                    width:'33.333%',
-                    height:'370px'
+                    width:'100.00%',
+                    height:'100.00%'
                 },
-                directive: 'db-widget-performance'
-            },
-            {
-                name: 'referrals',
-                size: {
-                    width:'66.666%',
-                    height:'370px'
-                },
-                directive: 'db-widget-referrals'
-            },
-            {
-                name: 'alerts',
-                size: {
-                    width:'33.333%',
-                    height:'370px'
-                },
-                directive: 'db-widget-alerts'
-            },
-            {
-                name: 'contacts',
-                size: {
-                    width:'33.333%',
-                    height:'370px'
-                },
-                directive: 'db-widget-contacts'
-            },
-            {
-                name: 'calendar',
-                size: {
-                    width:'33.333%',
-                    height:'370px'
-                },
-                directive: 'db-widget-calendar'
+                directive: 'db-widget-locations'
             }
         ];
     })
     .value('defaultWidgets', [
-        { name: 'performance'},
-        { name: 'referrals'},
-        { name: 'alerts'},
-        { name: 'contacts'},
-        { name: 'calendar'}
-
+        { name: 'locations'}
     ]);

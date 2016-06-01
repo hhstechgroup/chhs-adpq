@@ -1,0 +1,136 @@
+entity LookupState {
+    stateCode String required maxlength(2),
+    stateName String required
+}
+
+entity LookupCounty {
+    countyName String required maxlength(40)
+}
+
+entity LookupGender {
+    genderCode String required minlength(1) maxlength(1),
+    genderName String required
+}
+
+entity LookupMaritalStatus {
+    maritalStatusName String required
+}
+
+entity Place {
+    unitNumber String maxlength(10),
+    cityName String maxlength(20),
+    streetName String required maxlength(100),
+    streetNumber String maxlength(10),
+    zipCode String maxlength(5),
+    zipSuffix String maxlength(4),
+    longitude Double,
+    latitude Double,
+    validAddressFlag Boolean,
+    validationStatus String,
+    validationMessage String
+}
+
+entity MailBox {
+}
+
+entity Inbox {
+}
+
+entity Outbox {
+}
+
+entity Deleted {
+}
+
+entity Draft {
+}
+
+enum MessageStatus {
+    NEW, READ
+  }
+
+entity Message {
+    body String required maxlength(2000),
+    subject String required maxlength(100),
+    caseNumber String maxlength(20),
+    dateCreated ZonedDateTime,
+    dateRead ZonedDateTime,
+    status MessageStatus
+}
+
+entity Attachment {
+    fileName String,
+    fileMimeType String,
+    fileSize Integer,
+    fileDescription String,
+    creationDate ZonedDateTime,
+    file AnyBlob
+}
+
+relationship OneToMany {
+  Message{attachment} to Attachment{message}
+}
+
+relationship OneToOne {
+  User{mailBox} to MailBox{user}
+}
+
+relationship OneToOne {
+  MailBox{inbox} to Inbox{mailBox}
+}
+
+relationship OneToOne {
+  MailBox{outbox} to Outbox{mailBox}
+}
+
+relationship OneToMany {
+  MailBox{contact} to User{contact}
+}
+
+relationship OneToOne {
+  MailBox{deleted} to Deleted{mailBox}
+}
+
+relationship OneToOne {
+  MailBox{draft} to Draft{mailBox}
+}
+
+relationship OneToMany {
+  Inbox{message} to Message{inbox}
+}
+
+relationship OneToMany {
+  Outbox{message} to Message{outbox}
+}
+
+relationship OneToMany {
+  Deleted{message} to Message{deleted}
+}
+
+relationship OneToMany {
+  Draft{message} to Message{draft}
+}
+
+relationship OneToOne {
+  Message{replyOn} to Message
+}
+
+relationship ManyToOne {
+  Place{county} to LookupCounty
+}
+
+relationship ManyToOne {
+  Place{state} to LookupState
+}
+
+relationship OneToOne {
+  LookupCounty{state} to LookupState
+}
+
+relationship OneToOne {
+  Message{to} to User
+}
+
+relationship OneToOne {
+  Message{from} to User
+}

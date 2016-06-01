@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('ResetFinishController', function ($scope, $stateParams, $timeout, Auth) {
 
         $scope.keyMissing = $stateParams.key === undefined;
@@ -15,7 +15,7 @@ angular.module('intakeApp')
             } else {
                 Auth.resetPasswordFinish({key: $stateParams.key, newPassword: $scope.resetAccount.password}).then(function () {
                     $scope.success = 'OK';
-                }).catch(function (response) {
+                }).catch(function () {
                     $scope.success = null;
                     $scope.error = 'ERROR';
 

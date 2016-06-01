@@ -7,7 +7,6 @@ import com.hazelcast.hibernate.local.LocalRegionCache;
 import com.hazelcast.hibernate.local.TimestampsRegionCache;
 import com.hazelcast.hibernate.region.*;
 import com.engagepoint.cws.apqd.config.CacheConfiguration;
-import org.hibernate.cache.CacheException;
 import org.hibernate.cache.spi.*;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cfg.Settings;
@@ -18,11 +17,11 @@ import java.util.Properties;
 
 public class HazelcastCacheRegionFactory implements RegionFactory {
 
-    private Logger log = LoggerFactory.getLogger(HazelcastCacheRegionFactory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HazelcastCacheRegionFactory.class);
 
-    private HazelcastInstance hazelcastInstance;
+    private transient HazelcastInstance hazelcastInstance;
 
-    private CleanupService cleanupService;
+    private transient CleanupService cleanupService;
 
     public HazelcastCacheRegionFactory() {
         super();
@@ -32,24 +31,24 @@ public class HazelcastCacheRegionFactory implements RegionFactory {
     /**
      * @return true - for a large cluster, unnecessary puts will most likely slow things down.
      */
+    @Override
     public boolean isMinimalPutsEnabledByDefault() {
         return true;
     }
 
-    public final QueryResultsRegion buildQueryResultsRegion(String regionName, Properties properties)
-            throws CacheException {
-
+    @Override
+    public final QueryResultsRegion buildQueryResultsRegion(String regionName, Properties properties) {
         return new HazelcastQueryResultsRegion(hazelcastInstance, regionName, properties);
     }
 
-    public NaturalIdRegion buildNaturalIdRegion(String regionName, Properties properties, CacheDataDescription metadata)
-            throws CacheException {
-
+    @Override
+    public NaturalIdRegion buildNaturalIdRegion(String regionName, Properties properties, CacheDataDescription metadata) {
         return new HazelcastNaturalIdRegion(hazelcastInstance, regionName, properties, metadata);
     }
 
+    @Override
     public CollectionRegion buildCollectionRegion(String regionName, Properties properties,
-                                                  CacheDataDescription metadata) throws CacheException {
+                                                  CacheDataDescription metadata) {
 
         HazelcastCollectionRegion<LocalRegionCache> region = new HazelcastCollectionRegion<>(hazelcastInstance,
                 regionName, properties, metadata, new LocalRegionCache(regionName, hazelcastInstance, metadata));
@@ -58,8 +57,9 @@ public class HazelcastCacheRegionFactory implements RegionFactory {
         return region;
     }
 
+    @Override
     public EntityRegion buildEntityRegion(String regionName, Properties properties,
-                                          CacheDataDescription metadata) throws CacheException {
+                                          CacheDataDescription metadata) {
 
         HazelcastEntityRegion<LocalRegionCache> region = new HazelcastEntityRegion<>(hazelcastInstance,
                 regionName, properties, metadata, new LocalRegionCache(regionName, hazelcastInstance, metadata));
@@ -68,15 +68,16 @@ public class HazelcastCacheRegionFactory implements RegionFactory {
         return region;
     }
 
-    public TimestampsRegion buildTimestampsRegion(String regionName, Properties properties)
-            throws CacheException {
+    @Override
+    public TimestampsRegion buildTimestampsRegion(String regionName, Properties properties) {
         return new HazelcastTimestampsRegion<>(hazelcastInstance, regionName, properties,
                 new TimestampsRegionCache(regionName, hazelcastInstance));
     }
 
-    public void start(Settings settings, Properties properties) throws CacheException {
+    @Override
+    public void start(Settings settings, Properties properties) {
         // Do nothing the hazelcast hazelcastInstance is injected
-        log.info("Starting up {}", getClass().getSimpleName());
+        LOG.info("Starting up {}", getClass().getSimpleName());
 
         if (hazelcastInstance == null) {
             throw new IllegalArgumentException("Hazelcast hazelcastInstance must not be null");
@@ -84,12 +85,14 @@ public class HazelcastCacheRegionFactory implements RegionFactory {
         cleanupService = new CleanupService(hazelcastInstance.getName());
     }
 
+    @Override
     public void stop() {
         // Do nothing the hazelcast instance is managed globally
-        log.info("Shutting down {}", getClass().getSimpleName());
+        LOG.info("Shutting down {}", getClass().getSimpleName());
         cleanupService.stop();
     }
 
+    @Override
     public AccessType getDefaultAccessType() {
         return AccessType.READ_WRITE;
     }

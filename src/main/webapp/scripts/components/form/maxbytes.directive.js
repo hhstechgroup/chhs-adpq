@@ -1,8 +1,8 @@
 /* globals $ */
 'use strict';
 
-angular.module('intakeApp')
-    .directive('maxbytes', function ($q) {
+angular.module('apqdApp')
+    .directive('maxbytes', function () {
         function endsWith(suffix, str) {
             return str.indexOf(suffix, str.length - suffix.length) !== -1;
         }

@@ -1,0 +1,27 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "stateCode",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required",
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 2
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "stateName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "changelogDate": "20160521013726",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

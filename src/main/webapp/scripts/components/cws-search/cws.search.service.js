@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .service('CWSSearchService', ['$log', '$injector', '$q', 'ElasticSearchStringQueryBuilder',
         function ($log, $injector, $q, ElasticSearchStringQueryBuilder) {
 
@@ -26,9 +26,7 @@ angular.module('intakeApp')
                 if (stringQuery.length > 0) {
                     return EntitySearchService.query(
                         {query: stringQuery},
-                        angular.isFunction(resultsCallback) ? resultsCallback : function (results) {
-                            $log.warn('Possibly unused search results. May be processed in CWSSearchService.search(...).then(function(results){ ... });');
-                        },
+                        angular.isFunction(resultsCallback) ? resultsCallback : function () {},
                         angular.isFunction(errorCallback) ? errorCallback : function (response) {
                             // response.status === 404
                             $log.error('searchEntity failed: ' + response.data);
@@ -51,7 +49,7 @@ angular.module('intakeApp')
 
                 // Transform { 'name': 'John' } into { field: 'name', searchString: 'John' }
                 //  while keeping { 'searchString': 'John' } as is.
-                if (_.keys(searchClause).length == 1 && angular.isUndefined(searchClause.searchString)) {
+                if (_.keys(searchClause).length === 1 && angular.isUndefined(searchClause.searchString)) {
                     searchClause = {
                         field: _.keys(searchClause)[0],
                         searchString: _.values(searchClause)[0]
@@ -323,7 +321,7 @@ angular.module('intakeApp')
                     // execute search
                     var searchPromise = this.searchEntity(entitySearchService, stringQuery,
                         entitySearchParams['onResponse'],
-                        angular.isFunction(entitySearchParams['onError']) ? entitySearchParams['onError'] : function (response) {
+                        angular.isFunction(entitySearchParams['onError']) ? entitySearchParams['onError'] : function () {
                             // todo detect IndexMissingException
                             // todo add such behavior to some other explicit function via option?
                             if (angular.isFunction(entitySearchParams['onResponse'])) entitySearchParams['onResponse']([]);
@@ -333,8 +331,10 @@ angular.module('intakeApp')
                         allSearchPromises[currentEntityName] = searchPromise;
                     }
 
-                    if (angular.isObject(extraParams) && extraParams.resetResultsOnEmptyQuery && !stringQuery) {
-                        if (angular.isFunction(entitySearchParams['onResponse'])) entitySearchParams['onResponse']([]);
+                    if (angular.isObject(extraParams) && extraParams.resetResultsOnEmptyQuery && !stringQuery
+                        && angular.isFunction(entitySearchParams['onResponse'])
+                    ) {
+                        entitySearchParams['onResponse']([]);
                     }
                 }, this);
 

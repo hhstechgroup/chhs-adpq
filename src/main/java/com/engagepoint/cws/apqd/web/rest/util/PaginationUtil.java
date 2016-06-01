@@ -14,13 +14,15 @@ import java.net.URISyntaxException;
  * and follow <a href="http://tools.ietf.org/html/rfc5988">RFC 5988 (Link header)</a>.
  * </p>
  */
-public class PaginationUtil {
+public final class PaginationUtil {
+    private PaginationUtil() {
+    }
 
     public static HttpHeaders generatePaginationHttpHeaders(Page<?> page, String baseUrl)
         throws URISyntaxException {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Total-Count", "" + page.getTotalElements());
+        headers.add("X-Total-Count", Long.toString(page.getTotalElements()));
         String link = "";
         if ((page.getNumber() + 1) < page.getTotalPages()) {
             link = "<" + (new URI(baseUrl +"?page=" + (page.getNumber() + 1) + "&size=" + page.getSize())).toString() + ">; rel=\"next\",";

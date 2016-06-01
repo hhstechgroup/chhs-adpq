@@ -1,0 +1,125 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "attachment",
+      "otherEntityName": "attachment",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "message"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipName": "replyOn",
+      "otherEntityName": "message",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "message"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipName": "to",
+      "otherEntityName": "user",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "message"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipName": "from",
+      "otherEntityName": "user",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "message"
+    },
+    {
+      "relationshipId": 5,
+      "relationshipName": "inbox",
+      "otherEntityName": "inbox",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 6,
+      "relationshipName": "outbox",
+      "otherEntityName": "outbox",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 7,
+      "relationshipName": "draft",
+      "otherEntityName": "draft",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 8,
+      "relationshipName": "deleted",
+      "otherEntityName": "deleted",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "body",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 4000
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "subject",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 100
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "caseNumber",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 20
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "dateCreated",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "dateRead",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "status",
+      "fieldType": "MessageStatus",
+      "fieldValues": "NEW,READ"
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "dateUpdated",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "unreadMessagesCount",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20160521013734",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

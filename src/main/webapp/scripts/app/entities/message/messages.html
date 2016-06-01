@@ -1,0 +1,110 @@
+<div>
+    <h2 translate="apqdApp.message.home.title">Messages</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="message.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+class="hidden-xs"                        translate="apqdApp.message.home.createLabel">Create new Message
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'apqdApp.message.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="search()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="apqdApp.message.body">Body</span></th>
+                    <th><span translate="apqdApp.message.subject">Subject</span></th>
+                    <th><span translate="apqdApp.message.caseNumber">CaseNumber</span></th>
+                    <th><span translate="apqdApp.message.dateCreated">DateCreated</span></th>
+                    <th><span translate="apqdApp.message.dateRead">DateRead</span></th>
+                    <th><span translate="apqdApp.message.status">Status</span></th>
+                    <th><span translate="apqdApp.message.dateUpdated">DateUpdated</span></th>
+                    <th><span translate="apqdApp.message.unreadMessagesCount">UnreadMessagesCount</span></th>
+                    <th><span translate="apqdApp.message.replyOn">replyOn</span></th>
+                    <th><span translate="apqdApp.message.to">to</span></th>
+                    <th><span translate="apqdApp.message.from">from</span></th>
+                    <th><span translate="apqdApp.message.inbox">inbox</span></th>
+                    <th><span translate="apqdApp.message.outbox">outbox</span></th>
+                    <th><span translate="apqdApp.message.draft">draft</span></th>
+                    <th><span translate="apqdApp.message.deleted">deleted</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="message in messages track by message.id">
+                    <td><a ui-sref="message.detail({id:message.id})">{{message.id}}</a></td>
+                    <td>{{message.body}}</td>
+                    <td>{{message.subject}}</td>
+                    <td>{{message.caseNumber}}</td>
+                    <td>{{message.dateCreated | date:'medium'}}</td>
+                    <td>{{message.dateRead | date:'medium'}}</td>
+                    <td translate="{{'apqdApp.MessageStatus.' + message.status}}">{{message.status}}</td>
+                    <td>{{message.dateUpdated | date:'medium'}}</td>
+                    <td>{{message.unreadMessagesCount}}</td>
+                    <td>
+                        <a ui-sref="message.detail({id:message.replyOn.id})">{{message.replyOn.id}}</a>
+                    </td>
+                    <td>
+                        {{message.to.id}}
+                    </td>
+                    <td>
+                        {{message.from.id}}
+                    </td>
+                    <td>
+                        <a ui-sref="inbox.detail({id:message.inbox.id})">{{message.inbox.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="outbox.detail({id:message.outbox.id})">{{message.outbox.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="draft.detail({id:message.draft.id})">{{message.draft.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="deleted.detail({id:message.deleted.id})">{{message.deleted.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="message.detail({id:message.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="message.edit({id:message.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="message.delete({id:message.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

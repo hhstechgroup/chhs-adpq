@@ -31,7 +31,7 @@ import liquibase.integration.spring.SpringLiquibase;
  */
 public class AsyncSpringLiquibase extends SpringLiquibase {
 
-    private final Logger log = LoggerFactory.getLogger(AsyncSpringLiquibase.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncSpringLiquibase.class);
 
     @Inject
     @Qualifier("taskExecutor")
@@ -45,14 +45,14 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT, Constants.SPRING_PROFILE_HEROKU)) {
             taskExecutor.execute(() -> {
                 try {
-                    log.warn("Starting Liquibase asynchronously, your database might not be ready at startup!");
+                    LOGGER.warn("Starting Liquibase asynchronously, your database might not be ready at startup!");
                     initDb();
                 } catch (LiquibaseException e) {
-                    log.error("Liquibase could not start correctly, your database is NOT ready: {}", e.getMessage(), e);
+                    LOGGER.error("Liquibase could not start correctly, your database is NOT ready: {}", e.getMessage(), e);
                 }
             });
         } else {
-            log.debug("Starting Liquibase synchronously");
+            LOGGER.debug("Starting Liquibase synchronously");
             initDb();
         }
     }
@@ -62,6 +62,6 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
         watch.start();
         super.afterPropertiesSet();
         watch.stop();
-        log.debug("Started Liquibase in {} ms", watch.getTotalTimeMillis());
+        LOGGER.debug("Started Liquibase in {} ms", watch.getTotalTimeMillis());
     }
 }

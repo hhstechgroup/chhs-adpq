@@ -1,5 +1,5 @@
 {
-    "intakeApp": {
+    "apqdApp": {
         "lookupMaritalStatus" : {
             "home": {
                 "title": "LookupMaritalStatuss",
@@ -16,7 +16,6 @@
             "detail": {
                 "title": "LookupMaritalStatus"
             },
-            "maritalStatusCode": "MaritalStatusCode",
             "maritalStatusName": "MaritalStatusName"
         }
     }

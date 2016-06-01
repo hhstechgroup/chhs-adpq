@@ -1,11 +1,4 @@
 ######################
-# Neo4j Specific for
-# Embedded
-######################
-/neo4j-home/ssl
-/data/dbms
-
-######################
 # Project Specific
 ######################
 /src/main/webapp/assets/styles/main.css

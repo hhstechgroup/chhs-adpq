@@ -1,0 +1,23 @@
+{
+    "apqdApp": {
+        "draft" : {
+            "home": {
+                "title": "Drafts",
+                "createLabel": "Create a new Draft",
+                "createOrEditLabel": "Create or edit a Draft",
+                "search": "Search for Draft"
+            },
+            "created": "A new Draft is created with identifier {{ param }}",
+            "updated": "A Draft is updated with identifier {{ param }}",
+            "deleted": "A Draft is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Draft {{ id }}?"
+            },
+            "detail": {
+                "title": "Draft"
+            },
+            "message": "Message",
+            "mailBox": "MailBox"
+        }
+    }
+}

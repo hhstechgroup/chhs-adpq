@@ -1,5 +1,5 @@
 {
-    "intakeApp": {
+    "apqdApp": {
         "lookupCounty" : {
             "home": {
                 "title": "LookupCountys",
@@ -16,9 +16,8 @@
             "detail": {
                 "title": "LookupCounty"
             },
-            "countyCode": "CountyCode",
             "countyName": "CountyName",
-            "stateCode": "StateCode"
+            "state": "State"
         }
     }
 }

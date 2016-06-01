@@ -1,0 +1,23 @@
+{
+    "apqdApp": {
+        "deleted" : {
+            "home": {
+                "title": "Deleteds",
+                "createLabel": "Create a new Deleted",
+                "createOrEditLabel": "Create or edit a Deleted",
+                "search": "Search for Deleted"
+            },
+            "created": "A new Deleted is created with identifier {{ param }}",
+            "updated": "A Deleted is updated with identifier {{ param }}",
+            "deleted": "A Deleted is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Deleted {{ id }}?"
+            },
+            "detail": {
+                "title": "Deleted"
+            },
+            "message": "Message",
+            "mailBox": "MailBox"
+        }
+    }
+}

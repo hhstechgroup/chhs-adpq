@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
 	.controller('AttachmentDeleteController', function($scope, $uibModalInstance, entity, Attachment) {
 
         $scope.attachment = entity;

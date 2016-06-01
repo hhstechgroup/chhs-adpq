@@ -20,7 +20,7 @@ import javax.inject.Inject;
 @EnableScheduling
 public class AsyncConfiguration implements AsyncConfigurer {
 
-    private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncConfiguration.class);
 
     @Inject
     private JHipsterProperties jHipsterProperties;
@@ -28,7 +28,7 @@ public class AsyncConfiguration implements AsyncConfigurer {
     @Override
     @Bean(name = "taskExecutor")
     public Executor getAsyncExecutor() {
-        log.debug("Creating Async Task Executor");
+        LOGGER.debug("Creating Async Task Executor");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(jHipsterProperties.getAsync().getCorePoolSize());
         executor.setMaxPoolSize(jHipsterProperties.getAsync().getMaxPoolSize());

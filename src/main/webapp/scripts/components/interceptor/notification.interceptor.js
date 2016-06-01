@@ -1,12 +1,12 @@
  'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('notificationInterceptor', function ($q, AlertService) {
         return {
             response: function(response) {
-                var alertKey = response.headers('X-intakeApp-alert');
+                var alertKey = response.headers('X-apqdApp-alert');
                 if (angular.isString(alertKey)) {
-                    AlertService.success(alertKey, { param : response.headers('X-intakeApp-params')});
+                    AlertService.success(alertKey, { param : response.headers('X-apqdApp-params')});
                 }
                 return response;
             }

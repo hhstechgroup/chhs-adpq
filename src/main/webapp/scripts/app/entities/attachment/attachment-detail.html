@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="intakeApp.attachment.detail.title">Attachment</span> {{attachment.id}}</h2>
+    <h2><span translate="apqdApp.attachment.detail.title">Attachment</span> {{attachment.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,7 +12,7 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="intakeApp.attachment.fileName">FileName</span>
+                    <span translate="apqdApp.attachment.fileName">FileName</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{attachment.fileName}}</span>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="intakeApp.attachment.fileMimeType">FileMimeType</span>
+                    <span translate="apqdApp.attachment.fileMimeType">FileMimeType</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{attachment.fileMimeType}}</span>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="intakeApp.attachment.fileSize">FileSize</span>
+                    <span translate="apqdApp.attachment.fileSize">FileSize</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{attachment.fileSize}}</span>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="intakeApp.attachment.fileDescription">FileDescription</span>
+                    <span translate="apqdApp.attachment.fileDescription">FileDescription</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{attachment.fileDescription}}</span>
@@ -44,15 +44,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="intakeApp.attachment.documentUUID">DocumentUUID</span>
-                </td>
-                <td>
-                    <span class="form-control-static">{{attachment.documentUUID}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span translate="intakeApp.attachment.creationDate">CreationDate</span>
+                    <span translate="apqdApp.attachment.creationDate">CreationDate</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{attachment.creationDate | date:'medium'}}</span>
@@ -60,18 +52,19 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="intakeApp.attachment.recordStatus">RecordStatus</span>
+                    <span translate="apqdApp.attachment.file">File</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{attachment.recordStatus}}</span>
+                    <span class="form-control-static">{{attachment.file}}</span>
+                    <div>{{attachment.fileContentType}}  {{byteSize(attachment.file)}}</div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="intakeApp.attachment.referral">referral</span>
+                    <span translate="apqdApp.attachment.message">message</span>
                 </td>
                 <td>
-                    <a class="form-control-static" ui-sref="referral.detail({id:attachment.referral.id})">{{attachment.referral.id}}</a>
+                    <a class="form-control-static" ui-sref="message.detail({id:attachment.message.id})">{{attachment.message.id}}</a>
                 </td>
             </tr>
             </tbody>

@@ -1,4 +1,4 @@
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('SearchController', function ($scope, $log, CWSSearchService, searchString) {
         $scope.toShow = '';
 

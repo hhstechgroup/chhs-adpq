@@ -1,0 +1,230 @@
+.ch-page-heading__pagination {
+    float: right;
+    margin-right: 20px;
+}
+
+.ch-mail-expanded {
+    padding: 1.8rem 3rem;
+    background: #fff;
+}
+
+.ch-mail-origin__prefix {
+    color: #6a6f78;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-right: .4rem;
+}
+
+.ch-mail-origin__name {
+    color: #000;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.ch-button-group-action {
+    vertical-align: middle;
+}
+
+.ch-button-group-action__btn {
+    float: left;
+    text-align: center;
+    min-height: 3.4rem;
+    cursor: pointer;
+    -webkit-appearance: none;
+    vertical-align: middle;
+    background-color: #fff;
+    border: .1rem solid #000;
+    position: relative;
+}
+
+.ch-button-group-action__btn + .ch-button-group-action__btn {
+    margin-left: -1px;
+}
+
+
+.ch-button-group-action__btn_reply {
+    width: 4.8rem;
+    height: 3.6rem;
+}
+
+.ch-button-group-action__btn_mail-options {
+    width: 3rem;
+    height: 3.6rem;
+}
+
+.ch-button-group-action__btn_reply:before {
+    content: '\0020';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(../images/out-sprite-icons/icon-reply-msg.png) 0 0 no-repeat;
+    vertical-align: -10px;
+}
+
+.ch-button-group-action__btn_mail-options:before {
+    content: '\0020';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -2px 0 0 -4px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #5b616b;
+}
+
+.ch-mail-header {
+    display: table;
+    width: 100%;
+}
+
+.ch-mail-header__item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.ch-mail-header__item_ch-mail-info,
+.ch-mail-header__item_ch-mail-options-group {
+    text-align: right;
+}
+
+.ch-mail-header__item_ch-mail-info {
+    width: 11rem;
+}
+
+.ch-mail-header__item_ch-mail-options-group {
+    width: 9rem;
+}
+
+.ch-mail-options-group {
+    display: inline-block;
+}
+
+.ch-mail-expanded__header {
+    padding: 0 0 1.6rem 0;
+    margin-bottom: 2rem;
+    border-bottom: .1rem solid #cbcdcf;
+}
+
+.ch-mail-expanded__body {
+    margin-bottom: 2rem;
+}
+
+.ch-new-mail-heading {
+    font-size: 1.8rem;
+    color: #000;
+}
+
+.ch-mail-heading {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.ch-mail-heading__item {
+
+}
+
+.ch-mail-heading__item_back-control {
+    flex: 0 0 7.5rem;
+}
+
+.ch-mail-heading__item_heading {
+    flex: 1;
+    padding-right: 2rem;
+}
+
+.ch-mail-heading__item_attach-btn {
+    flex: 0 0 13.5rem;
+    padding-right: 3.5rem;
+}
+
+.ch-mail-heading__item_action-btn {
+    flex: 0 0 10rem;
+}
+
+.ch-new-mail {
+    background: #fff;
+    border: 1px solid #cbcdcf;
+}
+
+.ch-new-mail__row {
+    padding: 1.2rem;
+    border-bottom: 1px solid #cbcdcf;
+}
+
+.ch-new-mail__row.ch-new-mail__row_no-pad {
+    padding: 0;
+}
+
+.ch-new-mail__row:last-child {
+    border: none;
+}
+
+.ch-new-mail-field {
+    display: flex;
+    align-items: center;
+}
+
+.ch-new-mail-field__label {
+    display: inline-block;
+    flex: 0 0 3.6rem;
+}
+
+.ch-new-mail-field .ch-new-mail-field__input {
+    flex: 1;
+    display: inline-block;
+    border: none;
+}
+
+.ch-new-mail-text-body .ch-new-mail-text-body__text-input {
+    border: none;
+    width: 100%;
+    resize: vertical;
+}
+
+.ch-mail-heading__item_action-group {
+    flex: 0 0 11rem;
+}
+
+.ch-contacts-dropdown {
+    padding: 3rem;
+    background: #f1f1f1;
+    position: relative;
+}
+
+.ch-contacts-list__item {
+    padding: 1rem 0;
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
+.ch-contacts-list__item:first-child {
+    padding-top: 0;
+}
+
+.ch-contacts-list__item:last-child {
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.ch-contact-id__icon {
+    vertical-align: middle;
+    margin-right: 1rem;
+}
+
+.ch-contact-id__name {
+    vertical-align: middle;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.ch-close-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(../images/out-sprite-icons/icon-close-btn.png) 50% 50% no-repeat;
+    padding: 1.5rem;
+}

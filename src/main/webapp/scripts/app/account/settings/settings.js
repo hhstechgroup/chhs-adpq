@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('settings', {
                 parent: 'account',
                 url: '/settings',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER', 'ROLE_INVESTIGATOR'],
+                    authorities: ['CASE_WORKER', 'ROLE_ADMIN', 'PARENT'],
                     pageTitle: 'global.menu.account.settings'
                 },
                 views: {
@@ -20,6 +20,9 @@ angular.module('intakeApp')
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('settings');
                         return $translate.refresh();
+                    }],
+                    lookupGender: ['LookupGender', function(LookupGender) {
+                        return LookupGender.query().$promise;
                     }]
                 }
             });

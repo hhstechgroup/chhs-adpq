@@ -4,16 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
-
 import org.springframework.data.elasticsearch.annotations.Document;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.time.ZonedDateTime;
 
 /**
  * A user.
@@ -72,6 +73,31 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date", nullable = true)
     private ZonedDateTime resetDate = null;
 
+    @OneToOne(optional = false, mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private MailBox mailBox;
+
+    @Column(name = "ssn_last_4_digits", nullable = true, length = 4)
+    private String ssnLast4Digits;
+
+    @Column(name = "case_number", nullable = true, length = 20)
+    private String caseNumber;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    @Size(max = 20)
+    @Column(name = "phone_number", nullable = true, length = 20)
+    private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "gender_id")
+    private LookupGender gender;
+
+    @ManyToOne
+    @JoinColumn(name = "place_id")
+    private Place place;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -124,6 +150,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public MailBox getMailBox() {
+        return mailBox;
+    }
+
+    public void setMailBox(MailBox mailBox) {
+        this.mailBox = mailBox;
     }
 
     public String getEmail() {
@@ -190,6 +224,54 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
+    public String getSsnLast4Digits() {
+        return ssnLast4Digits;
+    }
+
+    public void setSsnLast4Digits(String ssnLast4Digits) {
+        this.ssnLast4Digits = ssnLast4Digits;
+    }
+
+    public String getCaseNumber() {
+        return caseNumber;
+    }
+
+    public void setCaseNumber(String caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public LookupGender getGender() {
+        return gender;
+    }
+
+    public void setGender(LookupGender gender) {
+        this.gender = gender;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -223,6 +305,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
+            ", ssnLast4Digits='" + ssnLast4Digits + '\'' +
+            ", caseNumber='" + caseNumber + '\'' +
+            ", gender='" + gender + '\'' +
+            ", phone='" + phoneNumber + '\'' +
             "}";
     }
+
 }

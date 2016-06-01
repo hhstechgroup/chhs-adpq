@@ -1,14 +1,13 @@
 'use strict';
 
-angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
+angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
-    'uiGmapgoogle-maps',
     // jhipster-needle-angularjs-add-module JHipster will add new module
     'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router',  'infinite-scroll', 'angular-loading-bar',
-    'angularAudioRecorder', 'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'ui.ace', 'sticky'])
+    'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language,
-                   Auth, Principal, ENV, VERSION, VoiceAssistantService) {
+                   Auth, Principal, ENV, VERSION) {
         // update the window title using params in the following
         // precendence
         // 1. titleKey parameter
@@ -40,15 +39,22 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
 
         });
 
+        var history = [];
+        $rootScope.backToPreviousState = function () {
+            var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+            $location.path(prevUrl);
+        };
+
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+            history.push($location.$$path);
+
             var titleKey = 'global.title' ;
-            VoiceAssistantService.initVoiceAssistance();
 
             // Remember previous state unless we've been redirected to login or we've just
             // reset the state memory after logout. If we're redirected to login, our
             // previousState is already set in the authExpiredInterceptor. If we're going
             // to login directly, we don't want to be sent to some previous state anyway
-            if (toState.name != 'login' && $rootScope.previousStateName) {
+            if (toState.name !== 'login' && $rootScope.previousStateName) {
               $rootScope.previousStateName = fromState.name;
               $rootScope.previousStateParams = fromParams;
             }
@@ -72,7 +78,14 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
                         if (result) {
                             $state.go('metrics');
                         } else {
-                            $state.go('dashboard', {}, {reload: true});
+                            Principal.hasAuthority('PARENT').then(function(result) {
+                                if(result) {
+                                    $state.go('ch-facilities', {}, {reload: true});
+                                } else {
+                                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
+                                }
+                            })
+
                         }
                     });
             } else {
@@ -84,10 +97,7 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
             return Principal.hasAnyAuthority(authority);
         }
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, AlertServiceProvider) {
-        // uncomment below to make alerts look like toast
-        //AlertServiceProvider.showAsToast(true);
-
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
@@ -135,22 +145,14 @@ angular.module('intakeApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
     })
-    // Google maps configuration
-    .config(function (uiGmapGoogleMapApiProvider) {
-        uiGmapGoogleMapApiProvider.configure({
-            key: 'AIzaSyDyU4z4A9_miwhAGsT5oeKRXdBRvOV5vEM',
-            v: '3.20',
-            libraries: 'weather,geometry,visualization,places'
-        });
-    })
     // jhipster-needle-angularjs-add-config JHipster will add new application configuration
     .config(['$urlMatcherFactoryProvider', function($urlMatcherFactory) {
         $urlMatcherFactory.type('boolean', {
             name : 'boolean',
-            decode: function(val) { return val == true ? true : val == "true" ? true : false },
+            decode: function(val) { return val === true || val === "true"; },
             encode: function(val) { return val ? 1 : 0; },
             equals: function(a, b) { return this.is(a) && a === b; },
-            is: function(val) { return [true,false,0,1].indexOf(val) >= 0 },
+            is: function(val) { return [true,false,0,1].indexOf(val) >= 0; },
             pattern: /bool|true|0|1/
         });
     }]);

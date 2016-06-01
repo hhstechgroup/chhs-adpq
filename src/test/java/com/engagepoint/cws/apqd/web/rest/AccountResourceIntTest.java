@@ -2,6 +2,8 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Authority;
+import com.engagepoint.cws.apqd.domain.LookupGender;
+import com.engagepoint.cws.apqd.domain.Place;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
@@ -25,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,6 +49,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @IntegrationTest
 public class AccountResourceIntTest {
+
+    private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
+    private static final String DEFAULT_PHONE_NUMBER = "1111111111";
+    private static final LookupGender GENDER = new LookupGender();
+    private static final Place DEFAULT_PLACE = new Place();
+
+    static {
+        GENDER.setId(1L);
+    }
 
     @Inject
     private UserRepository userRepository;
@@ -151,7 +163,13 @@ public class AccountResourceIntTest {
             "joe@example.com",      // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+            "1111",                 //ssnLast4Digits
+            "S123",
+            DEFAULT_BIRTH_DATE,
+            GENDER,
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restMvc.perform(
@@ -175,7 +193,13 @@ public class AccountResourceIntTest {
             "funky@example.com",    // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+            "1111",                 //ssnLast4Digits
+            "S123",
+            DEFAULT_BIRTH_DATE,
+            GENDER,
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restUserMockMvc.perform(
@@ -199,7 +223,13 @@ public class AccountResourceIntTest {
             "invalid",          // e-mail <-- invalid
             true,               // activated
             "en",               // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+            "1111",                 //ssnLast4Digits
+            "S123",
+            DEFAULT_BIRTH_DATE,
+            GENDER,
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restUserMockMvc.perform(
@@ -224,12 +254,19 @@ public class AccountResourceIntTest {
             "alice@example.com",    // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+            "1111",                 //ssnLast4Digits
+            "S123",
+            DEFAULT_BIRTH_DATE,
+            GENDER,
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         // Duplicate login, different e-mail
         UserDTO dup = new UserDTO(u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
-            "alicejr@example.com", true, u.getLangKey(), u.getAuthorities());
+            "alicejr@example.com", true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
+            u.getBirthDate(), u.getGender(), u.getPhoneNumber(), u.getPlace());
 
         // Good user
         restMvc.perform(
@@ -261,12 +298,19 @@ public class AccountResourceIntTest {
             "john@example.com",     // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)),
+            "1111",                 //ssnLast4Digits
+            "S123",
+            DEFAULT_BIRTH_DATE,
+            GENDER,
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         // Duplicate e-mail, different login
         UserDTO dup = new UserDTO("johnjr", u.getPassword(), u.getLogin(), u.getLastName(),
-            u.getEmail(), true, u.getLangKey(), u.getAuthorities());
+            u.getEmail(), true, u.getLangKey(), u.getAuthorities(), u.getSsnLast4Digits(), u.getCaseNumber(),
+            u.getBirthDate(), u.getGender(), u.getPhoneNumber(), u.getPlace());
 
         // Good user
         restMvc.perform(
@@ -297,7 +341,13 @@ public class AccountResourceIntTest {
             "badguy@example.com",   // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.ADMIN)) // <-- only admin should be able to do that
+            new HashSet<>(Arrays.asList(AuthoritiesConstants.ADMIN)), // <-- only admin should be able to do that
+            "1111",                 //ssnLast4Digits
+            "S123",
+            DEFAULT_BIRTH_DATE,
+            GENDER,
+            DEFAULT_PHONE_NUMBER,
+            DEFAULT_PLACE
         );
 
         restMvc.perform(
@@ -309,6 +359,6 @@ public class AccountResourceIntTest {
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
         assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.USER));
+            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.PARENT));
     }
 }

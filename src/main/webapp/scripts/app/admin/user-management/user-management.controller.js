@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .controller('UserManagementController', function ($scope, Principal, User, ParseLinks, Language) {
         $scope.users = [];
         $scope.authorities = ["ROLE_USER", "ROLE_ADMIN"];
         Language.getAll().then(function (languages) {
             $scope.languages = languages;
         });
-		
+
 		Principal.identity().then(function(account) {
             $scope.currentAccount = account;
         });
@@ -39,7 +39,7 @@ angular.module('intakeApp')
                 id: null, login: null, firstName: null, lastName: null, email: null,
                 activated: null, langKey: null, createdBy: null, createdDate: null,
                 lastModifiedBy: null, lastModifiedDate: null, resetDate: null,
-                resetKey: null, authorities: null
+                resetKey: null, authorities: null, ssnLast4Digits: null
             };
             $scope.editForm.$setPristine();
             $scope.editForm.$setUntouched();

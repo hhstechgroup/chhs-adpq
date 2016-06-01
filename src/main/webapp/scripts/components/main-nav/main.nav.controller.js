@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('intakeApp')
-    .controller('MainNavController', function ($scope, $rootScope, $location, $state, Auth, Principal, ENV, VoiceAssistantService) {
+angular.module('apqdApp')
+    .controller('MainNavController', function ($scope, $rootScope, $location, $state, Auth, Principal, ENV) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;
         $scope.inProduction = ENV === 'prod';
@@ -15,6 +15,7 @@ angular.module('intakeApp')
             $scope.account = account;
         });
 
-        $scope.triggerVoiceAssistant = VoiceAssistantService.triggerVoiceAssistant;
-        $scope.isVoiceAssistantActive = VoiceAssistantService.isVoiceAssistantActive;
+        $scope.$on("apqdApp:updateUnreadInboxCount", function(event, unreadInboxCount) {
+            $scope.unreadInboxCount = unreadInboxCount;
+        });
     });

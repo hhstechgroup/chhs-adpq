@@ -1,0 +1,96 @@
+<div>
+    <h2 translate="apqdApp.place.home.title">Places</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="place.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+class="hidden-xs"                        translate="apqdApp.place.home.createLabel">Create new Place
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'apqdApp.place.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="search()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="apqdApp.place.unitNumber">UnitNumber</span></th>
+                    <th><span translate="apqdApp.place.cityName">CityName</span></th>
+                    <th><span translate="apqdApp.place.streetName">StreetName</span></th>
+                    <th><span translate="apqdApp.place.streetNumber">StreetNumber</span></th>
+                    <th><span translate="apqdApp.place.zipCode">ZipCode</span></th>
+                    <th><span translate="apqdApp.place.zipSuffix">ZipSuffix</span></th>
+                    <th><span translate="apqdApp.place.longitude">Longitude</span></th>
+                    <th><span translate="apqdApp.place.latitude">Latitude</span></th>
+                    <th><span translate="apqdApp.place.validAddressFlag">ValidAddressFlag</span></th>
+                    <th><span translate="apqdApp.place.validationStatus">ValidationStatus</span></th>
+                    <th><span translate="apqdApp.place.validationMessage">ValidationMessage</span></th>
+                    <th><span translate="apqdApp.place.county">county</span></th>
+                    <th><span translate="apqdApp.place.state">state</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="place in places track by place.id">
+                    <td><a ui-sref="place.detail({id:place.id})">{{place.id}}</a></td>
+                    <td>{{place.unitNumber}}</td>
+                    <td>{{place.cityName}}</td>
+                    <td>{{place.streetName}}</td>
+                    <td>{{place.streetNumber}}</td>
+                    <td>{{place.zipCode}}</td>
+                    <td>{{place.zipSuffix}}</td>
+                    <td>{{place.longitude}}</td>
+                    <td>{{place.latitude}}</td>
+                    <td>{{place.validAddressFlag}}</td>
+                    <td>{{place.validationStatus}}</td>
+                    <td>{{place.validationMessage}}</td>
+                    <td>
+                        <a ui-sref="lookupCounty.detail({id:place.county.id})">{{place.county.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="lookupState.detail({id:place.state.id})">{{place.state.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="place.detail({id:place.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="place.edit({id:place.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="place.delete({id:place.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

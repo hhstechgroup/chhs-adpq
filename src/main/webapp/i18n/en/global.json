@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "intake",
+        "title": "Portal for Parents of Foster Kids",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
             "home": "Home",
@@ -100,6 +100,12 @@
                 "frequencyWeekDay": "FrequencyWeekDay",
                 "lookupServiceCategory": "LookupServiceCategory",
                 "lookupServiceType": "LookupServiceType",
+                "inbox": "Inbox",
+                "outbox": "Outbox",
+                "mailBox": "MailBox",
+                "message": "Message",
+                "deleted": "Deleted",
+                "draft": "Draft",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -125,14 +131,6 @@
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
             "search": "Search",
-            "POC": {
-                "audio-recorder": "Audio Recorder",
-                "google-maps": "Google Maps",
-                "elastic-search": "Elastic Search + drag&amp;drop",
-                "phonetic-search": "Phonetic Search",
-                "google-address": "Google Address",
-                "ep-content": "EngagePoint Content"
-            },
             "language": "Language"
         },
         "form": {

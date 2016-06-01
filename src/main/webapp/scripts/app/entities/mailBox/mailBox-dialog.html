@@ -1,0 +1,50 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myMailBoxLabel" translate="apqdApp.mailBox.home.createOrEditLabel">Create or edit a MailBox</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="mailBox.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label translate="apqdApp.mailBox.inbox" for="field_inbox">inbox</label>
+            <select class="form-control" id="field_inbox" name="inbox" ng-model="mailBox.inbox" ng-options="inbox as inbox.id for inbox in inboxs | orderBy:'id' track by inbox.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="apqdApp.mailBox.outbox" for="field_outbox">outbox</label>
+            <select class="form-control" id="field_outbox" name="outbox" ng-model="mailBox.outbox" ng-options="outbox as outbox.id for outbox in outboxs | orderBy:'id' track by outbox.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="apqdApp.mailBox.deleted" for="field_deleted">deleted</label>
+            <select class="form-control" id="field_deleted" name="deleted" ng-model="mailBox.deleted" ng-options="deleted as deleted.id for deleted in deleteds | orderBy:'id' track by deleted.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="apqdApp.mailBox.draft" for="field_draft">draft</label>
+            <select class="form-control" id="field_draft" name="draft" ng-model="mailBox.draft" ng-options="draft as draft.id for draft in drafts | orderBy:'id' track by draft.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

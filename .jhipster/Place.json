@@ -1,0 +1,104 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "county",
+      "otherEntityName": "lookupCounty",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipName": "state",
+      "otherEntityName": "lookupState",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "unitNumber",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 10
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "cityName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 20
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "streetName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required",
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 100
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "streetNumber",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 10
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "zipCode",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 5
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "zipSuffix",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 4
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "longitude",
+      "fieldType": "Double"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "latitude",
+      "fieldType": "Double"
+    },
+    {
+      "fieldId": 9,
+      "fieldName": "validAddressFlag",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 10,
+      "fieldName": "validationStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "validationMessage",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160521013730",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

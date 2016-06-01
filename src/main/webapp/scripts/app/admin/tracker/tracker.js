@@ -1,4 +1,4 @@
-angular.module('intakeApp')
+angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('tracker', {
@@ -25,6 +25,6 @@ angular.module('intakeApp')
                 },
                 onExit: function(Tracker) {
                     Tracker.unsubscribe();
-                },
+                }
             });
     });

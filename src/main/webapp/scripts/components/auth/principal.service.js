@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .factory('Principal', function Principal($q, Account, Tracker) {
         var _identity,
             _authenticated = false;
@@ -19,7 +19,7 @@ angular.module('intakeApp')
 
                 return this.identity().then(function(_id) {
                     return _id.authorities && _id.authorities.indexOf(authority) !== -1;
-                }, function(err){
+                }, function(){
                     return false;
                 });
             },

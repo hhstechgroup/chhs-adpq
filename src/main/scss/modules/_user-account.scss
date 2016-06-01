@@ -1,0 +1,216 @@
+.profile-form__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 0.1rem solid #d6d7da;
+}
+
+.profile-form__header-text {
+    color: #3e3e3e;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 2.2rem 0 2.5rem 2.7rem;
+}
+
+.profile-form__submit-btn {
+    margin-right: 2.7rem;
+}
+
+.ch-plane-btn {
+    font-size: 1.4rem;
+    text-transform: capitalize;
+}
+
+
+.ch-plane-btn_primary {
+    padding: 0.7rem 1.8rem;
+    border: 0.2rem solid #0071bc;
+    border-radius: 0.4rem;
+    color: #0071bc;
+    font-weight: 700;
+}
+
+.ch-plane-btn_save {
+    padding: 1.2rem 1.5rem 2.5rem;
+    border-radius: 0.4rem;
+    background-color: #0071bc;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.profile-form__section {
+    max-width: 53.6rem;
+    margin: 3.1rem auto 4rem;
+}
+
+.ch-section__header {
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #0071bc;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin: 0 0 2.1rem;
+}
+
+.ch-flex-row {
+    display: flex;
+    margin-bottom: 1.8rem;
+}
+
+.ch-flex-row:last-of-type {
+    margin-bottom: 0;
+}
+
+.ch-flex-row__input-block {
+    flex-basis: 0;
+    flex-grow: 1;
+    margin-right: 2rem;
+}
+
+.ch-input-block__form-input .ch-form-input {
+    margin: 0;
+}
+
+.ch-flex-row__input-block:last-of-type {
+    margin-right: 0;
+}
+
+.ch-input-block__label {
+    font-size: 1.4rem;
+    color: #000000;
+    line-height: 2.4rem;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.ch-form-input.ch-form-input_disable {
+    background-color: #f1f1f1;
+    color: #5b616b;
+    font-weight: 600;
+    font-size: 1.4rem;
+    padding: 1.2rem 0 1.1rem 1.3rem;
+}
+
+.ch-form-input_disable::-webkit-input-placeholder {
+    font-weight: 600;
+}
+
+.ch-input-block__addition {
+    color: #5b616b;
+}
+
+.ch-input-block__form-group {
+    display: flex;
+    padding-left: 0.2rem;
+}
+
+.ch-input-block__form-input_2dig {
+    max-width: 6.8rem;
+}
+
+.ch-input-block__form-input_4dig {
+    max-width: 10rem;
+}
+
+.ch-input-block__form-input_mr_10 {
+    margin-right: 1rem;
+}
+
+.ch-form-input::-webkit-input-placeholder {
+    color: #5b616b;
+    font-size: 1.4rem;
+}
+
+.ch-input-block__label-radio {
+    font-weight: 600;
+    display: block;
+    position: relative;
+    padding-left: 3rem;
+    margin-top: 0.9rem;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + .ch-input-block__label-radio:after {
+    position: absolute;
+    content: "\0020";
+    top: 0.4rem;
+    left: 0.6rem;
+    padding: 0.7rem;
+    border-radius: 50%;
+    background-color: #0071BC;
+}
+
+.ch-input-block__label-radio:before {
+    position: absolute;
+    content: "\0020";
+    top: 0;
+    left: 0.2rem;
+    padding: 1rem;
+    border: 0.1rem solid #757575;
+    border-radius: 50%;
+}
+
+.ch-input-block__form-input_icon {
+    position: relative;
+}
+
+.ch-input-block__form-input_icon_left .ch-form-input {
+    padding-left: 3.7rem;
+    float: none;
+}
+.ch-input-block__form-input_icon_right .ch-form-input {
+    padding-right: 3.7rem;
+    float: none;
+}
+
+.ch-form-input-icon {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 3.7rem;
+    pointer-events: none;
+}
+
+.ch-form-input-icon_left {
+    left: 0;
+}
+.ch-form-input-icon_right {
+    right: 0;
+}
+
+.ch-form-input-icon_search:after {
+    background: url(../images/out-sprite-icons/icon-search.png) no-repeat center;
+    content: "\0020";
+    position: absolute;
+    height: 1.6rem;
+    width: 1.6rem;
+    top: 50%;
+    left: 50%;
+    margin: -0.8rem 0 0 -0.8rem;
+
+}
+
+.ch-form-input-icon_arrow-down:after {
+    background: url(../images/out-sprite-icons/icon-arrow-down.png) no-repeat center;
+    content: "\0020";
+    position: absolute;
+    height: 0.7rem;
+    width: 1rem;
+    top: 50%;
+    right: 50%;
+    margin: -0.35rem -0.3rem 0 0 ;
+}
+
+.ch-form-input.ch-form-input_search {
+    height: auto;
+}
+
+.ch-input-block__btn {
+    margin-top: 1.8rem;
+}
+
+.ch-input-block__form-input_half-width {
+    width: 50%;
+    padding-right: 1rem;
+}

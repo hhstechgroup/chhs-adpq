@@ -1,0 +1,142 @@
+
+<div>
+    <h2><span translate="apqdApp.message.detail.title">Message</span> {{message.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.body">Body</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.body}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.subject">Subject</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.subject}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.caseNumber">CaseNumber</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.caseNumber}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.dateCreated">DateCreated</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.dateCreated | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.dateRead">DateRead</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.dateRead | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.status">Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'apqdApp.MessageStatus.' + message.status}}">{{message.status}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.dateUpdated">DateUpdated</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.dateUpdated | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.unreadMessagesCount">UnreadMessagesCount</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.unreadMessagesCount}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.replyOn">replyOn</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="message.detail({id:message.replyOn.id})">{{message.replyOn.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.to">to</span>
+                </td>
+                <td>
+                    {{message.to.id}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.from">from</span>
+                </td>
+                <td>
+                    {{message.from.id}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.inbox">inbox</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="inbox.detail({id:message.inbox.id})">{{message.inbox.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.outbox">outbox</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="outbox.detail({id:message.outbox.id})">{{message.outbox.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.draft">draft</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="draft.detail({id:message.draft.id})">{{message.draft.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.deleted">deleted</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="deleted.detail({id:message.deleted.id})">{{message.deleted.id}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

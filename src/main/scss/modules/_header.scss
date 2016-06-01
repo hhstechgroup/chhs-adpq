@@ -1,0 +1,117 @@
+.ch-header {
+    width: 100%;
+    background: #343c47;
+    height: 7.3rem;
+}
+
+.ch-header__section {
+    height: 100%;
+}
+
+.ch-header__section_logo {
+    float: left;
+    padding: 1.5rem 6.2rem 0 2.7rem;
+    width: 21rem;
+}
+
+.ch-header__section_control-pane {
+    margin-left: 21rem;
+}
+
+.ch-header__subsection {
+    display: inline-block;
+}
+
+.ch-header__subsection-user-account {
+    float: right;
+    padding: 22px 25px 0 0;
+}
+
+.ch-user-account-entry {
+    position: relative;
+}
+
+.ch-user-account-entry__dropdown-btn_collapsed:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #fff;
+    vertical-align: 10px;
+}
+
+.ch-user-account-entry__dropdown-btn_expanded:after {
+    content: '\0020';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #fff;
+    vertical-align: 10px;
+}
+
+.ch-user-account-entry__popup:before {
+    content: '\0020';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -1rem;
+    right: 2rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+
+}
+
+.ch-user-account-entry__popup {
+    background: #fff;
+    box-shadow: 0 1px 1px #cbcdcf;
+    padding: 3rem;
+    min-width: 32.2rem;
+    position: absolute;
+    top: 5.2rem;
+    right: 0;
+    z-index: 10000;
+}
+
+.ch-user-account-popup__icon {
+    float: left;
+}
+
+.ch-user-account-popup__user-name,
+.ch-user-account-popup__user-email {
+    padding-left: 6rem;
+}
+
+.ch-user-account-popup__user-name {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #313135;
+}
+
+.ch-user-account-popup__user-email {
+    font-size: 1.4rem;
+    color: #5b616b;
+}
+
+.ch-user-account-popup__info {
+    padding: 0 0 2.4rem;
+}
+
+.ch-user-account-popup__profile-btn {
+    display: inline-block;
+    margin-right: 2.5rem;
+}
+
+.ch-user-account-popup__exit-btn {
+    display: inline-block;
+    margin: 0;
+}
+
+.ch-plane-btn__icon {
+    vertical-align: middle;
+    margin-right: .6rem;
+}

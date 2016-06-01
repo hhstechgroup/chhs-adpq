@@ -1,0 +1,50 @@
+/* ========================   Modules/Page Content  ======================= */
+
+.ch-page {
+  padding: 2.5rem;
+  background-color: #f1f1f1;
+}
+
+.ch-page-content {
+  padding-top: 1.8rem;
+}
+
+.ch-page-heading__select {
+  height: 3.5rem;
+  padding: .8rem 3rem .8rem 1.7rem;
+  float: left;
+}
+
+.ch-page-heading__actions {
+  height: 3.7rem;
+  border: .1rem solid #757575;
+  display: inline-block;
+  cursor: pointer;
+
+  .icon {
+    width: 4.5rem;
+    height: 3.5rem;
+  }
+
+  .icon-download {
+    border-left: .1rem solid #757575;
+  }
+}
+
+.ch-page-heading__search {
+  width: 70%;
+  float: right;
+}
+
+.ch-page-heading__county-messages {
+  float: right;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+
+  span {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    color: #5b616b;
+  }
+}

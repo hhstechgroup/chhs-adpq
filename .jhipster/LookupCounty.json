@@ -1,0 +1,29 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "state",
+      "otherEntityName": "lookupState",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "lookupCounty"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "countyName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required",
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 40
+    }
+  ],
+  "changelogDate": "20160521013727",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

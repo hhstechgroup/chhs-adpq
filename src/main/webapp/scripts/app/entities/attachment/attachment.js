@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('attachment', {
@@ -8,7 +8,7 @@ angular.module('intakeApp')
                 url: '/attachments',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'intakeApp.attachment.home.title'
+                    pageTitle: 'apqdApp.attachment.home.title'
                 },
                 views: {
                     'content@': {
@@ -29,7 +29,7 @@ angular.module('intakeApp')
                 url: '/attachment/{id}',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'intakeApp.attachment.detail.title'
+                    pageTitle: 'apqdApp.attachment.detail.title'
                 },
                 views: {
                     'content@': {
@@ -51,7 +51,7 @@ angular.module('intakeApp')
                 parent: 'attachment',
                 url: '/new',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -65,14 +65,14 @@ angular.module('intakeApp')
                                     fileMimeType: null,
                                     fileSize: null,
                                     fileDescription: null,
-                                    documentUUID: null,
                                     creationDate: null,
-                                    recordStatus: null,
+                                    file: null,
+                                    fileContentType: null,
                                     id: null
                                 };
                             }
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('attachment', null, { reload: true });
                     }, function() {
                         $state.go('attachment');
@@ -83,7 +83,7 @@ angular.module('intakeApp')
                 parent: 'attachment',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -95,7 +95,7 @@ angular.module('intakeApp')
                                 return Attachment.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('attachment', null, { reload: true });
                     }, function() {
                         $state.go('^');
@@ -106,7 +106,7 @@ angular.module('intakeApp')
                 parent: 'attachment',
                 url: '/{id}/delete',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['ROLE_USER']
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -118,7 +118,7 @@ angular.module('intakeApp')
                                 return Attachment.get({id : $stateParams.id});
                             }]
                         }
-                    }).result.then(function(result) {
+                    }).result.then(function() {
                         $state.go('attachment', null, { reload: true });
                     }, function() {
                         $state.go('^');

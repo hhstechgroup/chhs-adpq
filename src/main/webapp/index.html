@@ -1,51 +1,100 @@
 <!doctype html>
-<!--EngagePoint CWS Intake 2.1-SNAPSHOT-->
+<!--EngagePoint CHHS-APQD 0.1-->
 <html class="no-js">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>intake</title>
+        <title>Portal for Parents of Foster Kids</title>
         <meta name="description" content="">
-        <meta name="google" value="notranslate">
+        <meta name="google" content="notranslate">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
-        <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' />
-        <link rel='stylesheet' href='bower_components/angular-object-diff/dist/angular-object-diff.css' />
-        <link rel='stylesheet' href='bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css' />
-        <link rel='stylesheet' href='bower_components/ui-select/dist/select.css' />
-        <link rel='stylesheet' href='bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css' />
-        <link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+        <link rel="stylesheet" href="bower_components/angular-object-diff/dist/angular-object-diff.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+        <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
+        <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
         <link rel="stylesheet" href="assets/styles/main.css">
-        <link rel='stylesheet' href='assets/styles/ace.css' type='text/css'/>
-        <link rel='stylesheet' href='bower_components/vis/dist/vis.css' />
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
         <!-- endbuild -->
         <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
         <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
+        <!-- leaflet geocoder-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.css">
 
     </head>
-    <body ng-app="intakeApp">
-
-        <div class="voice-assistant-message alert alert-success hidden">
-        </div>
+    <body ng-app="apqdApp">
 
         <!--[if lt IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="canvas">
-            <div ui-view="main.nav"></div>
+        <div class="ch-layout" ui-view="global">
+            <div class="ch-layout__header" >
+               <div class="ch-header">
+                   <div class="ch-header__section ch-header__section_logo">
+                        <div class="ch-logo">
+                            <a href="#" class="ch-logo__link">
+                                <img class="ch-logo__img" src="assets/images/logo.png" alt="Logo"/>
+                            </a>
+                        </div>
+                   </div>
+                   <div class="ch-header__section">
+                       <div class="ch-header__subsection">
+                           <nav class="ch-main-nav" ui-view="main.nav">
 
-            <!--start main content-->
-            <div class = "main-wrapper-content" ui-view="content">
-            </div><!--end main content-->
+                           </nav>
+                       </div>
+                       <div class="ch-header__subsection ch-header__subsection-user-account" ng-controller="MyProfileAndLogoutController">
+                               <div class="ch-user-account-entry">
+                                   <div class="ch-user-account-entry__dropdown">
+                                       <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed" ng-click="isAccountPopupVisible=!isAccountPopupVisible">
+                                           <span class="icon icon-user-account ch-user-account-entry__dropdown-icon ch-user-account-entry__dropdown-icon_user-account"></span>
+                                       </button>
+                                   </div>
+                                   <div class="ch-user-account-entry__popup" ng-show="isAccountPopupVisible">
+                                       <div class="ch-user-account-popup">
+                                            <div class="ch-user-account-popup__info clearfix">
+                                                <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
+                                                <p class="ch-user-account-popup__user-name">
+                                                    {{accountName}}
+                                                </p>
+                                                <p class="ch-user-account-popup__user-email">
+                                                    {{account.email}}
+                                                </p>
+                                            </div>
+                                           <div class="ch-user-account-popup__controls">
+                                               <div class="ch-user-account-popup__profile-btn">
+                                                   <button type="button" class="ch-option-btn" ui-sref="settings">
+                                                       <span class="ch-option-btn__text">My Profile</span>
+                                                   </button>
+                                               </div>
+                                               <div class="ch-user-account-popup__exit-btn">
+                                                   <button type="button" class="ch-plane-btn" ng-click="logout()">
+                                                       <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
+                                                       <span class="ch-plane-btn__text">Sign out</span>
+                                                   </button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                       </div>
+                   </div>
+               </div>
+            </div>
+
+            <div class = "ch-layout__body" ui-view="content">
+            </div>
 
         </div>
 
@@ -79,21 +128,13 @@
         <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
         <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
         <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
         <script src="bower_components/json3/lib/json3.js"></script>
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
         <script src="bower_components/sockjs-client/dist/sockjs.js"></script>
         <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
-        <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
-        <script src="bower_components/lodash/lodash.js"></script>
-        <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
-        <script src="bower_components/annyang/annyang.js"></script>
-        <script src="bower_components/wavesurfer.js/dist/wavesurfer.min.js"></script>
-        <script src="bower_components/angularAudioRecorder/dist/angular-audio-recorder.min.js"></script>
         <script src="bower_components/angular-object-diff/dist/angular-object-diff.js"></script>
-        <script src="bower_components/ngDraggable/ngDraggable.js"></script>
         <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
         <script src="bower_components/ui-select/dist/select.js"></script>
         <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
@@ -102,7 +143,6 @@
         <script src="bower_components/ng-scrollbars/dist/scrollbars.min.js"></script>
         <script src="bower_components/fuse.js/src/fuse.js"></script>
         <script src="bower_components/jquery-emulatetab/src/emulatetab.joelpurra.js"></script>
-        <script src="bower_components/vis/dist/vis.js"></script>
         <script src="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.js"></script>
         <script src="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.js"></script>
         <script src="bower_components/jQuery-contextMenu/dist/jquery.ui.position.js"></script>
@@ -112,6 +152,10 @@
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+        <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+        <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+        <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
+        <script src="bower_components/lodash/lodash.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -139,8 +183,6 @@
     <script src="scripts/components/interceptor/auth.interceptor.js"></script>
     <script src="scripts/components/interceptor/errorhandler.interceptor.js"></script>
     <script src="scripts/components/interceptor/notification.interceptor.js"></script>
-    <script src="scripts/components/navbar/navbar.directive.js"></script>
-    <script src="scripts/components/navbar/navbar.controller.js"></script>
     <script src="scripts/components/main-nav/main.nav.directive.js"></script>
     <script src="scripts/components/main-nav/main.nav.controller.js"></script>
     <script src="scripts/components/user/user.service.js"></script>
@@ -155,13 +197,13 @@
     <script src="scripts/components/util/data-util.service.js"></script>
     <script src="scripts/components/util/sort.directive.js"></script>
     <script src="scripts/components/util/auto-save.service.js"></script>
-    <script src="scripts/components/util/voice-assistant.service.js"></script>
-    <script src="scripts/components/util/participants.utils.js"></script>
     <script src="scripts/components/util/cws.storage.service.js"></script>
     <script src="scripts/app/dashboard/dashboard.js"></script>
-    <script src="scripts/app/dashboard/investigator.dashboard.alerts.factory.js"></script>
     <script src="scripts/app/dashboard/dashboard.controller.js"></script>
     <script src="scripts/app/dashboard/dashboard.service.js"></script>
+    <script src="scripts/app/POC/POC.js"></script>
+    <script src="scripts/app/POC/locations/locations.js"></script>
+    <script src="scripts/app/POC/locations/locations.controller.js"></script>
     <script src="scripts/app/account/account.js"></script>
     <script src="scripts/app/account/activate/activate.js"></script>
     <script src="scripts/app/account/activate/activate.controller.js"></script>
@@ -174,6 +216,7 @@
     <script src="scripts/app/account/register/register.controller.js"></script>
     <script src="scripts/app/account/settings/settings.js"></script>
     <script src="scripts/app/account/settings/settings.controller.js"></script>
+    <script src="scripts/app/account/logout/profile.logout.controller.js"></script>
     <script src="scripts/app/account/reset/finish/reset.finish.controller.js"></script>
     <script src="scripts/app/account/reset/finish/reset.finish.js"></script>
     <script src="scripts/app/account/reset/request/reset.request.controller.js"></script>
@@ -218,37 +261,122 @@
     <script src="scripts/components/cws-search/elastic.search.index.service.js"></script>
     <script src="scripts/components/cws-search/elastic.search.string.query.builder.js"></script>
     <script src="scripts/components/cws-search/cws.search.service.js"></script>
-    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-	<script src="bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
-    <script src="scripts/components/google/maps.directive.js"></script>
-    <script src="scripts/components/calendar-dashboard/calendar-dashboard.directive.js"></script>
+    <script src="scripts/components/contact-address/contact-address.directive.js"></script>
     <script src="scripts/app/search/search.js"></script>
     <script src="scripts/app/search/search.controller.js"></script>
-    <script src="scripts/components/usps/usps.service.js"></script>
-    <script src="scripts/components/google/google.place.utility.js"></script>
-    <script src="scripts/components/file/file.model.directive.js"></script>
-    <script src="scripts/components/file/file.service.js"></script>
-    <script src="scripts/components/file/attachment.file.service.js"></script>
-    <script src="scripts/components/file/file.upload.service.js"></script>
-    <script src="scripts/components/file/file.size.display.filter.js"></script>
+    <script src="scripts/components/entities/attachment/attachment.service.js"></script>
+    <script src="scripts/components/entities/attachment/attachment.search.service.js"></script>
+    <script src="scripts/components/entities/calendarTask/calendarTask.service.js"></script>
+    <script src="scripts/components/entities/calendarTask/calendarTask.search.service.js"></script>
+    <script src="scripts/app/entities/lookupState/lookupState.js"></script>
+    <script src="scripts/app/entities/lookupState/lookupState.controller.js"></script>
+    <script src="scripts/app/entities/lookupState/lookupState-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupState/lookupState-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupState/lookupState-detail.controller.js"></script>
+    <script src="scripts/components/entities/lookupState/lookupState.service.js"></script>
+    <script src="scripts/components/entities/lookupState/lookupState.search.service.js"></script>
+    <script src="scripts/app/entities/lookupCounty/lookupCounty.js"></script>
+    <script src="scripts/app/entities/lookupCounty/lookupCounty.controller.js"></script>
+    <script src="scripts/app/entities/lookupCounty/lookupCounty-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupCounty/lookupCounty-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupCounty/lookupCounty-detail.controller.js"></script>
+    <script src="scripts/components/entities/lookupCounty/lookupCounty.service.js"></script>
+    <script src="scripts/components/entities/lookupCounty/lookupCounty.search.service.js"></script>
+    <script src="scripts/app/entities/place/place.js"></script>
+    <script src="scripts/app/entities/place/place.controller.js"></script>
+    <script src="scripts/app/entities/place/place-dialog.controller.js"></script>
+    <script src="scripts/app/entities/place/place-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/place/place-detail.controller.js"></script>
+    <script src="scripts/components/entities/place/place.service.js"></script>
+    <script src="scripts/components/entities/place/place.search.service.js"></script>
+    <script src="scripts/app/entities/inbox/inbox.js"></script>
+    <script src="scripts/app/entities/inbox/inbox.controller.js"></script>
+    <script src="scripts/app/entities/inbox/inbox-dialog.controller.js"></script>
+    <script src="scripts/app/entities/inbox/inbox-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/inbox/inbox-detail.controller.js"></script>
+    <script src="scripts/components/entities/inbox/inbox.service.js"></script>
+    <script src="scripts/components/entities/inbox/inbox.search.service.js"></script>
+    <script src="scripts/app/entities/outbox/outbox.js"></script>
+    <script src="scripts/app/entities/outbox/outbox.controller.js"></script>
+    <script src="scripts/app/entities/outbox/outbox-dialog.controller.js"></script>
+    <script src="scripts/app/entities/outbox/outbox-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/outbox/outbox-detail.controller.js"></script>
+    <script src="scripts/components/entities/outbox/outbox.service.js"></script>
+    <script src="scripts/components/entities/outbox/outbox.search.service.js"></script>
+    <script src="scripts/components/mailbox/mailbox.service.js"></script>
+    <script src="scripts/app/mailbox/mailbox.controller.js"></script>
+    <script src="scripts/app/mailbox/view/view.js"></script>
+    <script src="scripts/app/mailbox/view/view.controller.js"></script>
+    <script src="scripts/app/mailbox/list/list.js"></script>
+    <script src="scripts/app/mailbox/list/list.controller.js"></script>
+    <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
+    <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
+    <script src="scripts/components/entities/message/draft.message.service.js"></script>
+    <script src="scripts/components/mailbox/contacts.service.js"></script>
+    <script src="scripts/components/entities/message/confirm.message.service.js"></script>
+    <script src="scripts/components/entities/message/email.service.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/mailBox/mailBox-detail.controller.js"></script>
+    <script src="scripts/components/entities/mailBox/mailBox.service.js"></script>
+    <script src="scripts/components/entities/mailBox/mailBox.search.service.js"></script>
+    <script src="scripts/app/entities/message/message.js"></script>
+    <script src="scripts/app/entities/message/message.controller.js"></script>
+    <script src="scripts/app/entities/message/message-dialog.controller.js"></script>
+    <script src="scripts/app/entities/message/message-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/message/message-detail.controller.js"></script>
+    <script src="scripts/components/entities/message/message.service.js"></script>
+    <script src="scripts/components/entities/message/message.search.service.js"></script>
+    <script src="scripts/components/hhs/hhs.service.js"></script>
+    <script src="scripts/components/hhs/foster.family.agencies.service.js"></script>
     <script src="scripts/app/entities/attachment/attachment.js"></script>
     <script src="scripts/app/entities/attachment/attachment.controller.js"></script>
     <script src="scripts/app/entities/attachment/attachment-dialog.controller.js"></script>
     <script src="scripts/app/entities/attachment/attachment-delete-dialog.controller.js"></script>
     <script src="scripts/app/entities/attachment/attachment-detail.controller.js"></script>
-    <script src="scripts/components/entities/attachment/attachment.service.js"></script>
-    <script src="scripts/components/entities/attachment/attachment.search.service.js"></script>
-    <script src="scripts/app/entities/calendarTask/calendarTask.js"></script>
-    <script src="scripts/app/entities/calendarTask/calendarTask.controller.js"></script>
-    <script src="scripts/app/entities/calendarTask/calendarTask-dialog.controller.js"></script>
-    <script src="scripts/app/entities/calendarTask/calendarTask-delete-dialog.controller.js"></script>
-    <script src="scripts/app/entities/calendarTask/calendarTask-detail.controller.js"></script>
-    <script src="scripts/components/entities/calendarTask/calendarTask.service.js"></script>
-    <script src="scripts/components/entities/calendarTask/calendarTask.search.service.js"></script>
+    <script src="scripts/app/entities/lookupGender/lookupGender.js"></script>
+    <script src="scripts/app/entities/lookupGender/lookupGender.controller.js"></script>
+    <script src="scripts/app/entities/lookupGender/lookupGender-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupGender/lookupGender-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupGender/lookupGender-detail.controller.js"></script>
+    <script src="scripts/components/entities/lookupGender/lookupGender.service.js"></script>
+    <script src="scripts/components/entities/lookupGender/lookupGender.search.service.js"></script>
+    <script src="scripts/app/entities/lookupMaritalStatus/lookupMaritalStatus.js"></script>
+    <script src="scripts/app/entities/lookupMaritalStatus/lookupMaritalStatus.controller.js"></script>
+    <script src="scripts/app/entities/lookupMaritalStatus/lookupMaritalStatus-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupMaritalStatus/lookupMaritalStatus-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/lookupMaritalStatus/lookupMaritalStatus-detail.controller.js"></script>
+    <script src="scripts/components/entities/lookupMaritalStatus/lookupMaritalStatus.service.js"></script>
+    <script src="scripts/components/entities/lookupMaritalStatus/lookupMaritalStatus.search.service.js"></script>
+    <script src="scripts/app/entities/deleted/deleted.js"></script>
+    <script src="scripts/app/entities/deleted/deleted.controller.js"></script>
+    <script src="scripts/app/entities/deleted/deleted-dialog.controller.js"></script>
+    <script src="scripts/app/entities/deleted/deleted-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/deleted/deleted-detail.controller.js"></script>
+    <script src="scripts/components/entities/deleted/deleted.service.js"></script>
+    <script src="scripts/components/entities/deleted/deleted.search.service.js"></script>
+    <script src="scripts/app/mailbox/mailbox.js"></script>
+    <script src="scripts/app/mailbox/mailbox.controller.js"></script>
+    <script src="scripts/app/facilities/facilities.js"></script>
+    <script src="scripts/app/facilities/facilities.controller.js"></script>
+    <script src="scripts/app/facilities/facilities-agency.directive.js"></script>
+
+    <script src="scripts/app/entities/draft/draft.js"></script>
+    <script src="scripts/app/entities/draft/draft.controller.js"></script>
+    <script src="scripts/app/entities/draft/draft-dialog.controller.js"></script>
+    <script src="scripts/app/entities/draft/draft-delete-dialog.controller.js"></script>
+    <script src="scripts/app/entities/draft/draft-detail.controller.js"></script>
+    <script src="scripts/components/entities/draft/draft.service.js"></script>
+    <script src="scripts/components/entities/draft/draft.search.service.js"></script>
+    <script src="scripts/components/geocoder/geocoder.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyDyU4z4A9_miwhAGsT5oeKRXdBRvOV5vEM&amp;signed_in=true&amp;libraries=places"></script>
+    <!-- Load geocoding plugin after Leaflet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.js"></script>
 
     <script type="text/ng-template" id="serverUnreachable.html">
         <div class="modal-body">

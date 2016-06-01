@@ -1,0 +1,38 @@
+chhs-apqd-full-elasticsearch:
+  container_name: chhs-apqd-full-elasticsearch
+  restart: unless-stopped
+  #image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
+  image: elasticsearch:1.5.2
+  # volumes:
+  #   - ~/volumes/jhipster/chhs-apqd/elasticsearch/:/usr/share/elasticsearch/data/
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+
+chhs-apqd-full-postgresql:
+  container_name: chhs-apqd-full-postgresql
+  restart: unless-stopped
+  image: postgres:9.4.5
+  # volumes:
+  #   - ~/volumes/jhipster/chhs-apqd/postgresql/:/var/lib/postgresql/
+  environment:
+    - POSTGRES_USER=chhs-apqd
+    - POSTGRES_PASSWORD=
+    - TZ=America/New_York
+  ports:
+    - "5432:5432"
+
+chhs-apqd-full:
+  container_name: chhs-apqd-full
+  restart: unless-stopped
+  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd
+  environment:
+    - COOKIE=SRV insert indirect nocache
+    - spring_mail_host=172.24.232.25
+    - TZ=America/New_York
+#   - logback_graylogHost=LOGBACK_GRAYLOGHOST
+  ports:
+    - "8080:8080"
+  links:
+    - "chhs-apqd-full-postgresql:POSTGRESQL"
+    - "chhs-apqd-full-elasticsearch:ELASTIC"

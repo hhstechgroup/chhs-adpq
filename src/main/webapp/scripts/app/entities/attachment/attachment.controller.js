@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('intakeApp')
-    .controller('AttachmentController', function ($scope, $state, Attachment, AttachmentSearch) {
+angular.module('apqdApp')
+    .controller('AttachmentController', function ($scope, $state, DataUtils, Attachment, AttachmentSearch) {
 
         $scope.attachments = [];
         $scope.loadAll = function() {
@@ -33,10 +33,14 @@ angular.module('intakeApp')
                 fileMimeType: null,
                 fileSize: null,
                 fileDescription: null,
-                documentUUID: null,
                 creationDate: null,
-                recordStatus: null,
+                file: null,
+                fileContentType: null,
                 id: null
             };
         };
+
+        $scope.abbreviate = DataUtils.abbreviate;
+
+        $scope.byteSize = DataUtils.byteSize;
     });

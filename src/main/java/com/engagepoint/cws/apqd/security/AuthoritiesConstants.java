@@ -11,9 +11,9 @@ public final class AuthoritiesConstants {
 
     public static final String ANONYMOUS = "ROLE_ANONYMOUS";
 
-    public static final String INTAKE_WORKER = "ROLE_INTAKE_WORKER";
+    public static final String PARENT = "PARENT";
 
-    public static final String INVESTIGATOR = "ROLE_INVESTIGATOR";
+    public static final String CASE_WORKER = "CASE_WORKER";
 
     private AuthoritiesConstants() {
     }

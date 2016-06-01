@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myAttachmentLabel" translate="intakeApp.attachment.home.createOrEditLabel">Create or edit a Attachment</h4>
+        <h4 class="modal-title" id="myAttachmentLabel" translate="apqdApp.attachment.home.createOrEditLabel">Create or edit a Attachment</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,53 +14,63 @@
                     ng-model="attachment.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.attachment.fileName" for="field_fileName">FileName</label>
+            <label class="control-label" translate="apqdApp.attachment.fileName" for="field_fileName">FileName</label>
             <input type="text" class="form-control" name="fileName" id="field_fileName"
                     ng-model="attachment.fileName"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.attachment.fileMimeType" for="field_fileMimeType">FileMimeType</label>
+            <label class="control-label" translate="apqdApp.attachment.fileMimeType" for="field_fileMimeType">FileMimeType</label>
             <input type="text" class="form-control" name="fileMimeType" id="field_fileMimeType"
                     ng-model="attachment.fileMimeType"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.attachment.fileSize" for="field_fileSize">FileSize</label>
+            <label class="control-label" translate="apqdApp.attachment.fileSize" for="field_fileSize">FileSize</label>
             <input type="number" class="form-control" name="fileSize" id="field_fileSize"
                     ng-model="attachment.fileSize"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.attachment.fileDescription" for="field_fileDescription">FileDescription</label>
+            <label class="control-label" translate="apqdApp.attachment.fileDescription" for="field_fileDescription">FileDescription</label>
             <input type="text" class="form-control" name="fileDescription" id="field_fileDescription"
                     ng-model="attachment.fileDescription"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="intakeApp.attachment.documentUUID" for="field_documentUUID">DocumentUUID</label>
-            <input type="text" class="form-control" name="documentUUID" id="field_documentUUID"
-                    ng-model="attachment.documentUUID"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="intakeApp.attachment.creationDate" for="field_creationDate">CreationDate</label>
+            <label class="control-label" translate="apqdApp.attachment.creationDate" for="field_creationDate">CreationDate</label>
             <input id="field_creationDate" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="attachment.creationDate" is-open="datePickerForCreationDate.status.opened"
             />
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="datePickerForCreationDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
         </div>
-        <div class="form-group">
-            <label class="control-label" translate="intakeApp.attachment.recordStatus" for="field_recordStatus">RecordStatus</label>
-            <input type="text" class="form-control" name="recordStatus" id="field_recordStatus"
-                    ng-model="attachment.recordStatus"
+        <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+            <label class="control-label" translate="apqdApp.attachment.file" for="field_file">File</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{abbreviate(attachment.file)}} {{attachment.fileContentType}} {{byteSize(attachment.file)}}</span>
+                    <button ng-click="attachment.file=null;attachment.fileContentType=null;"
+                            ng-if="attachment.file"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setFile($file, attachment)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="file" id="field_file"
+                    ng-model="attachment.file"
                      />
+            <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                    ng-model="attachment.fileContentType" />
         </div>
 
         <div class="form-group">
-            <label translate="intakeApp.attachment.referral" for="field_referral">referral</label>
-            <select class="form-control" id="field_referral" name="referral" ng-model="attachment.referral" ng-options="referral as referral.id for referral in referrals track by referral.id">
+            <label translate="apqdApp.attachment.message" for="field_message">message</label>
+            <select class="form-control" id="field_message" name="message" ng-model="attachment.message" ng-options="message as message.id for message in messages track by message.id">
                 <option value=""></option>
             </select>
         </div>

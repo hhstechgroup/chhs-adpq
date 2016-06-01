@@ -1,0 +1,60 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "inbox",
+      "otherEntityName": "inbox",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "mailBox"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipName": "outbox",
+      "otherEntityName": "outbox",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "mailBox"
+    },
+    {
+      "relationshipId": 3,
+      "relationshipName": "contact",
+      "otherEntityName": "user",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "contact"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipName": "deleted",
+      "otherEntityName": "deleted",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "mailBox"
+    },
+    {
+      "relationshipId": 5,
+      "relationshipName": "draft",
+      "otherEntityName": "draft",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "mailBox"
+    },
+    {
+      "relationshipId": 6,
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "relationshipType": "one-to-one",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "mailBox"
+    }
+  ],
+  "fields": [],
+  "changelogDate": "20160521013731",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}

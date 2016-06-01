@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('register', {
+            .state('registerme', {
                 parent: 'account',
-                url: '/register',
+                url: '/registerme',
                 data: {
                     authorities: [],
                     pageTitle: 'register.title'

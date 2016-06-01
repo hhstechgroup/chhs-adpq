@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('activeMenu', function($translate, $locale, tmhDynamicLocale) {
         return {
             restrict: 'A',
@@ -41,7 +41,7 @@ angular.module('intakeApp')
     .directive('mainNavSwitcher', function() {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 var mainNavContainer = $(element);
 
                 function extendMainNav() {

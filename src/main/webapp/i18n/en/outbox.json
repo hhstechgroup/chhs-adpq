@@ -1,0 +1,23 @@
+{
+    "apqdApp": {
+        "outbox" : {
+            "home": {
+                "title": "Outboxs",
+                "createLabel": "Create a new Outbox",
+                "createOrEditLabel": "Create or edit a Outbox",
+                "search": "Search for Outbox"
+            },
+            "created": "A new Outbox is created with identifier {{ param }}",
+            "updated": "A Outbox is updated with identifier {{ param }}",
+            "deleted": "A Outbox is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Outbox {{ id }}?"
+            },
+            "detail": {
+                "title": "Outbox"
+            },
+            "message": "Message",
+            "mailBox": "MailBox"
+        }
+    }
+}

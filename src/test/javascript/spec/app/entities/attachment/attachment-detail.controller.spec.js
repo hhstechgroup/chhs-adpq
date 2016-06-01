@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Attachment Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockAttachment, MockReferral;
+        var MockEntity, MockAttachment, MockMessage;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -12,7 +12,7 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockAttachment = jasmine.createSpy('MockAttachment');
-            MockReferral = jasmine.createSpy('MockReferral');
+            MockMessage = jasmine.createSpy('MockMessage');
             
 
             var locals = {
@@ -20,7 +20,7 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity ,
                 'Attachment': MockAttachment,
-                'Referral': MockReferral
+                'Message': MockMessage
             };
             createController = function() {
                 $injector.get('$controller')("AttachmentDetailController", locals);
@@ -30,7 +30,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'intakeApp:attachmentUpdate';
+                var eventType = 'apqdApp:attachmentUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

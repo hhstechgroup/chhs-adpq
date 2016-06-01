@@ -1,11 +1,14 @@
 package com.engagepoint.cws.apqd.service;
 
 import com.engagepoint.cws.apqd.domain.Authority;
+import com.engagepoint.cws.apqd.domain.LookupGender;
+import com.engagepoint.cws.apqd.domain.Place;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.UserSearchRepository;
+import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
@@ -28,7 +31,7 @@ import java.util.*;
 @Transactional
 public class UserService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Inject
     private PasswordEncoder passwordEncoder;
@@ -46,7 +49,7 @@ public class UserService {
     private AuthorityRepository authorityRepository;
 
     public Optional<User> activateRegistration(String key) {
-        log.debug("Activating user for activation key {}", key);
+        LOGGER.debug("Activating user for activation key {}", key);
         userRepository.findOneByActivationKey(key)
             .map(user -> {
                 // activate given user for the registration key.
@@ -54,14 +57,14 @@ public class UserService {
                 user.setActivationKey(null);
                 userRepository.save(user);
                 userSearchRepository.save(user);
-                log.debug("Activated user: {}", user);
+                LOGGER.debug("Activated user: {}", user);
                 return user;
             });
         return Optional.empty();
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-       log.debug("Reset user password for reset key {}", key);
+       LOGGER.debug("Reset user password for reset key {}", key);
 
        return userRepository.findOneByResetKey(key)
             .filter(user -> {
@@ -89,10 +92,10 @@ public class UserService {
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey) {
+        String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber) {
 
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.PARENT);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
@@ -102,6 +105,10 @@ public class UserService {
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
+        newUser.setSsnLast4Digits(ssnLast4Digits);
+        newUser.setBirthDate(birthDate);
+        newUser.setGender(gender);
+        newUser.setPhoneNumber(phoneNumber);
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
@@ -110,7 +117,7 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         userSearchRepository.save(newUser);
-        log.debug("Created Information for User: {}", newUser);
+        LOGGER.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
@@ -120,6 +127,10 @@ public class UserService {
         user.setFirstName(managedUserDTO.getFirstName());
         user.setLastName(managedUserDTO.getLastName());
         user.setEmail(managedUserDTO.getEmail());
+        user.setSsnLast4Digits(managedUserDTO.getSsnLast4Digits());
+        user.setBirthDate(managedUserDTO.getBirthDate());
+        user.setGender(managedUserDTO.getGender());
+        user.setPhoneNumber(managedUserDTO.getPhoneNumber());
         if (managedUserDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language is English
         } else {
@@ -139,19 +150,25 @@ public class UserService {
         user.setActivated(true);
         userRepository.save(user);
         userSearchRepository.save(user);
-        log.debug("Created Information for User: {}", user);
+        LOGGER.debug("Created Information for User: {}", user);
         return user;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String email, String langKey) {
+    public void updateUserInformation(String firstName, String lastName, String email, String langKey,
+        String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, Place place) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
             u.setLangKey(langKey);
+            u.setSsnLast4Digits(ssnLast4Digits);
+            u.setBirthDate(birthDate);
+            u.setPhoneNumber(phoneNumber);
+            u.setGender(gender);
+            u.setPlace(place);
             userRepository.save(u);
             userSearchRepository.save(u);
-            log.debug("Changed Information for User: {}", u);
+            LOGGER.debug("Changed Information for User: {}", u);
         });
     }
 
@@ -159,7 +176,7 @@ public class UserService {
         userRepository.findOneByLogin(login).ifPresent(u -> {
             userRepository.delete(u);
             userSearchRepository.delete(u);
-            log.debug("Deleted User: {}", u);
+            LOGGER.debug("Deleted User: {}", u);
         });
     }
 
@@ -168,7 +185,7 @@ public class UserService {
             String encryptedPassword = passwordEncoder.encode(password);
             u.setPassword(encryptedPassword);
             userRepository.save(u);
-            log.debug("Changed password for User: {}", u);
+            LOGGER.debug("Changed password for User: {}", u);
         });
     }
 
@@ -206,7 +223,7 @@ public class UserService {
     public void removeOldPersistentTokens() {
         LocalDate now = LocalDate.now();
         persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream().forEach(token -> {
-            log.debug("Deleting token {}", token.getSeries());
+            LOGGER.debug("Deleting token {}", token.getSeries());
             User user = token.getUser();
             user.getPersistentTokens().remove(token);
             persistentTokenRepository.delete(token);
@@ -225,7 +242,7 @@ public class UserService {
         ZonedDateTime now = ZonedDateTime.now();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
-            log.debug("Deleting not activated user {}", user.getLogin());
+            LOGGER.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
             userSearchRepository.delete(user);
         }

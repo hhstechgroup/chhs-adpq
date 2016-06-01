@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('search', {
@@ -8,7 +8,7 @@ angular.module('intakeApp')
 
                 url: '/search/{searchString}',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER', 'ROLE_INVESTIGATOR'],
+                    authorities: ['CASE_WORKER', 'PARENT'],
                     pageTitle: 'search.title'
                 },
                 views: {

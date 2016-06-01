@@ -1,0 +1,126 @@
+
+<div>
+    <h2><span translate="apqdApp.place.detail.title">Place</span> {{place.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.unitNumber">UnitNumber</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.unitNumber}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.cityName">CityName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.cityName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.streetName">StreetName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.streetName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.streetNumber">StreetNumber</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.streetNumber}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.zipCode">ZipCode</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.zipCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.zipSuffix">ZipSuffix</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.zipSuffix}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.longitude">Longitude</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.longitude}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.latitude">Latitude</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.latitude}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.validAddressFlag">ValidAddressFlag</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.validAddressFlag}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.validationStatus">ValidationStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.validationStatus}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.validationMessage">ValidationMessage</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{place.validationMessage}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.county">county</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="lookupCounty.detail({id:place.county.id})">{{place.county.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.place.state">state</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="lookupState.detail({id:place.state.id})">{{place.state.id}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

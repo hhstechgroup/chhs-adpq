@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('intakeApp')
-    .service('DataUtils', function ($filter) {
+angular.module('apqdApp')
+    .service('DataUtils', function () {
     this.byteSize = function (base64String) {
         if (!angular.isString(base64String)) {
             return '';

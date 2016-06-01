@@ -1,0 +1,82 @@
+<div>
+    <h2 translate="apqdApp.mailBox.home.title">MailBoxs</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="mailBox.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+class="hidden-xs"                        translate="apqdApp.mailBox.home.createLabel">Create new MailBox
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'apqdApp.mailBox.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="search()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="apqdApp.mailBox.inbox">inbox</span></th>
+                    <th><span translate="apqdApp.mailBox.outbox">outbox</span></th>
+                    <th><span translate="apqdApp.mailBox.deleted">deleted</span></th>
+                    <th><span translate="apqdApp.mailBox.draft">draft</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mailBox in mailBoxs track by mailBox.id">
+                    <td><a ui-sref="mailBox.detail({id:mailBox.id})">{{mailBox.id}}</a></td>
+                    <td>
+                        <a ui-sref="inbox.detail({id:mailBox.inbox.id})">{{mailBox.inbox.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="outbox.detail({id:mailBox.outbox.id})">{{mailBox.outbox.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="deleted.detail({id:mailBox.deleted.id})">{{mailBox.deleted.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="draft.detail({id:mailBox.draft.id})">{{mailBox.draft.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="mailBox.detail({id:mailBox.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="mailBox.edit({id:mailBox.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="mailBox.delete({id:mailBox.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 {
-    "intakeApp": {
+    "apqdApp": {
         "place" : {
             "home": {
                 "title": "Places",
@@ -22,27 +22,13 @@
             "streetNumber": "StreetNumber",
             "zipCode": "ZipCode",
             "zipSuffix": "ZipSuffix",
-            "foreignAddressFlag": "ForeignAddressFlag",
-            "lastUpdateTimestamp": "LastUpdateTimestamp",
-            "descritpion": "Descritpion",
-            "emergencyPhoneExtensionNumber": "EmergencyPhoneExtensionNumber",
-            "emergencyPhoneNumber": "EmergencyPhoneNumber",
-            "messagePhoneExtensionNumber": "MessagePhoneExtensionNumber",
-            "messagePhoneNumber": "MessagePhoneNumber",
-            "otherHeaderAddress": "OtherHeaderAddress",
-            "primaryPhoneNumber": "PrimaryPhoneNumber",
-            "websiteUrl": "WebsiteUrl",
             "longitude": "Longitude",
             "latitude": "Latitude",
-            "name": "Name",
-            "email": "Email",
-            "recordStatus": "RecordStatus",
             "validAddressFlag": "ValidAddressFlag",
             "validationStatus": "ValidationStatus",
             "validationMessage": "ValidationMessage",
-            "governmentEntity": "GovernmentEntity",
-            "state": "State",
-            "county": "County"
+            "county": "County",
+            "state": "State"
         }
     }
 }

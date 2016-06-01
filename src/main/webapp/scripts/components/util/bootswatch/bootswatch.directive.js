@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('intakeApp')
+angular.module('apqdApp')
     .directive('jhSwitchTheme', function() {
         /*Directive binds to anchor to update the bootswatch theme selected*/
         return {
@@ -8,7 +8,7 @@ angular.module('intakeApp')
             scope: {
                 theme : '=jhSwitchTheme'
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 var currentTheme = $("#bootswatch-css").attr('title');
                 if(scope.theme.name === currentTheme){
                     element.parent().addClass("active");

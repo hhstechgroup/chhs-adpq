@@ -1,19 +1,41 @@
 'use strict';
 
-angular.module('intakeApp')
-    .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate) {
+angular.module('apqdApp')
+    .controller('SettingsController',
+    function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender,
+     Place, GeocoderService) {
+        $scope.dateOptions = uibCustomDatepickerConfig;
         $scope.success = null;
         $scope.error = null;
+
+        /**
+         * Store the "settings account" in a separate variable, and not in the shared "account" variable.
+         */
+        $scope.copyAccount = function (account) {
+            return angular.extend({}, account);
+        };
+
         Principal.identity().then(function(account) {
-            $scope.settingsAccount = copyAccount(account);
+            if (_.isNil(account.place)) {
+                Place.save({streetName: ''}, function(place) {
+                        $scope.settingsAccount = $scope.copyAccount(account);
+                        $scope.settingsAccount.place = place;
+                        Auth.updateAccount($scope.settingsAccount);
+                    }
+                );
+            } else {
+                 $scope.settingsAccount = $scope.copyAccount(account);
+            }
         });
 
         $scope.save = function () {
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = 'OK';
-                Principal.identity(true).then(function(account) {
-                    $scope.settingsAccount = copyAccount(account);
+                Place.update($scope.settingsAccount.place).$promise.then(function() {
+                    Principal.identity(true).then(function(account) {
+                        $scope.settingsAccount = $scope.copyAccount(account);
+                    });
                 });
                 Language.getCurrent().then(function(current) {
                     if ($scope.settingsAccount.langKey !== current) {
@@ -26,17 +48,20 @@ angular.module('intakeApp')
             });
         };
 
-        /**
-         * Store the "settings account" in a separate variable, and not in the shared "account" variable.
-         */
-        var copyAccount = function (account) {
-            return {
-                activated: account.activated,
-                email: account.email,
-                firstName: account.firstName,
-                langKey: account.langKey,
-                lastName: account.lastName,
-                login: account.login
+        $scope.lookupGender = lookupGender;
+
+        $scope.addGeocoder = function () {
+            if(!$scope.geocoder) {
+                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
             }
-        }
+        };
+
+        $scope.onSelectAddress = function (addressFeature) {
+                $scope.street = addressFeature.feature.properties.name;
+                $scope.city = addressFeature.feature.properties.locality;
+                $scope.state = addressFeature.feature.properties.region_a;
+                $scope.zip = addressFeature.feature.properties.postalcode;
+        };
+
+        $scope.addGeocoder();
     });

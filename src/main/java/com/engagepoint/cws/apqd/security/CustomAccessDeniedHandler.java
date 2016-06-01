@@ -26,6 +26,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     private AccessDeniedHandlerImpl accessDeniedHandlerImpl = new AccessDeniedHandlerImpl();
 
+    @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
             AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
@@ -34,8 +35,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
             String pCookieName = "CSRF-TOKEN";
             Cookie cookie = new Cookie(pCookieName, "");
             cookie.setMaxAge(0);
+            cookie.setSecure(true);
             cookie.setHttpOnly(false);
-//            cookie.setPath("/");
             String applicationPath = request.getServletContext().getContextPath();
             if (applicationPath.isEmpty()) {
                 applicationPath = "/";

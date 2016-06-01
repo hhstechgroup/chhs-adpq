@@ -1,0 +1,24 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipName": "message",
+      "otherEntityName": "message",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "inbox"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipName": "mailBox",
+      "otherEntityName": "mailBox",
+      "relationshipType": "one-to-one",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "inbox"
+    }
+  ],
+  "fields": [],
+  "changelogDate": "20160521013732",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no"
+}
