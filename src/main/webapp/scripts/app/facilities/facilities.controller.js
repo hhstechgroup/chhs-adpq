@@ -13,17 +13,8 @@ angular.module('apqdApp')
         $scope.center = {autoDiscover: true, zoom: 13};
 
         $scope.searchText = '';
-        $scope.facilityTypes = [
-            FacilityType.ADOPTION_AGENCY,
-            FacilityType.FOSTER_FAMILY_AGENCY,
-            FacilityType.FOSTER_FAMILY_AGENCY_SUB
-        ];
-        $scope.facilityStatuses = [
-            FacilityStatus.LICENSED,
-            FacilityStatus.CLOSED,
-            FacilityStatus.PENDING,
-            FacilityStatus.UNLICENSED
-        ];
+        $scope.facilityTypes = FacilityType;
+        $scope.facilityStatuses = FacilityStatus;
 
         $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {

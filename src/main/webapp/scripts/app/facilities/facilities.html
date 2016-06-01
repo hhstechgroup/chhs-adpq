@@ -24,12 +24,12 @@
                         <span class="ch-multi-select-dropdown__btn-text">All Types</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" ng-show="showTypes">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="showTypes" ng-mouseleave="showTypes = false">
                         <ul class="ch-checkboxes-list">
-                            <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.code">
+                            <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.id | orderBy: 'id'">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="{{type.code}}" type="checkbox" ng-click="type.selected = !type.selected; findAgenciesWithinBox();">
-                                    <label for="{{type.code}}">{{type.name | capitalize:true}}</label>
+                                    <input id="{{type.id}}" type="checkbox" ng-click="type.selected = !type.selected; findAgenciesWithinBox();">
+                                    <label for="{{type.id}}">{{type.name | capitalize:true}}</label>
                                 </div>
                             </li>
                         </ul>
@@ -42,12 +42,12 @@
                         <span class="ch-multi-select-dropdown__btn-text">All Statuses</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" ng-show="showStatuses">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="showStatuses" ng-mouseleave="showStatuses = false">
                         <ul class="ch-checkboxes-list">
-                            <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.code">
+                            <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.id | orderBy: 'id'">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="{{status.code}}" type="checkbox" ng-click="status.selected = !status.selected; findAgenciesWithinBox();">
-                                    <label for="{{status.code}}">{{status.name | capitalize:true}}</label>
+                                    <input id="{{status.id}}" type="checkbox" ng-click="status.selected = !status.selected; findAgenciesWithinBox();">
+                                    <label for="{{status.id}}">{{status.name | capitalize:true}}</label>
                                 </div>
                             </li>
                         </ul>
