@@ -20,28 +20,16 @@
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
                 <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn">
+                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="showTypes = !showTypes">
                         <span class="ch-multi-select-dropdown__btn-text">All Types</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" style="display: none;">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="showTypes">
                         <ul class="ch-checkboxes-list">
-                            <li class="ch-checkboxes-list__item">
+                            <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.code">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="adoptionAgency" type="checkbox">
-                                    <label for="adoptionAgency">Adoption Agency</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="fosterFamilyAgency" type="checkbox">
-                                    <label for="fosterFamilyAgency">Foster Family Agency</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="fosterFamilyAgencySub" type="checkbox">
-                                    <label for="fosterFamilyAgencySub">Foster Family Agency Sub</label>
+                                    <input id="{{type.code}}" type="checkbox" ng-click="type.selected = !type.selected">
+                                    <label for="{{type.code}}">{{type.name | capitalize:true}}</label>
                                 </div>
                             </li>
                         </ul>
@@ -50,34 +38,16 @@
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
                 <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn">
-                        <span class="ch-multi-select-dropdown__btn-text">All Status</span>
+                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="showStatuses = !showStatuses">
+                        <span class="ch-multi-select-dropdown__btn-text">All Statuses</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" style="display: none;">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="showStatuses">
                         <ul class="ch-checkboxes-list">
-                            <li class="ch-checkboxes-list__item">
+                            <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.code">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="closed" type="checkbox">
-                                    <label for="closed">Closed</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="licensed" type="checkbox">
-                                    <label for="licensed">Licensed</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="pending" type="checkbox">
-                                    <label for="pending">Pending</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="unlicensed" type="checkbox">
-                                    <label for="unlicensed">Unlicensed</label>
+                                    <input id="{{status.code}}" type="checkbox" ng-click="status.selected = !status.selected">
+                                    <label for="{{status.code}}">{{status.name | capitalize:true}}</label>
                                 </div>
                             </li>
                         </ul>

@@ -6,7 +6,7 @@ angular.module('apqdApp')
                 var geocoder = L.control.geocoder('search-JrJjTaE', {
                     fullWidth: 650,
                     expanded: true,
-                    markers: true,
+                    markers: false,
                     latlng: true,
                     place : true
                 });
