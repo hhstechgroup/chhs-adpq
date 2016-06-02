@@ -28,6 +28,7 @@ public final class HeaderUtil {
         return createAlert("apqdApp." + entityName + ".deleted", param);
     }
 
+    @SuppressWarnings("squid:S1172") // all auto-generated Resource classes uses such signature and passes the defaultMessage
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-apqdApp-error", "error." + errorKey);

@@ -544,6 +544,10 @@ select.usa-input-focus {
   box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
 }
 
+input.ng-invalid {
+    box-shadow: 0 0 3px red, 0 0 7px red;
+}
+
 input.usa-input-success,
 input[type="text"].usa-input-success,
 input[type="email"].usa-input-success,

@@ -94,12 +94,26 @@ public final class APQDTestUtil {
         return deletedRepository.saveAndFlush(new Deleted());
     }
 
+    public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        deleted.setMessages(messages);
+        return deletedRepository.saveAndFlush(deleted);
+    }
+
     /*
      * Draft-related
      */
 
     public static Draft prepareDraft(DraftRepository draftRepository) {
         return draftRepository.saveAndFlush(new Draft());
+    }
+
+    public static Draft setMessage(DraftRepository draftRepository, Draft draft, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        draft.setMessages(messages);
+        return draftRepository.saveAndFlush(draft);
     }
 
     /*
