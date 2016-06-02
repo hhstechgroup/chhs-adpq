@@ -128,7 +128,7 @@ public class MailResourceTest {
         assertThat(newMessage.getId()).isNull();
 
         restEMailResourceMockMvc.perform(
-            put("/api/emails/draft")
+            put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
                     newMessage
@@ -140,7 +140,7 @@ public class MailResourceTest {
         assertThat(testMessage.getId()).isNotNull();
 
         restEMailResourceMockMvc.perform(
-            get(String.format("/api/emails/%s?sort=id,desc", EMailDirectory.DRAFTS)))
+            get(String.format("/api/mails/%s/-1?sort=id,desc", EMailDirectory.DRAFTS)))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(testMessage.getId().intValue())))
@@ -152,7 +152,7 @@ public class MailResourceTest {
         assertThat(updatedMessage.getId()).isNotNull();
 
         restEMailResourceMockMvc.perform(
-            put("/api/emails/draft")
+            put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
                     updatedMessage
@@ -165,7 +165,6 @@ public class MailResourceTest {
     }
 
     @Test
-    @Ignore
     @Transactional
     public void testCreateGetUpdate() throws Exception {
         // test create
