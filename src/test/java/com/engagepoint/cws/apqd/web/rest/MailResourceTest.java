@@ -12,6 +12,7 @@ import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -127,7 +128,7 @@ public class MailResourceTest {
         assertThat(newMessage.getId()).isNull();
 
         restEMailResourceMockMvc.perform(
-            put("/api/emails/draft")
+            put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
                     newMessage
@@ -139,7 +140,7 @@ public class MailResourceTest {
         assertThat(testMessage.getId()).isNotNull();
 
         restEMailResourceMockMvc.perform(
-            get(String.format("/api/emails/%s?sort=id,desc", EMailDirectory.DRAFTS)))
+            get(String.format("/api/mails/%s/-1?sort=id,desc", EMailDirectory.DRAFTS)))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(testMessage.getId().intValue())))
@@ -151,7 +152,7 @@ public class MailResourceTest {
         assertThat(updatedMessage.getId()).isNotNull();
 
         restEMailResourceMockMvc.perform(
-            put("/api/emails/draft")
+            put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
                     updatedMessage
