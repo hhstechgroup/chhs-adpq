@@ -4,11 +4,34 @@ angular.module('apqdApp')
     .controller('FacilitiesController',
     ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory',
     function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory) {
+        chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig();
+
         $scope.defaults = {
-            tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             zoomControlPosition: 'bottomright',
             maxZoom: 18
         };
+        $scope.layers = {
+            baselayers: {
+                osm: {
+                    name: 'Map',
+                    type: 'xyz',
+                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                }
+            },
+            overlays: {
+                agencies: {
+                    name: "Agencies",
+                    type: "markercluster",
+                    visible: true
+                },
+                place: {
+                    name: "Place",
+                    type: "group",
+                    visible: true
+                }
+            }
+        };
+
         $scope.viewConfig = {presentation: 'list'};
         $scope.center = {autoDiscover: true, zoom: 13};
 
@@ -27,8 +50,10 @@ angular.module('apqdApp')
 
         $scope.createLocations = function() {
             var locations = {};
+            var a = performance.now();
             _.each($scope.agencies, function (agency) {
                 locations['fn' + agency.facility_number] = {
+                    layer: 'agencies',
                     lat: agency.location.coordinates[1],
                     lng: agency.location.coordinates[0],
                     message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
@@ -44,7 +69,7 @@ angular.module('apqdApp')
                     }
                 };
             });
-
+            $log.debug(performance.now() - a);
             if ($scope.currentLocation) {
                 locations.current = $scope.currentLocation;
             }
@@ -122,6 +147,7 @@ angular.module('apqdApp')
                 message = 'You are here';
             }
             return {
+                layer: 'place',
                 lat: latLng.lat,
                 lng: latLng.lng,
                 //focus: true,
