@@ -2,9 +2,9 @@
 
 angular.module('apqdApp')
     .controller('SettingsController',
-    function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender,
+    function ($scope, Principal, Auth, Language, $translate, lookupGender,
      Place, GeocoderService, lookupState) {
-        $scope.dateOptions = uibCustomDatepickerConfig;
+
         $scope.success = null;
         $scope.error = null;
         $scope.lookupGender = lookupGender;
@@ -55,9 +55,15 @@ angular.module('apqdApp')
                  $scope.settingsAccount = $scope.copyAccount(account);
                  $scope.locateGender();
             }
+            if (!_.isNil($scope.settingsAccount.birthDate)) {
+                $scope.birthDateMonth = $scope.settingsAccount.birthDate.getMonth() + 1;
+                $scope.birthDateYear = $scope.settingsAccount.birthDate.getFullYear();
+                $scope.birthDateDay = $scope.settingsAccount.birthDate.getDate();
+            }
         });
 
         $scope.save = function () {
+            $scope.settingsAccount.birthDate = new Date($scope.birthDateYear, $scope.birthDateMonth - 1, $scope.birthDateDay);
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = 'OK';
