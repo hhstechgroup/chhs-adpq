@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('EditMailCtrl', function ($rootScope, $stateParams, $scope, $state, $log, mail,
+    .controller('EditMailCtrl', function ($rootScope, $stateParams, $scope, $state, $log, mail, identity,
                                           AutoSaveService, DraftMessage, Contacts)
     {
         if (!_.isNil(mail)) {
@@ -13,7 +13,7 @@ angular.module('apqdApp')
             $scope.mail = {
                 body: '',
                 subject: 'RE: ' + (!_.isNil($scope.mail.subject) ? $scope.mail.subject : ''),
-                to: ($scope.isReplyOn ? mail.from : mail.to),
+                to: (identity.login !== mail.from.login ? mail.from : mail.to),
                 replyOn: mail
             }
         }
