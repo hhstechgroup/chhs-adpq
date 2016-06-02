@@ -21,6 +21,11 @@ angular.module('apqdApp')
                     name: "Agencies",
                     type: "markercluster",
                     visible: true
+                },
+                place: {
+                    name: "Place",
+                    type: "markercluster",
+                    visible: true
                 }
             }
         };
@@ -140,7 +145,7 @@ angular.module('apqdApp')
                 message = 'You are here';
             }
             return {
-                layer: 'agencies',
+                layer: 'place',
                 lat: latLng.lat,
                 lng: latLng.lng,
                 //focus: true,
