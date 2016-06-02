@@ -1,24 +1,39 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log, Message, ParseLinks, EMailMessage) {
+    .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log, Message, ParseLinks, MailService) {
 
+        $scope.pageNum = 0;
         $scope.pageSize = 10;
 
         $scope.toItem = 0;
         $scope.fromItem = 0;
         $scope.totalItems = 0;
+        $scope.searchString = '';
+        $scope.prevSearchString = '';
 
-        $scope.loadPage = function(pageNum) {
-            var query = {dir: $stateParams.directory.toUpperCase(), page: pageNum, size: $scope.pageSize};
-            EMailMessage.get(query, function(results, headers) {
+        $scope.loadPage = function() {
+
+            if ($scope.prevSearchString !== $scope.searchString.trim()) {
+                $scope.prevSearchString = $scope.searchString.trim();
+                $scope.pageNum = 0;
+            }
+
+            var query = {
+                dir: $stateParams.directory.toUpperCase(),
+                search: _.isEmpty($scope.searchString.trim()) ? '-1' : $scope.searchString.trim(),
+                page: $scope.pageNum,
+                size: $scope.pageSize
+            };
+
+            MailService.get(query, function(results, headers) {
                 $scope.allSelected = false;
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
 
                 if ($scope.totalItems > 0) {
-                    $scope.fromItem = (pageNum + 1) * $scope.pageSize - $scope.pageSize + 1;
-                    $scope.toItem = (pageNum + 1) * $scope.pageSize;
+                    $scope.fromItem = ($scope.pageNum + 1) * $scope.pageSize - $scope.pageSize + 1;
+                    $scope.toItem = ($scope.pageNum + 1) * $scope.pageSize;
                     if ($scope.toItem > $scope.totalItems) {
                         $scope.toItem = $scope.totalItems;
                     }
@@ -26,6 +41,12 @@ angular.module('apqdApp')
 
                 $scope.mails = results;
             });
+        };
+
+        $scope.filter = function() {
+            if ($scope.prevSearchString !== $scope.searchString.trim()) {
+                $scope.loadPage();
+            }
         };
 
         $scope.openMail = function(mail) {
@@ -38,13 +59,15 @@ angular.module('apqdApp')
 
         $scope.prevPage = function() {
             if (!_.isNil($scope.links) && !_.isNil($scope.links.prev)) {
-                $scope.loadPage($scope.links.prev);
+                $scope.pageNum = $scope.links.prev;
+                $scope.loadPage();
             }
         };
 
         $scope.nextPage = function() {
             if (!_.isNil($scope.links) && !_.isNil($scope.links.next)) {
-                $scope.loadPage($scope.links.next);
+                $scope.pageNum = $scope.links.next;
+                $scope.loadPage();
             }
         };
 
@@ -64,5 +87,5 @@ angular.module('apqdApp')
             $log.info('deleted');
         };
 
-        $scope.loadPage(0);
+        $scope.loadPage();
     });

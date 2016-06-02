@@ -17,11 +17,12 @@
 
             <form class="form-type__search">
 
-                <button type="submit" class="form-type__search__button">
+                <button ng-click="filter()" type="submit" class="form-type__search__button">
                     <span class="icon icon-search"></span>
                 </button>
 
-                <input id="search-field-small" type="search" name="search" class="form-type__search__input">
+                <input id="search-field-small" type="search" name="search"
+                       ng-model="searchString" class="form-type__search__input">
 
             </form>
 

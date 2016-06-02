@@ -69,16 +69,24 @@ public class MailResource {
         messageThreadSearchRepository.save(new MessageThread());
     }
 
-    @RequestMapping(value = "/mails/{directory}",
+    @RequestMapping(value = "/mails/{directory}/{search}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<Message>> getMessages(@PathVariable EMailDirectory directory, Pageable pageable)
+    public ResponseEntity<List<Message>> getMessages(@PathVariable EMailDirectory directory,
+                                                     @PathVariable String search, Pageable pageable)
         throws URISyntaxException {
 
         Page<Message> page = null;
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        if (!search.equals("-1")) {
+
+            String query = "body:*\"" + search + "\"*";
+            page = messageSearchRepository.search(queryStringQuery(query), pageable);
+
+        } else
 
         if (directory == EMailDirectory.INBOX) {
             page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
