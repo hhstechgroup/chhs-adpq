@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, MailBoxService) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, MailBoxService, FacebookService) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -26,4 +26,6 @@ angular.module('apqdApp')
                 $scope.authenticationError = true;
             });
         };
+
+        FacebookService.init();
     });
