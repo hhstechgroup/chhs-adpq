@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, MailBoxService) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -14,6 +14,8 @@ angular.module('apqdApp')
                 password: $scope.password,
                 rememberMe: $scope.rememberMe
             }).then(function () {
+                MailBoxService.connect();
+
                 $scope.authenticationError = false;
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');

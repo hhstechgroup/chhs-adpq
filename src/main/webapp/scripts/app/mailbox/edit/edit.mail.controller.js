@@ -2,8 +2,7 @@
 
 angular.module('apqdApp')
     .controller('EditMailCtrl', function ($rootScope, $stateParams, $scope, $state, $log, mail,
-                                          MailBoxService, AutoSaveService, DraftMessage,
-                                          Contacts)
+                                          AutoSaveService, DraftMessage, Contacts)
     {
         if (!_.isNil(mail)) {
             $scope.mail = _.cloneDeep(mail);
