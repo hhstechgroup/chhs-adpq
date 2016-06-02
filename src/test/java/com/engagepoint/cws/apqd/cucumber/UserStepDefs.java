@@ -63,49 +63,156 @@ public class UserStepDefs {
     @When("^open home page$")
     public void open_home_page() throws Throwable {
         //Configuration.browser = "firefox";
-        open("http://mdc-apdq-app-a1.engagepoint.us:24080/#/");
+        open("http://mdc-apdq-app-a1.engagepoint.us:8080/#/"); //DEV
+        //open("http://mdc-apdq-app-a1.engagepoint.us:24080/#/"); //QA
     }
 
     @When("^register new user with email '(.*)', login '(.*)' and password '(.*)'$")
-    public void open_home_page(String email, @Transform(VarsConverter.class) String login, String password) throws Throwable {
+    public void open_home_page(@Transform(VarsConverter.class) String email, @Transform(VarsConverter.class) String login, String password) throws Throwable {
         $("a[href*='#/registerme']").click();
         $("#email").setValue(email);
         $("#caseNumber").setValue("12345");
         $("#login").setValue(login);
+        $("[ng-model='registerAccount.firstName']").setValue(login);
+        $("[ng-model='registerAccount.lastName']").setValue(login);
         $("#password").setValue(password);
         $("#confirmPassword").setValue(password);
         $("[type*='submit']").click();
-        $("[type*='submit']").shouldBe(disappear);
-        $(By.xpath(".//div[contains(text(),'check your email for confirmation')]")).shouldBe(visible);
+        $(By.xpath(".//a[text()='I have an account']")).shouldBe(visible);
+        $(By.xpath(".//div[contains(text(),'check your email for confirmation')]")).shouldBe(visible).shouldHave(text("Please check your email for confirmation."));
     }
 
     @When("^check confirmation letter for email '(.*)'$")
-    public void check_confirmation_letter_for_email(String email) throws Throwable {
+    public void check_confirmation_letter_for_email(@Transform(VarsConverter.class) String email) throws Throwable {
         open("http://mailinator.com");
         $("#inboxfield").setValue(email);
-        //$(By.xpath(".//button[contains(text(),'Go')]")).shouldBe(enabled);
-         sleep(2000);
+        $(By.xpath(".//button[contains(text(),'Go')]")).shouldBe(visible);
         $(By.xpath(".//button[contains(text(),'Go')]")).click();
-        //$(By.xpath(".//button[contains(text(),'Go')]")).shouldBe(disappear);
+        sleep(2000);
         $("[onclick*='showTheMessage']").hover();
         $("[onclick*='showTheMessage']").click();
-        //$("[onclick*='showTheMessage']").waitUntil(disappear,4000);
-        $(By.xpath(".//iframe[@id='publicshowmaildivcontent']")).shouldHave(enabled);
+        $("[onclick*='showTheMessage']").waitUntil(disappear, 4000);
+        $("#publiccontenttypeselect").shouldBe(visible);
         $(By.xpath(".//iframe[@id='publicshowmaildivcontent']")).shouldBe(visible);
         switchTo().innerFrame("publicshowmaildivcontent");
-        //$("p>a").shouldBe(visible);
         $("p>a").click();
-        //$("a[href*='#/login']").shouldBe(visible);
-        $("a[href*='#/login']").click();
     }
 
     @When("^login with login '(.*)' and password '(.*)'$")
-    public void login_with_login_and_password(String login, String password) throws Throwable {
-        open("http://mdc-apdq-app-a1.engagepoint.us:24080/#/");
+         public void login_with_login_and_password(@Transform(VarsConverter.class) String login, String password) throws Throwable {
+        $("#username").shouldBe(visible);
         $("#username").setValue(login);
         $("#password").setValue(password);
-        $("[type*='submit']").click();
-        $("[type*='submit']").shouldBe(disappear);
+        $(By.xpath(".//button[@type='submit' and text()='Sign in']")).click();
+        $(By.xpath(".//button[@type='submit' and text()='Sign in']")).shouldBe(disappear);
+    }
+
+
+    @When("^open inbox page$")
+    public void open_inbox_page() throws Throwable {
+        $(By.xpath(".//div/span[text()='Inbox']")).click();
+    }
+
+    @When("^compose and send new email to '(.*)' with text '(.*)', attach file '(.*)'$")
+    public void compose_and_send_new_email_with_text_attach_file(@Transform(VarsConverter.class) String recipient, @Transform(VarsConverter.class) String messageText, String attachFile) throws Throwable {
+        $("[ui-sref='ch-inbox.new-mail']").click();
+        $(By.xpath(".//h2[contains(text(),'New Mail')]")).shouldBe(visible);
+        $(".ch-new-mail-field__input").click();
+        sleep(2000);
+        $(By.xpath(".//div[contains(@ng-click,'selectContact')]/span[text()='" + recipient + "']/..")).shouldBe(present);
+        $(By.xpath(".//div[contains(@ng-click,'selectContact')]/span[text()='" + recipient + "']/..")).click();
+        $(By.xpath(".//div[contains(@ng-click,'selectContact')]/span[text()='" + recipient + "']/..")).shouldBe(disappear);
+        $("textarea").shouldBe(visible);
+        $("textarea").click();
+        $("textarea").setValue(messageText);
+        if (!attachFile.isEmpty() & !attachFile.equals(" ")) {
+            $(By.xpath(".//a[contains(text(),'Attach files')]")).click();
+//todo upload file
+        }
+        $("[ng-click='sendMail()']").click();
+        $("[ng-click='sendMail()']").shouldBe(disappear);
+
+    }
+
+    @Then("^verify letter to '(.*)' with text '(.*)' is sent$")
+    public void verify_letter_is_sent(@Transform(VarsConverter.class) String recipient, @Transform(VarsConverter.class) String messageText) throws Throwable {
+        $(By.xpath(".//a/span[text()='Sent mail']")).click();
+        $(By.xpath(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + recipient + "']")).shouldBe(visible);
+        $(By.xpath(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + recipient + "']")).click();
+        $(By.xpath(".//p[text()='" + messageText + "']")).shouldBe(visible);
+    }
+
+    @Then("^verify unread letter from '(.*)' has text '(.*)'$")
+    public void verify_unread_letter_from_has_text(@Transform(VarsConverter.class) String sender, @Transform(VarsConverter.class) String messageText) throws Throwable {
+        $(By.xpath(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + sender + "']")).shouldBe(visible);
+        $(By.xpath(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + sender + "']")).click();
+        $(By.xpath(".//p[text()='" + messageText + "']")).shouldBe(visible);
+    }
+
+    @Then("^verify letter contains attachment$")
+    public void verify_letter_contains_attachment() throws Throwable {
+//todo verify attached file
+    }
+
+    @When("^open my profile$")
+    public void open_my_profile() throws Throwable {
+        $(".ch-user-account-entry__dropdown-btn").shouldBe(visible);
+        $(".ch-user-account-entry__dropdown-btn").click();
+        $(By.xpath(".//button/span[text()='My Profile']")).shouldBe(visible);
+        $(By.xpath(".//button/span[text()='My Profile']")).click();
+        $(By.xpath(".//button/span[text()='My Profile']")).shouldBe(disappear);
+        $(By.xpath(".//h1[text()='My Profile']")).shouldBe(visible);
+    }
+
+    @When("^fill gender '(.*)', DOB mm-dd-yyyy '(.*)'-'(.*)'-'(.*)', license number '(.*)' in General Information$")
+    public void fill_gender_DOB_license_number_in_General_Information(String gender, String month, String day, String year, String licenseNum) throws Throwable {
+        $(By.xpath(".//span[text()='" + gender + "']")).click();
+        $("[name='birth-date-month']").setValue(month);
+        $("[name='birth-date-day']").setValue(day);
+        $("[name='birth-date-year']").setValue(year);
+        $("#license").setValue(licenseNum);
+    }
+
+    @When("^fill address '(.*)', email '(.*)', telephone '(.*)' in Contact Information$")
+    public void fill_address_email_telephone_in_Contact_Information(String address, String email, String telephone ) throws Throwable {
+        if (!address.isEmpty() & !address.equals(" ")) {
+            $("[title='Search']").setValue(address);
+            $(By.xpath(".//li/*[contains(text(),'" + address + "')]")).click();
+            $("[title='Close']").click();
+            //todo delete  $("[title='Close']").click(); after fix address search
+        }
+        if (!email.isEmpty() & !email.equals(" ")) {
+            $("#email").setValue(email);
+        }
+        if (!telephone.isEmpty() & !telephone.equals(" ")) {
+            $("#telephone").click();
+            $("#telephone").setValue(email);
+            $("#telephone").click();
+        }
+    }
+
+    @When("^change old password '(.*)' to the new one '(.*)'$")
+    public void change_old_password_to_the_new_one(String oldPass, String newPass) throws Throwable {
+        //$(By.xpath(".//*[@id='old-pass']")).shouldBe(visible);
+        //$(By.xpath(".//*[@id='old-pass']")).setValue(oldPass);
+        $("#new-pass").setValue(newPass);
+        $("#confirm-pass").setValue(newPass);
+    }
+
+    @When("^save changes in profile$")
+    public void save_changes_in_profile() throws Throwable {
+        $("[value='Save Changes']").click();
+        //$("[value='Save Changes']").waitUntil(hasText("Settings saved!"));
+        $("strong").shouldHave(text("Page with alerts"));
+    }
+
+    @When("^log out$")
+    public void log_out() throws Throwable {
+        $(".ch-user-account-entry__dropdown-btn").shouldBe(visible);
+        $(".ch-user-account-entry__dropdown-btn").click();
+        $("[ng-click='logout()']").shouldBe(visible);
+        $("[ng-click='logout()']").click();
+        $(".ch-user-account-entry__dropdown-btn").shouldBe(disappear);
     }
 
     public static class VarsConverter extends Transformer<String> {
