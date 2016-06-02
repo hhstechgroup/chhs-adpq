@@ -4,6 +4,8 @@ angular.module('apqdApp')
     .controller('FacilitiesController',
     ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory',
     function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory) {
+        chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig();
+
         $scope.defaults = {
             zoomControlPosition: 'bottomright',
             maxZoom: 18
@@ -24,7 +26,7 @@ angular.module('apqdApp')
                 },
                 place: {
                     name: "Place",
-                    type: "markercluster",
+                    type: "group",
                     visible: true
                 }
             }
