@@ -230,27 +230,61 @@
         </div>
     </section>
     <section class="profile-form__section">
+
         <div class="ch-section">
             <h1 class="ch-section__header">Change password</h1>
+
+            <div class="alert alert-success" ng-show="passwordSuccessfullyChanged">
+                <strong>Password changed!</strong>
+            </div>
+            <div class="alert alert-danger" ng-show="passwordChangingError">
+                <strong>An error has occurred!</strong> The password could not be changed.
+            </div>
+
+            <div class="alert alert-danger" ng-show="passwordsDoNotMatch">
+                The password and its confirmation do not match!
+            </div>
+
             <div class="ch-section__content">
                 <div class="ch-flex-row">
                     <div class="ch-flex-row__input-block">
                         <div class="ch-input-block">
-                            <label for="new-pass" class="ch-input-block__label">New Password</label>
+                            <label for="newPassword" class="ch-input-block__label">New Password</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name="new-pass" id="new-pass" class="ch-form-input" ng-model="newPassword" />
+                                <input type="password" name="newPassword" id="newPassword" class="ch-form-input" ng-model="newPassword" ng-minlength=5 ng-maxlength=50 />
                             </div>
+                        </div>
+                        <div ng-show="form.newPassword.$dirty && form.newPassword.$invalid">
+                            <p class="help-block" ng-show="form.newPassword.$error.minlength">
+                                Your password is required to be at least 5 characters.
+                            </p>
+                            <p class="help-block" ng-show="form.newPassword.$error.maxlength">
+                                Your password cannot be longer than 50 characters.
+                            </p>
                         </div>
                         <password-strength-bar password-to-check="newPassword"></password-strength-bar>
                     </div>
                     <div class="ch-flex-row__input-block">
                         <div class="ch-input-block">
-                            <label for="confirm-pass" class="ch-input-block__label">Confirm New Password</label>
+                            <label for="confirmPassword" class="ch-input-block__label">Confirm New Password</label>
                             <div class="ch-input-block__form-input">
-                                <input type="text" name="confirm-pass" id="confirm-pass" class="ch-form-input" />
+                                <input type="password" name="confirmPassword" id="confirmPassword" class="ch-form-input" ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 />
                             </div>
                         </div>
+                        <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
+                            <p class="help-block" ng-show="form.confirmPassword.$error.minlength">
+                                Your confirmation password is required to be at least 5 characters.
+                            </p>
+                            <p class="help-block" ng-show="form.confirmPassword.$error.maxlength">
+                                Your confirmation password cannot be longer than 50 characters.
+                            </p>
+                        </div>
                     </div>
+                </div>
+                <div class="ch-flex-row">
+                        <button type="button" class="ch-option-btn" ng-click="changePassword()">
+                            <span class="ch-option-btn__text">Change password</span>
+                        </button>
                 </div>
             </div>
         </div>

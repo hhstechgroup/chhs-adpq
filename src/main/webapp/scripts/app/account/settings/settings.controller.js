@@ -10,6 +10,27 @@ angular.module('apqdApp')
         $scope.lookupGender = lookupGender;
         $scope.states = lookupState;
 
+        $scope.passwordSuccessfullyChanged = null;
+        $scope.passwordChangingError = null;
+        $scope.passwordsDoNotMatch = null;
+
+        $scope.changePassword = function () {
+            if ($scope.newPassword !== $scope.confirmPassword) {
+                $scope.passwordChangingError = null;
+                $scope.passwordSuccessfullyChanged = null;
+                $scope.passwordsDoNotMatch = 'ERROR';
+            } else {
+                $scope.passwordsDoNotMatch = null;
+                Auth.changePassword($scope.newPassword).then(function () {
+                    $scope.passwordChangingError = null;
+                    $scope.passwordSuccessfullyChanged = 'OK';
+                }).catch(function () {
+                    $scope.passwordSuccessfullyChanged = null;
+                    $scope.passwordChangingError = 'ERROR';
+                });
+            }
+        };
+
         /**
          * Store the "settings account" in a separate variable, and not in the shared "account" variable.
          */
