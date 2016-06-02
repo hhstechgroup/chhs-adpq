@@ -14,7 +14,7 @@ angular.module('apqdApp')
             $scope.mail = {
                 body: '',
                 subject: 'RE: ' + (!_.isNil($scope.mail.subject) ? $scope.mail.subject : ''),
-                to: mail.to,
+                to: (isReplyOn ? mail.from : mail.to),
                 replyOn: mail
             }
         }

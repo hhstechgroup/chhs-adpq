@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Objects;
 
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 /**
  * A Message.
@@ -72,18 +73,22 @@ public class Message implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "inbox_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
     private Inbox inbox;
 
     @ManyToOne
     @JoinColumn(name = "outbox_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
     private Outbox outbox;
 
     @ManyToOne
     @JoinColumn(name = "draft_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
     private Draft draft;
 
     @ManyToOne
     @JoinColumn(name = "deleted_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
     private Deleted deleted;
 
     public Long getId() {

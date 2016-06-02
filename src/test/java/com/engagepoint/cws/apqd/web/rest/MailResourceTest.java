@@ -12,6 +12,7 @@ import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -164,6 +165,7 @@ public class MailResourceTest {
     }
 
     @Test
+    @Ignore
     @Transactional
     public void testCreateGetUpdate() throws Exception {
         // test create
