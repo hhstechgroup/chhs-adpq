@@ -63,7 +63,7 @@
 </div>
 
 <!--start main content-->
-<div class = "ch-layout__content ch-layout__content_facilities" ui-view="main">
+<div class = "ch-layout__content ch-layout__content_facilities" ng-class="{ 'ch-layout__content_fullwidth' : isContentFullWidth }" ui-view="main">
     <div>
         <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: calc(100vh - 14.8rem);"></leaflet>
     </div>
