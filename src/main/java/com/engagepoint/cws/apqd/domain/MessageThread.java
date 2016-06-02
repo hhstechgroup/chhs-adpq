@@ -4,9 +4,16 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Document(indexName = "messagethread")
 public class MessageThread {
+
+    private static AtomicLong seqience = new AtomicLong();
+
+    public MessageThread() {
+        this.id = seqience.addAndGet(1);
+    }
 
     private Long id;
 
