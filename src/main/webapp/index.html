@@ -20,6 +20,8 @@
         <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
         <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
         <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -145,6 +147,7 @@
         <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
         <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
         <script src="bower_components/lodash/lodash.js"></script>
+        <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -300,9 +303,10 @@
     <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
     <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
     <script src="scripts/components/entities/message/draft.message.service.js"></script>
+    <script src="scripts/components/entities/message/thread.message.service.js"></script>
     <script src="scripts/components/mailbox/contacts.service.js"></script>
     <script src="scripts/components/entities/message/confirm.message.service.js"></script>
-    <script src="scripts/components/entities/message/email.service.js"></script>
+    <script src="scripts/components/entities/message/dir.message.service.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
@@ -360,6 +364,7 @@
     <script src="scripts/components/entities/draft/draft.service.js"></script>
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
     <script src="scripts/components/geocoder/geocoder.service.js"></script>
+    <script src="scripts/components/layout/layout.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->

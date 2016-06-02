@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('MyProfileAndLogoutController', function ($scope, $state, Auth, Principal) {
+    .controller('MyProfileAndLogoutController', function ($scope, $state, Auth, Principal, MailBoxService) {
         $scope.isAuthenticated = Principal.isAuthenticated;
 
         $scope.logout = function () {
+            MailBoxService.disconnect();
             Auth.logout();
             $scope.isAccountPopupVisible = false;
             $state.go('home');

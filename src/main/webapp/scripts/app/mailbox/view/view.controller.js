@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('ThreadViewCtrl', function ($rootScope, $scope, $log, mail, ConfirmMessage) {
-        $scope.mail = mail;
+    .controller('ThreadViewCtrl', function ($rootScope, $scope, $log, messageThread, ConfirmMessage) {
+        $scope.messageThread = messageThread;
 
         $scope.backToPreviousState = $rootScope.backToPreviousState;
 
-        if (mail.status === 'NEW') {
-            ConfirmMessage.confirm(mail, function() {}, $log.info);
+        var unreadMessageInThread = _.find($scope.messageThread.thread, {status: 'UNREAD'});
+        if (!_.isUndefined(unreadMessageInThread)) {
+            ConfirmMessage.confirm(unreadMessageInThread, function() {}, $log.info);
         }
     });

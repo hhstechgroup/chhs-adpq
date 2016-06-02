@@ -1,10 +1,10 @@
-<section class="ch-aside-facilities">
+<section class="ch-aside-facilities" ng-show="isAsideVisible">
     <ul class="ch-facilities">
         <li class="ch-facilities__item" ng-repeat="agency in agencies">
             <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
         </li>
     </ul>
 </section>
-<a href="#" class="ch-aside-facilities-ear">
-    <span class="icon icon-pagination-arrow-left ch-aside-facilities-ear__icon"></span>
-</a>
+<button type="button" class="ch-aside-facilities-ear" ng-click="toggleBodyContentConfig()">
+    <span class="icon ch-aside-facilities-ear__icon" ng-class="{ 'icon-pagination-arrow-left': isAsideVisible, 'icon-pagination-arrow-right': !isAsideVisible}"></span>
+</button>

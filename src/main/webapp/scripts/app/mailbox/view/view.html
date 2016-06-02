@@ -16,14 +16,14 @@
         <div class="ch-mail-heading__item ch-mail-heading__item_action-group">
             <div class="ch-page-heading__actions">
                 <span class="icon icon-remove"></span>
-                <span class="icon icon-download"></span>
             </div>
         </div>
     </div>
 
     <section class="ch-mail-thread">
         <ul class="ch-mail-thread-list">
-            <li class="ch-mail-thread-list__item">
+
+            <li ng-repeat="mail in messageThread.thread" class="ch-mail-thread-list__item">
                 <div class="ch-mail-expanded">
                     <div class="ch-mail-expanded__header">
                         <div class="ch-mail-header">
@@ -45,7 +45,7 @@
 
                                     </div>
                                     <div class="ch-mail-info__date">
-                                        <span class="ch-text">20:02</span>
+                                        <span class="ch-text">{{mail | formatMailDate}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -78,12 +78,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </li>
-
-            <li class="ch-mail-thread-list__item">
-                <div class="ch-mail-collapsed">
-                    <div class="ch-mail-collapsed__container"></div>
                 </div>
             </li>
 
