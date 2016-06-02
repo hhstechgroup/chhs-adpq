@@ -47,7 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class EMailResourceTest {
+public class MailResourceTest {
     private static final String MSG_SUBJECT = "subject";
     private static final String MSG_SUBJECT_UPDATED = "subject updated";
     private static final String MSG_BODY = "body";
@@ -93,7 +93,7 @@ public class EMailResourceTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        EMailResource eMailResource = new EMailResource();
+        MailResource eMailResource = new MailResource();
 
         ReflectionTestUtils.setField(eMailResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(eMailResource, "messageRepository", messageRepository);

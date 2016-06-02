@@ -2,13 +2,34 @@
 
 angular.module('apqdApp')
     .controller('SettingsController',
-    function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender,
+    function ($scope, Principal, Auth, Language, $translate, lookupGender,
      Place, GeocoderService, lookupState) {
-        $scope.dateOptions = uibCustomDatepickerConfig;
+
         $scope.success = null;
         $scope.error = null;
         $scope.lookupGender = lookupGender;
         $scope.states = lookupState;
+
+        $scope.passwordSuccessfullyChanged = null;
+        $scope.passwordChangingError = null;
+        $scope.passwordsDoNotMatch = null;
+
+        $scope.changePassword = function () {
+            if ($scope.newPassword !== $scope.confirmPassword) {
+                $scope.passwordChangingError = null;
+                $scope.passwordSuccessfullyChanged = null;
+                $scope.passwordsDoNotMatch = 'ERROR';
+            } else {
+                $scope.passwordsDoNotMatch = null;
+                Auth.changePassword($scope.newPassword).then(function () {
+                    $scope.passwordChangingError = null;
+                    $scope.passwordSuccessfullyChanged = 'OK';
+                }).catch(function () {
+                    $scope.passwordSuccessfullyChanged = null;
+                    $scope.passwordChangingError = 'ERROR';
+                });
+            }
+        };
 
         /**
          * Store the "settings account" in a separate variable, and not in the shared "account" variable.
@@ -34,9 +55,15 @@ angular.module('apqdApp')
                  $scope.settingsAccount = $scope.copyAccount(account);
                  $scope.locateGender();
             }
+            if (!_.isNil($scope.settingsAccount.birthDate)) {
+                $scope.birthDateMonth = $scope.settingsAccount.birthDate.getMonth() + 1;
+                $scope.birthDateYear = $scope.settingsAccount.birthDate.getFullYear();
+                $scope.birthDateDay = $scope.settingsAccount.birthDate.getDate();
+            }
         });
 
         $scope.save = function () {
+            $scope.settingsAccount.birthDate = new Date($scope.birthDateYear, $scope.birthDateMonth - 1, $scope.birthDateDay);
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = 'OK';

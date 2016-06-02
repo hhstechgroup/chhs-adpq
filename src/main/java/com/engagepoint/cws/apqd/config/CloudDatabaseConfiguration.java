@@ -15,6 +15,7 @@ public class CloudDatabaseConfiguration extends AbstractCloudConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(CloudDatabaseConfiguration.class);
 
     @Bean
+    @SuppressWarnings("squid:S1172")
     public DataSource dataSource(CacheManager cacheManager) {
         LOGGER.info("Configuring JDBC datasource from a cloud provider");
         return connectionFactory().dataSource();

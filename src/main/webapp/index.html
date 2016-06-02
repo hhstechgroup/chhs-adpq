@@ -98,17 +98,6 @@
 
         </div>
 
-        <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>-->
-
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -311,9 +300,10 @@
     <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
     <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
     <script src="scripts/components/entities/message/draft.message.service.js"></script>
+    <script src="scripts/components/entities/message/thread.message.service.js"></script>
     <script src="scripts/components/mailbox/contacts.service.js"></script>
     <script src="scripts/components/entities/message/confirm.message.service.js"></script>
-    <script src="scripts/components/entities/message/email.service.js"></script>
+    <script src="scripts/components/entities/message/dir.message.service.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
@@ -371,6 +361,7 @@
     <script src="scripts/components/entities/draft/draft.service.js"></script>
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
     <script src="scripts/components/geocoder/geocoder.service.js"></script>
+    <script src="scripts/components/layout/layout.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->

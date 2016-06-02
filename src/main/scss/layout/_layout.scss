@@ -32,12 +32,17 @@
 }
 
 .ch-layout__aside.ch-layout__aside_facilities {
-    width: 30rem;
-    height: auto;
+    width: auto;
+    height: calc(100vh - 14.8rem);
     border-right: .1rem solid #cbcdcf;
     z-index: 1;
 }
 
 .ch-layout__content.ch-layout__content_facilities {
     padding-left: 30rem;
+}
+
+.ch-layout__content.ch-layout__content_fullwidth {
+    padding: 0;
+    width: 100%;
 }

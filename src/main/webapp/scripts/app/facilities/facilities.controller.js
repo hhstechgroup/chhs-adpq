@@ -2,8 +2,8 @@
 
 angular.module('apqdApp')
     .controller('FacilitiesController',
-    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService',
-    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService) {
+    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory',
+    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory) {
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             zoomControlPosition: 'bottomright',
@@ -168,5 +168,11 @@ angular.module('apqdApp')
         };
         $scope.addGeocoder();
 
-
+        $scope.toggleBodyContentConfig = chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig;
+        $scope.$watch(function(){
+            return chLayoutConfigFactory.layoutConfigState.isAsideVisible;
+        }, function(newValue, oldValue) {
+            $scope.isAsideVisible = chLayoutConfigFactory.layoutConfigState.isAsideVisible;
+            $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
+        });
     }]);
