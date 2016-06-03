@@ -187,7 +187,7 @@ public class MailResource {
         if (directory == EMailDirectory.INBOX) {
             page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
         } else if (directory == EMailDirectory.SENT) {
-            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(user, pageable);
+            page = messageRepository.findAllByOutboxIsNotNullAndFromIsOrderByDateUpdatedDesc(user, pageable);
         } else if (directory == EMailDirectory.DRAFTS) {
             page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(user, pageable);
         } else if (directory == EMailDirectory.DELETED) {
@@ -217,14 +217,32 @@ public class MailResource {
     }
 
     private void updateUserContacts(User userFrom, User userTo) {
+        boolean updateTo = true;
+        boolean updateFrom = true;
+
         for (User user : userFrom.getMailBox().getContacts()) {
             if (user.equals(userTo)) {
-                return;
+                updateFrom = false;
+                break;
             }
         }
 
-        userFrom.getMailBox().getContacts().add(userTo);
-        mailBoxRepository.save(userFrom.getMailBox());
+        for (User user : userTo.getMailBox().getContacts()) {
+            if (user.equals(userFrom)) {
+                updateTo = false;
+                break;
+            }
+        }
+
+        if (updateFrom) {
+            userFrom.getMailBox().getContacts().add(userTo);
+            mailBoxRepository.save(userFrom.getMailBox());
+        }
+
+        if (updateTo) {
+            userTo.getMailBox().getContacts().add(userFrom);
+            mailBoxRepository.save(userTo.getMailBox());
+        }
     }
 
     private void moveMessageFromDraftToInbox(Message message, User userTo, User userFrom) {
@@ -287,12 +305,24 @@ public class MailResource {
         if (message.getReplyOn() != null) {
             thread = findOrCreateMessageThreadByMessageId(message.getReplyOn().getId());
             thread.addMessage(message);
+            updateInbox(message, thread);
+
         } else {
             thread = findOrCreateMessageThreadByMessageId(message.getId());
         }
 
         messageSearchRepository.save(message);
         messageThreadSearchRepository.save(thread);
+    }
+
+    private void updateInbox(Message message, MessageThread thread) {
+        Message root = thread.getThread().get(0);
+        if (root.getInbox() == null && root.getFrom().equals(message.getTo())) {
+            Message one = messageRepository.findOne(root.getId());
+            User to = userRepository.findOne(message.getTo().getId());
+            one.setInbox(to.getMailBox().getInbox());
+            messageRepository.save(one);
+        }
     }
 
     private MessageThread findOrCreateMessageThreadByMessageId(Long messageId) {

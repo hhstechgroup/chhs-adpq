@@ -6,7 +6,10 @@ angular.module('apqdApp')
 
         $scope.backToPreviousState = $rootScope.backToPreviousState;
 
-        var unreadMessageInThread = _.find($scope.messageThread.thread, {status: 'UNREAD'});
+        var unreadMessageInThread = _.find($scope.messageThread.thread, function(mail) {
+            return mail.status === 'UNREAD' && mail.to.login === identity.login;
+        });
+
         if (!_.isUndefined(unreadMessageInThread)) {
             ConfirmMessage.confirm(unreadMessageInThread, function() {}, $log.info);
         }
