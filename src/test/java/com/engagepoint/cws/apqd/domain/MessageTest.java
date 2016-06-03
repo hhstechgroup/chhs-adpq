@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,9 @@ public class MessageTest {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private PasswordEncoder passwordEncoder;
+
     private Message createEntity(String messageSubject, String messageBody) {
         return prepareMessage(messageRepository, messageSubject, messageBody, null, null);
     }
@@ -48,8 +52,8 @@ public class MessageTest {
     public void testEntityFields() throws Exception {
         Message replyOn = createEntity("replyOn message subject", "replyOn message body");
 
-        User from = prepareUser(userRepository, "user1");
-        User to = prepareUser(userRepository, "user2");
+        User from = prepareUser(userRepository, passwordEncoder, "user1");
+        User to = prepareUser(userRepository, passwordEncoder, "user2");
 
         Message message = prepareMessage(messageRepository, "message subject", "message body", from, to);
         message.setInbox(prepareInbox(inboxRepository));

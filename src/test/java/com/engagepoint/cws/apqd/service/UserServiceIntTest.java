@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -52,11 +53,14 @@ public class UserServiceIntTest {
     private UserRepository userRepository;
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
     private UserService userService;
 
     @Test(expected = ConstraintViolationException.class)
     public void testLoginConstraint() {
-        prepareUser(userRepository, "INVALID LOGIN");
+        prepareUser(userRepository, passwordEncoder, "INVALID LOGIN");
     }
 
     @Test
