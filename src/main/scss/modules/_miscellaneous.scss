@@ -20,3 +20,21 @@
 .ch-checkboxes-list__item:last-child {
     margin: 0;
 }
+
+.ch-app #loading-bar-spinner {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, .5);
+    pointer-events: inherit;
+
+    .spinner-icon {
+        width: 5rem;
+        height: 5rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -2.5rem 0 0 -2.5rem;
+    }
+}
