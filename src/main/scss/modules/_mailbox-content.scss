@@ -184,6 +184,13 @@
     resize: vertical;
 }
 
+.ch-new-mail-text-body__text-counter {
+    display: inline-block;
+    color: #ccc;
+    font-style: italic;
+    padding: .5rem;
+}
+
 .ch-mail-heading__item_action-group {
     flex: 0 0 11rem;
 }
