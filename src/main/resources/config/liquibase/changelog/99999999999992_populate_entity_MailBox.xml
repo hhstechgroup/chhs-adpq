@@ -15,42 +15,29 @@
 
     <changeSet id="99999999999992" author="alexander.sankin">
 
-        <insert tableName="inbox"><column name="id" value="1"/></insert>
         <insert tableName="inbox"><column name="id" value="2"/></insert>
         <insert tableName="inbox"><column name="id" value="3"/></insert>
         <insert tableName="inbox"><column name="id" value="5"/></insert>
         <insert tableName="inbox"><column name="id" value="6"/></insert>
         <insert tableName="inbox"><column name="id" value="7"/></insert>
 
-        <insert tableName="outbox"><column name="id" value="1"/></insert>
         <insert tableName="outbox"><column name="id" value="2"/></insert>
         <insert tableName="outbox"><column name="id" value="3"/></insert>
         <insert tableName="outbox"><column name="id" value="5"/></insert>
         <insert tableName="outbox"><column name="id" value="6"/></insert>
         <insert tableName="outbox"><column name="id" value="7"/></insert>
 
-        <insert tableName="draft"><column name="id" value="1"/></insert>
         <insert tableName="draft"><column name="id" value="2"/></insert>
         <insert tableName="draft"><column name="id" value="3"/></insert>
         <insert tableName="draft"><column name="id" value="5"/></insert>
         <insert tableName="draft"><column name="id" value="6"/></insert>
         <insert tableName="draft"><column name="id" value="7"/></insert>
 
-        <insert tableName="deleted"><column name="id" value="1"/></insert>
         <insert tableName="deleted"><column name="id" value="2"/></insert>
         <insert tableName="deleted"><column name="id" value="3"/></insert>
         <insert tableName="deleted"><column name="id" value="5"/></insert>
         <insert tableName="deleted"><column name="id" value="6"/></insert>
         <insert tableName="deleted"><column name="id" value="7"/></insert>
-
-        <insert tableName="mail_box">
-            <column name="id" value="1"/>
-            <column name="inbox_id" value="1"/>
-            <column name="outbox_id" value="1"/>
-            <column name="user_id" value="1"/>
-            <column name="draft_id" value="1"/>
-            <column name="deleted_id" value="1"/>
-        </insert>
 
         <insert tableName="mail_box">
             <column name="id" value="2"/>

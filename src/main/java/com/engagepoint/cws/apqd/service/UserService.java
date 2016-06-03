@@ -1,14 +1,6 @@
 package com.engagepoint.cws.apqd.service;
 
-import com.engagepoint.cws.apqd.domain.Authority;
-import com.engagepoint.cws.apqd.domain.Deleted;
-import com.engagepoint.cws.apqd.domain.Draft;
-import com.engagepoint.cws.apqd.domain.Inbox;
-import com.engagepoint.cws.apqd.domain.LookupGender;
-import com.engagepoint.cws.apqd.domain.MailBox;
-import com.engagepoint.cws.apqd.domain.Outbox;
-import com.engagepoint.cws.apqd.domain.Place;
-import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.domain.*;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
@@ -17,6 +9,7 @@ import com.engagepoint.cws.apqd.repository.search.UserSearchRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
+import com.engagepoint.cws.apqd.web.rest.MailResource;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -60,6 +54,9 @@ public class UserService {
     @Inject
     private MailBoxRepository mailBoxRepository;
 
+    @Inject
+    private MailResource mailResource;
+
     public Optional<User> activateRegistration(String key) {
         LOGGER.debug("Activating user for activation key {}", key);
         userRepository.findOneByActivationKey(key)
@@ -69,6 +66,7 @@ public class UserService {
                 user.setActivationKey(null);
                 userRepository.save(user);
                 userSearchRepository.save(user);
+                sendInvitationLetter(user.getLogin());
                 LOGGER.debug("Activated user: {}", user);
                 return user;
             });
@@ -135,6 +133,22 @@ public class UserService {
         userSearchRepository.save(newUser);
         LOGGER.debug("Created Information for User: {}", newUser);
         return newUser;
+    }
+
+    private void sendInvitationLetter(String login) {
+        try {
+
+            Message invitation = new Message();
+            invitation.setBody("PREVED!");
+            invitation.setFrom(userRepository.findOneByLogin(login).get());
+            invitation.setTo(userRepository.findOneByLogin("parent").get());
+
+            mailResource.saveMessage(invitation);
+            mailResource.sendMessage(invitation);
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     private MailBox prepareMailbox() {
