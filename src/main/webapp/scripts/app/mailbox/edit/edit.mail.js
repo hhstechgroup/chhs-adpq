@@ -21,7 +21,8 @@ angular.module('apqdApp')
                             return Message.get({id: $stateParams.mailId}).$promise;
                         } else {
                             return {
-                                to: $state.params.contact
+                                to: $state.params.contact,
+                                askAbout: $state.params.askAbout
                             };
                         }
                     }],

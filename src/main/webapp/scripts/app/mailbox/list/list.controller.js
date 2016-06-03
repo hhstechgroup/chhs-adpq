@@ -87,5 +87,21 @@ angular.module('apqdApp')
             $log.info('deleted');
         };
 
+        $scope.getUnreadMessageStyle = function(mail) {
+            if ($state.params.directory === 'inbox' || $state.params.directory === 'deleted') {
+                return mail.unreadMessagesCount > 0 ? 'ch-content-item_active' : '';
+            } else {
+                return '';
+            }
+        };
+
+        $scope.getUnreadMessageCount = function(mail) {
+            if ($state.params.directory === 'inbox' || $state.params.directory === 'deleted') {
+                return mail.unreadMessagesCount;
+            } else {
+                return 0;
+            }
+        };
+
         $scope.loadPage();
     });

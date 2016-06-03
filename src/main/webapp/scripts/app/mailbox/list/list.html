@@ -54,7 +54,7 @@
 
     <ul class="ch-page-content">
 
-        <li ng-repeat="mail in mails" ng-class="mail.unreadMessagesCount > 0 ? 'ch-content-item_active' : ''"
+        <li ng-repeat="mail in mails" ng-class="getUnreadMessageStyle(mail)"
             class="ch-content-item">
 
             <div class="ch-content-item__checkbox">
@@ -68,7 +68,7 @@
             <div ng-click="openMail(mail)">
                 <div class="ch-content-item__person">
                     <span class="person-name">{{getTargetName(mail)}}</span>
-                    <span ng-if="mail.unreadMessagesCount > 0" class="person-chain-count">({{mail.unreadMessagesCount}})</span>
+                    <span ng-if="getUnreadMessageCount(mail) > 0" class="person-chain-count">({{getUnreadMessageCount(mail)}})</span>
                 </div>
 
                 <div class="ch-content-item__entry">
