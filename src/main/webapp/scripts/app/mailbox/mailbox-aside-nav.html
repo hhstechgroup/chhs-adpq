@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="ch-aside-contacts__person">
                                     <h3 class="ch-aside-contacts__person-name"><span>{{contact.firstName}} {{contact.lastName}}</span></h3>
-                                    <h4 class="ch-aside-contacts__person-role"><span>Case Worker</span></h4>
+                                    <h4 class="ch-aside-contacts__person-role"><span>{{contact.roleDescription}}</span></h4>
                                 </div>
                                 <span class="ch-aside-contacts__short__arrow up" ng-show="showFullDetails"></span>
                                 <span class="ch-aside-contacts__short__arrow down" ng-show="!showFullDetails"></span>
@@ -80,15 +80,14 @@
                                     </button>
                                 </div>
                                 <div class="ch-aside-contacts__description">
-                                    <h3 class="ch-contacts-description__phone"><span>(510) 268-2422</span></h3>
-                                    <h4 class="ch-contacts-description__address"><span>
-                                      401 Broadway, Oakland, CA 94604</span></h4>
+                                    <h3 class="ch-contacts-description__phone"><span>{{contact.phone | formatTel}}</span></h3>
+                                    <h4 class="ch-contacts-description__address"><span>{{contact.place | formatAddress}}</span></h4>
                                     <a href="" class="ch-contacts-description__filter"><span>Filter Mails By Contact</span></a>
                                 </div>
                             </div>
                       </li>
 
-                </ul>               
+                </ul>
 
             </div>
         </div>

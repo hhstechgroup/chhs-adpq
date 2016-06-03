@@ -75,7 +75,7 @@ angular.module('apqdApp')
             if ($stateParams.directory === 'inbox' || $stateParams.directory === 'deleted') {
                 return mail.from.firstName + ' ' + mail.from.lastName;
             } else {
-                return mail.to.firstName + ' ' + mail.to.lastName;
+                return (!_.isNil(mail.to) ? mail.to.firstName + ' ' + mail.to.lastName : '');
             }
         };
 
