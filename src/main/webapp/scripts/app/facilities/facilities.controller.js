@@ -4,13 +4,14 @@ angular.module('apqdApp')
     .controller('FacilitiesController',
     ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory', '$uibModal',
     function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory, $uibModal) {
+        $scope.ALL_TYPES_LABEL = 'All Types';
+        $scope.ALL_STATUSES_LABEL = 'All Statuses';
+        $scope.DEFAULT_ZOOM = 13;
+
         chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig();
 
         $scope.viewContainsCaBounds = false;
         $scope.caBounds = new L.LatLngBounds(new L.LatLng(32.53, -124.43), new L.LatLng(42, -114.13));
-
-        $scope.ALL_TYPES_LABEL = 'All Types';
-        $scope.ALL_STATUSES_LABEL = 'All Statuses';
 
         $scope.typesConfig = {
             showList: false,
@@ -49,18 +50,18 @@ angular.module('apqdApp')
 
         $scope.viewConfig = {presentation: 'list'};
         //$scope.center = {lat: 36.7428526, lng: -119.9913578, zoom: 13};
-        $scope.center = {autoDiscover: true, zoom: 13};
+        $scope.center = {autoDiscover: true, zoom: $scope.DEFAULT_ZOOM};
 
         $scope.searchText = '';
         $scope.facilityTypes = FacilityType;
         $scope.facilityStatuses = FacilityStatus;
 
-        var centerUnregister = $scope.$watch('center.autoDiscover', function(newValue) {
+        var centerWatchUnregister = $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {
                 $scope.currentLocation = $scope.getHomeLocation($scope.center);
-                $scope.invalidateAgencies();
+                $scope.invalidate();
 
-                centerUnregister();
+                centerWatchUnregister();
             }
         });
 
@@ -112,7 +113,7 @@ angular.module('apqdApp')
             } else {
                 return;
             }
-            $scope.invalidateAgencies();
+            $scope.invalidate();
         };
 
         $scope.findAgenciesWithinBox = function(bounds) {
@@ -170,17 +171,17 @@ angular.module('apqdApp')
 
         $scope.$on("leafletDirectiveMap.viewreset", function(event) {
             $log.debug(event.name);
-            $scope.invalidateAgencies($scope.isDirty);
+            $scope.invalidate($scope.isDirty);
         });
 
         $scope.$on("leafletDirectiveMap.dragend", function(event) {
             $log.debug(event.name);
-            $scope.invalidateAgencies($scope.isDirty);
+            $scope.invalidate($scope.isDirty);
         });
 
         $scope.$on("leafletDirectiveMap.resize", function(event) {
             $log.debug(event.name);
-            $scope.invalidateAgencies($scope.isDirty);
+            $scope.invalidate($scope.isDirty);
         });
 
         $scope.isDirty = function(bounds) {
@@ -196,12 +197,14 @@ angular.module('apqdApp')
             return true;
         };
 
-        $scope.invalidateAgencies = function(isDirty) {
+        $scope.invalidate = function(isDirty, zoom) {
             leafletData.getMap().then(function (map) {
                 var bounds = map.getBounds();
-
                 if (isDirty && !isDirty(bounds)) {
                     return;
+                }
+                if (zoom) {
+                    map.setZoom($scope.DEFAULT_ZOOM);
                 }
                 $scope.findAgenciesWithinBox(bounds);
             }, function(reason) {
@@ -214,9 +217,8 @@ angular.module('apqdApp')
             var latLng = addressFeature.latlng;
             $scope.center.lat = latLng.lat;
             $scope.center.lng = latLng.lng;
-            //$scope.center = {lat: latLng.lat, lng: latLng.lng, zoom:13};
             $scope.currentLocation = $scope.getHomeLocation($scope.center, addressFeature.feature.properties.label);
-            $scope.invalidateAgencies();
+            $scope.invalidate(null, $scope.DEFAULT_ZOOM);
         };
 
         $scope.updateTypesLabel = function() {
@@ -225,7 +227,7 @@ angular.module('apqdApp')
         $scope.onTypeClick = function(type) {
             type.selected = !type.selected;
             $scope.updateTypesLabel();
-            $scope.invalidateAgencies();
+            $scope.invalidate();
         };
 
         $scope.updateStatusesLabel = function() {
@@ -234,7 +236,7 @@ angular.module('apqdApp')
         $scope.onStatusClick = function(status) {
             status.selected = !status.selected;
             $scope.updateStatusesLabel();
-            $scope.invalidateAgencies();
+            $scope.invalidate();
         };
 
         $scope.updateDropDownLabel = function(model, config, defaultValue) {
