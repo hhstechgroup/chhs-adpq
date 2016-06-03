@@ -67,6 +67,11 @@ angular.module('apqdApp')
             }
         };
 
+        $scope.onTextChange = function() {
+            $scope.isBodyInvalid = false;
+            $scope.isSubjectInvalid = false;
+        };
+
         $scope.sendMail = function() {
             $scope.showValidation();
             if ($scope.isValid()) {
