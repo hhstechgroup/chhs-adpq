@@ -26,6 +26,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public final class APQDTestUtil {
     private static final String TEST_PASSWORD_HASH = new String(new char[60]).replace("\0", "F");
 
+    /**
+     * Use to avoid assertion errors while comparing generated html.
+     * For example, this will convert string:
+     *      <a href="http://localhost:80/#/reset/finish?key=88156968137982486177">newuser</a>
+     * to:
+     *      <a href="">newuser</a>
+     *
+     * @param content
+     * @return
+     */
+    public static String cutQuotedUrls(String content) {
+        return content.replaceAll("\"http[^\"]+\"", "\"\"");
+    }
+
     /*
      * User-related
      */
@@ -94,12 +108,26 @@ public final class APQDTestUtil {
         return deletedRepository.saveAndFlush(new Deleted());
     }
 
+    public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        deleted.setMessages(messages);
+        return deletedRepository.saveAndFlush(deleted);
+    }
+
     /*
      * Draft-related
      */
 
     public static Draft prepareDraft(DraftRepository draftRepository) {
         return draftRepository.saveAndFlush(new Draft());
+    }
+
+    public static Draft setMessage(DraftRepository draftRepository, Draft draft, Message message) {
+        Set<Message> messages = new HashSet<>();
+        messages.add(message);
+        draft.setMessages(messages);
+        return draftRepository.saveAndFlush(draft);
     }
 
     /*

@@ -33,16 +33,17 @@ class MailBoxGatlingTest extends Simulation {
     )
 
     val headers_http_authenticated = Map(
-        "Accept" -> """application/json""",
-        "X-CSRF-TOKEN" -> "${csrf_token}"
+        "Accept" -> """application/json"""
+       // ,"X-CSRF-TOKEN" -> "${csrf_token}"
     )
 
     val scn = scenario("Test the MailBox entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
-        .check(status.is(401))
-        .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
+        .check(currentLocationRegex("/login"))
+        //.check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
+        )
         .pause(10)
         .exec(http("Authentication")
         .post("/api/authentication")
@@ -56,7 +57,8 @@ class MailBoxGatlingTest extends Simulation {
         .get("/api/account")
         .headers(headers_http_authenticated)
         .check(status.is(200))
-        .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token")))
+       // .check(headerRegex("Set-Cookie", "CSRF-TOKEN=(.*); [P,p]ath=/").saveAs("csrf_token"))
+        )
         .pause(10)
         .repeat(2) {
             exec(http("Get all mailBoxs")

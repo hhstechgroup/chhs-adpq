@@ -25,10 +25,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @IntegrationTest
 public class OutboxTest {
     @Inject
-    private MailBoxRepository mailBoxRepository;
+    private OutboxRepository outboxRepository;
 
     @Inject
-    private OutboxRepository outboxRepository;
+    private MailBoxRepository mailBoxRepository;
 
     @Inject
     private MessageRepository messageRepository;

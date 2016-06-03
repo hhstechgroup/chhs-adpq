@@ -12,6 +12,7 @@ import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -47,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class EMailResourceTest {
+public class MailResourceTest {
     private static final String MSG_SUBJECT = "subject";
     private static final String MSG_SUBJECT_UPDATED = "subject updated";
     private static final String MSG_BODY = "body";
@@ -93,7 +94,7 @@ public class EMailResourceTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        EMailResource eMailResource = new EMailResource();
+        MailResource eMailResource = new MailResource();
 
         ReflectionTestUtils.setField(eMailResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(eMailResource, "messageRepository", messageRepository);
@@ -127,7 +128,7 @@ public class EMailResourceTest {
         assertThat(newMessage.getId()).isNull();
 
         restEMailResourceMockMvc.perform(
-            put("/api/emails/draft")
+            put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
                     newMessage
@@ -139,7 +140,7 @@ public class EMailResourceTest {
         assertThat(testMessage.getId()).isNotNull();
 
         restEMailResourceMockMvc.perform(
-            get(String.format("/api/emails/%s?sort=id,desc", EMailDirectory.DRAFTS)))
+            get(String.format("/api/mails/%s/-1?sort=id,desc", EMailDirectory.DRAFTS)))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(testMessage.getId().intValue())))
@@ -151,7 +152,7 @@ public class EMailResourceTest {
         assertThat(updatedMessage.getId()).isNotNull();
 
         restEMailResourceMockMvc.perform(
-            put("/api/emails/draft")
+            put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
                     updatedMessage

@@ -20,6 +20,8 @@
         <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
         <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
         <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -98,17 +100,6 @@
 
         </div>
 
-        <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>-->
-
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -156,6 +147,7 @@
         <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
         <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
         <script src="bower_components/lodash/lodash.js"></script>
+        <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -261,7 +253,6 @@
     <script src="scripts/components/cws-search/elastic.search.index.service.js"></script>
     <script src="scripts/components/cws-search/elastic.search.string.query.builder.js"></script>
     <script src="scripts/components/cws-search/cws.search.service.js"></script>
-    <script src="scripts/components/contact-address/contact-address.directive.js"></script>
     <script src="scripts/app/search/search.js"></script>
     <script src="scripts/app/search/search.controller.js"></script>
     <script src="scripts/components/entities/attachment/attachment.service.js"></script>
@@ -312,9 +303,10 @@
     <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
     <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
     <script src="scripts/components/entities/message/draft.message.service.js"></script>
+    <script src="scripts/components/entities/message/thread.message.service.js"></script>
     <script src="scripts/components/mailbox/contacts.service.js"></script>
     <script src="scripts/components/entities/message/confirm.message.service.js"></script>
-    <script src="scripts/components/entities/message/email.service.js"></script>
+    <script src="scripts/components/entities/message/dir.message.service.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
@@ -361,6 +353,7 @@
     <script src="scripts/app/mailbox/mailbox.controller.js"></script>
     <script src="scripts/app/facilities/facilities.js"></script>
     <script src="scripts/app/facilities/facilities.controller.js"></script>
+    <script src="scripts/app/facilities/facilities-agencies.controller.js"></script>
     <script src="scripts/app/facilities/facilities-agency.directive.js"></script>
 
     <script src="scripts/app/entities/draft/draft.js"></script>
@@ -371,6 +364,8 @@
     <script src="scripts/components/entities/draft/draft.service.js"></script>
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
     <script src="scripts/components/geocoder/geocoder.service.js"></script>
+    <script src="scripts/components/layout/layout.service.js"></script>
+    <script src="scripts/components/social/facebook/facebook.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->

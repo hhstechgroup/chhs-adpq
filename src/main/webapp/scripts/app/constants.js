@@ -12,12 +12,13 @@ angular.module('apqdApp')
         showWeeks: false
     })
     .constant('FacilityType', {
-        ADOPTION_AGENCY: 'ADOPTION AGENCY',
-        FOSTER_FAMILY_AGENCY: 'FOSTER FAMILY AGENCY',
-        FOSTER_FAMILY_AGENCY_SUB: 'FOSTER FAMILY AGENCY SUB'
+        ADOPTION_AGENCY: {id: '01ft', name: 'ADOPTION AGENCY', label: 'adoption'},
+        FOSTER_FAMILY_AGENCY: {id: '02ft', name: 'FOSTER FAMILY AGENCY', label: 'foster'},
+        FOSTER_FAMILY_AGENCY_SUB: {id: '03ft', name: 'FOSTER FAMILY AGENCY SUB', label: 'foster_sub'}
     })
     .constant('FacilityStatus', {
-        LICENSED: 'LICENSED',
-        CLOSED: 'CLOSED',
-        PENDING: 'PENDING'
+        LICENSED: {id: '01fs', name: 'LICENSED', color: 'green'},
+        CLOSED: {id: '02fs', name: 'CLOSED', color: 'red'},
+        PENDING: {id: '03fs', name: 'PENDING', color: 'yellow'},
+        UNLICENSED: {id: '04fs', name: 'UNLICENSED', color: 'yellow'}
     });

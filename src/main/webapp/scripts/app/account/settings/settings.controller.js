@@ -2,13 +2,34 @@
 
 angular.module('apqdApp')
     .controller('SettingsController',
-    function ($scope, Principal, Auth, Language, $translate, uibCustomDatepickerConfig, DateUtils, lookupGender,
+    function ($scope, Principal, Auth, Language, $translate, lookupGender,
      Place, GeocoderService, lookupState) {
-        $scope.dateOptions = uibCustomDatepickerConfig;
+
         $scope.success = null;
         $scope.error = null;
         $scope.lookupGender = lookupGender;
         $scope.states = lookupState;
+
+        $scope.passwordSuccessfullyChanged = null;
+        $scope.passwordChangingError = null;
+        $scope.passwordsDoNotMatch = null;
+
+        $scope.changePassword = function () {
+            if ($scope.newPassword !== $scope.confirmPassword) {
+                $scope.passwordChangingError = null;
+                $scope.passwordSuccessfullyChanged = null;
+                $scope.passwordsDoNotMatch = 'ERROR';
+            } else {
+                $scope.passwordsDoNotMatch = null;
+                Auth.changePassword($scope.newPassword).then(function () {
+                    $scope.passwordChangingError = null;
+                    $scope.passwordSuccessfullyChanged = 'OK';
+                }).catch(function () {
+                    $scope.passwordSuccessfullyChanged = null;
+                    $scope.passwordChangingError = 'ERROR';
+                });
+            }
+        };
 
         /**
          * Store the "settings account" in a separate variable, and not in the shared "account" variable.
@@ -17,11 +38,9 @@ angular.module('apqdApp')
             return angular.extend({}, account);
         };
 
-        $scope.locateGender = function() {
-            $scope.settingsAccount.gender = _.find(lookupGender,
-                function(gender) {
-                  return gender.id == $scope.settingsAccount.gender.id;
-            });
+        $scope.locateGender = function () {
+            $scope.settingsAccount.gender = _.isNil($scope.settingsAccount.gender) ? null
+                : _.find(lookupGender, {id: $scope.settingsAccount.gender.id});
         };
 
         Principal.identity().then(function(account) {
@@ -36,9 +55,15 @@ angular.module('apqdApp')
                  $scope.settingsAccount = $scope.copyAccount(account);
                  $scope.locateGender();
             }
+            if (!_.isNil($scope.settingsAccount.birthDate)) {
+                $scope.birthDateMonth = $scope.settingsAccount.birthDate.getMonth() + 1;
+                $scope.birthDateYear = $scope.settingsAccount.birthDate.getFullYear();
+                $scope.birthDateDay = $scope.settingsAccount.birthDate.getDate();
+            }
         });
 
         $scope.save = function () {
+            $scope.settingsAccount.birthDate = new Date($scope.birthDateYear, $scope.birthDateMonth - 1, $scope.birthDateDay);
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = 'OK';
@@ -69,7 +94,7 @@ angular.module('apqdApp')
             $scope.settingsAccount.place.streetName = addressFeature.feature.properties.name;
             $scope.settingsAccount.place.cityName = addressFeature.feature.properties.locality;
             $scope.settingsAccount.place.state = _.find($scope.states, function(state) {
-                return _.upperCase(state.stateCode) == _.upperCase(addressFeature.feature.properties.region_a);
+                return _.upperCase(state.stateCode) === _.upperCase(addressFeature.feature.properties.region_a);
             });
             $scope.settingsAccount.place.zipCode = addressFeature.feature.properties.postalcode;
         };

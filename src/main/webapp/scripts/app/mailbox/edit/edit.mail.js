@@ -22,6 +22,9 @@ angular.module('apqdApp')
                         } else {
                             return null;
                         }
+                    }],
+                    identity: ['Principal', function(Principal) {
+                        return Principal.identity();
                     }]
                 }
             })
@@ -40,6 +43,9 @@ angular.module('apqdApp')
                 resolve: {
                     mail: ['$stateParams', 'Message', function($stateParams, Message) {
                         return Message.get({id: $stateParams.replyOn}).$promise;
+                    }],
+                    identity: ['Principal', function(Principal) {
+                        return Principal.identity();
                     }]
                 }
             });
