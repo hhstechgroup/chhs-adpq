@@ -2,13 +2,36 @@
 
 angular.module('apqdApp')
     .controller('FacilitiesController',
-    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory',
-    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory) {
+    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory', '$uibModal',
+    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory, $uibModal) {
+        chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig();
+
         $scope.defaults = {
-            tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             zoomControlPosition: 'bottomright',
             maxZoom: 18
         };
+        $scope.layers = {
+            baselayers: {
+                osm: {
+                    name: 'Map',
+                    type: 'xyz',
+                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                }
+            },
+            overlays: {
+                agencies: {
+                    name: "Agencies",
+                    type: "markercluster",
+                    visible: true
+                },
+                place: {
+                    name: "Place",
+                    type: "group",
+                    visible: true
+                }
+            }
+        };
+
         $scope.viewConfig = {presentation: 'list'};
         $scope.center = {autoDiscover: true, zoom: 13};
 
@@ -25,15 +48,12 @@ angular.module('apqdApp')
             }
         });
 
-        $scope.clearLocations = function() {
-            $scope.locations = {};
-        };
-
-        $scope.updateLocations = function() {
-            $scope.clearLocations();
-
-            _.each($scope.agencies, function(agency) {
-                $scope.locations['fn' + agency.facility_number] = {
+        $scope.createLocations = function() {
+            var locations = {};
+            var a = performance.now();
+            _.each($scope.agencies, function (agency) {
+                locations['fn' + agency.facility_number] = {
+                    layer: 'agencies',
                     lat: agency.location.coordinates[1],
                     lng: agency.location.coordinates[0],
                     message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
@@ -49,16 +69,22 @@ angular.module('apqdApp')
                     }
                 };
             });
-
+            $log.debug(performance.now() - a);
             if ($scope.currentLocation) {
-                $scope.locations.current = $scope.currentLocation;
+                locations.current = $scope.currentLocation;
             }
+
+            return locations;
+        };
+
+        $scope.updateLocations = function() {
+            $scope.locations = $scope.createLocations();
         };
 
         $scope.defineIcon = function(agency) {
-            if (agency.facility_type === FacilityType.ADOPTION_AGENCY.name && agency.facility_status === FacilityStatus.LICENSED.name) {
-                return 'assets/images/icon_pin_adoption_green.png';
-            }
+            return 'assets/images/icon_pin_'
+                + _.find(FacilityType, {name: agency.facility_type}).label + '_'
+                + _.find(FacilityStatus, {name: agency.facility_status}).color + '.png';
         };
 
         $scope.findLocationByAddress = function(address) {
@@ -121,6 +147,7 @@ angular.module('apqdApp')
                 message = 'You are here';
             }
             return {
+                layer: 'place',
                 lat: latLng.lat,
                 lng: latLng.lng,
                 //focus: true,
@@ -174,4 +201,14 @@ angular.module('apqdApp')
             $scope.isAsideVisible = chLayoutConfigFactory.layoutConfigState.isAsideVisible;
             $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
         });
+
+        $scope.openDefaultAddressModal = function() {
+            $uibModal.open({
+                templateUrl: 'scripts/app/facilities/modal/default-address-dialog.html',
+                controller: 'DefaultAddressModalCtrl',
+                size: 'facilities-default-address',
+                windowClass: 'ch-general-modal',
+                resolve: {}
+            });
+        }
     }]);

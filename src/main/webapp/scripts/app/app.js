@@ -109,7 +109,10 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
         $stateProvider.state('site', {
             'abstract': true,
             views: {
-                'main.nav@': {
+                'header@': {
+                    templateUrl: 'scripts/components/header/header.html'
+                },
+                'main.nav@site': {
                     templateUrl: 'scripts/components/main-nav/main.nav.html',
                     controller: 'MainNavController'
                 }

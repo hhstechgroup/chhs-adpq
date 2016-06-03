@@ -1,13 +1,21 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('RegisterController', function ($scope, $translate, $timeout, Auth) {
+    .controller('RegisterController', function ($scope, $translate, $timeout, Auth, $window, $rootScope) {
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
         $scope.registerAccount = {};
         $timeout(function (){angular.element('[ng-model="registerAccount.login"]').focus();});
+
+        $scope.populateFields = function () {
+            if($rootScope.socialUser) {
+                $scope.registerAccount.firstName = $rootScope.socialUser.first_name;
+                $scope.registerAccount.lastName = $rootScope.socialUser.first_name;
+                $scope.registerAccount.email = $rootScope.socialUser.email;
+            }
+        };
 
         $scope.register = function () {
             if ($scope.registerAccount.password !== $scope.confirmPassword) {
@@ -33,4 +41,6 @@ angular.module('apqdApp')
                 });
             }
         };
+
+        $scope.populateFields();
     });

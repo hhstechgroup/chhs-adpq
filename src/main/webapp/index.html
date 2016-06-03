@@ -20,6 +20,8 @@
         <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
         <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
         <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -32,70 +34,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.css">
 
     </head>
-    <body ng-app="apqdApp">
+    <body ng-app="apqdApp" class="ch-app">
 
         <!--[if lt IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <div class="ch-layout" ui-view="global">
-            <div class="ch-layout__header" >
-               <div class="ch-header">
-                   <div class="ch-header__section ch-header__section_logo">
-                        <div class="ch-logo">
-                            <a href="#" class="ch-logo__link">
-                                <img class="ch-logo__img" src="assets/images/logo.png" alt="Logo"/>
-                            </a>
-                        </div>
-                   </div>
-                   <div class="ch-header__section">
-                       <div class="ch-header__subsection">
-                           <nav class="ch-main-nav" ui-view="main.nav">
+            <div class="ch-layout__header"  ui-view="header">
 
-                           </nav>
-                       </div>
-                       <div class="ch-header__subsection ch-header__subsection-user-account" ng-controller="MyProfileAndLogoutController">
-                               <div class="ch-user-account-entry">
-                                   <div class="ch-user-account-entry__dropdown">
-                                       <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed" ng-click="isAccountPopupVisible=!isAccountPopupVisible">
-                                           <span class="icon icon-user-account ch-user-account-entry__dropdown-icon ch-user-account-entry__dropdown-icon_user-account"></span>
-                                       </button>
-                                   </div>
-                                   <div class="ch-user-account-entry__popup" ng-show="isAccountPopupVisible">
-                                       <div class="ch-user-account-popup">
-                                            <div class="ch-user-account-popup__info clearfix">
-                                                <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
-                                                <p class="ch-user-account-popup__user-name">
-                                                    {{accountName}}
-                                                </p>
-                                                <p class="ch-user-account-popup__user-email">
-                                                    {{account.email}}
-                                                </p>
-                                            </div>
-                                           <div class="ch-user-account-popup__controls">
-                                               <div class="ch-user-account-popup__profile-btn">
-                                                   <button type="button" class="ch-option-btn" ui-sref="settings" ng-click="isAccountPopupVisible = false;">
-                                                       <span class="ch-option-btn__text">My Profile</span>
-                                                   </button>
-                                               </div>
-                                               <div class="ch-user-account-popup__exit-btn">
-                                                   <button type="button" class="ch-plane-btn" ng-click="logout()">
-                                                       <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
-                                                       <span class="ch-plane-btn__text">Sign out</span>
-                                                   </button>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                       </div>
-                   </div>
-               </div>
             </div>
 
             <div class = "ch-layout__body" ui-view="content">
-            </div>
 
+            </div>
         </div>
 
         <!-- build:js scripts/vendor.js -->
@@ -145,6 +97,7 @@
         <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
         <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
         <script src="bower_components/lodash/lodash.js"></script>
+        <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -352,6 +305,8 @@
     <script src="scripts/app/facilities/facilities.controller.js"></script>
     <script src="scripts/app/facilities/facilities-agencies.controller.js"></script>
     <script src="scripts/app/facilities/facilities-agency.directive.js"></script>
+    <script src="scripts/app/facilities/modal/default-address-dialog.controller.js"></script>
+
 
     <script src="scripts/app/entities/draft/draft.js"></script>
     <script src="scripts/app/entities/draft/draft.controller.js"></script>
@@ -362,6 +317,7 @@
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
     <script src="scripts/components/geocoder/geocoder.service.js"></script>
     <script src="scripts/components/layout/layout.service.js"></script>
+    <script src="scripts/components/social/facebook/facebook.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->

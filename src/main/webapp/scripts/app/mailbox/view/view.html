@@ -31,10 +31,10 @@
                             <div class="ch-mail-header__item">
                                 <div class="ch-mail-origin">
                                     <span class="ch-mail-origin__prefix">
-                                        From:
+                                        {{getFromOrTo(mail)}}
                                     </span>
                                     <span class="ch-mail-origin__name">
-                                        {{mail.from.firstName}} {{mail.from.LastName}}
+                                        {{getFromOrToName(mail)}}
                                     </span>
                                 </div>
                             </div>
@@ -68,16 +68,6 @@
                         </div>
                     </div>
 
-                    <div class="ch-mail-expanded__footer">
-                        <div class="ch-attachments">
-
-                            <div class="ch-attachments__heading">
-                                <h3>
-                                    <span class="attachments-count">attachments</span>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </li>
 

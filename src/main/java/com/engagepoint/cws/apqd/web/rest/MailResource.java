@@ -78,28 +78,12 @@ public class MailResource {
                                                      @PathVariable String search, Pageable pageable)
         throws URISyntaxException {
 
-        Page<Message> page = null;
-        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        Page<Message> page;
 
-        if (!search.equals("-1")) {
-
-            String query = "body:*\"" + search + "\"*";
-            page = messageSearchRepository.search(queryStringQuery(query), pageable);
-
-        } else
-
-        if (directory == EMailDirectory.INBOX) {
-            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
-        } else if (directory == EMailDirectory.SENT) {
-            page = messageRepository.findAllByOutboxIsNotNullAndReplyOnIsNullAndFromIsOrderByDateUpdatedDesc(user, pageable);
-        } else if (directory == EMailDirectory.DRAFTS) {
-            page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(user, pageable);
-        } else if (directory == EMailDirectory.DELETED) {
-            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
-        }
-
-        if (page == null) {
-            throw new URISyntaxException("page", "this should not happen");
+        if (search.equals("-1")) {
+            page = loadMessagesViaSQL(directory, pageable);
+        } else {
+            page = loadMessagesViaElastic(directory, search, pageable);
         }
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page,
@@ -128,7 +112,6 @@ public class MailResource {
         }
         Message result = messageRepository.save(enrichDraftMessage(message));
         mailBoxService.notifyClientAboutDraftsCount();
-        messageSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("message", message.getId().toString()))
             .body(result);
@@ -167,6 +150,20 @@ public class MailResource {
         return ResponseEntity.ok().build();
     }
 
+    @Transactional
+    public void sendInvitationLetter(Message message) {
+        User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
+        User userFrom = userRepository.findOneByLogin(message.getFrom().getLogin()).get();
+
+        updateUserContacts(userFrom, userTo);
+        moveMessageFromDraftToInbox(message, userTo, userFrom);
+        updateUnreadCount(message);
+        updateMessageThread(message);
+
+        mailBoxService.notifyClientAboutDraftsCount();
+        mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
+    }
+
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
         LOGGER.debug("REST request to save Message : {}", message);
         if (message.getId() != null) {
@@ -175,10 +172,43 @@ public class MailResource {
         }
         Message result = messageRepository.save(enrichDraftMessage(message));
         mailBoxService.notifyClientAboutDraftsCount();
-        messageSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/messages/draft" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("message", result.getId().toString()))
             .body(result);
+    }
+
+    private Page<Message> loadMessagesViaElastic(EMailDirectory directory, String search, Pageable pageable) {
+        String query = null;
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        if (directory == EMailDirectory.INBOX) {
+            query = "+body:*" + search + "* +to.login:" + user.getLogin();
+        } else if (directory == EMailDirectory.SENT) {
+            query = "+body:*" + search + "* +from.login:" + user.getLogin();
+        } else if (directory == EMailDirectory.DRAFTS) {
+            throw new UnsupportedOperationException("not implemented yet");
+        } else if (directory == EMailDirectory.DELETED) {
+            throw new UnsupportedOperationException("not implemented yet");
+        }
+
+        return messageSearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    private Page<Message> loadMessagesViaSQL(EMailDirectory directory, Pageable pageable) {
+        Page<Message> page = null;
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        if (directory == EMailDirectory.INBOX) {
+            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
+        } else if (directory == EMailDirectory.SENT) {
+            page = messageRepository.findAllByOutboxIsNotNullAndFromIsOrderByDateUpdatedDesc(user, pageable);
+        } else if (directory == EMailDirectory.DRAFTS) {
+            page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(user, pageable);
+        } else if (directory == EMailDirectory.DELETED) {
+            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
+        }
+
+        return page;
     }
 
     private Message enrichDraftMessage(Message message) {
@@ -201,14 +231,32 @@ public class MailResource {
     }
 
     private void updateUserContacts(User userFrom, User userTo) {
+        boolean updateTo = true;
+        boolean updateFrom = true;
+
         for (User user : userFrom.getMailBox().getContacts()) {
             if (user.equals(userTo)) {
-                return;
+                updateFrom = false;
+                break;
             }
         }
 
-        userFrom.getMailBox().getContacts().add(userTo);
-        mailBoxRepository.save(userFrom.getMailBox());
+        for (User user : userTo.getMailBox().getContacts()) {
+            if (user.equals(userFrom)) {
+                updateTo = false;
+                break;
+            }
+        }
+
+        if (updateFrom) {
+            userFrom.getMailBox().getContacts().add(userTo);
+            mailBoxRepository.save(userFrom.getMailBox());
+        }
+
+        if (updateTo) {
+            userTo.getMailBox().getContacts().add(userFrom);
+            mailBoxRepository.save(userTo.getMailBox());
+        }
     }
 
     private void moveMessageFromDraftToInbox(Message message, User userTo, User userFrom) {
@@ -255,6 +303,7 @@ public class MailResource {
                 saved.setStatus(MessageStatus.READ);
                 saved.setDateRead(msg.getDateRead());
                 messageRepository.save(saved);
+                messageSearchRepository.save(msg);
             }
         }
 
@@ -270,11 +319,24 @@ public class MailResource {
         if (message.getReplyOn() != null) {
             thread = findOrCreateMessageThreadByMessageId(message.getReplyOn().getId());
             thread.addMessage(message);
+            updateInbox(message, thread);
+
         } else {
             thread = findOrCreateMessageThreadByMessageId(message.getId());
         }
 
+        messageSearchRepository.save(message);
         messageThreadSearchRepository.save(thread);
+    }
+
+    private void updateInbox(Message message, MessageThread thread) {
+        Message root = thread.getThread().get(0);
+        if (root.getInbox() == null && root.getFrom().equals(message.getTo())) {
+            Message one = messageRepository.findOne(root.getId());
+            User to = userRepository.findOne(message.getTo().getId());
+            one.setInbox(to.getMailBox().getInbox());
+            messageRepository.save(one);
+        }
     }
 
     private MessageThread findOrCreateMessageThreadByMessageId(Long messageId) {
