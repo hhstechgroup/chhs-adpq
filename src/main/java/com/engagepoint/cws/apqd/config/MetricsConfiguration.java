@@ -11,7 +11,6 @@ import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import fr.ippon.spark.metrics.SparkReporter;
 import io.github.hengyunabc.metrics.ZabbixReporter;
 import io.github.hengyunabc.zabbix.sender.ZabbixSender;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @Profile("!" + Constants.SPRING_PROFILE_FAST)
 public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
-    private static final String INTAKE_INSTANCE_PREFIX = "cws-intake";
+    private static final String APPLICATION_INSTANCE_PREFIX = "chhs-apqd";
 
     private static final String PROP_METRIC_REG_JVM_MEMORY = "jvm.memory";
     private static final String PROP_METRIC_REG_JVM_GARBAGE = "jvm.garbage";
@@ -161,33 +160,33 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
                 String zabbixHost = jHipsterProperties.getMetrics().getZabbix().getHost();
                 Integer zabbixPort = jHipsterProperties.getMetrics().getZabbix().getPort();
                 Integer periodSec = jHipsterProperties.getMetrics().getZabbix().getPeriodSec();
-                String intakeInstanceName = jHipsterProperties.getMetrics().getZabbix().getIntakeInstanceName();
 
-                if(StringUtils.isEmpty(intakeInstanceName)){
-                    intakeInstanceName = buildIntakeInstanceName();
-                }
+                String appInstanceId = buildApplicationInstanceId();
 
                 ZabbixSender zabbixSender = new ZabbixSender(zabbixHost, zabbixPort);
                 ZabbixReporter zabbixReporter = ZabbixReporter.forRegistry(metricRegistry)
-                    .hostName(intakeInstanceName).build(zabbixSender);
+                    .hostName(appInstanceId).build(zabbixSender);
 
                 zabbixReporter.start(periodSec, TimeUnit.SECONDS);
             }
         }
 
-        private String buildIntakeInstanceName(){
+        private String buildApplicationInstanceId(){
 
             StringJoiner joiner = new StringJoiner("-");
-            joiner.add(INTAKE_INSTANCE_PREFIX);
+            joiner.add(APPLICATION_INSTANCE_PREFIX);
 
             try {
-                InetAddress inetAddress = InetAddress.getLocalHost();
-                String ipAddress = inetAddress.getHostAddress();
+                InetAddress hostAddress = InetAddress.getLocalHost();
+                String hostIpAddress = hostAddress.getHostAddress();
+                joiner.add(hostIpAddress);
+
                 String severPort = env.getProperty("server.port");
-                joiner.add(ipAddress);
                 joiner.add(severPort);
+
             } catch (UnknownHostException e) {
-                LOGGER.error("get hostName error!", e);
+                LOGGER.error("Host name error, \"{}\" will be used as application instance ID used on Zabbix",
+                    APPLICATION_INSTANCE_PREFIX, e);
             }
 
             return joiner.toString();

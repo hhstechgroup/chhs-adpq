@@ -435,8 +435,6 @@ public class JHipsterProperties {
 
             private int periodSec = 60;
 
-            private String intakeInstanceName;
-
             public boolean isEnabled() {
                 return enabled;
             }
@@ -467,14 +465,6 @@ public class JHipsterProperties {
 
             public void setPeriodSec(int periodSec) {
                 this.periodSec = periodSec;
-            }
-
-            public String getIntakeInstanceName() {
-                return intakeInstanceName;
-            }
-
-            public void setIntakeInstanceName(String intakeInstanceName) {
-                this.intakeInstanceName = intakeInstanceName;
             }
         }
     }

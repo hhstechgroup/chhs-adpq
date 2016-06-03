@@ -91,4 +91,3 @@ jhipster:
             host: mdc-ieed-dmr-a1.engagepoint.us
             port: 10051
             periodSec: 60
-            #apqdInstanceName: chhs-apqd-dev #optional

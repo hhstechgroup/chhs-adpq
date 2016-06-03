@@ -93,4 +93,3 @@ jhipster:
             host: localhost
             port: 10051
             periodSec: 60
-#            apqdInstanceName: chhs-apqd #optional
