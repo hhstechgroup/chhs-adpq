@@ -9,6 +9,8 @@ import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
+import com.engagepoint.cws.apqd.service.util.RandomUtil;
+import com.engagepoint.cws.apqd.web.rest.dto.KeyAndPasswordDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import org.junit.Test;
@@ -37,11 +39,14 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.engagepoint.cws.apqd.APQDTestUtil.cutQuotedUrls;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setUserRole;
 import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -130,17 +135,17 @@ public class MailOperationsIntTest {
         assertThat(recipients[0].toString()).isEqualTo(email);
     }
 
-    private String getUserCreationEmailSubject(User user) {
-        return messageSource.getMessage("email.activation.title", null, Locale.forLanguageTag(user.getLangKey()));
+    private String getUserEmailSubject(User user, String subjectKey) {
+        return messageSource.getMessage(subjectKey, null, Locale.forLanguageTag(user.getLangKey()));
     }
 
-    private String getUserCreationEmailContent(User user) {
+    private String getUserEmailContent(User user, String contentTemplateName) {
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable("user", user);
         context.setVariable("baseUrl", "http://localhost:80/");
 
-        return templateEngine.process("creationEmail", context);
+        return templateEngine.process(contentTemplateName, context);
     }
 
     private User newUser() {
@@ -159,6 +164,41 @@ public class MailOperationsIntTest {
         setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
         return user;
+    }
+
+    private void assertUserEmail(User user, String subjectKey, String contentTemplateName) throws Exception {
+        Future<MimeMessage> futureMimeMessage = mockMailSender.getFutureMimeMessage();
+        assertThat(futureMimeMessage).isNotNull();
+        assertThat(futureMimeMessage.isDone()).isTrue();
+
+        MimeMessage mimeMessage = futureMimeMessage.get();
+        assertThat(mimeMessage).isNotNull();
+
+        assertThatMessageFromIs(mimeMessage, jHipsterProperties.getMail().getFrom());
+        assertThatMessageRecipientIs(mimeMessage, user.getEmail());
+
+        assertThat(mimeMessage.getSubject()).isNotNull();
+        assertThat(mimeMessage.getSubject()).isEqualTo(getUserEmailSubject(user, subjectKey));
+
+        assertThat(mimeMessage.getContent()).isNotNull();
+        assertThat(
+            cutQuotedUrls(mimeMessage.getContent().toString())
+        ).isEqualTo(
+            cutQuotedUrls(getUserEmailContent(user, contentTemplateName))
+        );
+    }
+
+    /**
+     * Process email with a thing like this:
+     *      <a href="http://localhost:80/#/reset/finish?key=27283578379851735202">newuser</a>
+     *
+     * @return the value of the "key" parameter
+     */
+    private String extractKeyParameterFromLastEmail() throws Exception {
+        // assume the asserts for the message are already executed
+        String content = mockMailSender.getFutureMimeMessage().get().getContent().toString();
+        Matcher matcher = Pattern.compile("\"http[^\"]+key=(\\d+)\"").matcher(content);
+        return matcher.find() ? matcher.group(1) : "";
     }
 
     @Test()
@@ -186,25 +226,7 @@ public class MailOperationsIntTest {
             .andExpect(jsonPath("$.lastName").value(user.getLastName()))
             .andExpect(jsonPath("$.ssnLast4Digits").value(user.getSsnLast4Digits()));
 
-        Future<MimeMessage> futureMimeMessage = mockMailSender.getFutureMimeMessage();
-        assertThat(futureMimeMessage).isNotNull();
-        assertThat(futureMimeMessage.isDone()).isTrue();
-
-        MimeMessage mimeMessage = futureMimeMessage.get();
-        assertThat(mimeMessage).isNotNull();
-
-        assertThatMessageFromIs(mimeMessage, jHipsterProperties.getMail().getFrom());
-        assertThatMessageRecipientIs(mimeMessage, user.getEmail());
-
-        assertThat(mimeMessage.getSubject()).isNotNull();
-        assertThat(mimeMessage.getSubject()).isEqualTo(getUserCreationEmailSubject(user));
-
-        assertThat(mimeMessage.getContent()).isNotNull();
-        assertThat(
-            cutQuotedUrls(mimeMessage.getContent().toString())
-        ).isEqualTo(
-            cutQuotedUrls(getUserCreationEmailContent(user))
-        );
+        assertUserEmail(user, "email.activation.title", "creationEmail");
     }
 
     @Test
@@ -212,6 +234,8 @@ public class MailOperationsIntTest {
     public void testRegisterValid() throws Exception {
         User user = newUser();
         UserDTO userDTO = new UserDTO(user, user.getPassword());
+
+        // registerAccount
 
         restMockMvc.perform(
             post("/api/register")
@@ -225,14 +249,44 @@ public class MailOperationsIntTest {
         assertThat(testUser).isNotNull();
         assertThat(testUser.isPresent()).isTrue();
 
-        Future<MimeMessage> futureMimeMessage = mockMailSender.getFutureMimeMessage();
-        assertThat(futureMimeMessage).isNotNull();
-        assertThat(futureMimeMessage.isDone()).isTrue();
+        assertUserEmail(user, "email.activation.title", "activationEmail");
 
-        MimeMessage mimeMessage = futureMimeMessage.get();
-        assertThat(mimeMessage).isNotNull();
+        // activateAccount
 
-        assertThatMessageFromIs(mimeMessage, jHipsterProperties.getMail().getFrom());
-        assertThatMessageRecipientIs(mimeMessage, user.getEmail());
+        restMockMvc.perform(
+            get(String.format("/api/activate?key=%s", extractKeyParameterFromLastEmail())))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    public void testRequestPasswordResetSuccess() throws Exception {
+        User user = newUser();
+        userRepository.saveAndFlush(user);
+
+        // requestPasswordReset
+
+        restMockMvc.perform(
+            post("/api/account/reset_password/init")
+                .content(
+                    user.getEmail()
+                ))
+            .andExpect(status().isOk());
+
+        assertUserEmail(user, "email.reset.title", "passwordResetEmail");
+
+        // finishPasswordReset
+
+        KeyAndPasswordDTO keyAndPasswordDTO = new KeyAndPasswordDTO();
+        keyAndPasswordDTO.setKey(extractKeyParameterFromLastEmail());
+        keyAndPasswordDTO.setNewPassword(RandomUtil.generatePassword());
+
+        restMockMvc.perform(
+            post("/api/account/reset_password/finish")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    keyAndPasswordDTO
+                )))
+            .andExpect(status().isOk());
     }
 }
