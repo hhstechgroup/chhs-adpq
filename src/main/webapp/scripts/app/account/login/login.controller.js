@@ -2,7 +2,7 @@
 
 angular.module('apqdApp')
     .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, MailBoxService,
-     FacebookService, AuthenticationErrorService) {
+     AuthenticationErrorService) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -32,5 +32,4 @@ angular.module('apqdApp')
             return AuthenticationErrorService.getAuthenticationError();
         };
 
-        FacebookService.init();
     });
