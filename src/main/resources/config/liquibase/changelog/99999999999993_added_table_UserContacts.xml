@@ -39,5 +39,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
+        <insert tableName="user_contacts">
+            <column name="mail_box_id" value="6"/>
+            <column name="user_id" value="5"/>
+        </insert>
+
     </changeSet>
 </databaseChangeLog>

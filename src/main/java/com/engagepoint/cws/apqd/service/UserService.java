@@ -136,19 +136,12 @@ public class UserService {
     }
 
     private void sendInvitationLetter(String login) {
-        try {
+        Message invitation = new Message();
+        invitation.setBody("PREVED!");
+        invitation.setFrom(userRepository.findOneByLogin("worker").get());
+        invitation.setTo(userRepository.findOneByLogin(login).get());
 
-            Message invitation = new Message();
-            invitation.setBody("PREVED!");
-            invitation.setFrom(userRepository.findOneByLogin(login).get());
-            invitation.setTo(userRepository.findOneByLogin("parent").get());
-
-            mailResource.saveMessage(invitation);
-            mailResource.sendMessage(invitation);
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        mailResource.sendInvitationLetter(invitation);
     }
 
     private MailBox prepareMailbox() {

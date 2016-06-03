@@ -150,6 +150,20 @@ public class MailResource {
         return ResponseEntity.ok().build();
     }
 
+    @Transactional
+    public void sendInvitationLetter(Message message) {
+        User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
+        User userFrom = userRepository.findOneByLogin(message.getFrom().getLogin()).get();
+
+        updateUserContacts(userFrom, userTo);
+        moveMessageFromDraftToInbox(message, userTo, userFrom);
+        updateUnreadCount(message);
+        updateMessageThread(message);
+
+        mailBoxService.notifyClientAboutDraftsCount();
+        mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
+    }
+
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
         LOGGER.debug("REST request to save Message : {}", message);
         if (message.getId() != null) {
