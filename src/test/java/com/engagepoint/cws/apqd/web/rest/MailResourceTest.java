@@ -12,7 +12,6 @@ import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -21,6 +20,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -72,6 +72,9 @@ public class MailResourceTest {
     private UserRepository userRepository;
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
     private MessageRepository messageRepository;
 
     @Inject
@@ -110,12 +113,12 @@ public class MailResourceTest {
     private Message prepareData() {
         // create Users and Mailboxes
 
-        User currentUser = prepareUser(userRepository, CURRENT_LOGIN);
+        User currentUser = prepareUser(userRepository, passwordEncoder, CURRENT_LOGIN);
         setMailBox(userRepository, currentUser,
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository, draftRepository));
         setCurrentUser(currentUser);
 
-        User toUser = prepareUser(userRepository, TO_LOGIN);
+        User toUser = prepareUser(userRepository, passwordEncoder, TO_LOGIN);
         setMailBox(userRepository, toUser,
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository, draftRepository));
 

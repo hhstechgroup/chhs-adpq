@@ -55,7 +55,7 @@ angular.module('apqdApp')
                  $scope.settingsAccount = $scope.copyAccount(account);
                  $scope.locateGender();
             }
-            if (!_.isNil($scope.settingsAccount.birthDate)) {
+            if (!_.isNil($scope.settingsAccount) && !_.isNil($scope.settingsAccount.birthDate)) {
                 $scope.birthDateMonth = $scope.settingsAccount.birthDate.getMonth() + 1;
                 $scope.birthDateYear = $scope.settingsAccount.birthDate.getFullYear();
                 $scope.birthDateDay = $scope.settingsAccount.birthDate.getDate();
