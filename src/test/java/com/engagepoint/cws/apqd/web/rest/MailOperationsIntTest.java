@@ -46,6 +46,7 @@ import static com.engagepoint.cws.apqd.APQDTestUtil.cutQuotedUrls;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setUserRole;
 import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -234,6 +235,8 @@ public class MailOperationsIntTest {
         User user = newUser();
         UserDTO userDTO = new UserDTO(user, user.getPassword());
 
+        // registerAccount
+
         restMockMvc.perform(
             post("/api/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -247,6 +250,12 @@ public class MailOperationsIntTest {
         assertThat(testUser.isPresent()).isTrue();
 
         assertUserEmail(user, "email.activation.title", "activationEmail");
+
+        // activateAccount
+
+        restMockMvc.perform(
+            get(String.format("/api/activate?key=%s", extractKeyParameterFromLastEmail())))
+            .andExpect(status().isOk());
     }
 
     @Test
@@ -259,7 +268,6 @@ public class MailOperationsIntTest {
 
         restMockMvc.perform(
             post("/api/account/reset_password/init")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(
                     user.getEmail()
                 ))

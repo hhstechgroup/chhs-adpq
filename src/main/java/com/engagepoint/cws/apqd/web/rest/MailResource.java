@@ -159,9 +159,6 @@ public class MailResource {
         moveMessageFromDraftToInbox(message, userTo, userFrom);
         updateUnreadCount(message);
         updateMessageThread(message);
-
-        mailBoxService.notifyClientAboutDraftsCount();
-        mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
     }
 
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
