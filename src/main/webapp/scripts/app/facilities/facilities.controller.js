@@ -216,7 +216,7 @@ angular.module('apqdApp')
             $scope.center.lng = latLng.lng;
             //$scope.center = {lat: latLng.lat, lng: latLng.lng, zoom:13};
             $scope.currentLocation = $scope.getHomeLocation($scope.center, addressFeature.feature.properties.label);
-            $scope.findAgenciesWithinBox();
+            $scope.invalidateAgencies();
         };
 
         $scope.updateTypesLabel = function() {
