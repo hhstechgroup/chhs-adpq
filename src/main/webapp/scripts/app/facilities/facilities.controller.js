@@ -2,8 +2,8 @@
 
 angular.module('apqdApp')
     .controller('FacilitiesController',
-    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory',
-    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory) {
+    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory', '$uibModal',
+    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory, $uibModal) {
         chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig();
 
         $scope.defaults = {
@@ -201,4 +201,14 @@ angular.module('apqdApp')
             $scope.isAsideVisible = chLayoutConfigFactory.layoutConfigState.isAsideVisible;
             $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
         });
+
+        $scope.openDefaultAddressModal = function() {
+            $uibModal.open({
+                templateUrl: 'scripts/app/facilities/modal/default-address-dialog.html',
+                controller: 'DefaultAddressModalCtrl',
+                size: 'facilities-default-address',
+                windowClass: 'ch-general-modal',
+                resolve: {}
+            });
+        }
     }]);

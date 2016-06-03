@@ -1,0 +1,36 @@
+<form name="newTaskForm" role="form">
+    <section class="ch-modal">
+        <div class="ch-modal__header">
+            <button type="button" class="ch-modal__close-btn" data-dismiss="modal" aria-hidden="true"
+                    ng-click="clear()"></button>
+            <h1 class="ch-modal__title">
+                Where do you  want to search for facilities?
+            </h1>
+        </div>
+        <div class="ch-modal__body">
+            <div class="ch-modal__row">
+                <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
+                    <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
+                    <input type="search" name="" id="" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Enter your address, city or zip code" />
+                </div>
+            </div>
+        </div>
+        <div class="ch-modal__footer">
+            <div class="ch-modal-controls ch-modal-controls_has-options">
+
+                <div class="ch-modal-controls__button">
+                    <button type="button" class="ch-option-btn ch-option-btn_fullwidth">
+                        <span class="ch-option-btn__text">Apply Address</span>
+                    </button>
+                </div>
+                <div class="ch-modal-controls__options">
+                    <div class="form-type__checkbox_empty-label">
+                        <input id="saveAddressToProfile" type="checkbox">
+                        <label for="saveAddressToProfile">Save this address to my profile</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</form>
