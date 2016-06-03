@@ -546,7 +546,7 @@ select.usa-input-focus {
 }
 
 input.ng-invalid,
-input.ch-invalid-field {
+input.ch-invalid-field, textarea.ch-invalid-field {
     box-shadow: 0 0 3px red, 0 0 7px red;
 }
 

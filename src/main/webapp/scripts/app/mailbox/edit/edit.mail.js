@@ -17,12 +17,12 @@ angular.module('apqdApp')
                 },
                 resolve: {
                     mail: ['$state', '$stateParams', 'Message', function($state, $stateParams, Message) {
-                        $log.debug('askAbout', $state.params.askAbout);
-
                         if (!_.isEmpty($stateParams.mailId)) {
                             return Message.get({id: $stateParams.mailId}).$promise;
                         } else {
-                            return null;
+                            return {
+                                to: $state.params.contact
+                            };
                         }
                     }],
                     identity: ['Principal', function(Principal) {
