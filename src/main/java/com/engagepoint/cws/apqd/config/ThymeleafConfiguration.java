@@ -11,7 +11,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @Configuration
 public class ThymeleafConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(ThymeleafConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ThymeleafConfiguration.class);
 
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5 emails")
@@ -28,7 +28,7 @@ public class ThymeleafConfiguration {
     @Bean
     @Description("Spring mail message resolver")
     public MessageSource emailMessageSource() {
-        log.info("loading non-reloadable mail messages resources");
+        LOGGER.info("loading non-reloadable mail messages resources");
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/mails/messages/messages");
         messageSource.setDefaultEncoding(CharEncoding.UTF_8);

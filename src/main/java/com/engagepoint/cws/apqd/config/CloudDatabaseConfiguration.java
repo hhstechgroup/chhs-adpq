@@ -12,11 +12,12 @@ import javax.sql.DataSource;
 @Profile(Constants.SPRING_PROFILE_CLOUD)
 public class CloudDatabaseConfiguration extends AbstractCloudConfig {
 
-    private final Logger log = LoggerFactory.getLogger(CloudDatabaseConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CloudDatabaseConfiguration.class);
 
     @Bean
+    @SuppressWarnings("squid:S1172")
     public DataSource dataSource(CacheManager cacheManager) {
-        log.info("Configuring JDBC datasource from a cloud provider");
+        LOGGER.info("Configuring JDBC datasource from a cloud provider");
         return connectionFactory().dataSource();
     }
 }

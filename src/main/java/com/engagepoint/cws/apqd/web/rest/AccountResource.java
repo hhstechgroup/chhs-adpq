@@ -39,7 +39,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class AccountResource {
 
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
     private UserRepository userRepository;
@@ -69,7 +69,7 @@ public class AccountResource {
                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                     userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
                     userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(), userDTO.getGender(),
-                    userDTO.getPhoneNumber());
+                    userDTO.getPhoneNumber(), userDTO.getCaseNumber());
                     String baseUrl = request.getScheme() + // "http"
                     "://" +                                // "://"
                     request.getServerName() +              // "myhost"
@@ -104,7 +104,7 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
+        LOGGER.debug("REST request to check if the current user is authenticated");
         return request.getRemoteUser();
     }
 
@@ -138,7 +138,7 @@ public class AccountResource {
             .map(u -> {
                 userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
                     userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(),
-                    userDTO.getGender(), userDTO.getPhoneNumber());
+                    userDTO.getGender(), userDTO.getPhoneNumber(), userDTO.getPlace(), userDTO.getCaseNumber());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -192,11 +192,10 @@ public class AccountResource {
     @Timed
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
-        userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u ->
             persistentTokenRepository.findByUser(u).stream()
                 .filter(persistentToken -> StringUtils.equals(persistentToken.getSeries(), decodedSeries))
-                .findAny().ifPresent(t -> persistentTokenRepository.delete(decodedSeries));
-        });
+                .findAny().ifPresent(t -> persistentTokenRepository.delete(decodedSeries)));
     }
 
     @RequestMapping(value = "/account/reset_password/init",
@@ -230,8 +229,8 @@ public class AccountResource {
     }
 
     private boolean checkPasswordLength(String password) {
-        return (!StringUtils.isEmpty(password) &&
+        return !StringUtils.isEmpty(password) &&
             password.length() >= UserDTO.PASSWORD_MIN_LENGTH &&
-            password.length() <= UserDTO.PASSWORD_MAX_LENGTH);
+            password.length() <= UserDTO.PASSWORD_MAX_LENGTH;
     }
 }

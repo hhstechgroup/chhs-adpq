@@ -1,30 +1,25 @@
 entity LookupState {
     stateCode String required maxlength(2),
-    stateName String required maxlength(30)
+    stateName String required
 }
 
 entity LookupCounty {
-    countyName String required maxlength(2)
+    countyName String required maxlength(40)
 }
 
-entity Phone {
-    phoneNumber String required maxlength(15),
-    preferred Boolean,
-    startDate LocalDate,
-    endDate LocalDate
+entity LookupGender {
+    genderCode String required minlength(1) maxlength(1),
+    genderName String required
 }
 
-entity Email {
-    emailText String required maxlength(35),
-    preferred Boolean,
-    startDate LocalDate,
-    endDate LocalDate
+entity LookupMaritalStatus {
+    maritalStatusName String required
 }
 
 entity Place {
     unitNumber String maxlength(10),
-    cityName String maxlength(20) required,
-    streetName String maxlength(100) required,
+    cityName String maxlength(20),
+    streetName String required maxlength(100),
     streetNumber String maxlength(10),
     zipCode String maxlength(5),
     zipSuffix String maxlength(4),
@@ -36,69 +31,106 @@ entity Place {
 }
 
 entity MailBox {
-
 }
 
 entity Inbox {
-
 }
 
 entity Outbox {
-
 }
 
+entity Deleted {
+}
+
+entity Draft {
+}
+
+enum MessageStatus {
+    NEW, READ
+  }
+
 entity Message {
-    body String maxlength(2000) required,
-    subject String maxlength(100) required,
+    body String required maxlength(2000),
+    subject String required maxlength(100),
     caseNumber String maxlength(20),
     dateCreated ZonedDateTime,
     dateRead ZonedDateTime,
-    status String maxlength(2)
+    status MessageStatus
 }
 
-relationship OneToOne {
-  User{mailBox} to MailBox
-}
-
-relationship OneToOne {
-  MailBox{inbox} to Inbox
-}
-
-relationship OneToOne {
-  MailBox{outbox} to Outbox
+entity Attachment {
+    fileName String,
+    fileMimeType String,
+    fileSize Integer,
+    fileDescription String,
+    creationDate ZonedDateTime,
+    file AnyBlob
 }
 
 relationship OneToMany {
-  Inbox{message} to Message
+  Message{attachment} to Attachment{message}
+}
+
+relationship OneToOne {
+  User{mailBox} to MailBox{user}
+}
+
+relationship OneToOne {
+  MailBox{inbox} to Inbox{mailBox}
+}
+
+relationship OneToOne {
+  MailBox{outbox} to Outbox{mailBox}
 }
 
 relationship OneToMany {
-  Outbox{message} to Message
+  MailBox{contact} to User{contact}
+}
+
+relationship OneToOne {
+  MailBox{deleted} to Deleted{mailBox}
+}
+
+relationship OneToOne {
+  MailBox{draft} to Draft{mailBox}
+}
+
+relationship OneToMany {
+  Inbox{message} to Message{inbox}
+}
+
+relationship OneToMany {
+  Outbox{message} to Message{outbox}
+}
+
+relationship OneToMany {
+  Deleted{message} to Message{deleted}
+}
+
+relationship OneToMany {
+  Draft{message} to Message{draft}
 }
 
 relationship OneToOne {
   Message{replyOn} to Message
 }
 
-relationship OneToOne {
-  Message{from} to User
-}
-
-relationship OneToOne {
-  Message{to} to User
+relationship ManyToOne {
+  Place{county} to LookupCounty
 }
 
 relationship ManyToOne {
   Place{state} to LookupState
 }
 
-relationship ManyToOne {
-  Place{county} to LookupCounty
+relationship OneToOne {
+  LookupCounty{state} to LookupState
 }
 
 relationship OneToOne {
-  LookupCounty{county} to LookupState
+  Message{to} to User
 }
 
-paginate Message with infinite-scroll
-
+relationship OneToOne {
+  Message{from} to User
+}

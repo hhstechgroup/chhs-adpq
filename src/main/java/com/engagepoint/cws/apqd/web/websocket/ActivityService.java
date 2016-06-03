@@ -26,7 +26,7 @@ import static com.engagepoint.cws.apqd.config.WebsocketConfiguration.IP_ADDRESS;
 @Controller
 public class ActivityService implements ApplicationListener<SessionDisconnectEvent> {
 
-    private static final Logger log = LoggerFactory.getLogger(ActivityService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActivityService.class);
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -42,7 +42,7 @@ public class ActivityService implements ApplicationListener<SessionDisconnectEve
         activityDTO.setIpAddress(stompHeaderAccessor.getSessionAttributes().get(IP_ADDRESS).toString());
         Instant instant = Instant.ofEpochMilli(Calendar.getInstance().getTimeInMillis());
         activityDTO.setTime(dateTimeFormatter.format(ZonedDateTime.ofInstant(instant, ZoneOffset.systemDefault())));
-        log.debug("Sending user tracking data {}", activityDTO);
+        LOGGER.debug("Sending user tracking data {}", activityDTO);
         return activityDTO;
     }
 

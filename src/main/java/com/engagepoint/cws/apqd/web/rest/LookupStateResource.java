@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.LookupStateSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +30,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class LookupStateResource {
 
-    private final Logger log = LoggerFactory.getLogger(LookupStateResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(LookupStateResource.class);
+
     @Inject
     private LookupStateRepository lookupStateRepository;
-    
+
     @Inject
     private LookupStateSearchRepository lookupStateSearchRepository;
-    
+
     /**
      * POST  /lookupStates -> Create a new lookupState.
      */
@@ -47,7 +46,7 @@ public class LookupStateResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<LookupState> createLookupState(@Valid @RequestBody LookupState lookupState) throws URISyntaxException {
-        log.debug("REST request to save LookupState : {}", lookupState);
+        LOGGER.debug("REST request to save LookupState : {}", lookupState);
         if (lookupState.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("lookupState", "idexists", "A new lookupState cannot already have an ID")).body(null);
         }
@@ -66,7 +65,7 @@ public class LookupStateResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<LookupState> updateLookupState(@Valid @RequestBody LookupState lookupState) throws URISyntaxException {
-        log.debug("REST request to update LookupState : {}", lookupState);
+        LOGGER.debug("REST request to update LookupState : {}", lookupState);
         if (lookupState.getId() == null) {
             return createLookupState(lookupState);
         }
@@ -85,7 +84,7 @@ public class LookupStateResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<LookupState> getAllLookupStates() {
-        log.debug("REST request to get all LookupStates");
+        LOGGER.debug("REST request to get all LookupStates");
         return lookupStateRepository.findAll();
             }
 
@@ -97,7 +96,7 @@ public class LookupStateResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<LookupState> getLookupState(@PathVariable Long id) {
-        log.debug("REST request to get LookupState : {}", id);
+        LOGGER.debug("REST request to get LookupState : {}", id);
         LookupState lookupState = lookupStateRepository.findOne(id);
         return Optional.ofNullable(lookupState)
             .map(result -> new ResponseEntity<>(
@@ -114,7 +113,7 @@ public class LookupStateResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteLookupState(@PathVariable Long id) {
-        log.debug("REST request to delete LookupState : {}", id);
+        LOGGER.debug("REST request to delete LookupState : {}", id);
         lookupStateRepository.delete(id);
         lookupStateSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("lookupState", id.toString())).build();
@@ -129,7 +128,7 @@ public class LookupStateResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<LookupState> searchLookupStates(@PathVariable String query) {
-        log.debug("REST request to search LookupStates for query {}", query);
+        LOGGER.debug("REST request to search LookupStates for query {}", query);
         return StreamSupport
             .stream(lookupStateSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());

@@ -60,6 +60,22 @@
             </tr>
             <tr>
                 <td>
+                    <span translate="apqdApp.message.dateUpdated">DateUpdated</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.dateUpdated | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.unreadMessagesCount">UnreadMessagesCount</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.unreadMessagesCount}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <span translate="apqdApp.message.replyOn">replyOn</span>
                 </td>
                 <td>
@@ -96,6 +112,22 @@
                 </td>
                 <td>
                     <a class="form-control-static" ui-sref="outbox.detail({id:message.outbox.id})">{{message.outbox.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.draft">draft</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="draft.detail({id:message.draft.id})">{{message.draft.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="apqdApp.message.deleted">deleted</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="deleted.detail({id:message.deleted.id})">{{message.deleted.id}}</a>
                 </td>
             </tr>
             </tbody>

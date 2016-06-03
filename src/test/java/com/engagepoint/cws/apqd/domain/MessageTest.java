@@ -9,13 +9,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.assertIdentity;
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertObjectIdentity;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareInbox;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareOutbox;
@@ -39,6 +40,9 @@ public class MessageTest {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private PasswordEncoder passwordEncoder;
+
     private Message createEntity(String messageSubject, String messageBody) {
         return prepareMessage(messageRepository, messageSubject, messageBody, null, null);
     }
@@ -48,8 +52,8 @@ public class MessageTest {
     public void testEntityFields() throws Exception {
         Message replyOn = createEntity("replyOn message subject", "replyOn message body");
 
-        User from = prepareUser(userRepository, "user1");
-        User to = prepareUser(userRepository, "user2");
+        User from = prepareUser(userRepository, passwordEncoder, "user1");
+        User to = prepareUser(userRepository, passwordEncoder, "user2");
 
         Message message = prepareMessage(messageRepository, "message subject", "message body", from, to);
         message.setInbox(prepareInbox(inboxRepository));
@@ -73,6 +77,6 @@ public class MessageTest {
         Message message2 = createEntity("replyOn message subject 2", "replyOn message body 2");
         Message foundEntity = messageRepository.findOne(message2.getId());
 
-        assertIdentity(message1, message2, foundEntity, null);
+        assertObjectIdentity(message1, message2, foundEntity, null);
     }
 }

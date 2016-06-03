@@ -1,63 +1,54 @@
 'use strict';
 
-angular.module('intakeApp')
-    .factory('Chat', function ($cookies, $http, $q) {
+angular.module('apqdApp')
+    .service('MailBoxService', function ($rootScope, $cookies, $http) {
 
         var stompClient = null;
 
-        var receiveOutboxMessagesCallback;
-        var receiveInboxMessagesCallback;
-
-        var connected = $q.defer();
-
-        return {
-            connect: function () {
-                var loc = window.location;
-                var url = '//' + loc.host + loc.pathname + 'websocket/mailbox';
-                var socket = new SockJS(url);
-                stompClient = Stomp.over(socket);
-                var headers = {};
-                headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
-                stompClient.connect(headers, function() {
-                    connected.resolve("success");
-
-                    stompClient.subscribe("/user/topic/mail/inbox", function (data) {
-                        receiveInboxMessagesCallback(JSON.parse(data.body));
-                    });
-
-                    stompClient.subscribe("/user/topic/mail/outbox", function (data) {
-                        receiveOutboxMessagesCallback(JSON.parse(data.body));
-                    });
-                });
-
-                return connected.promise;
-            },
-
-            receiveInboxMessages: function(callback) {
-                receiveInboxMessagesCallback = callback;
-            },
-
-            receiveOutboxMessages: function(callback) {
-                receiveOutboxMessagesCallback = callback;
-            },
-
-            sendMessage: function (message) {
-                if (stompClient != null && stompClient.connected) {
-                    stompClient.send('/topic/mail/send', {}, JSON.stringify(message));
-                }
-            },
-
-            confirmReading: function (messages) {
-                if (stompClient != null && stompClient.connected && !_.isEmpty(messages)) {
-                    stompClient.send('/topic/mail/confirm', {}, JSON.stringify(messages));
-                }
-            },
-
-            disconnect: function() {
-                if (stompClient != null) {
-                    stompClient.disconnect();
-                    stompClient = null;
-                }
+        var receiveUnreadCounts = function() {
+            if (stompClient != null && stompClient.connected) {
+                stompClient.send('/topic/mail/inbox', {}, JSON.stringify({}));
             }
         };
+
+        var connect = function () {
+            var loc = window.location;
+            var url = '//' + loc.host + loc.pathname + 'websocket/mailbox';
+            var socket = new SockJS(url);
+            stompClient = Stomp.over(socket);
+
+            var headers = {};
+            headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
+            stompClient.connect(headers, function() {
+
+                stompClient.subscribe("/user/topic/mail/drafts", function (data) {
+                    $rootScope.$broadcast("apqdApp:updateDraftsCount", JSON.parse(data.body));
+                });
+
+                stompClient.subscribe("/user/topic/mail/inbox", function (data) {
+                    $rootScope.$broadcast("apqdApp:updateUnreadInboxCount", JSON.parse(data.body));
+                });
+
+                stompClient.subscribe("/user/topic/mail/deleted", function (data) {
+                    $rootScope.$broadcast("apqdApp:updateUnreadDeletedCount", JSON.parse(data.body));
+                });
+
+                receiveUnreadCounts();
+            });
+        };
+
+        var disconnect = function() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+                stompClient = null;
+            }
+        };
+
+        connect();
+
+        return {
+            connect: connect,
+            disconnect: disconnect,
+            receiveUnreadCounts: receiveUnreadCounts
+        }
     });

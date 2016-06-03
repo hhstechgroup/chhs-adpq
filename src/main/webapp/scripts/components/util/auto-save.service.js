@@ -3,8 +3,8 @@
 angular.module('apqdApp')
     .service('AutoSaveService', function ($rootScope, DateUtils) {
 
-        var ACTIVITY_AUTO_SAVE_INTERVAL = 30000;
-        var INACTIVITY_AUTO_SAVE_INTERVAL = 3000;
+        var ACTIVITY_AUTO_SAVE_INTERVAL = 10000;
+        var INACTIVITY_AUTO_SAVE_INTERVAL = 500;
         var autoSaveInvoked = false;
 
         function invokeAutoSave(formScope) {
@@ -59,7 +59,7 @@ angular.module('apqdApp')
                         formScope.$emit('apqdApp:hasUnsavedChangesEvent');
                     }
 
-                }, 300);
+                }, 200);
             }
 
             function startActivityMonitoringTimer() {

@@ -24,6 +24,11 @@ public class Deleted implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToMany(mappedBy = "deleted")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Message> messages = new HashSet<>();
+
     @OneToOne(mappedBy = "deleted")
     @JsonIgnore
     private MailBox mailBox;
@@ -34,6 +39,14 @@ public class Deleted implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 
     public MailBox getMailBox() {

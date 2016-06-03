@@ -28,11 +28,39 @@
   }
 }
 
+.ch-multi-select-dropdown__popup,
+.ch-modal-controls {
+    .form-type__checkbox_empty-label {
+
+        input[type="checkbox"] + label {
+            width: 100%;
+            color: #000;
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+    }
+
+    input[type="checkbox"] + label::before {
+        margin-right: 1.6rem;
+    }
+}
+
+
 .form-type__search__input,
 .form-type__search__select,
 .form-type__search__button {
   height: 3.7rem;
   float: right;
+}
+
+.dropdown-action-arrow {
+  display: inline-block;
+  width: 4rem;
+  height: 3.6rem;
+  background: url("../images/us-icon/arrow-down-small.png") no-repeat center;
+  position: absolute;
+  right: 8rem;
+  cursor: pointer;
 }
 
 .form-type__search {
@@ -70,6 +98,7 @@
     border-bottom-right-radius: .5rem;
     margin: 0;
     padding: 0;
+
     .icon {
       width: 16px;
       height: 16px;
@@ -477,7 +506,6 @@ select {
   display: block;
   font-size: 1.7rem;
   margin: 0.2em 0;
-  max-width: 46rem;
   outline: none;
   padding: 1rem 0.7em;
   width: 100%;
@@ -515,6 +543,11 @@ textarea.usa-input-focus,
 select:focus,
 select.usa-input-focus {
   box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+}
+
+input.ng-invalid,
+input.ch-invalid-field {
+    box-shadow: 0 0 3px red, 0 0 7px red;
 }
 
 input.usa-input-success,

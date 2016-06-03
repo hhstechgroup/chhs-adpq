@@ -7,16 +7,16 @@ angular.module('apqdApp')
                 parent: 'site',
                 url: '/mail',
                 data: {
-                    authorities: ['ROLE_INTAKE_WORKER'],
+                    authorities: ['CASE_WORKER', 'PARENT'],
                     pageTitle: ''
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/mailbox/inbox/inbox.html',
-                        controller: 'MailboxController'
+                        templateUrl: 'scripts/app/mailbox/mailbox.html'
                     },
-                    'aside@': {
-                        templateUrl: 'scripts/app/mailbox/mailbox-aside-nav.html'
+                    'aside@ch-inbox': {
+                        templateUrl: 'scripts/app/mailbox/mailbox-aside-nav.html',
+                        controller: 'MailBoxCtrl'
                     }
                 }
             });

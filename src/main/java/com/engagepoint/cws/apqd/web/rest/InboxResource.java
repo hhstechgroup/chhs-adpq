@@ -7,7 +7,6 @@ import com.engagepoint.cws.apqd.repository.search.InboxSearchRepository;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,14 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 @RequestMapping("/api")
 public class InboxResource {
 
-    private final Logger log = LoggerFactory.getLogger(InboxResource.class);
-        
+    private static final Logger LOGGER = LoggerFactory.getLogger(InboxResource.class);
+
     @Inject
     private InboxRepository inboxRepository;
-    
+
     @Inject
     private InboxSearchRepository inboxSearchRepository;
-    
+
     /**
      * POST  /inboxs -> Create a new inbox.
      */
@@ -46,7 +45,7 @@ public class InboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Inbox> createInbox(@RequestBody Inbox inbox) throws URISyntaxException {
-        log.debug("REST request to save Inbox : {}", inbox);
+        LOGGER.debug("REST request to save Inbox : {}", inbox);
         if (inbox.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("inbox", "idexists", "A new inbox cannot already have an ID")).body(null);
         }
@@ -65,7 +64,7 @@ public class InboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Inbox> updateInbox(@RequestBody Inbox inbox) throws URISyntaxException {
-        log.debug("REST request to update Inbox : {}", inbox);
+        LOGGER.debug("REST request to update Inbox : {}", inbox);
         if (inbox.getId() == null) {
             return createInbox(inbox);
         }
@@ -85,15 +84,15 @@ public class InboxResource {
     @Timed
     public List<Inbox> getAllInboxs(@RequestParam(required = false) String filter) {
         if ("mailbox-is-null".equals(filter)) {
-            log.debug("REST request to get all Inboxs where mailBox is null");
+            LOGGER.debug("REST request to get all Inboxs where mailBox is null");
             return StreamSupport
                 .stream(inboxRepository.findAll().spliterator(), false)
                 .filter(inbox -> inbox.getMailBox() == null)
                 .collect(Collectors.toList());
         }
-        log.debug("REST request to get all Inboxs");
+        LOGGER.debug("REST request to get all Inboxs");
         return inboxRepository.findAll();
-            }
+    }
 
     /**
      * GET  /inboxs/:id -> get the "id" inbox.
@@ -103,7 +102,7 @@ public class InboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Inbox> getInbox(@PathVariable Long id) {
-        log.debug("REST request to get Inbox : {}", id);
+        LOGGER.debug("REST request to get Inbox : {}", id);
         Inbox inbox = inboxRepository.findOne(id);
         return Optional.ofNullable(inbox)
             .map(result -> new ResponseEntity<>(
@@ -120,7 +119,7 @@ public class InboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteInbox(@PathVariable Long id) {
-        log.debug("REST request to delete Inbox : {}", id);
+        LOGGER.debug("REST request to delete Inbox : {}", id);
         inboxRepository.delete(id);
         inboxSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("inbox", id.toString())).build();
@@ -135,7 +134,7 @@ public class InboxResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Inbox> searchInboxs(@PathVariable String query) {
-        log.debug("REST request to search Inboxs for query {}", query);
+        LOGGER.debug("REST request to search Inboxs for query {}", query);
         return StreamSupport
             .stream(inboxSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());

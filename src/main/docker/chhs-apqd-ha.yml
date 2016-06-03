@@ -8,15 +8,16 @@
 #
 #
 
-chhs-apqd-elasticsearch:
-  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
+chhs-apqd-ha-elasticsearch:
+  #image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
+  image: elasticsearch:1.5.2
   restart: unless-stopped
   ports:
     - "9200"
     - "9300"
 
-chhs-apqd-postgresql:
-  container_name: chhs-apqd-postgresql
+chhs-apqd-ha-postgresql:
+  container_name: chhs-apqd-ha-postgresql
   restart: unless-stopped
   image: postgres:9.4.5
   environment:
@@ -25,18 +26,7 @@ chhs-apqd-postgresql:
   ports:
     - "25432:5432"
 
-chhs-apqd-neo4j:
-    container_name: chhs-apqd-neo4j
-    restart: unless-stopped
-    image: neo4j:2.3.3
-    ports:
-    - "27474:7474"
-    environment:
-    - NEO4J_AUTH=neo4j/qwe123
-    ulimits:
-     nofile: 40000
-
-chhs-apqd:
+chhs-apqd-ha:
   image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd
   restart: unless-stopped
   environment:
@@ -47,16 +37,15 @@ chhs-apqd:
   ports:
     - "8080"
   links:
-    - "chhs-apqd-postgresql:POSTGRESQL"
-    - "chhs-apqd-elasticsearch:ELASTIC"
-    - "chhs-apqd-neo4j:NEO4J"
+    - "chhs-apqd-ha-postgresql:POSTGRESQL"
+    - "chhs-apqd-ha-elasticsearch:ELASTIC"
 
-chhs-apqd-lb:
+chhs-apqd-ha-lb:
   container_name: chhs-apqd-haproxy
   restart: unless-stopped
   image: tutum/haproxy
   links:
-   - "chhs-apqd"
+   - "chhs-apqd-ha"
   ports:
    - "24080:80"
    - "24043:443"

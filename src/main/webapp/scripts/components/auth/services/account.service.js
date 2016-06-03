@@ -7,19 +7,12 @@ angular.module('apqdApp')
 
                 interceptor: {
                     response: function(response) {
-                        if (_.isObject(response.data)) {
+                        if (_.isObject(response.data) && !_.isNil(response.data.birthDate)) {
                             response.data.birthDate = DateUtils.convertLocaleDateFromServer(response.data.birthDate);
                         }
                         return response;
                     }
                 }
-             },
-            'save': {
-                method: 'POST',
-                transformRequest: function (data) {
-                    data.birthDate = DateUtils.convertLocaleDateToServer(data.birthDate);
-                    return angular.toJson(data);
-                }
-            }
+             }
         });
     });

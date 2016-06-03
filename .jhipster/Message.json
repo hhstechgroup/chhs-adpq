@@ -47,6 +47,20 @@
       "otherEntityName": "outbox",
       "relationshipType": "many-to-one",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 7,
+      "relationshipName": "draft",
+      "otherEntityName": "draft",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipId": 8,
+      "relationshipName": "deleted",
+      "otherEntityName": "deleted",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
     }
   ],
   "fields": [
@@ -55,17 +69,15 @@
       "fieldName": "body",
       "fieldType": "String",
       "fieldValidateRules": [
-        "required",
         "maxlength"
       ],
-      "fieldValidateRulesMaxlength": 2000
+      "fieldValidateRulesMaxlength": 4000
     },
     {
       "fieldId": 2,
       "fieldName": "subject",
       "fieldType": "String",
       "fieldValidateRules": [
-        "required",
         "maxlength"
       ],
       "fieldValidateRulesMaxlength": 100
@@ -94,6 +106,16 @@
       "fieldName": "status",
       "fieldType": "MessageStatus",
       "fieldValues": "NEW,READ"
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "dateUpdated",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "unreadMessagesCount",
+      "fieldType": "Integer"
     }
   ],
   "changelogDate": "20160521013734",

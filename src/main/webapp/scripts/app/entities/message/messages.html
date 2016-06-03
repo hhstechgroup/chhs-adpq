@@ -37,11 +37,15 @@ class="hidden-xs"                        translate="apqdApp.message.home.createL
                     <th><span translate="apqdApp.message.dateCreated">DateCreated</span></th>
                     <th><span translate="apqdApp.message.dateRead">DateRead</span></th>
                     <th><span translate="apqdApp.message.status">Status</span></th>
+                    <th><span translate="apqdApp.message.dateUpdated">DateUpdated</span></th>
+                    <th><span translate="apqdApp.message.unreadMessagesCount">UnreadMessagesCount</span></th>
                     <th><span translate="apqdApp.message.replyOn">replyOn</span></th>
                     <th><span translate="apqdApp.message.to">to</span></th>
                     <th><span translate="apqdApp.message.from">from</span></th>
                     <th><span translate="apqdApp.message.inbox">inbox</span></th>
                     <th><span translate="apqdApp.message.outbox">outbox</span></th>
+                    <th><span translate="apqdApp.message.draft">draft</span></th>
+                    <th><span translate="apqdApp.message.deleted">deleted</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -54,6 +58,8 @@ class="hidden-xs"                        translate="apqdApp.message.home.createL
                     <td>{{message.dateCreated | date:'medium'}}</td>
                     <td>{{message.dateRead | date:'medium'}}</td>
                     <td translate="{{'apqdApp.MessageStatus.' + message.status}}">{{message.status}}</td>
+                    <td>{{message.dateUpdated | date:'medium'}}</td>
+                    <td>{{message.unreadMessagesCount}}</td>
                     <td>
                         <a ui-sref="message.detail({id:message.replyOn.id})">{{message.replyOn.id}}</a>
                     </td>
@@ -68,6 +74,12 @@ class="hidden-xs"                        translate="apqdApp.message.home.createL
                     </td>
                     <td>
                         <a ui-sref="outbox.detail({id:message.outbox.id})">{{message.outbox.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="draft.detail({id:message.draft.id})">{{message.draft.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="deleted.detail({id:message.deleted.id})">{{message.deleted.id}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

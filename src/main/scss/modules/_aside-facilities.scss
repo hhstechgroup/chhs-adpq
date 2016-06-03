@@ -1,0 +1,133 @@
+.ch-facilities__item {
+    padding: 1.9rem 3.2rem 2.4rem 2.5rem;
+    border-bottom: .1rem solid #cbcdcf;
+    border-top: none;
+    background-color: #fff;
+}
+
+.ch-facility__header {
+    padding-left: 3.9rem;
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: inherit;
+    margin-bottom: 1.3rem;
+    text-transform: uppercase;
+    min-height: 3.7rem;
+    vertical-align: middle;
+}
+
+.ch-facility__header:before {
+    position: absolute;
+    left: 0;
+    height: 3.9rem;
+    width: 2.6rem;
+    content: "\0020";
+    background: url("../images/out-sprite-icons/icon-map-sign-lg.png") no-repeat;
+}
+
+.ch-facility__header:after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+
+.ch-facility__tags {
+    margin-bottom: 1.4rem;
+}
+
+.ch-facility-tags__tag {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.ch-facility-tags__tag:last-of-type {
+    margin-right: 0;
+}
+
+.ch-facilities-tag {
+    padding: 0.5rem 1rem 0.5rem 0.9rem;
+    display: block;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.1rem;
+    color: #ffffff;
+    border-radius: 0.4rem;
+}
+
+.ch-facilities-tag_foster-family {
+    background-color: #4e5664;
+}
+
+.ch-facilities-tag_status_green {
+    background-color: #4aa564;
+}
+
+.ch-facilities-tag_status_red {
+    background-color: #df4962;
+}
+
+.ch-facilities-tag_status_orange {
+    background-color: #fdb81e;
+    color: #261901;
+}
+
+.ch-facility__info {
+    margin-bottom: 1.8rem;
+}
+
+.ch-facility-info__part {
+    margin-bottom: 0.7rem;
+}
+
+.ch-facility-info__part:last-of-type {
+    margin-bottom: 0;
+}
+
+.ch-facility-info-text {
+    position: relative;
+    color: #5b616b;
+    font-size: 1.4rem;
+    display: block;
+    line-height: 2rem;
+}
+
+.ch-facility-info-text_mgb_10 {
+    margin-bottom: 1.5rem;
+}
+
+.ch-facility-info__firm {
+    text-transform: uppercase;
+}
+
+.ch-facilities-btn-group__btn {
+    margin-right: 0.8rem;
+    float: left;
+}
+
+.ch-facilities-btn-group__btn:last-of-type {
+    margin-right: 0;
+}
+
+.ch-aside-facilities {
+    width: 30rem;
+    height: calc(100vh - 14.8rem);
+    overflow: auto;
+}
+
+.ch-aside-facilities-ear {
+    position: absolute;
+    top: 37%;
+    right: -2.6rem;
+    width: 2.6rem;
+    height: 5rem;
+    background: #fff;
+    border: .1rem solid #cbcdcf;
+    box-shadow: 1px 0 1px #cbcdcf;
+    padding: 14px 5px;
+}

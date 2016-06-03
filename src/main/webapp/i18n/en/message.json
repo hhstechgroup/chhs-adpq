@@ -22,12 +22,16 @@
             "dateCreated": "DateCreated",
             "dateRead": "DateRead",
             "status": "Status",
+            "dateUpdated": "DateUpdated",
+            "unreadMessagesCount": "UnreadMessagesCount",
             "attachment": "Attachment",
             "replyOn": "ReplyOn",
             "to": "To",
             "from": "From",
             "inbox": "Inbox",
-            "outbox": "Outbox"
+            "outbox": "Outbox",
+            "draft": "Draft",
+            "deleted": "Deleted"
         }
     }
 }

@@ -229,14 +229,6 @@ ul#strength {
 }
 /* end of entity tables helpers */
 
-.voice-assistant-message {
-    z-index: 10000;
-    position: fixed;
-    bottom: 0;
-    right: 10px;
-    min-width: 50px;
-}
-
 // vis.js network navigation icons
 div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
     background-image: url(../images/network/minus.png) !important;

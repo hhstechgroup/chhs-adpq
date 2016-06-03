@@ -2,13 +2,12 @@
 
 angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
-    'uiGmapgoogle-maps',
     // jhipster-needle-angularjs-add-module JHipster will add new module
     'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router',  'infinite-scroll', 'angular-loading-bar',
-    'ngDraggable', 'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
+    'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language,
-                   Auth, Principal, ENV, VERSION, VoiceAssistantService) {
+                   Auth, Principal, ENV, VERSION) {
         // update the window title using params in the following
         // precendence
         // 1. titleKey parameter
@@ -40,9 +39,16 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
 
         });
 
+        var history = [];
+        $rootScope.backToPreviousState = function () {
+            var prevUrl = history.length > 1 ? history.splice(-2)[0] : "/";
+            $location.path(prevUrl);
+        };
+
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+            history.push($location.$$path);
+
             var titleKey = 'global.title' ;
-            VoiceAssistantService.initVoiceAssistance();
 
             // Remember previous state unless we've been redirected to login or we've just
             // reset the state memory after logout. If we're redirected to login, our
@@ -72,7 +78,14 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
                         if (result) {
                             $state.go('metrics');
                         } else {
-                            $state.go('dashboard', {}, {reload: true});
+                            Principal.hasAuthority('PARENT').then(function(result) {
+                                if(result) {
+                                    $state.go('ch-facilities', {}, {reload: true});
+                                } else {
+                                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
+                                }
+                            })
+
                         }
                     });
             } else {
@@ -96,7 +109,10 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
         $stateProvider.state('site', {
             'abstract': true,
             views: {
-                'main.nav@': {
+                'header@': {
+                    templateUrl: 'scripts/components/header/header.html'
+                },
+                'main.nav@site': {
                     templateUrl: 'scripts/components/main-nav/main.nav.html',
                     controller: 'MainNavController'
                 }
@@ -132,22 +148,14 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 
     })
-    // Google maps configuration
-    .config(function (uiGmapGoogleMapApiProvider) {
-        uiGmapGoogleMapApiProvider.configure({
-            key: 'AIzaSyDyU4z4A9_miwhAGsT5oeKRXdBRvOV5vEM',
-            v: '3.20',
-            libraries: 'weather,geometry,visualization,places'
-        });
-    })
     // jhipster-needle-angularjs-add-config JHipster will add new application configuration
     .config(['$urlMatcherFactoryProvider', function($urlMatcherFactory) {
         $urlMatcherFactory.type('boolean', {
             name : 'boolean',
-            decode: function(val) { return val === true ? true : val === "true" ? true : false },
+            decode: function(val) { return val === true || val === "true"; },
             encode: function(val) { return val ? 1 : 0; },
             equals: function(a, b) { return this.is(a) && a === b; },
-            is: function(val) { return [true,false,0,1].indexOf(val) >= 0 },
+            is: function(val) { return [true,false,0,1].indexOf(val) >= 0; },
             pattern: /bool|true|0|1/
         });
     }]);

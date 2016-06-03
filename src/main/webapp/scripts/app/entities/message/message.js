@@ -69,6 +69,8 @@ angular.module('apqdApp')
                                     dateCreated: null,
                                     dateRead: null,
                                     status: null,
+                                    dateUpdated: null,
+                                    unreadMessagesCount: null,
                                     id: null
                                 };
                             }

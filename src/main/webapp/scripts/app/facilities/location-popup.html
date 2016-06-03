@@ -1,14 +1,3 @@
 <div>
-    {{facility_name}}<br/>
-    {{facility_type | capitalize:true}} {{facility_status | capitalize:true}}<br/>
-    Facility Number: {{facility_number}}<br/>
-    Licensee: {{licensee | uppercase}}<br/>
-    License First Date: {{license_first_date | date: 'MM/dd/yyyy'}}<br/>
-    Administrator: {{facility_administrator | capitalize:true}}<br/>
-    Telephone number: {{facility_telephone_number}}<br/>
-    Address: {{location_address | capitalize:true}}, {{location_city | capitalize:true}}, {{facility_state}} {{location_zip}} <br/>
-    County Name: {{county_name}}<br/>
-    Regional Office: {{regional_office}}<br/>
-    Facility Capacity: {{facility_capacity}}<br/>
-    <button ng-click="askAbout()">Ask About</button>
+    <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
 </div>

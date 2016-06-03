@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('apqdApp').controller('DraftDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Draft', 'MailBox',
-        function($scope, $stateParams, $uibModalInstance, entity, Draft, MailBox) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Draft', 'Message', 'MailBox',
+        function($scope, $stateParams, $uibModalInstance, entity, Draft, Message, MailBox) {
 
         $scope.draft = entity;
+        $scope.messages = Message.query();
         $scope.mailboxs = MailBox.query();
         $scope.load = function(id) {
             Draft.get({id : id}, function(result) {
@@ -18,7 +19,7 @@ angular.module('apqdApp').controller('DraftDialogController',
             $scope.isSaving = false;
         };
 
-        var onSaveError = function (result) {
+        var onSaveError = function () {
             $scope.isSaving = false;
         };
 

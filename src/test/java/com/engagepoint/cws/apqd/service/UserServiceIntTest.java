@@ -13,14 +13,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 import java.util.List;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -50,7 +53,15 @@ public class UserServiceIntTest {
     private UserRepository userRepository;
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
     private UserService userService;
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testLoginConstraint() {
+        prepareUser(userRepository, passwordEncoder, "INVALID LOGIN");
+    }
 
     @Test
     public void testRemoveOldPersistentTokens() {
@@ -80,7 +91,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE, "1234");
         Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
         assertThat(maybeUser.isPresent()).isFalse();
         userRepository.delete(user);
@@ -89,7 +100,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatResetKeyMustNotBeOlderThan24Hours() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE, "1234");
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         String resetKey = RandomUtil.generateResetKey();
@@ -109,7 +120,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatResetKeyMustBeValid() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE, "1234");
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         user.setActivated(true);
@@ -124,7 +135,7 @@ public class UserServiceIntTest {
     @Test
     public void assertThatUserCanResetPassword() {
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
+            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE, "1234");
         String oldPassword = user.getPassword();
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
         String resetKey = RandomUtil.generateResetKey();

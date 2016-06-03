@@ -24,26 +24,29 @@ public class MailBox implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Inbox inbox;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Outbox outbox;
 
-//    @OneToMany
-//    @JsonIgnore
-//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-//    private Set<User> contacts = new HashSet<>();
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Deleted deleted;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Draft draft;
 
     @OneToOne
     @JsonIgnore
     private User user;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "user_contacts",
+        joinColumns = {@JoinColumn(name = "mail_box_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+    private Set<User> contacts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -69,13 +72,13 @@ public class MailBox implements Serializable {
         this.outbox = outbox;
     }
 
-//    public Set<User> getContacts() {
-//        return contacts;
-//    }
-//
-//    public void setContacts(Set<User> users) {
-//        this.contacts = users;
-//    }
+    public Set<User> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Set<User> users) {
+        this.contacts = users;
+    }
 
     public Deleted getDeleted() {
         return deleted;

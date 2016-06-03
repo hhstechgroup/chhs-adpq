@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('DraftDetailController', function ($scope, $rootScope, $stateParams, entity, Draft, MailBox) {
+    .controller('DraftDetailController', function ($scope, $rootScope, $stateParams, entity, Draft) {
         $scope.draft = entity;
         $scope.load = function (id) {
             Draft.get({id: id}, function(result) {

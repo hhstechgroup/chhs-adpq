@@ -24,7 +24,7 @@ import java.net.URISyntaxException;
 @RequestMapping("/api")
 public class ElasticsearchIndexResource {
 
-    private final Logger log = LoggerFactory.getLogger(ElasticsearchIndexResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchIndexResource.class);
 
     @Inject
     private ElasticsearchIndexService elasticsearchIndexService;
@@ -38,7 +38,7 @@ public class ElasticsearchIndexResource {
     @Timed
     @PreAuthorize("hasAuthority('" + AuthoritiesConstants.ADMIN + "')")
     public ResponseEntity<String> reindexAll() throws URISyntaxException {
-        log.info("REST request to reindex Elasticsearch by user : {}", SecurityUtils.getCurrentUserLogin());
+        LOGGER.info("REST request to reindex Elasticsearch by user : {}", SecurityUtils.getCurrentUserLogin());
         elasticsearchIndexService.reindexAll();
         return new ResponseEntity<>("Request accepted, performing full Elasticsearch reindexing.", HttpStatus.ACCEPTED);
     }

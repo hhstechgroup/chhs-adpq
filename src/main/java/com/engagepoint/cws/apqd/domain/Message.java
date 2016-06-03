@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.Objects;
 
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 /**
  * A Message.
@@ -28,30 +29,34 @@ public class Message implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Size(max = 2000)
-    @Column(name = "body", length = 2000, nullable = false)
+    @Size(max = 4000)
+    @Column(name = "body", length = 4000)
     private String body;
-    
-    @NotNull
+
     @Size(max = 100)
-    @Column(name = "subject", length = 100, nullable = false)
+    @Column(name = "subject", length = 100)
     private String subject;
-    
+
     @Size(max = 20)
     @Column(name = "case_number", length = 20)
     private String caseNumber;
-    
+
     @Column(name = "date_created")
     private ZonedDateTime dateCreated;
-    
+
     @Column(name = "date_read")
     private ZonedDateTime dateRead;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private MessageStatus status;
-    
+
+    @Column(name = "date_updated")
+    private ZonedDateTime dateUpdated;
+
+    @Column(name = "unread_messages_count")
+    private int unreadMessagesCount;
+
     @OneToMany(mappedBy = "message")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -68,11 +73,23 @@ public class Message implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "inbox_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
     private Inbox inbox;
 
     @ManyToOne
     @JoinColumn(name = "outbox_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
     private Outbox outbox;
+
+    @ManyToOne
+    @JoinColumn(name = "draft_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
+    private Draft draft;
+
+    @ManyToOne
+    @JoinColumn(name = "deleted_id")
+    @Field(ignoreFields = {"messages", "mailBox"})
+    private Deleted deleted;
 
     public Long getId() {
         return id;
@@ -85,7 +102,7 @@ public class Message implements Serializable {
     public String getBody() {
         return body;
     }
-    
+
     public void setBody(String body) {
         this.body = body;
     }
@@ -93,7 +110,7 @@ public class Message implements Serializable {
     public String getSubject() {
         return subject;
     }
-    
+
     public void setSubject(String subject) {
         this.subject = subject;
     }
@@ -101,7 +118,7 @@ public class Message implements Serializable {
     public String getCaseNumber() {
         return caseNumber;
     }
-    
+
     public void setCaseNumber(String caseNumber) {
         this.caseNumber = caseNumber;
     }
@@ -109,7 +126,7 @@ public class Message implements Serializable {
     public ZonedDateTime getDateCreated() {
         return dateCreated;
     }
-    
+
     public void setDateCreated(ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
@@ -117,7 +134,7 @@ public class Message implements Serializable {
     public ZonedDateTime getDateRead() {
         return dateRead;
     }
-    
+
     public void setDateRead(ZonedDateTime dateRead) {
         this.dateRead = dateRead;
     }
@@ -125,9 +142,25 @@ public class Message implements Serializable {
     public MessageStatus getStatus() {
         return status;
     }
-    
+
     public void setStatus(MessageStatus status) {
         this.status = status;
+    }
+
+    public ZonedDateTime getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(ZonedDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public int getUnreadMessagesCount() {
+        return unreadMessagesCount;
+    }
+
+    public void setUnreadMessagesCount(int unreadMessagesCount) {
+        this.unreadMessagesCount = unreadMessagesCount;
     }
 
     public Set<Attachment> getAttachments() {
@@ -178,6 +211,22 @@ public class Message implements Serializable {
         this.outbox = outbox;
     }
 
+    public Draft getDraft() {
+        return draft;
+    }
+
+    public void setDraft(Draft draft) {
+        this.draft = draft;
+    }
+
+    public Deleted getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Deleted deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -208,6 +257,8 @@ public class Message implements Serializable {
             ", dateCreated='" + dateCreated + "'" +
             ", dateRead='" + dateRead + "'" +
             ", status='" + status + "'" +
+            ", dateUpdated='" + dateUpdated + "'" +
+            ", unreadMessagesCount='" + unreadMessagesCount + "'" +
             '}';
     }
 }

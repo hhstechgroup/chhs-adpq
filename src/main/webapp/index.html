@@ -1,25 +1,28 @@
 <!doctype html>
-<!--EngagePoint CHHS-APQD 0.1-SNAPSHOT-->
+<!--EngagePoint CHHS-APQD 0.2-SNAPSHOT-->
 <html class="no-js">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>intake</title>
+        <title>Portal for Parents of Foster Kids</title>
         <meta name="description" content="">
-        <meta name="google" value="notranslate">
+        <meta name="google" content="notranslate">
         <meta name="viewport" content="width=device-width">
+        <meta name="google-signin-client_id" content="36149439280-idl95ahqqan7opdsu7nvrq5aqrlj2e3c.apps.googleusercontent.com">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
-        <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' />
-        <link rel='stylesheet' href='bower_components/angular-object-diff/dist/angular-object-diff.css' />
-        <link rel='stylesheet' href='bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css' />
-        <link rel='stylesheet' href='bower_components/ui-select/dist/select.css' />
-        <link rel='stylesheet' href='bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css' />
-        <link rel='stylesheet' href='bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css' />
-        <link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
-        <link rel='stylesheet' href='bower_components/leaflet/dist/leaflet.css' />
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+        <link rel="stylesheet" href="bower_components/angular-object-diff/dist/angular-object-diff.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
+        <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" />
+        <link rel="stylesheet" href="bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.css" />
+        <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -28,63 +31,25 @@
         <!-- endbuild -->
         <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
         <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
+        <!-- leaflet geocoder-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.css">
 
     </head>
-    <body ng-app="apqdApp">
-
-        <div class="voice-assistant-message alert alert-success hidden">
-        </div>
+    <body ng-app="apqdApp" class="ch-app">
 
         <!--[if lt IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="ch-layout">
-            <div class="ch-layout__header" >
-               <div class="ch-header">
-                   <div class="ch-header__section ch-header__section_logo">
-                        <div class="ch-logo">
-                            <a href="#" class="ch-logo__link">
-                                <img class="ch-logo__img" src="assets/images/logo.png" alt="Logo"/>
-                            </a>
-                        </div>
-                   </div>
-                   <div class="ch-header__section">
-                       <div class="ch-header__subsection">
-                           <nav class="ch-main-nav" ui-view="main.nav">
+        <div class="ch-layout" ui-view="global">
+            <div class="ch-layout__header"  ui-view="header">
 
-                           </nav>
-                       </div>
-                       <div class="ch-header__subsection ch-header__subsection-user-account">
-                               <div class="ch-user-account-entry">
-                                   <button type="button" class="ch-user-account-entry__btn ch-user-account-entry__btn_collapsed">
-                                       <span class="icon icon-user-account ch-user-account-entry__icon-user-account"></span>
-                                   </button>
-                               </div>
-                       </div>
-                   </div>
-               </div>
-            </div>
-            <div class="ch-layout__aside clearfix" ui-view="aside">
             </div>
 
-            <!--start main content-->
-            <div class = "ch-layout__content" ui-view="content">
+            <div class = "ch-layout__body" ui-view="content">
 
-            </div><!--end main content-->
-
+            </div>
         </div>
-
-        <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>-->
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
@@ -111,12 +76,7 @@
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
         <script src="bower_components/sockjs-client/dist/sockjs.js"></script>
         <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
-        <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
-        <script src="bower_components/lodash/lodash.js"></script>
-        <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
-        <script src="bower_components/annyang/annyang.js"></script>
         <script src="bower_components/angular-object-diff/dist/angular-object-diff.js"></script>
-        <script src="bower_components/ngDraggable/ngDraggable.js"></script>
         <script src="bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"></script>
         <script src="bower_components/ui-select/dist/select.js"></script>
         <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
@@ -134,8 +94,11 @@
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+        <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
         <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
         <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
+        <script src="bower_components/lodash/lodash.js"></script>
+        <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -163,8 +126,6 @@
     <script src="scripts/components/interceptor/auth.interceptor.js"></script>
     <script src="scripts/components/interceptor/errorhandler.interceptor.js"></script>
     <script src="scripts/components/interceptor/notification.interceptor.js"></script>
-    <script src="scripts/components/navbar/navbar.directive.js"></script>
-    <script src="scripts/components/navbar/navbar.controller.js"></script>
     <script src="scripts/components/main-nav/main.nav.directive.js"></script>
     <script src="scripts/components/main-nav/main.nav.controller.js"></script>
     <script src="scripts/components/user/user.service.js"></script>
@@ -179,9 +140,8 @@
     <script src="scripts/components/util/data-util.service.js"></script>
     <script src="scripts/components/util/sort.directive.js"></script>
     <script src="scripts/components/util/auto-save.service.js"></script>
-    <script src="scripts/components/util/voice-assistant.service.js"></script>
-    <script src="scripts/components/util/participants.utils.js"></script>
     <script src="scripts/components/util/cws.storage.service.js"></script>
+    <script src="scripts/app/account/login/authentication.error.service.js"></script>
     <script src="scripts/app/dashboard/dashboard.js"></script>
     <script src="scripts/app/dashboard/dashboard.controller.js"></script>
     <script src="scripts/app/dashboard/dashboard.service.js"></script>
@@ -200,6 +160,7 @@
     <script src="scripts/app/account/register/register.controller.js"></script>
     <script src="scripts/app/account/settings/settings.js"></script>
     <script src="scripts/app/account/settings/settings.controller.js"></script>
+    <script src="scripts/app/account/logout/profile.logout.controller.js"></script>
     <script src="scripts/app/account/reset/finish/reset.finish.controller.js"></script>
     <script src="scripts/app/account/reset/finish/reset.finish.js"></script>
     <script src="scripts/app/account/reset/request/reset.request.controller.js"></script>
@@ -244,10 +205,8 @@
     <script src="scripts/components/cws-search/elastic.search.index.service.js"></script>
     <script src="scripts/components/cws-search/elastic.search.string.query.builder.js"></script>
     <script src="scripts/components/cws-search/cws.search.service.js"></script>
-    <script src="scripts/components/google/maps.directive.js"></script>
     <script src="scripts/app/search/search.js"></script>
     <script src="scripts/app/search/search.controller.js"></script>
-    <script src="scripts/components/google/google.place.utility.js"></script>
     <script src="scripts/components/entities/attachment/attachment.service.js"></script>
     <script src="scripts/components/entities/attachment/attachment.search.service.js"></script>
     <script src="scripts/components/entities/calendarTask/calendarTask.service.js"></script>
@@ -287,6 +246,19 @@
     <script src="scripts/app/entities/outbox/outbox-detail.controller.js"></script>
     <script src="scripts/components/entities/outbox/outbox.service.js"></script>
     <script src="scripts/components/entities/outbox/outbox.search.service.js"></script>
+    <script src="scripts/components/mailbox/mailbox.service.js"></script>
+    <script src="scripts/app/mailbox/mailbox.controller.js"></script>
+    <script src="scripts/app/mailbox/view/view.js"></script>
+    <script src="scripts/app/mailbox/view/view.controller.js"></script>
+    <script src="scripts/app/mailbox/list/list.js"></script>
+    <script src="scripts/app/mailbox/list/list.controller.js"></script>
+    <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
+    <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
+    <script src="scripts/components/entities/message/draft.message.service.js"></script>
+    <script src="scripts/components/entities/message/thread.message.service.js"></script>
+    <script src="scripts/components/mailbox/contacts.service.js"></script>
+    <script src="scripts/components/entities/message/confirm.message.service.js"></script>
+    <script src="scripts/components/entities/message/dir.message.service.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
@@ -331,16 +303,12 @@
     <script src="scripts/components/entities/deleted/deleted.search.service.js"></script>
     <script src="scripts/app/mailbox/mailbox.js"></script>
     <script src="scripts/app/mailbox/mailbox.controller.js"></script>
-    <script src="scripts/app/mailbox/inbox/inbox.js"></script>
-    <script src="scripts/app/mailbox/inbox/inbox.controller.js"></script>
-    <script src="scripts/app/mailbox/sent/sent.js"></script>
-    <script src="scripts/app/mailbox/sent/sent.controller.js"></script>
-    <script src="scripts/app/mailbox/drafts/drafts.js"></script>
-    <script src="scripts/app/mailbox/drafts/drafts.controller.js"></script>
-    <script src="scripts/app/mailbox/deleted/deleted.js"></script>
-    <script src="scripts/app/mailbox/deleted/deleted.controller.js"></script>
     <script src="scripts/app/facilities/facilities.js"></script>
     <script src="scripts/app/facilities/facilities.controller.js"></script>
+    <script src="scripts/app/facilities/facilities-agencies.controller.js"></script>
+    <script src="scripts/app/facilities/facilities-agency.directive.js"></script>
+    <script src="scripts/app/facilities/modal/default-address-dialog.controller.js"></script>
+
 
     <script src="scripts/app/entities/draft/draft.js"></script>
     <script src="scripts/app/entities/draft/draft.controller.js"></script>
@@ -349,10 +317,16 @@
     <script src="scripts/app/entities/draft/draft-detail.controller.js"></script>
     <script src="scripts/components/entities/draft/draft.service.js"></script>
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
+    <script src="scripts/components/geocoder/geocoder.service.js"></script>
+    <script src="scripts/components/layout/layout.service.js"></script>
+    <script src="scripts/components/social/facebook.service.js"></script>
+    <script src="scripts/components/social/google.plus.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyDyU4z4A9_miwhAGsT5oeKRXdBRvOV5vEM&amp;signed_in=true&amp;libraries=places"></script>
+    <!-- Load geocoding plugin after Leaflet -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.js"></script>
 
     <script type="text/ng-template" id="serverUnreachable.html">
         <div class="modal-body">
@@ -362,6 +336,41 @@
         <div class="modal-footer">
             <button class="button primary" ng-click="close()">Close</button>
         </div>
+    </script>
+        <!-- Google Plus init -->
+    <script>
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/client:plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+        window.addEventListener("load", function () {
+            window.gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        })
+    </script>
+
+        <!-- Facebook init -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '986049751501891',
+                status: true,
+                cookie: true,
+               // xfbml: true,
+                version: 'v2.4'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
     </script>
 </body>
 </html>

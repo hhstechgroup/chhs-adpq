@@ -2,6 +2,7 @@ package com.engagepoint.cws.apqd.web.rest.dto;
 
 import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.LookupGender;
+import com.engagepoint.cws.apqd.domain.Place;
 import com.engagepoint.cws.apqd.domain.User;
 
 import org.hibernate.validator.constraints.Email;
@@ -57,8 +58,10 @@ public class UserDTO {
     @Size(max = 30)
     private String phoneNumber;
 
+    private Place place;
+
     public UserDTO() {
-        // tbd
+        // nothing to do
     }
 
     public UserDTO(User user) {
@@ -66,12 +69,13 @@ public class UserDTO {
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()), user.getSsnLast4Digits(),
-            user.getCaseNumber(), user.getBirthDate(), user.getGender(), user.getPhoneNumber());
+            user.getCaseNumber(), user.getBirthDate(), user.getGender(),
+            user.getPhoneNumber(), user.getPlace());
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
         String email, boolean activated, String langKey, Set<String> authorities, String ssnLast4Digits,
-        String caseNumber, LocalDate birthDate, LookupGender gender, String phoneNumber) {
+        String caseNumber, LocalDate birthDate, LookupGender gender, String phoneNumber, Place place) {
 
         this.login = login;
         this.password = password;
@@ -86,6 +90,12 @@ public class UserDTO {
         this.birthDate = birthDate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
+        this.place = place;
+    }
+
+    public UserDTO(User user, String password) {
+        this(user);
+        this.password = password;
     }
 
     public String getPassword() {
@@ -140,6 +150,11 @@ public class UserDTO {
         return phoneNumber;
     }
 
+    public Place getPlace() {
+        return place;
+    }
+
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -156,6 +171,7 @@ public class UserDTO {
             ", birthDate=" + birthDate +
             ", gender=" + gender +
             ", phoneNumber=" + phoneNumber +
+            ", place=" + place +
             "}";
     }
 
