@@ -93,3 +93,4 @@ jhipster:
             host: localhost
             port: 10051
             periodSec: 60
+            hostMetadata: HOSTPOOL

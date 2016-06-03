@@ -157,9 +157,13 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         private void init() {
             if (jHipsterProperties.getMetrics().getZabbix().isEnabled()) {
                 LOGGER.info("Initializing Metrics Zabbix reporting");
-                String zabbixHost = jHipsterProperties.getMetrics().getZabbix().getHost();
-                Integer zabbixPort = jHipsterProperties.getMetrics().getZabbix().getPort();
-                Integer periodSec = jHipsterProperties.getMetrics().getZabbix().getPeriodSec();
+
+                JHipsterProperties.Metrics.Zabbix zabbixProperties = jHipsterProperties.getMetrics().getZabbix();
+
+                String zabbixHost = zabbixProperties.getHost();
+                Integer zabbixPort = zabbixProperties.getPort();
+                Integer periodSec = zabbixProperties.getPeriodSec();
+                String hostMetadata = zabbixProperties.getHostMetadata();
 
                 String appInstanceId = buildApplicationInstanceId();
 
