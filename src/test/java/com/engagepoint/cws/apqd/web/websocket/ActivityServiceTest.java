@@ -10,6 +10,7 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -39,6 +40,9 @@ public class ActivityServiceTest {
     @Inject
     private UserRepository userRepository;
 
+    @Inject
+    private PasswordEncoder passwordEncoder;
+
     private Principal principal;
 
     private ActivityDTO activityDTO;
@@ -54,7 +58,7 @@ public class ActivityServiceTest {
     }
 
     private void initSendActivity() throws Exception {
-        setCurrentUser(prepareUser(userRepository, CURRENT_LOGIN));
+        setCurrentUser(prepareUser(userRepository, passwordEncoder, CURRENT_LOGIN));
         principal = () -> CURRENT_LOGIN;
 
         activityDTO = new ActivityDTO();
