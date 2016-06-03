@@ -6,8 +6,23 @@ angular.module('apqdApp')
     function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory, $uibModal) {
         chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig();
 
+        $scope.viewContainsCaBounds = false;
+        $scope.caBounds = new L.LatLngBounds(new L.LatLng(32.53, -124.43), new L.LatLng(42, -114.13));
+
+        $scope.ALL_TYPES_LABEL = 'All Types';
+        $scope.ALL_STATUSES_LABEL = 'All Statuses';
+
+        $scope.typesConfig = {
+            showList: false,
+            label: $scope.ALL_TYPES_LABEL
+        };
+        $scope.statusesConfig = {
+            showList: false,
+            label: $scope.ALL_STATUSES_LABEL
+        };
         $scope.defaults = {
             zoomControlPosition: 'bottomright',
+            scrollWheelZoom: true,
             maxZoom: 18
         };
         $scope.layers = {
@@ -15,7 +30,7 @@ angular.module('apqdApp')
                 osm: {
                     name: 'Map',
                     type: 'xyz',
-                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                    url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 }
             },
             overlays: {
@@ -33,24 +48,24 @@ angular.module('apqdApp')
         };
 
         $scope.viewConfig = {presentation: 'list'};
+        //$scope.center = {lat: 36.7428526, lng: -119.9913578, zoom: 13};
         $scope.center = {autoDiscover: true, zoom: 13};
 
         $scope.searchText = '';
         $scope.facilityTypes = FacilityType;
         $scope.facilityStatuses = FacilityStatus;
 
-        $scope.$watch('center.autoDiscover', function(newValue) {
+        var centerUnregister = $scope.$watch('center.autoDiscover', function(newValue) {
             if (!newValue) {
                 $scope.currentLocation = $scope.getHomeLocation($scope.center);
-                $scope.findAgenciesWithinBox();
+                $scope.invalidateAgencies();
 
-                $scope.$watch('center.autoDiscover');
+                centerUnregister();
             }
         });
 
         $scope.createLocations = function() {
             var locations = {};
-            var a = performance.now();
             _.each($scope.agencies, function (agency) {
                 locations['fn' + agency.facility_number] = {
                     layer: 'agencies',
@@ -69,7 +84,6 @@ angular.module('apqdApp')
                     }
                 };
             });
-            $log.debug(performance.now() - a);
             if ($scope.currentLocation) {
                 locations.current = $scope.currentLocation;
             }
@@ -98,48 +112,43 @@ angular.module('apqdApp')
             } else {
                 return;
             }
-            $scope.findAgenciesWithinBox();
+            $scope.invalidateAgencies();
         };
 
-        $scope.findAgenciesWithinBox = function() {
+        $scope.findAgenciesWithinBox = function(bounds) {
             $scope.text = $scope.searchText;
 
-            leafletData.getMap().then(function (map) {
-                var bounds = map.getBounds();
-                var northEast = bounds._northEast;
-                var southWest = bounds._southWest;
-                var selectedStatuses = $scope.getSelected($scope.facilityStatuses);
-                var selectedTypes = $scope.getSelected($scope.facilityTypes);
-                var request = {
-                    bounds: {
-                        northwest: {
-                            latitude: northEast.lat,
-                            longitude: southWest.lng
-                        },
-                        southeast: {
-                            latitude: southWest.lat,
-                            longitude: northEast.lng
-                        }
+            var northEast = bounds._northEast;
+            var southWest = bounds._southWest;
+            var selectedStatuses = $scope.getSelected($scope.facilityStatuses);
+            var selectedTypes = $scope.getSelected($scope.facilityTypes);
+            var request = {
+                bounds: {
+                    northwest: {
+                        latitude: northEast.lat,
+                        longitude: southWest.lng
                     },
-                    text: $scope.searchText,
-                    statuses: selectedStatuses,
-                    types: selectedTypes
-                };
-                $log.debug('request', request);
-
-                FosterFamilyAgenciesService.findAgenciesByFilter(request).then(
-                    function(agencies) {
-                        $log.debug('agencies', agencies);
-                        $scope.agencies = agencies;
-                        $scope.updateLocations();
-                    },
-                    function(reason) {
-                        $log.error('Failed to get agencies from findAgenciesByFilter', reason);
+                    southeast: {
+                        latitude: southWest.lat,
+                        longitude: northEast.lng
                     }
-                );
-            }, function(reason) {
-                $log.error("Cannot get map instance. ", reason)
-            });
+                },
+                text: $scope.searchText,
+                statuses: selectedStatuses,
+                types: selectedTypes
+            };
+            $log.debug('request', request);
+
+            FosterFamilyAgenciesService.findAgenciesByFilter(request).then(
+                function(agencies) {
+                    $log.debug('agencies', agencies);
+                    $scope.agencies = agencies;
+                    $scope.updateLocations();
+                },
+                function(reason) {
+                    $log.error('Failed to get agencies from findAgenciesByFilter', reason);
+                }
+            );
         };
 
         $scope.getHomeLocation = function (latLng, message) {
@@ -161,26 +170,80 @@ angular.module('apqdApp')
 
         $scope.$on("leafletDirectiveMap.viewreset", function(event) {
             $log.debug(event.name);
-            $scope.findAgenciesWithinBox();
+            $scope.invalidateAgencies($scope.isDirty);
         });
 
         $scope.$on("leafletDirectiveMap.dragend", function(event) {
             $log.debug(event.name);
-            $scope.findAgenciesWithinBox();
+            $scope.invalidateAgencies($scope.isDirty);
         });
 
         $scope.$on("leafletDirectiveMap.resize", function(event) {
             $log.debug(event.name);
-            $scope.findAgenciesWithinBox();
+            $scope.invalidateAgencies($scope.isDirty);
         });
+
+        $scope.isDirty = function(bounds) {
+            if (bounds.contains($scope.caBounds)) {
+                if ($scope.viewContainsCaBounds) {
+                    return false;
+                } else {
+                    $scope.viewContainsCaBounds = true;
+                }
+            } else {
+                $scope.viewContainsCaBounds = false;
+            }
+            return true;
+        };
+
+        $scope.invalidateAgencies = function(isDirty) {
+            leafletData.getMap().then(function (map) {
+                var bounds = map.getBounds();
+
+                if (isDirty && !isDirty(bounds)) {
+                    return;
+                }
+                $scope.findAgenciesWithinBox(bounds);
+            }, function(reason) {
+                $log.error("Cannot get map instance. ", reason)
+            })
+        };
 
         $scope.onSelectAddress = function (addressFeature) {
             $log.debug(addressFeature);
             var latLng = addressFeature.latlng;
             $scope.center.lat = latLng.lat;
             $scope.center.lng = latLng.lng;
+            //$scope.center = {lat: latLng.lat, lng: latLng.lng, zoom:13};
             $scope.currentLocation = $scope.getHomeLocation($scope.center, addressFeature.feature.properties.label);
             $scope.findAgenciesWithinBox();
+        };
+
+        $scope.updateTypesLabel = function() {
+            $scope.updateDropDownLabel($scope.facilityTypes, $scope.typesConfig, $scope.ALL_TYPES_LABEL);
+        };
+        $scope.onTypeClick = function(type) {
+            type.selected = !type.selected;
+            $scope.updateTypesLabel();
+            $scope.invalidateAgencies();
+        };
+
+        $scope.updateStatusesLabel = function() {
+            $scope.updateDropDownLabel($scope.facilityStatuses, $scope.statusesConfig, $scope.ALL_STATUSES_LABEL);
+        };
+        $scope.onStatusClick = function(status) {
+            status.selected = !status.selected;
+            $scope.updateStatusesLabel();
+            $scope.invalidateAgencies();
+        };
+
+        $scope.updateDropDownLabel = function(model, config, defaultValue) {
+            var selected = $scope.getSelected(model);
+            if (selected.length > 0) {
+                config.label = selected.length + ' Selected';
+            } else {
+                config.label = defaultValue;
+            }
         };
 
         $scope.getSelected = function(model) {
