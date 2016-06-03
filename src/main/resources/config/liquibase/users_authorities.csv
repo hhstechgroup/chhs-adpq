@@ -6,3 +6,4 @@ user_id;authority_name
 3;ROLE_USER
 5;CASE_WORKER
 6;PARENT
+7;CASE_WORKER
