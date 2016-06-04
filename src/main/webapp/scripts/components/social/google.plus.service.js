@@ -1,5 +1,5 @@
 angular.module('apqdApp')
-    .factory('GooglePlusService', function ($q, $window, $rootScope) {
+    .factory('GooglePlusService', function ($q, $window) {
         var loginDeferred;
         var userInfoCallback = function (userInfo) {
             loginDeferred.resolve({

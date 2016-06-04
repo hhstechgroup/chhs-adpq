@@ -260,7 +260,7 @@ angular.module('apqdApp')
         $scope.toggleBodyContentConfig = chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig;
         $scope.$watch(function(){
             return chLayoutConfigFactory.layoutConfigState.isAsideVisible;
-        }, function(newValue, oldValue) {
+        }, function() {
             $scope.isAsideVisible = chLayoutConfigFactory.layoutConfigState.isAsideVisible;
             $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
         });
