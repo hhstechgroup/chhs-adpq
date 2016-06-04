@@ -80,7 +80,12 @@ angular.module('apqdApp')
         };
 
         $scope.selectAll = function() {
+            $scope.allSelected = !$scope.allSelected;
             _.each($scope.mails, function(mail) {mail.selected = $scope.allSelected});
+        };
+
+        $scope.hasSelected = function() {
+            return !_.isUndefined(_.find($scope.mails, {selected: true}));
         };
 
         $scope.deleteSelected = function() {

@@ -144,7 +144,7 @@ public class UserService {
         try {
             body = IOUtils.toString(getClass().getResourceAsStream("/templates/invitation.html"));
         } catch (IOException e) {
-            throw new RuntimeException("this should not happen");
+            throw new RuntimeException("this should not happen", e);
         }
 
         invitation.setBody(body);

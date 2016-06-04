@@ -3,14 +3,17 @@
 
     <div class="ch-page-heading">
 
-        <div class="ch-page-heading__select">
+        <div ng-if="mails.length > 0" class="ch-page-heading__select">
             <div class="form-type__checkbox_empty-label">
                 <input id="selectAll" type="checkbox" ng-click="selectAll()" ng-model="allSelected">
                 <label for="selectAll"></label>
             </div>
         </div>
 
-        <div class="ch-page-heading__actions" ng-click="deleteSelected()">
+        <div ng-if="!hasSelected()" class="ch-page-heading__actions_hidden">
+        </div>
+
+        <div ng-if="hasSelected()" class="ch-page-heading__actions" ng-click="deleteSelected()">
             <span class="icon icon-remove" ></span>
             <span class="actions__text">Delete</span>
         </div>
