@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('Principal', function Principal($q, Account, Tracker) {
+    .factory('Principal', function ($q, Account, Tracker) {
         var _identity,
             _authenticated = false;
 
