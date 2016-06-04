@@ -8,8 +8,6 @@ angular.module('apqdApp')
         $scope.ALL_STATUSES_LABEL = 'All Statuses';
         $scope.DEFAULT_ZOOM = 13;
 
-        chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig();
-
         $scope.viewContainsCaBounds = false;
         $scope.caBounds = new L.LatLngBounds(new L.LatLng(32.53, -124.43), new L.LatLng(42, -114.13));
 

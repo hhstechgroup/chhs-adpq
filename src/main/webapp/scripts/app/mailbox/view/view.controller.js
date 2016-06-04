@@ -24,4 +24,7 @@ angular.module('apqdApp')
                     mail.from.firstName + ' ' + mail.from.lastName);
         };
 
+        $scope.calculateLineBreaks = function(body) {
+            return body.match(/\n/g).length + 1;
+        };
     });
