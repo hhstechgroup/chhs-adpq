@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @Profile("!" + Constants.SPRING_PROFILE_FAST)
 public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
-    private static final String INTAKE_INSTANCE_PREFIX = "cws-intake";
+    private static final String APQD_INSTANCE_PREFIX = "chhs-apqd";
 
     private static final String PROP_METRIC_REG_JVM_MEMORY = "jvm.memory";
     private static final String PROP_METRIC_REG_JVM_GARBAGE = "jvm.garbage";
@@ -161,24 +161,24 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
                 String zabbixHost = jHipsterProperties.getMetrics().getZabbix().getHost();
                 Integer zabbixPort = jHipsterProperties.getMetrics().getZabbix().getPort();
                 Integer periodSec = jHipsterProperties.getMetrics().getZabbix().getPeriodSec();
-                String intakeInstanceName = jHipsterProperties.getMetrics().getZabbix().getIntakeInstanceName();
+                String apqdInstanceName = jHipsterProperties.getMetrics().getZabbix().getApqdInstanceName();
 
-                if(StringUtils.isEmpty(intakeInstanceName)){
-                    intakeInstanceName = buildIntakeInstanceName();
+                if(StringUtils.isEmpty(apqdInstanceName)){
+                    apqdInstanceName = buildAPQDInstanceName();
                 }
 
                 ZabbixSender zabbixSender = new ZabbixSender(zabbixHost, zabbixPort);
                 ZabbixReporter zabbixReporter = ZabbixReporter.forRegistry(metricRegistry)
-                    .hostName(intakeInstanceName).build(zabbixSender);
+                    .hostName(apqdInstanceName).build(zabbixSender);
 
                 zabbixReporter.start(periodSec, TimeUnit.SECONDS);
             }
         }
 
-        private String buildIntakeInstanceName(){
+        private String buildAPQDInstanceName(){
 
             StringJoiner joiner = new StringJoiner("-");
-            joiner.add(INTAKE_INSTANCE_PREFIX);
+            joiner.add(APQD_INSTANCE_PREFIX);
 
             try {
                 InetAddress inetAddress = InetAddress.getLocalHost();

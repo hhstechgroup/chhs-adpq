@@ -4,13 +4,26 @@ angular.module('apqdApp')
     .controller('EditMailCtrl', function ($rootScope, $stateParams, $scope, $state, $log, mail, identity,
                                           AutoSaveService, DraftMessage, Contacts)
     {
-        if (!_.isNil(mail)) {
-            $scope.mail = _.cloneDeep(mail);
-        } else {
-            $scope.mail = {};
+        $scope.mail = _.cloneDeep(mail);
+
+        if (!_.isNil($scope.mail.askAbout)) {
+            var fName = !_.isNil($scope.mail.askAbout.facility_name) ? $scope.mail.askAbout.facility_name : '';
+            $scope.mail.subject = fName;
+            $scope.mail.body =
+                "I am interested in more information about '" + fName + "'\n\n" +
+                "Because: \n" +
+                "    (check all that apply) \n" +
+                "<x> I would like to schedule a visit \n" +
+                "<x> I want to know what services they offer \n" +
+                "<x> I need temporary placement for my kid \n" +
+                "<x> I want to visit my child there \n" +
+                "<x> Other reasons.... \n\n\n" +
+                "    Thanks.";
         }
 
         $scope.isReplyOn = !_.isUndefined($stateParams.replyOn) || (!_.isNil(mail) && !_.isNil(mail.replyOn));
+        $scope.isOneRecipient = !_.isNil($scope.mail.to);
+
         if ($scope.isReplyOn && !_.isUndefined($stateParams.replyOn)) {
             $scope.mail = {
                 body: '',
@@ -20,7 +33,7 @@ angular.module('apqdApp')
             }
         };
 
-        if (!$scope.isReplyOn) {
+        if (!$scope.isReplyOn && !$scope.isOneRecipient) {
             Contacts.all({page: 0, size: 20}, function(results) {
                 $scope.contacts = _.filter(results, function(result) {
                     return (result.login !== identity.login);
@@ -69,13 +82,24 @@ angular.module('apqdApp')
             }
         };
 
+        $scope.onTextChange = function() {
+            $scope.isBodyInvalid = false;
+            $scope.isSubjectInvalid = false;
+        };
+
         $scope.sendMail = function() {
+            $scope.showValidation();
             if ($scope.isValid()) {
                 DraftMessage.send($scope.mail, function () {
                     $rootScope.$broadcast("apqdApp:updateContactList");
                     $rootScope.backToPreviousState();
                 }, $log.info);
             }
+        };
+
+        $scope.showValidation = function() {
+            $scope.isSubjectInvalid = (_.isNil($scope.mail.subject) || _.isEmpty($scope.mail.subject.trim()));
+            $scope.isBodyInvalid = (_.isNil($scope.mail.body) || _.isEmpty($scope.mail.body.trim()));
         };
 
         AutoSaveService.setUpAutoSave($scope, 'mail');

@@ -20,9 +20,9 @@ spring:
             enabled: false # we use Grunt + BrowserSync for livereload
     datasource:
         driver-class-name: org.h2.jdbcx.JdbcDataSource
-        url: jdbc:h2:mem:intake;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:apqd;DB_CLOSE_DELAY=-1
         name:
-        username: intake
+        username: apqd
         password:
     h2:
         console:
@@ -74,7 +74,7 @@ jhipster:
         hazelcast:
             backupCount: 1
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: apqd@localhost
+        from: apqd@engagepoint.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
@@ -85,7 +85,7 @@ jhipster:
             enabled: false
             host: localhost
             port: 2003
-            prefix: intake
+            prefix: apqd
         zabbix:
             enabled: false
             host: mdc-ieed-dmr-a1.engagepoint.us

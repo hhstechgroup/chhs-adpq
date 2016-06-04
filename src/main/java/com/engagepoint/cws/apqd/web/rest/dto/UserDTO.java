@@ -93,6 +93,11 @@ public class UserDTO {
         this.place = place;
     }
 
+    public UserDTO(User user, String password) {
+        this(user);
+        this.password = password;
+    }
+
     public String getPassword() {
         return password;
     }

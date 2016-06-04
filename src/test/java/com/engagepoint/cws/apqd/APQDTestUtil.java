@@ -1,5 +1,6 @@
 package com.engagepoint.cws.apqd;
 
+import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Draft;
 import com.engagepoint.cws.apqd.domain.Inbox;
@@ -7,6 +8,7 @@ import com.engagepoint.cws.apqd.domain.MailBox;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.DraftRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
@@ -14,9 +16,11 @@ import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
+import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,8 +28,6 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class APQDTestUtil {
-    private static final String TEST_PASSWORD_HASH = new String(new char[60]).replace("\0", "F");
-
     /**
      * Use to avoid assertion errors while comparing generated html.
      * For example, this will convert string:
@@ -58,11 +60,18 @@ public final class APQDTestUtil {
         SecurityContextHolder.setContext(securityContext);
     }
 
-    public static User prepareUser(UserRepository userRepository, String login) {
+    public static User prepareUser(UserRepository userRepository, PasswordEncoder passwordEncoder, String login) {
         User user = new User();
         user.setLogin(login);
-        user.setPassword(TEST_PASSWORD_HASH);
+        user.setPassword(passwordEncoder.encode(RandomUtil.generatePassword()));
+
         return userRepository == null ? user : userRepository.saveAndFlush(user);
+    }
+
+    public static void setUserRole(AuthorityRepository authorityRepository, User user, String role) {
+        Set<Authority> authorities = new HashSet<>();
+        authorities.add(authorityRepository.findOne(role));
+        user.setAuthorities(authorities);
     }
 
     public static void setMailBox(UserRepository userRepository, User user, MailBox mailBox) {

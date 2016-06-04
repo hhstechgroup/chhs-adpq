@@ -8,6 +8,7 @@
         <meta name="description" content="">
         <meta name="google" content="notranslate">
         <meta name="viewport" content="width=device-width">
+        <meta name="google-signin-client_id" content="36149439280-idl95ahqqan7opdsu7nvrq5aqrlj2e3c.apps.googleusercontent.com">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
@@ -26,7 +27,7 @@
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
         <link rel="stylesheet" href="assets/styles/main.css">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700,800' rel='stylesheet' type='text/css'>        
         <!-- endbuild -->
         <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
         <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
@@ -318,7 +319,8 @@
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
     <script src="scripts/components/geocoder/geocoder.service.js"></script>
     <script src="scripts/components/layout/layout.service.js"></script>
-    <script src="scripts/components/social/facebook/facebook.service.js"></script>
+    <script src="scripts/components/social/facebook.service.js"></script>
+    <script src="scripts/components/social/google.plus.service.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->
@@ -334,6 +336,41 @@
         <div class="modal-footer">
             <button class="button primary" ng-click="close()">Close</button>
         </div>
+    </script>
+        <!-- Google Plus init -->
+    <script>
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/client:plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+        window.addEventListener("load", function () {
+            window.gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        })
+    </script>
+
+        <!-- Facebook init -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '986049751501891',
+                status: true,
+                cookie: true,
+               // xfbml: true,
+                version: 'v2.4'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
     </script>
 </body>
 </html>

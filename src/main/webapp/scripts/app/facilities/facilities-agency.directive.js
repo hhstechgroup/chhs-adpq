@@ -13,7 +13,7 @@ angular.module('apqdApp')
             controller: ['$scope', '$log', '$state', function ($scope, $log, $state) {
                 $scope.askAbout = function(agency) {
                     $log.debug('askAbout', agency);
-                    $state.go('ch-inbox.new-mail');
+                    $state.go('ch-inbox.new-mail', angular.merge($state.params, {askAbout: agency}));
                 }
             }]
         }

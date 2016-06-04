@@ -75,7 +75,7 @@ angular.module('apqdApp')
             if ($stateParams.directory === 'inbox' || $stateParams.directory === 'deleted') {
                 return mail.from.firstName + ' ' + mail.from.lastName;
             } else {
-                return mail.to.firstName + ' ' + mail.to.lastName;
+                return (!_.isNil(mail.to) ? mail.to.firstName + ' ' + mail.to.lastName : '');
             }
         };
 
@@ -85,6 +85,22 @@ angular.module('apqdApp')
 
         $scope.deleteSelected = function() {
             $log.info('deleted');
+        };
+
+        $scope.getUnreadMessageStyle = function(mail) {
+            if ($state.params.directory === 'inbox' || $state.params.directory === 'deleted') {
+                return mail.unreadMessagesCount > 0 ? 'ch-content-item_active' : '';
+            } else {
+                return '';
+            }
+        };
+
+        $scope.getUnreadMessageCount = function(mail) {
+            if ($state.params.directory === 'inbox' || $state.params.directory === 'deleted') {
+                return mail.unreadMessagesCount;
+            } else {
+                return 0;
+            }
         };
 
         $scope.loadPage();

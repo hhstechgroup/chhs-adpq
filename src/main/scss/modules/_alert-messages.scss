@@ -1,0 +1,31 @@
+
+.ch-login__alert-failed-login {
+    padding: 2rem 2rem 2rem 7rem;
+    // height: 9rem;
+    color: #000;
+    background-color: #f9c642;
+
+    h3 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-top: .6rem;
+    }
+
+    h4 {
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-top: .4rem;
+    }
+
+    &:before {
+        content: "";
+        width: 2.5rem;
+        height: 2.5rem;
+        display: inline-block;
+        background: url("../images/us-icon/icon-warning.png") no-repeat center;
+        position: absolute;
+        top: 2.8rem;
+        left: 4rem;
+    }
+
+}

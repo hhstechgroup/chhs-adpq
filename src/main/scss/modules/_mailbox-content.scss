@@ -6,6 +6,7 @@
 .ch-mail-expanded {
     padding: 1.8rem 3rem;
     background: #fff;
+    border: 1px solid #cbcdcf;
 }
 
 .ch-mail-origin__prefix {
@@ -186,13 +187,13 @@
 
 .ch-new-mail-text-body__text-counter {
     display: inline-block;
-    color: #ccc;
+    color: #777777;
     font-style: italic;
     padding: .5rem;
 }
 
 .ch-mail-heading__item_action-group {
-    flex: 0 0 11rem;
+    flex: 0 0 15rem;
 }
 
 .ch-contacts-dropdown {
