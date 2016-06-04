@@ -185,6 +185,13 @@
     resize: vertical;
 }
 
+.ch-view-mail-text-body {
+    border: none;
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+}
+
 .ch-new-mail-text-body__text-counter {
     display: inline-block;
     color: #777777;
