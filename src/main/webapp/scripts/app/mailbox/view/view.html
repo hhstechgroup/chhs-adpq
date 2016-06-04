@@ -65,7 +65,7 @@
 
                     <div class="ch-mail-expanded__body">
                         <div class="ch-mail-body">
-                            <p>{{mail.body}}</p>
+                            <textarea disabled rows="{{calculateLineBreaks(mail.body)}}" class="ch-view-mail-text-body">{{mail.body}}</textarea>
                         </div>
                     </div>
 
