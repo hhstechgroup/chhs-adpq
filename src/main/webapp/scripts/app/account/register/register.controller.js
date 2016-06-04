@@ -7,7 +7,7 @@ angular.module('apqdApp')
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
         $scope.registerAccount = {};
-        $timeout(function (){angular.element('[ng-model="registerAccount.login"]').focus();});
+        $timeout(function (){angular.element('[ng-model="registerAccount.firstName"]').focus();});
 
         $scope.register = function () {
             if ($scope.registerAccount.password !== $scope.confirmPassword) {
