@@ -678,7 +678,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!--argLine>${surefireArgLine}</argLine-->
+                    <argLine>${surefireArgLine}</argLine>
                     <!-- Force alphabetical order to have a reproducible build -->
                     <runOrder>alphabetical</runOrder>
                 </configuration>
