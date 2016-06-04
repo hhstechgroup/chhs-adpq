@@ -1,4 +1,5 @@
 <div class="ch-page">
+    <div class="ch-page-bg"></div>
 
     <div class="ch-page-heading">
 
@@ -9,8 +10,9 @@
             </div>
         </div>
 
-        <div class="ch-page-heading__actions">
-            <span class="icon icon-remove" ng-click="deleteSelected()"></span>
+        <div class="ch-page-heading__actions" ng-click="deleteSelected()">
+            <span class="icon icon-remove" ></span>
+            <span class="actions__text">Delete</span>
         </div>
 
         <div class="ch-page-heading__search">
@@ -36,7 +38,7 @@
                     </div>
 
                     <div class="ch-button-group__item">
-                        <button type="button" class="ch-button-group__btn ch-button-group__btn_left-border" ng-click="nextPage()">
+                        <button type="button" class="ch-button-group__btn_left-border" ng-click="nextPage()">
                             <span class="icon icon-pagination-arrow-right"></span>
                         </button>
                     </div>

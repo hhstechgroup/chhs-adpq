@@ -210,9 +210,10 @@
                 <div class="ch-flex-row">
                     <div class="ch-flex-row__input-block">
                         <div class="ch-input-block">
-                            <label for="zip" class="ch-input-block__label">Zip</label>
+                            <label for="zipCode" class="ch-input-block__label">Zip</label>
                             <div class="ch-input-block__form-input ch-input-block__form-input_4dig">
-                                <input type="text" name="zip" id="zip" class="ch-form-input" ng-model="settingsAccount.place.zipCode"/>
+                                <input type="text" name="zipCode" id="zipCode" class="ch-form-input" ng-model="settingsAccount.place.zipCode" ng-maxlength="5" ng-minlength="5"
+                                       ui-mask="99999" ui-mask-placeholder ui-mask-placeholder-char="_" />
                             </div>
                         </div>
                     </div>
