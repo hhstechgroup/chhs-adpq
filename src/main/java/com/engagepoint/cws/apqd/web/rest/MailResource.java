@@ -227,7 +227,7 @@ public class MailResource {
         return message;
     }
 
-    private void updateUserContacts(User userFrom, User userTo) {
+    public void updateUserContacts(User userFrom, User userTo) {
         boolean updateTo = true;
         boolean updateFrom = true;
 
