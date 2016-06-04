@@ -69,6 +69,7 @@ public class UserService {
                 userRepository.save(user);
                 userSearchRepository.save(user);
                 sendInvitationLetter(user.getLogin());
+                attachSupportContacts(user.getLogin());
                 LOGGER.debug("Activated user: {}", user);
                 return user;
             });
@@ -153,6 +154,12 @@ public class UserService {
         invitation.setTo(userRepository.findOneByLogin(login).get());
 
         mailResource.sendInvitationLetter(invitation);
+    }
+
+    private void attachSupportContacts(String login) {
+        User user = userRepository.findOneByLogin(login).get();
+        User support = userRepository.findOneByLogin("worker").get();
+        mailResource.updateUserContacts(user, support);
     }
 
     private MailBox prepareMailbox() {
