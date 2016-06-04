@@ -9,14 +9,6 @@ angular.module('apqdApp')
             });
         };
 
-        var signInCallback = function (authResult) {
-            if (authResult.hg['access_token']) {
-                getUserInfo();
-            } else if (authResult.hg['error']) {
-                loginDeferred.reject();
-            }
-        };
-
         // Request user info.
         var getUserInfo = function () {
             $window.gapi.client.request(
@@ -27,6 +19,15 @@ angular.module('apqdApp')
                 }
             );
         };
+
+        var signInCallback = function (authResult) {
+            if (authResult.hg['access_token']) {
+                getUserInfo();
+            } else if (authResult.hg['error']) {
+                loginDeferred.reject();
+            }
+        };
+
         return {
             login: function () {
                 loginDeferred = $q.defer();

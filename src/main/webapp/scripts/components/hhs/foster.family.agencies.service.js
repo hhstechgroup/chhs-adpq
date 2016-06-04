@@ -3,20 +3,20 @@
  */
 angular.module('apqdApp')
     .factory('FosterFamilyAgenciesService', function (HHSService) {
-        var createInClause = function (field, values) {
-            if(!values || values.length === 0) {
-                return " TRUE ";
-            }
-            var joinedValues = joinValues(values);
-            return field + ' IN ( ' + joinedValues + ' ) ';
-        };
-
         var joinValues = function (values) {
             var result = '';
             angular.forEach(values , function (value) {
                 result= result.concat("'", value, "'", ",");
             });
             return result.slice(0, -1);
+        };
+
+        var createInClause = function (field, values) {
+            if(!values || values.length === 0) {
+                return " TRUE ";
+            }
+            var joinedValues = joinValues(values);
+            return field + ' IN ( ' + joinedValues + ' ) ';
         };
 
         var createWithinBoxClause = function (box) {
