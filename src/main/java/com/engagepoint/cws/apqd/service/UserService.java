@@ -149,7 +149,7 @@ public class UserService {
 
         invitation.setBody(body);
         invitation.setSubject("Welcome!");
-        invitation.setFrom(userRepository.findOneByLogin("milaanderson").get());
+        invitation.setFrom(userRepository.findOneByLogin("maryjenkins").get());
         invitation.setTo(userRepository.findOneByLogin(login).get());
 
         mailResource.sendInvitationLetter(invitation);
