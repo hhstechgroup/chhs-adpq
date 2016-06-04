@@ -1,5 +1,5 @@
 angular.module('apqdApp')
-    .factory('FacebookService', function ($q, $window, $rootScope) {
+    .factory('FacebookService', function ($q) {
         var loginDeferred;
 
         var userProfile = function () {

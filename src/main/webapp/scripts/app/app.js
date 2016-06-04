@@ -93,7 +93,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
             }
         };
 
-        $rootScope.gotoMainPage = function() {
+        $rootScope.goMainPage = function() {
             Principal.hasAuthority('CASE_WORKER').then(function(has) {
                 if (has) {
                     $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
