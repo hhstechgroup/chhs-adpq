@@ -32,6 +32,23 @@ angular.module('apqdApp')
 
                     $scope.alerts = [];
 
+                    var addErrorAlert = function (message, key, data) {
+                        key = key && key != null ? key : message;
+                        $scope.alerts.push(
+                            AlertService.add(
+                                {
+                                    type: "danger",
+                                    msg: key,
+                                    params: data,
+                                    timeout: 5000,
+                                    toast: AlertService.isToast(),
+                                    scoped: true
+                                },
+                                $scope.alerts
+                            )
+                        );
+                    };
+
                     var cleanHttpErrorListener = $rootScope.$on('apqdApp.httpError', function (event, httpResponse) {
                         var i;
                         event.stopPropagation();
@@ -77,23 +94,6 @@ angular.module('apqdApp')
                             $scope.alerts = [];
                         }
                     });
-
-                    var addErrorAlert = function (message, key, data) {
-                        key = key && key != null ? key : message;
-                        $scope.alerts.push(
-                            AlertService.add(
-                                {
-                                    type: "danger",
-                                    msg: key,
-                                    params: data,
-                                    timeout: 5000,
-                                    toast: AlertService.isToast(),
-                                    scoped: true
-                                },
-                                $scope.alerts
-                            )
-                        );
-                    }
                 }
             ]
         }

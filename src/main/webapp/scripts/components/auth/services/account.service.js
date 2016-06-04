@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('Account', function Account($resource, DateUtils) {
+    .factory('Account', function ($resource, DateUtils) {
         return $resource('api/account', {}, {
             'get': { method: 'GET', params: {}, isArray: false,
 
