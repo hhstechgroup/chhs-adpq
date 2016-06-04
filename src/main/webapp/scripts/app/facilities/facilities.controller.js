@@ -47,7 +47,6 @@ angular.module('apqdApp')
         };
 
         $scope.viewConfig = {presentation: 'list'};
-        //$scope.center = {lat: 36.7428526, lng: -119.9913578, zoom: 13};
         $scope.center = {autoDiscover: true, zoom: $scope.DEFAULT_ZOOM};
 
         $scope.searchText = '';
@@ -260,7 +259,7 @@ angular.module('apqdApp')
         $scope.toggleBodyContentConfig = chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig;
         $scope.$watch(function(){
             return chLayoutConfigFactory.layoutConfigState.isAsideVisible;
-        }, function(newValue, oldValue) {
+        }, function() {
             $scope.isAsideVisible = chLayoutConfigFactory.layoutConfigState.isAsideVisible;
             $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
         });
