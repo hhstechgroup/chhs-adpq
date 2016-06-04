@@ -144,12 +144,12 @@ public class UserService {
         try {
             body = IOUtils.toString(getClass().getResourceAsStream("/templates/invitation.html"));
         } catch (IOException e) {
-            throw new RuntimeException("this should not happen");
+            throw new RuntimeException("this should not happen", e);
         }
 
         invitation.setBody(body);
         invitation.setSubject("Welcome!");
-        invitation.setFrom(userRepository.findOneByLogin("milaanderson").get());
+        invitation.setFrom(userRepository.findOneByLogin("maryjenkins").get());
         invitation.setTo(userRepository.findOneByLogin(login).get());
 
         mailResource.sendInvitationLetter(invitation);
