@@ -1,5 +1,5 @@
 <ul class="ch-main-nav-list">
-    <li class="ch-main-nav-list__item">
+    <li class="ch-main-nav-list__item" has-any-authority="PARENT, WORKER">
         <div class="ch-main-nav-item">
             <a class="ch-main-nav-item__link" ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-main-nav-item__link_active">
                 <span class="icon icon-inbox ch-main-nav-item__icon"></span>
@@ -18,49 +18,60 @@
             </a>
         </div>
     </li>
-    <li ng-class="{active: $state.includes('admin')}" ng-switch-when="true" has-authority="ROLE_ADMIN"
-        class="main-nav__item dropdown pointer">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="" id="admin-menu">
-            <span class = "icon icon-reports"></span>
-            <span class="title hidden-sm" translate="global.menu.admin.main">Administration</span>
-        </a>
-        <ul class="dropdown-sublist">
-            <li ui-sref-active="active"><a ui-sref="user-management" data-toggle="collapse"
-                                           data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-user"></span>
-                &#xA0;<span translate="global.menu.admin.user-management">User management</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="tracker" data-toggle="collapse"
-                                           data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-eye-open"></span>
-                &nbsp;<span translate="global.menu.admin.tracker">User tracker</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="metrics" data-toggle="collapse"
-                                           data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-dashboard"></span>
-                &#xA0;<span translate="global.menu.admin.metrics">Metrics</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="health" data-toggle="collapse"
-                                           data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-heart"></span>
-                &#xA0;<span translate="global.menu.admin.health">Health</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="configuration" data-toggle="collapse"
-                                           data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-list-alt"></span>
-                &#xA0;<span translate="global.menu.admin.configuration">Configuration</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="audits" data-toggle="collapse"
-                                           data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-bell"></span>
-                &#xA0;<span translate="global.menu.admin.audits">Audits</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="logs" data-toggle="collapse"
-                                           data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-tasks"></span>
-                &#xA0;<span translate="global.menu.admin.logs">Logs</span></a></li>
-            <li ng-hide="inProduction" ui-sref-active="active"><a ui-sref="docs" data-toggle="collapse"
-                                                                  data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-book"></span>
-                &#xA0;<span translate="global.menu.admin.apidocs">API</span></a></li>
-            <li ng-hide="inProduction"><a href='/h2-console' target="_tab" data-toggle="collapse"
-                                          data-target=".navbar-collapse.in"><span
-                class="glyphicon glyphicon-hdd"></span>
-                &#xA0;<span translate="global.menu.admin.database">Database</span></a></li>
-        </ul>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="user-management" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Users</span>
+            </a>
+        </div>
+    </li>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="tracker" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Tracker</span>
+            </a>
+        </div>
+    </li>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="metrics" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Metrics</span>
+            </a>
+        </div>
+    </li>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="health" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Health</span>
+            </a>
+        </div>
+    </li>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="configuration" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Configuration</span>
+            </a>
+        </div>
+    </li>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="audits" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Audits</span>
+            </a>
+        </div>
+    </li>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="logs" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Logs</span>
+            </a>
+        </div>
     </li>
 </ul>
