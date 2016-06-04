@@ -72,7 +72,7 @@
                 <markerIncluded>false</markerIncluded>
                 <mdcIncluded>true</mdcIncluded>
                 <threadIncluded>false</threadIncluded>
-                <facility>CWS-Intake</facility>
+                <facility>CHHS-APQD</facility>
             </appender>
 
             <root level="@logback.loglevel@">
