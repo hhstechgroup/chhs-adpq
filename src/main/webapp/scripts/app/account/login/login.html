@@ -24,9 +24,6 @@
                           </div>
                     </div>
                 </div>
-
-            <div class="alert alert-danger" ng-show="isAuthenticationError()" translate="login.messages.error.authentication">
-                <strong>Failed to sign in!</strong> Please check your credentials and try again.
             </div>
         </div>
     </div>
@@ -54,8 +51,10 @@
 
               <div class="col-md-4">
 
-                  <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
-                      <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                  <div class="ch-login__alert-failed-login"
+                       ng-show="isAuthenticationError()">
+                      <h3>Failed to sign in!</h3>
+                      <h4>Please check your credentials and try again.</h4>
                   </div>
 
                   <div class="ch-login__form">
@@ -106,7 +105,10 @@
                       <div class="ch-login__social__container">
                           <h3 class="ch-login__social-title"><span>
                               UC Davis Extension Center for Human Services</span></h3>
-                          <div class="ch-login__social__pane"></div>
+                          <div class="ch-login__social__pane">
+                              <iframe src="http://www.youtube.com/embed/?listType=user_uploads&list=ucdechs" width="480" height="500"></iframe>
+
+                          </div>
                       </div>
                   </div>
 
@@ -146,9 +148,7 @@
                       </ul>
                   </div>
               </div>
-
            </div>
-
         </div>
 
     </div>
