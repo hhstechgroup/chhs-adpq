@@ -11,6 +11,7 @@ import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.MailResource;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -137,8 +139,17 @@ public class UserService {
 
     private void sendInvitationLetter(String login) {
         Message invitation = new Message();
-        invitation.setBody("PREVED!");
-        invitation.setFrom(userRepository.findOneByLogin("worker").get());
+
+        String body;
+        try {
+            body = IOUtils.toString(getClass().getResourceAsStream("/templates/invitation.html"));
+        } catch (IOException e) {
+            throw new RuntimeException("this should not happen");
+        }
+
+        invitation.setBody(body);
+        invitation.setSubject("Welcome!");
+        invitation.setFrom(userRepository.findOneByLogin("milaanderson").get());
         invitation.setTo(userRepository.findOneByLogin(login).get());
 
         mailResource.sendInvitationLetter(invitation);
