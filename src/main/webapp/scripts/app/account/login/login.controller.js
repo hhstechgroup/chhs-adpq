@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, MailBoxService, FacebookService) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, MailBoxService,
+     AuthenticationErrorService) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -16,16 +17,19 @@ angular.module('apqdApp')
             }).then(function () {
                 MailBoxService.connect();
 
-                $scope.authenticationError = false;
+                AuthenticationErrorService.resetAuthenticationError();
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');
                 } else {
                     $rootScope.back();
                 }
             }).catch(function () {
-                $scope.authenticationError = true;
+                AuthenticationErrorService.setAuthenticationError();
             });
         };
 
-        FacebookService.init();
+        $scope.isAuthenticationError = function() {
+            return AuthenticationErrorService.getAuthenticationError();
+        };
+
     });

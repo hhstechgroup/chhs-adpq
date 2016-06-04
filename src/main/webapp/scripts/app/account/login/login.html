@@ -25,6 +25,8 @@
                     </div>
                 </div>
 
+            <div class="alert alert-danger" ng-show="isAuthenticationError()" translate="login.messages.error.authentication">
+                <strong>Failed to sign in!</strong> Please check your credentials and try again.
             </div>
         </div>
     </div>
@@ -64,6 +66,7 @@
                               <label for="username" translate="">Username</label>
                               <input type="text" class="form-control" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="username">
                           </div>
+
 
                           <div class="ch-login__form__group">
                               <label for="password" translate="">Password</label>
@@ -145,6 +148,7 @@
               </div>
 
            </div>
+
         </div>
 
     </div>

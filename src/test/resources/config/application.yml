@@ -13,7 +13,7 @@
 spring:
     datasource:
         driver-class-name: org.h2.jdbcx.JdbcDataSource
-        url: jdbc:h2:mem:intake;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:apqd;DB_CLOSE_DELAY=-1
         name:
         username:
         password:
@@ -74,7 +74,7 @@ jhipster:
         jmx.enabled: true
     swagger:
         title: apqd API
-        description: intake API documentation
+        description: apqd API documentation
         version: 0.0.1
         termsOfServiceUrl:
         contact:
@@ -85,7 +85,7 @@ jhipster:
 # Application properties
 # ===================================================================
 
-intake:
+apqd:
     state: test state
     cws-office: test cwsOffice
     nlp-mode : opennlp

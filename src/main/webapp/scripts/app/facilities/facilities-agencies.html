@@ -1,6 +1,6 @@
 <section class="ch-aside-facilities" ng-show="isAsideVisible">
     <ul class="ch-facilities">
-        <li class="ch-facilities__item" ng-repeat="agency in agencies">
+        <li class="ch-facilities__item" ng-repeat="agency in agencies track by $index">
             <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
         </li>
     </ul>
