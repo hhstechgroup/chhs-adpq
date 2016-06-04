@@ -9,7 +9,7 @@
               <a href=""><span class="logo-image"></span></a>
             </div>
 
-            <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
+            <div class="alert alert-danger" ng-show="isAuthenticationError()" translate="login.messages.error.authentication">
                 <strong>Failed to sign in!</strong> Please check your credentials and try again.
             </div>
 
@@ -42,7 +42,6 @@
             <div class="ch-login__new-account">
                 <a class="" href="#/registerme">Create an Account</a>
             </div>
-                <div class="fb-login-button ch-login__new-account" data-max-rows="1" data-size="large" data-show-faces="false" onlogin="window.onSocialLogin();"></div>
         </div>
     </div>
 </div>

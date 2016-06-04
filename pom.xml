@@ -74,7 +74,13 @@
     </properties>
 
     <dependencies>
-
+        <!-- selenide -->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>3.5.1</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate4</artifactId>
@@ -672,7 +678,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <argLine>${surefireArgLine}</argLine>
+                    <!--argLine>${surefireArgLine}</argLine-->
                     <!-- Force alphabetical order to have a reproducible build -->
                     <runOrder>alphabetical</runOrder>
                 </configuration>
