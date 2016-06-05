@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('AuthServerProvider', function loginService($http, localStorageService, $window, Tracker) {
+    .factory('AuthServerProvider', function ($http, localStorageService, $window, Tracker) {
         return {
             login: function(credentials) {
                 var data = 'j_username=' + encodeURIComponent(credentials.username) +

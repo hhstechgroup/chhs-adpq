@@ -1,5 +1,5 @@
 angular.module('apqdApp')
-    .factory('GooglePlusService', function ($q, $window, $rootScope) {
+    .factory('GooglePlusService', function ($q, $window) {
         var loginDeferred;
         var userInfoCallback = function (userInfo) {
             loginDeferred.resolve({
@@ -7,14 +7,6 @@ angular.module('apqdApp')
                 last_name: userInfo.name.familyName,
                 email: userInfo['emails'][0]['value']
             });
-        };
-
-        var signInCallback = function (authResult) {
-            if (authResult.hg['access_token']) {
-                getUserInfo();
-            } else if (authResult.hg['error']) {
-                loginDeferred.reject();
-            }
         };
 
         // Request user info.
@@ -27,6 +19,15 @@ angular.module('apqdApp')
                 }
             );
         };
+
+        var signInCallback = function (authResult) {
+            if (authResult.hg['access_token']) {
+                getUserInfo();
+            } else if (authResult.hg['error']) {
+                loginDeferred.reject();
+            }
+        };
+
         return {
             login: function () {
                 loginDeferred = $q.defer();

@@ -25,6 +25,7 @@ angular.module('apqdApp')
         };
 
         $scope.calculateLineBreaks = function(body) {
-            return body.match(/\n/g).length + 1;
+            var match = body.match(/\n/g);
+            return _.isNil(match) ? 5 : match.length + 1;
         };
     });

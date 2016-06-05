@@ -93,6 +93,26 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
             }
         };
 
+        $rootScope.goMainPage = function() {
+            Principal.hasAuthority('CASE_WORKER').then(function(has) {
+                if (has) {
+                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
+                }
+            });
+
+            Principal.hasAuthority('PARENT').then(function(has) {
+                if (has) {
+                    $state.go('ch-facilities', {}, {reload: true});
+                }
+            });
+
+            Principal.hasAuthority('ROLE_ADMIN').then(function(has) {
+                if (has) {
+                    $state.go('metrics', {}, {reload: true});
+                }
+            });
+        };
+
         $rootScope.hasAnyAuthority = function(authority) {
             return Principal.hasAnyAuthority(authority);
         }
