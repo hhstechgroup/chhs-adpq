@@ -4,6 +4,10 @@
     min-width: 5rem;
     background: #0071bc;
     border-radius: 4px;
+
+    &:hover {
+        background-color: #205493;
+    }    
 }
 
 .ch-option-btn.ch-option-btn_fullwidth {
