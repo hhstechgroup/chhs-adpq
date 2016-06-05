@@ -50,8 +50,7 @@ The table below lists EngagePoint's architectural design decisions and their ali
 | --- | --- | --- |
 | Modern Web Application | HTML5, CSS3, [AngularJS](https://angularjs.org/) | AngularJS is a mature MVC JavaScript framework for web application development with decent documentation and an active GitHub community |
 | Responsive UI | [Bootstrap](http://getbootstrap.com/) | Bootstrap is a popular framework for responsive UI, simplifying responsive UI implementation complexity |
-| Allow foster parents to communicate with the case worker via a private inbox | [Elasticsearch](https://www.elastic.co/products/elasticsearch), [PostgreSQL](https://www.postgresql.org/),
- [Websockets](https://en.wikipedia.org/wiki/WebSocket) |
+| Allow foster parents to communicate with the case worker via a private inbox | [Elasticsearch](https://www.elastic.co/products/elasticsearch), [PostgreSQL](https://www.postgresql.org/), [Websockets](https://en.wikipedia.org/wiki/WebSocket) |
 - Elasticsearch implements search capabilities needed for inbox functionality like full-text search, relevancy, ranking, and fuzzy search.
 - PostgreSQL is production ready full-featured relational database used in an application for the persistence of messages in the private inbox.
 - Websockets technology is used for real-time notifications for new messages
