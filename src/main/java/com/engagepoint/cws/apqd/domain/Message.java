@@ -1,6 +1,5 @@
 package com.engagepoint.cws.apqd.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.time.ZonedDateTime;
@@ -57,8 +56,7 @@ public class Message implements Serializable {
     @Column(name = "unread_messages_count")
     private int unreadMessagesCount;
 
-    @OneToMany(mappedBy = "message")
-    @JsonIgnore
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Attachment> attachments = new HashSet<>();
 

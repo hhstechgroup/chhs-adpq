@@ -66,4 +66,10 @@ angular.module('apqdApp')
 
             return _([place.streetName, place.cityName, stateZip]).omitBy(_.isNil).omitBy(_.isEmpty).values().join(', ');
         }
+    })
+    .filter('convertFileSizeToHuman', function () {
+        return function (size) {
+            var i = Math.floor( Math.log(size) / Math.log(1024) );
+            return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+        }
     });

@@ -69,6 +69,38 @@
                         </div>
                     </div>
 
+                    <div ng-if="mail.attachments.length > 0" class="ch-mail-expanded__footer">
+                        <div class="ch-attachments">
+
+                            <div class="ch-attachments__heading">
+                                <h3>
+                                    <span class="attachments-count">attachments</span>
+                                </h3>
+                            </div>
+
+                            <ol class="ch-attachments__list">
+
+                                <li ng-repeat="attachment in mail.attachments" class="ch-attachments__list__item">
+                                    <div class="ch-attachments__list__item__icon">
+                                        <span class="icon icon-attachment"></span>
+                                    </div>
+
+                                    <div class="ch-attachments__list__item__file">
+                                        <span class="attachments-filename">{{attachment.fileName}}</span>
+                                        <span class="attachments-filesize">{{attachment.fileSize | convertFileSizeToHuman}}</span>
+                                    </div>
+
+                                    <div class="ch-attachments__list__item__actions">
+                                        <a href="api/file/{{attachment.id}}">
+                                            <span class="icon icon-download"></span>
+                                        </a>
+                                    </div>
+                                </li>
+
+                            </ol>
+                        </div>
+                    </div>
+
                 </div>
             </li>
 
