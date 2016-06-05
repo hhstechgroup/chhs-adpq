@@ -16,16 +16,20 @@ import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
+import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.web.servlet.ResultActions;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 public final class APQDTestUtil {
     /**
@@ -77,6 +81,34 @@ public final class APQDTestUtil {
     public static void setMailBox(UserRepository userRepository, User user, MailBox mailBox) {
         user.setMailBox(mailBox);
         userRepository.saveAndFlush(user);
+    }
+
+    public static User newUserAnnaBrown(PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+        User user = prepareUser(null, passwordEncoder, "newuser");
+
+        user.setLangKey("en");
+        user.setEmail("newuser@company.com");
+        user.setFirstName("Anna");
+        user.setLastName("Brown");
+        user.setSsnLast4Digits("4321");
+        user.setActivated(true);
+        user.setCaseNumber("S123");
+        user.setBirthDate(LocalDate.ofEpochDay(0L));
+        user.setPhoneNumber("1111111111");
+
+        setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
+
+        return user;
+    }
+
+    public static void expectUser(ResultActions resultActions, User user) throws Exception {
+        resultActions
+            .andExpect(jsonPath("$.id").exists())
+            .andExpect(jsonPath("$.login").value(user.getLogin()))
+            .andExpect(jsonPath("$.email").value(user.getEmail()))
+            .andExpect(jsonPath("$.firstName").value(user.getFirstName()))
+            .andExpect(jsonPath("$.lastName").value(user.getLastName()))
+            .andExpect(jsonPath("$.ssnLast4Digits").value(user.getSsnLast4Digits()));
     }
 
     /*
