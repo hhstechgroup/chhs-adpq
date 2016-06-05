@@ -65,6 +65,19 @@ angular.module('apqdApp')
         $scope.createLocations = function() {
             var locations = {};
             _.each($scope.agencies, function (agency) {
+                GeocoderService.distance(
+                    {
+                        latitude: agency.location.coordinates[1],
+                        longitude: agency.location.coordinates[0]
+                    },
+                    {
+                        latitude: $scope.currentLocation.lat,
+                        longitude: $scope.currentLocation.lng
+
+                    }
+                ).then(function (distance) {
+                    agency.distance = distance;
+                });
                 locations['fn' + agency.facility_number] = {
                     layer: 'agencies',
                     lat: agency.location.coordinates[1],

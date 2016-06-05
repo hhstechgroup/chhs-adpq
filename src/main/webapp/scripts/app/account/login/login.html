@@ -18,10 +18,17 @@
                               <a class="" href="#/registerme">Create an Account</a>
                           </div>
 
-                          <div class="ch-login__actions__lang">
+                          <div class="ch-login__actions__lang" ng-click="isLanguagePopupVisible=!isLanguagePopupVisible">
                               <span class="icon icon-globe"></span>
-                              <span class="actions__lang">ENG</span>
+                              <span class="actions__lang" ng-init="isLanguageEnglish=!isLanguageEnglish">ENG</span>
+                              <span class="actions__lang" ng-show="isLanguageSpanish">SPA</span>
+
+                              <div class="ch-login__actions__lang__popup" ng-show="isLanguagePopupVisible">
+                                  <h3 class="ch-login__lang__english"><span>English</span></h3>
+                                  <h4 class="ch-login__lang__spanish"><span>Spanish</span></h4>
+                              </div>
                           </div>
+
                     </div>
                 </div>
             </div>
