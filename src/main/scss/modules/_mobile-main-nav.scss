@@ -3,7 +3,28 @@
     background: #fff;
     z-index: 10000;
     width: 70%;
+    height: 100vh;
+    right: -70%;
+    box-shadow: 0 2px 2px #cbcdcf;
+    transition-property: right;
+    transition-duration: 300ms;
+}
+
+.ch-header__menu-mobile__btn.ch-menu-mobile__active + .ch-menu-mobile__pane {
     right: 0;
+}
+
+.ch-menu-mobile__bg {
+    width: 100vw;
+    height: 100vh;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    background: #cbcdcf;
+    opacity: 0.4;
+    z-index: 999;
 }
 
 .ch-menu-mobile__title {
@@ -55,6 +76,10 @@
     .icon-facilities {
         background: url("../images/us-icon/icon-facilities.png") no-repeat center;
     }
+
+    .icon-profile {
+        background: url("../images/us-icon/icon-user-big.png") no-repeat center;
+    }
 }
 
 
@@ -65,7 +90,7 @@
 .ch-mobile-main-nav-item__text {
     display: inline-block;
     font-size: 2.8rem;
-    font-weight: 500;
+    font-weight: 600;
     color: #000;
     position: relative;
 }
@@ -82,4 +107,32 @@
     color: #fff;
     text-align: center;
     padding: .2rem 0 0;
+}
+
+.ch-mobile-main-nav__sign-out {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-right: 4rem;
+    border-top: .1rem solid #cbcdcf;
+
+    .icon {
+      width: 4.4rem;
+      height: 4.4rem;
+      float: right;
+      margin-left: 2rem;
+    }
+
+    .icon-user-account-exit {
+        background: url("../images/us-icon/icon-sign-out.png") no-repeat center;
+    }
+
+    .ch-plane-btn__text {
+        float: right;
+        font-size: 2.8rem;
+        font-weight: 500;
+    }
+}
+
+.ch-mobile-main-nav__sign-out__btn {
+    float: right;
 }

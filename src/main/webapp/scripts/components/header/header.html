@@ -49,16 +49,18 @@
         </div>
 
         <div class="ch-header__menu-mobile">
-            <button type="button" class="ch-header__menu-mobile__btn">
+            <!-- <div class="ch-menu-mobile__bg"></div> -->
+
+            <a class="ch-header__menu-mobile__btn" ui-sref-active="ch-menu-mobile__active">
                 <span class="icon icon-menu-mobile"></span>
-            </button>
+            </a>
 
             <div class="ch-menu-mobile__pane">
 
                 <h3 class="ch-menu-mobile__title clearfix">
                     <span class="ch-menu-mobile__title__icon"></span>
                     <span class="ch-menu-mobile__title__text">INBOX</span>
-                  </h3>
+                </h3>
 
                 <ul class="ch-menu-mobile__list">
                   <li class="ch-menu-mobile__list__item" has-any-authority="PARENT, CASE_WORKER">
@@ -89,20 +91,32 @@
                   </li>
 
                   <li class="ch-menu-mobile__list__item">
-                    <div class="ch-user-account-popup__profile-btn">
-                        <button type="button" class="ch-option-btn" ui-sref="settings" ng-click="isAccountPopupVisible = false;">
-                            <span class="ch-option-btn__text">My Profile</span>
-                        </button>
+
+                    <div class="ch-mobile-main-nav-item">
+                        <a class="ch-mobile-main-nav-item__link" ui-sref="settings" ui-sref-active="ch-main-nav-item__link_active">
+                            <span class="icon icon-profile"></span>
+                            <div class="ch-mobile-main-nav-item__text-bundle">
+                                <span class="ch-mobile-main-nav-item__text">My Profile</span>
+                            </div>
+                        </a>
                     </div>
+
                   </li>
                 </ul>
 
-                <div class="ch-user-account-popup__exit-btn">
+                <div class="ch-mobile-main-nav__sign-out clearfix">
+                    <button type="button" class="ch-mobile-main-nav__sign-out__btn" ng-click="logout()">
+                        <span class="icon icon-user-account-exit"></span>
+                        <span class="ch-plane-btn__text">Sign out</span>
+                    </button>
+                </div>
+
+                <!-- <div class="ch-user-account-popup__exit-btn">
                     <button type="button" class="ch-plane-btn" ng-click="logout()">
                         <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
                         <span class="ch-plane-btn__text">Sign out</span>
                     </button>
-                </div>
+                </div> -->
 
             </div>
         </div>
