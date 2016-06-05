@@ -213,6 +213,20 @@ public class MailResourceTest {
             .andExpect(status().isOk());
     }
 
+    private void assertMessageThread(Message message) throws Exception {
+        assertThat(message.getId()).isNotNull();
+
+        restMailResourceMockMvc.perform(
+            get("/api/mails/thread/" + message.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.id").exists())
+            .andExpect(jsonPath("$.thread").exists())
+            .andExpect(jsonPath("$.thread[*].id").value(hasItem(message.getId().intValue())))
+            .andExpect(jsonPath("$.thread[*].subject").value(hasItem(message.getSubject())))
+            .andExpect(jsonPath("$.thread[*].body").value(hasItem(message.getBody())));
+    }
+
     @Test
     @Transactional
     public void testCreateGetUpdateSendRead() throws Exception {
@@ -276,5 +290,9 @@ public class MailResourceTest {
 
         testMessage = messageRepository.findAll().iterator().next();
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.READ);
+
+        // test message thread
+
+        assertMessageThread(testMessage);
     }
 }
