@@ -23,9 +23,10 @@ angular.module('apqdApp')
 
             createGeocoder: function (containerId, onSelect) {
                 var geocoder = L.control.geocoder('search-JrJjTaE', {
-                    /*params: {
+                    params: {
                         'boundary.country': 'USA'
-                    },*/
+                    },
+                    placeholder: 'Search Address',
                     fullWidth: 650,
                     expanded: true,
                     markers: false,
