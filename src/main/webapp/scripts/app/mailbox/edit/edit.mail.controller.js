@@ -141,7 +141,7 @@ angular.module('apqdApp')
                 });
 
             }, function (resp) {
-                console.log('Error status: ' + resp.status);
+                $log.error('Error status: ' + resp.status);
             }, function (evt) {
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 $scope.progressPercentage = progressPercentage + '% ' + evt.config.data.file.name;

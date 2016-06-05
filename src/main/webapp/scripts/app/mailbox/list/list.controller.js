@@ -23,7 +23,7 @@ angular.module('apqdApp')
 
             var searchString;
             if (!_.isNil(filterByDestination)) {
-                searchString = "C++" + filterByDestination.login;
+                searchString = "BY_LOGIN_" + filterByDestination.login;
             } else {
                 searchString = _.isEmpty($scope.searchString.trim()) ? '-1' : $scope.searchString.trim();
             }

@@ -100,6 +100,4 @@ angular.module('apqdApp')
                 $scope.settingsAccount.place.zipCode = addressFeature.feature.properties.postalcode;
             });
         };
-
-        $scope.addGeocoder();
     });
