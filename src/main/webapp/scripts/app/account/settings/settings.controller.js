@@ -3,7 +3,7 @@
 angular.module('apqdApp')
     .controller('SettingsController',
     function ($scope, Principal, Auth, Language, $translate, lookupGender,
-     Place, GeocoderService, lookupState) {
+     Place, GeocoderService, lookupState,  AddressUtils) {
 
         $scope.success = null;
         $scope.error = null;
@@ -92,12 +92,7 @@ angular.module('apqdApp')
 
         $scope.onSelectAddress = function (addressFeature) {
             $scope.$apply(function () {
-                $scope.settingsAccount.place.streetName = addressFeature.feature.properties.name;
-                $scope.settingsAccount.place.cityName = addressFeature.feature.properties.locality;
-                $scope.settingsAccount.place.state = _.find($scope.states, function(state) {
-                    return _.upperCase(state.stateCode) === _.upperCase(addressFeature.feature.properties.region_a);
-                });
-                $scope.settingsAccount.place.zipCode = addressFeature.feature.properties.postalcode;
+                AddressUtils.addAddressToAccount(addressFeature, $scope.settingsAccount);
             });
         };
     });

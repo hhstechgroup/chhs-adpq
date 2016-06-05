@@ -2,8 +2,10 @@
 
 angular.module('apqdApp')
     .controller('FacilitiesController',
-    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory', '$uibModal',
-    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory, $uibModal) {
+    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService',
+        'GeocoderService', 'chLayoutConfigFactory', '$uibModal', 'Principal', 'AppPropertiesService', 'AddressUtils',
+    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService,
+              GeocoderService, chLayoutConfigFactory, $uibModal, Principal, AppPropertiesService, AddressUtils) {
         $scope.ALL_TYPES_LABEL = 'All Types';
         $scope.ALL_STATUSES_LABEL = 'All Statuses';
         $scope.DEFAULT_ZOOM = 13;
@@ -277,13 +279,58 @@ angular.module('apqdApp')
             $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
         });
 
-        $scope.openDefaultAddressModal = function() {
+        $scope.openDefaultAddressModal = function(userProfile) {
             $uibModal.open({
                 templateUrl: 'scripts/app/facilities/modal/default-address-dialog.html',
                 controller: 'DefaultAddressModalCtrl',
                 size: 'facilities-default-address',
                 windowClass: 'ch-general-modal',
-                resolve: {}
-            });
-        }
+                resolve: {
+                    userProfile: function() {
+                        return userProfile;
+                    }
+                }
+            }).result.then(
+                function(addressFeature) {
+                    $scope.onSelectAddress(addressFeature);
+                },
+                function() {
+                    AppPropertiesService.defaultAddress(function(response) {
+                        var address = response.data;
+                        GeocoderService.searchAddress(address).then(function(response) {
+                            var data = response.data[0];
+                            $scope.onSelectAddress({
+                                latlng: {
+                                    lat: parseFloat(data.lat),
+                                    lng: parseFloat(data.lon)
+                                },
+                                feature: {
+                                    properties: {
+                                        label: data.display_name
+                                    }
+                                }
+                            })
+                        });
+                    });
+                }
+            );
+        };
+
+        Principal.identity().then(function(userProfile) {
+            if (_.isNil(userProfile) || _.isNil(userProfile.place)) {
+                $scope.openDefaultAddressModal(userProfile);
+            } else {
+                $scope.onSelectAddress({
+                    latlng: {
+                        lat: userProfile.place.latitude,
+                        lng: userProfile.place.longitude
+                    },
+                    feature: {
+                        properties: {
+                            label: AddressUtils.formatAddress(userProfile.place)
+                        }
+                    }
+                })
+            }
+        })
     }]);
