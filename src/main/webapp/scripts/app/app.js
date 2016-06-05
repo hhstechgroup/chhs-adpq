@@ -80,7 +80,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
                         } else {
                             Principal.hasAuthority('PARENT').then(function(result) {
                                 if(result) {
-                                    $state.go('ch-facilities', {}, {reload: true});
+                                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
                                 } else {
                                     $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
                                 }
