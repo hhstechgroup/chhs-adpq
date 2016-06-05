@@ -4,17 +4,18 @@
     z-index: 10000;
     width: 70%;
     height: 100vh;
+    top: 0;
     right: -70%;
     box-shadow: 0 2px 2px #cbcdcf;
     transition-property: right;
     transition-duration: 300ms;
 }
 
-.ch-header__menu-mobile__btn.ch-menu-mobile__active + .ch-menu-mobile__pane {
+.ch-menu-mobile__pane.ch-menu-mobile__active {
     right: 0;
 }
 
-.ch-menu-mobile__bg {
+.ch-menu-mobile__bg-show {
     width: 100vw;
     height: 100vh;
     right: 0;
@@ -28,8 +29,8 @@
 }
 
 .ch-menu-mobile__title {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
     padding-right: 4rem;
     border-bottom: 1px solid #cbcdcf;
 }

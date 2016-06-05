@@ -49,13 +49,17 @@
         </div>
 
         <div class="ch-header__menu-mobile">
-            <!-- <div class="ch-menu-mobile__bg"></div> -->
+            <div class="ch-menu-mobile__bg"
+                 ng-class="{ 'ch-menu-mobile__bg-show': isMobileMenuVisible, 'ch-menu-mobile__bg-hide': !isAsideVisible}"
+                 ng-click="isMobileMenuVisible = !isMobileMenuVisible"></div>
 
-            <a class="ch-header__menu-mobile__btn" ui-sref-active="ch-menu-mobile__active">
+            <button type="button" class="ch-header__menu-mobile__btn" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
                 <span class="icon icon-menu-mobile"></span>
-            </a>
+            </button>
 
-            <div class="ch-menu-mobile__pane">
+            <div class="ch-menu-mobile__pane ng-hide-animate"
+                 ng-show="isMobileMenuVisible"
+                 ng-class="{ 'ch-menu-mobile__active': isMobileMenuVisible, 'ch-menu-mobile__hide': !isAsideVisible}">
 
                 <h3 class="ch-menu-mobile__title clearfix">
                     <span class="ch-menu-mobile__title__icon"></span>
