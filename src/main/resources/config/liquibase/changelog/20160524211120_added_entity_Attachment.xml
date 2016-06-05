@@ -22,26 +22,26 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="file_name" type="varchar(255)"/>
-            
+
             <column name="file_mime_type" type="varchar(255)"/>
-            
+
             <column name="file_size" type="integer"/>
-            
+
             <column name="file_description" type="varchar(255)"/>
-            
+
             <column name="creation_date" type="timestamp"/>
-            
+
             <column name="file" type="blob" />
-            <column name="file_content_type" type="varchar(50)">
+            <column name="file_content_type" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="message_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="attachment" columnName="creation_date" columnDataType="datetime"/>
 
-        
+
         <addForeignKeyConstraint baseColumnNames="message_id"
                                  baseTableName="attachment"
                                  constraintName="fk_attachment_message_id"
