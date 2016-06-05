@@ -82,7 +82,7 @@
                                 <div class="ch-aside-contacts__description">
                                     <h3 class="ch-contacts-description__phone"><span>{{contact.phone | formatTel}}</span></h3>
                                     <h4 class="ch-contacts-description__address"><span>{{contact.place | formatAddress}}</span></h4>
-                                    <a href="" class="ch-contacts-description__filter"><span>Filter Mails By Contact</span></a>
+                                    <a href="" class="ch-contacts-description__filter" ng-click="filterByContact(contact)"><span>Filter Mails By Contact</span></a>
                                 </div>
                             </div>
                       </li>

@@ -55,7 +55,11 @@
                                 <div class="ch-mail-options-group">
                                     <div class="ch-button-group-action">
                                         <a href="" role="button" ui-sref="ch-inbox.reply-mail({replyOn: mail.id})"
-                                           class="ch-button-group-action__btn ch-button-group-action__btn_reply"></a>
+                                           class="ch-button-group-action__btn ch-button-group-action__btn_reply">
+                                           <span class="actions__text_position">Reply</span></a>
+                                         <div class="ch-button-group-action__btn_remove">
+                                             <span class="icon icon-remove"></span>
+                                         </div>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +69,39 @@
 
                     <div class="ch-mail-expanded__body">
                         <div class="ch-mail-body">
-                            <textarea disabled rows="{{calculateLineBreaks(mail.body)}}" class="ch-view-mail-text-body">{{mail.body}}</textarea>
+                            <textarea elastic disabled class="ch-view-mail-text-body">{{mail.body}}</textarea>
+                        </div>
+                    </div>
+
+                    <div ng-if="mail.attachments.length > 0" class="ch-mail-expanded__footer">
+                        <div class="ch-attachments">
+
+                            <div class="ch-attachments__heading">
+                                <h3>
+                                    <span class="attachments-count">attachments</span>
+                                </h3>
+                            </div>
+
+                            <ol class="ch-attachments__list">
+
+                                <li ng-repeat="attachment in mail.attachments" class="ch-attachments__list__item">
+                                    <div class="ch-attachments__list__item__icon">
+                                        <span class="icon icon-attachment"></span>
+                                    </div>
+
+                                    <div class="ch-attachments__list__item__file">
+                                        <span class="attachments-filename">{{attachment.fileName}}</span>
+                                        <span class="attachments-filesize">{{attachment.fileSize | convertFileSizeToHuman}}</span>
+                                    </div>
+
+                                    <div class="ch-attachments__list__item__actions">
+                                        <a href="api/file/{{attachment.id}}">
+                                            <span class="icon icon-download"></span>
+                                        </a>
+                                    </div>
+                                </li>
+
+                            </ol>
                         </div>
                     </div>
 

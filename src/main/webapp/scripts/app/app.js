@@ -78,14 +78,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
                         if (result) {
                             $state.go('metrics');
                         } else {
-                            Principal.hasAuthority('PARENT').then(function(result) {
-                                if(result) {
-                                    $state.go('ch-facilities', {}, {reload: true});
-                                } else {
-                                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
-                                }
-                            })
-
+                            $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
                         }
                     });
             } else {

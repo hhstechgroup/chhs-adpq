@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -145,7 +144,7 @@ public class UserService {
         try {
             body = IOUtils.toString(getClass().getResourceAsStream("/templates/invitation.html"));
         } catch (IOException e) {
-            throw new RuntimeException("this should not happen", e);
+            throw new IllegalStateException("this should not happen", e);
         }
 
         invitation.setBody(body);

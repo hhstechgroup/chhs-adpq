@@ -44,13 +44,57 @@
 
 
 .ch-button-group-action__btn_reply {
-    width: 4.8rem;
-    height: 3.6rem;
+    width: 11rem;
+    height: 3.9rem;
+    border: .2rem solid #757575;
+    border-top-left-radius: .4rem;
+    border-bottom-left-radius: .4rem;
+    position: relative;
+
+    &:hover {
+        border-color: #323a45;
+        z-index: 2;
+
+        .actions__text_position {
+            color: #323a45;
+        }
+    }
 }
 
 .ch-button-group-action__btn_mail-options {
     width: 3rem;
     height: 3.6rem;
+}
+
+.ch-button-group-action__btn_remove {
+    height: 3.9rem;
+    padding: .7rem 1.8rem;
+    border: .2rem solid #757575;
+    border-top-right-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: -.2rem;
+    position: relative;
+
+    &:hover {
+        border-color: #323a45;
+        z-index: 2;
+    }
+
+    .icon {
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .icon-remove {
+        position: relative;
+        top: .2rem;
+    }
+
+    .icon-download {
+        border-left: .1rem solid #757575;
+    }
 }
 
 .ch-button-group-action__btn_reply:before {
@@ -95,7 +139,7 @@
 }
 
 .ch-mail-header__item_ch-mail-options-group {
-    width: 9rem;
+    width: 20rem;
 }
 
 .ch-mail-options-group {
@@ -190,6 +234,7 @@
     width: 100%;
     overflow: visible;
     resize: none;
+    background-color: inherit;
 }
 
 .ch-new-mail-text-body__text-counter {
