@@ -53,22 +53,17 @@ The table below lists EngagePoint's architectural design decisions and their ali
 | Allow foster parents to communicate with the case worker via a private inbox | [Elasticsearch](https://www.elastic.co/products/elasticsearch), [PostgreSQL](https://www.postgresql.org/), [Websockets](https://en.wikipedia.org/wiki/WebSocket) |
 - Elasticsearch implements search capabilities needed for inbox functionality like full-text search, relevancy, ranking, and fuzzy search.
 - PostgreSQL is production ready full-featured relational database used in an application for the persistence of messages in the private inbox.
-- Websockets technology is used for real-time notifications for new messages
- |
+- Websockets technology is used for real-time notifications for new messages |
 | Allow foster parents to view children's residential facilities in their zip code | [Leaflet](http://leafletjs.com/) [Mapzen Search](https://mapzen.com/projects/search/?lng=-76.67925&lat=39.01412&zoom=12) |
 - Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps.
-- Mapzen Search is an open source geocoding tool used for address lookup capabilities on the facilities page.
- |
+- Mapzen Search is an open source geocoding tool used for address lookup capabilities on the facilities page. |
 | Allow foster parents to establish and manage their profile | [JHipster](https://jhipster.github.io/) [Hazelcast](http://hazelcast.org/) |
 - Generic JHipster application has built-in login, registration, and user profile functionality. EngagePoint has customized the generic implementation.
-- Hazelcast is a distributed data grid used for distributed cache capabilities and performance improvement of the application. For the prototype, we are storing user sessions as well as L2 Hibernate cache.
- |
-| Application prototype shall be deployable to IAAS or PAAS environment | [Spring Boot](http://projects.spring.io/spring-boot/),
- [Docker](https://www.docker.com/), [Jenkins](https://jenkins.io/) |
+- Hazelcast is a distributed data grid used for distributed cache capabilities and performance improvement of the application. For the prototype, we are storing user sessions as well as L2 Hibernate cache. |
+| Application prototype shall be deployable to IAAS or PAAS environment | [Spring Boot](http://projects.spring.io/spring-boot/), [Docker](https://www.docker.com/), [Jenkins](https://jenkins.io/) |
 - Spring Boot provides DevOps tools like externalized configuration, monitoring, and logging. Spring Boot eliminates the need to use external application containers, simplifying cloud deployment.
 - Docker containers are used for all components of application infrastructure (application, Elasticsearch server, PostgreSQL server). Containerization helps with automated deployment and makes application environments agnostic.
-- Jenkins is open source tool used to implement continuous integration and delivery.
- |
+- Jenkins is open source tool used to implement continuous integration and delivery. |
 
 ## 4.3. Development Tools
 
