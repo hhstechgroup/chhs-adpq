@@ -18,10 +18,17 @@
                               <a class="" href="#/registerme">Create an Account</a>
                           </div>
 
-                          <div class="ch-login__actions__lang">
+                          <div class="ch-login__actions__lang" ng-click="isLanguagePopupVisible=!isLanguagePopupVisible">
                               <span class="icon icon-globe"></span>
-                              <span class="actions__lang">ENG</span>
+                              <span class="actions__lang" ng-init="isLanguageEnglish=!isLanguageEnglish">ENG</span>
+                              <span class="actions__lang" ng-show="isLanguageSpanish">SPA</span>
+
+                              <div class="ch-login__actions__lang__popup" ng-show="isLanguagePopupVisible">
+                                  <h3 class="ch-login__lang__english"><span>English</span></h3>
+                                  <h4 class="ch-login__lang__spanish"><span>Spanish</span></h4>
+                              </div>
                           </div>
+
                     </div>
                 </div>
             </div>
@@ -153,5 +160,3 @@
 
     </div>
 </div>
-
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs"); </script>

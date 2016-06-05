@@ -1,5 +1,6 @@
 package com.engagepoint.cws.apqd.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.time.ZonedDateTime;
@@ -38,6 +39,8 @@ public class Attachment implements Serializable {
     private ZonedDateTime creationDate;
 
     @Lob
+    @JsonIgnore
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "file")
     private byte[] file;
 
@@ -45,6 +48,7 @@ public class Attachment implements Serializable {
     private String fileContentType;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "message_id")
     private Message message;
 

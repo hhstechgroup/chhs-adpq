@@ -14,6 +14,7 @@ import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageThreadSearchRepository;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -120,6 +121,12 @@ public class MailResourceTest {
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
+    @Before
+    public void before() {
+        messageSearchRepository.deleteAll();
+        messageThreadSearchRepository.deleteAll();
+    }
+
     private Message prepareData() {
         // create Users and Mailboxes
 
@@ -150,11 +157,15 @@ public class MailResourceTest {
             .andExpect(status().isCreated());
     }
 
-    private void assertGetMessages(Message testMessage, EMailDirectory eMailDirectory) throws Exception {
+    private void assertGetMessages(Message testMessage, EMailDirectory eMailDirectory, boolean searchInBody) throws Exception {
         assertThat(testMessage.getId()).isNotNull();
 
+        String searchWord = testMessage.getBody().split(" ")[0];
+
         restMailResourceMockMvc.perform(
-            get(String.format("/api/mails/%s/-1?sort=id,desc", eMailDirectory)))
+            get(String.format("/api/mails/%s/%s?sort=id,desc",
+                eMailDirectory,
+                searchInBody ? searchWord : "-1")))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(testMessage.getId().intValue())))
@@ -202,21 +213,37 @@ public class MailResourceTest {
             .andExpect(status().isOk());
     }
 
+    private void assertMessageThread(Message message) throws Exception {
+        assertThat(message.getId()).isNotNull();
+
+        restMailResourceMockMvc.perform(
+            get("/api/mails/thread/" + message.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.id").exists())
+            .andExpect(jsonPath("$.thread").exists())
+            .andExpect(jsonPath("$.thread[*].id").value(hasItem(message.getId().intValue())))
+            .andExpect(jsonPath("$.thread[*].subject").value(hasItem(message.getSubject())))
+            .andExpect(jsonPath("$.thread[*].body").value(hasItem(message.getBody())));
+    }
+
     @Test
     @Transactional
-    public void testCreateGetUpdateSend() throws Exception {
+    public void testCreateGetUpdateSendRead() throws Exception {
+
         // test create
 
         assertCreateMessage(prepareData());
-
-        // test get from fromUser drafts
 
         Message testMessage = messageRepository.findAll().iterator().next();
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.DRAFT);
         assertThat(testMessage.getDateCreated()).isNotNull();
         assertThat(testMessage.getDateUpdated()).isNull();
+        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(0);
 
-        assertGetMessages(testMessage, EMailDirectory.DRAFTS);
+        // test get from fromUser drafts folder
+
+        assertGetMessages(testMessage, EMailDirectory.DRAFTS, false);
 
         // test update
 
@@ -229,6 +256,7 @@ public class MailResourceTest {
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.DRAFT);
         assertThat(testMessage.getDateCreated()).isNotNull();
         assertThat(testMessage.getDateUpdated()).isNull();
+        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(0);
 
         // test send
 
@@ -238,12 +266,23 @@ public class MailResourceTest {
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
         assertThat(testMessage.getDateCreated()).isNotNull();
         assertThat(testMessage.getDateUpdated()).isNotNull();
+        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(1);
 
-        // test get from toUser inbox
+        // test get from fromUser sent folder
+
+        assertGetMessages(testMessage, EMailDirectory.SENT, false);
+        assertGetMessages(testMessage, EMailDirectory.SENT, true);
+
+        testMessage = messageRepository.findAll().iterator().next();
+        assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
+        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(1);
+
+        // test get from toUser inbox folder
 
         setCurrentUser(toUser);
 
-        assertGetMessages(testMessage, EMailDirectory.INBOX);
+        assertGetMessages(testMessage, EMailDirectory.INBOX, false);
+        assertGetMessages(testMessage, EMailDirectory.INBOX, true);
 
         // test confirmReading
 
@@ -251,5 +290,9 @@ public class MailResourceTest {
 
         testMessage = messageRepository.findAll().iterator().next();
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.READ);
+
+        // test message thread
+
+        assertMessageThread(testMessage);
     }
 }

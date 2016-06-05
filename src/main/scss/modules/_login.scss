@@ -400,3 +400,42 @@ $break-phone: 700px;
         }
     }
 }
+
+.ch-login__actions__lang__popup {
+    background: #fff;
+    box-shadow: 0 1px 1px #cbcdcf;
+    padding: 1rem 1rem 1rem 1rem;
+
+    position: absolute;
+    top: 5.2rem;
+    right: 0;
+    z-index: 10000;
+}
+
+.ch-login__actions__lang__popup:before {
+    content: '\0020';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -1rem;
+    right: 2rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+
+.ch-login__lang__english,
+.ch-login__lang__spanish {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: .5rem 2rem .5rem 2rem;
+
+    border-radius: .4rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #000;
+
+    &:hover {
+        background: #cbcdcf;
+    }
+}
