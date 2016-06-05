@@ -281,6 +281,7 @@ public class MailResourceTest {
         // test get from fromUser sent folder
 
         assertGetMessages(testMessage, EMailDirectory.SENT, MAIL_FILTER.NONE);
+        assertGetMessages(testMessage, EMailDirectory.SENT, MAIL_FILTER.LOGIN);
         assertGetMessages(testMessage, EMailDirectory.SENT, MAIL_FILTER.BODY);
 
         testMessage = messageRepository.findAll().iterator().next();
@@ -292,6 +293,7 @@ public class MailResourceTest {
         setCurrentUser(toUser);
 
         assertGetMessages(testMessage, EMailDirectory.INBOX, MAIL_FILTER.NONE);
+        assertGetMessages(testMessage, EMailDirectory.INBOX, MAIL_FILTER.LOGIN);
         assertGetMessages(testMessage, EMailDirectory.INBOX, MAIL_FILTER.BODY);
 
         // test confirmReading

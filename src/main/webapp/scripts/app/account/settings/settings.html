@@ -22,8 +22,6 @@
         <uib-accordion close-others="true">
             <uib-accordion-group is-open="profileGeneralInformation.open">
                 <uib-accordion-heading>
-                    <i class="icon"
-                       ng-class="{'icon-arrow-collapse-up': profileGeneralInformation.open, 'icon-arrow-expand-down': !profileGeneralInformation.open}"></i>
                     <span class="ch-section__header ch-section__header_icon ch-section__header_icon_drafts">General information</span>
                 </uib-accordion-heading>
                 <div class="ch-section__content">
@@ -168,15 +166,13 @@
 
             <uib-accordion-group is-open="profileContactInformation.open">
                 <uib-accordion-heading>
-                    <i class="icon"
-                       ng-class="{'icon-arrow-collapse-up': profileContactInformation.open, 'icon-arrow-expand-down': !profileContactInformation.open}"></i>
                     <span class="ch-section__header ch-section__header_icon ch-section__header_icon_map-pointer">Contact information</span>
                 </uib-accordion-heading>
 
                     <div class="ch-section__content">
                         <div class="ch-flex-row">
                             <div class="ch-flex-row__input-block">
-                                <div class="ch-input-block">
+                                <div class="ch-input-block" add-geocoder-search-field>
                                     <label for="geocoder" class="ch-input-block__label">Search Address</label>
                                     <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
                                         <span id="geocoder">
@@ -276,8 +272,6 @@
             </uib-accordion-group>
             <uib-accordion-group is-open="profileChangePassword.open">
                 <uib-accordion-heading>
-                    <i class="icon"
-                       ng-class="{'icon-arrow-collapse-up': profileChangePassword.open, 'icon-arrow-expand-down': !profileChangePassword.open}"></i>
                     <span class="ch-section__header ch-section__header_icon ch-section__header_icon_password">Change password</span>
                 </uib-accordion-heading>
 

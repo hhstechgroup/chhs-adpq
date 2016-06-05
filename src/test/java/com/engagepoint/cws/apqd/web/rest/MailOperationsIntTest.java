@@ -1,5 +1,9 @@
 package com.engagepoint.cws.apqd.web.rest;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.LoggingEvent;
+import ch.qos.logback.core.Appender;
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.MockMailSender;
 import com.engagepoint.cws.apqd.config.JHipsterProperties;
@@ -13,8 +17,12 @@ import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.KeyAndPasswordDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatcher;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.MessageSource;
@@ -46,6 +54,10 @@ import static com.engagepoint.cws.apqd.APQDTestUtil.cutQuotedUrls;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static com.engagepoint.cws.apqd.APQDTestUtil.setUserRole;
 import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -67,11 +79,15 @@ public class MailOperationsIntTest {
 
     private MockMailSender mockMailSender;
 
+    private MockMailSender failingMockMailSender;
+
     @Inject
     private MessageSource messageSource;
 
     @Inject
     private SpringTemplateEngine templateEngine;
+
+    private MailService mailService;
 
     /*
      * for UserResource
@@ -96,12 +112,18 @@ public class MailOperationsIntTest {
 
     private MockMvc restMockMvc;
 
+    private Appender mockLogAppender;
+
     @PostConstruct
     public void setup() {
-        MailService mailService = new MailService();
-        ReflectionTestUtils.setField(mailService, "jHipsterProperties", jHipsterProperties);
+        mockLogAppender = mock(Appender.class);
+        when(mockLogAppender.getName()).thenReturn("MOCK");
+
         mockMailSender = new MockMailSender();
-        ReflectionTestUtils.setField(mailService, "javaMailSender", mockMailSender);
+        failingMockMailSender = new MockMailSender(true);
+
+        mailService = new MailService();
+        ReflectionTestUtils.setField(mailService, "jHipsterProperties", jHipsterProperties);
         ReflectionTestUtils.setField(mailService, "messageSource", messageSource);
         ReflectionTestUtils.setField(mailService, "templateEngine", templateEngine);
 
@@ -117,6 +139,20 @@ public class MailOperationsIntTest {
 
         this.restMockMvc = MockMvcBuilders.standaloneSetup(userResource, accountResource)
             .setCustomArgumentResolvers(pageableArgumentResolver).build();
+    }
+
+    @Before
+    public void before () {
+        Logger logger = (Logger) LoggerFactory.getLogger(MailService.class);
+        logger.addAppender(mockLogAppender);
+
+        ReflectionTestUtils.setField(mailService, "javaMailSender", mockMailSender);
+    }
+
+    @After
+    public void after() {
+        Logger logger = (Logger) LoggerFactory.getLogger(MailService.class);
+        logger.detachAppender(mockLogAppender);
     }
 
     private void assertThatMessageFromIs(MimeMessage mimeMessage, String email) throws Exception {
@@ -199,6 +235,35 @@ public class MailOperationsIntTest {
         String content = mockMailSender.getFutureMimeMessage().get().getContent().toString();
         Matcher matcher = Pattern.compile("\"http[^\"]+key=(\\d+)\"").matcher(content);
         return matcher.find() ? matcher.group(1) : "";
+    }
+
+    @Test()
+    @Transactional
+    public void testMailSendFailed() throws Exception {
+        ReflectionTestUtils.setField(mailService, "javaMailSender", failingMockMailSender);
+
+        User user = newUser();
+
+        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
+        assertThat(managedUserDTO.getId()).isNull();
+
+        restMockMvc.perform(
+            post("/api/users")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    managedUserDTO
+                )))
+            .andExpect(status().isCreated())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+
+        verify(mockLogAppender).doAppend(argThat(new ArgumentMatcher() {
+            @Override
+            public boolean matches(final Object argument) {
+                LoggingEvent loggingEvent = (LoggingEvent) argument;
+                return loggingEvent.getLevel().equals(Level.WARN) && loggingEvent.getFormattedMessage().startsWith(
+                    String.format("E-mail could not be sent to user '%s'", user.getEmail()));
+            }
+        }));
     }
 
     @Test()
