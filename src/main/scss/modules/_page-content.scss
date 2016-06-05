@@ -73,8 +73,9 @@
 }
 
 .ch-page-heading__search {
-    width: 70%;
+    width: calc(100% - 20rem);
     float: right;
+    position: relative;
 }
 
 .ch-page-heading__county-messages {

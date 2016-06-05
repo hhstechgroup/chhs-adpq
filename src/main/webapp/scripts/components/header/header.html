@@ -47,5 +47,70 @@
                 </div>
             </div>
         </div>
+
+        <div class="ch-header__menu-mobile">
+            <button type="button" class="ch-header__menu-mobile__btn">
+                <span class="icon icon-menu-mobile"></span>
+            </button>
+
+            <div class="ch-menu-mobile__pane">
+
+                <h3 class="ch-menu-mobile__title clearfix">
+                    <span class="ch-menu-mobile__title__icon"></span>
+                    <span class="ch-menu-mobile__title__text">INBOX</span>
+                  </h3>
+
+                <ul class="ch-menu-mobile__list">
+                  <li class="ch-menu-mobile__list__item" has-any-authority="PARENT, CASE_WORKER">
+
+                      <div class="ch-mobile-main-nav-item">
+                          <a class="ch-mobile-main-nav-item__link" ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-main-nav-item__link_active">
+                              <span class="icon icon-inbox"></span>
+                              <div class="ch-mobile-main-nav-item__text-bundle">
+                                  <span class="ch-mobile-main-nav-item__text">Inbox</span>
+                                  <span ng-if="unreadInboxCount > 0" class="ch-mobile-main-nav-item__inbox-counter">{{unreadInboxCount}}</span>
+                              </div>
+                          </a>
+                      </div>
+
+                  </li>
+
+                  <li class="ch-menu-mobile__list__item" has-authority="PARENT">
+
+                    <div class="ch-mobile-main-nav-item">
+                        <a class="ch-mobile-main-nav-item__link" ui-sref="ch-facilities" ui-sref-active="ch-main-nav-item__link_active">
+                            <span class="icon icon-facilities"></span>
+                            <div class="ch-mobile-main-nav-item__text-bundle">
+                                <span class="ch-mobile-main-nav-item__text">Facilities</span>
+                            </div>
+                        </a>
+                    </div>
+
+                  </li>
+
+                  <li class="ch-menu-mobile__list__item">
+                    <div class="ch-user-account-popup__profile-btn">
+                        <button type="button" class="ch-option-btn" ui-sref="settings" ng-click="isAccountPopupVisible = false;">
+                            <span class="ch-option-btn__text">My Profile</span>
+                        </button>
+                    </div>
+                  </li>
+                </ul>
+
+                <div class="ch-user-account-popup__exit-btn">
+                    <button type="button" class="ch-plane-btn" ng-click="logout()">
+                        <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
+                        <span class="ch-plane-btn__text">Sign out</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
     </div>
 </div>

@@ -31,6 +31,23 @@
     position: relative;
 }
 
+.ch-header__menu-mobile {
+    display: none;
+    float: right;
+
+    .icon {
+        width: 4.4rem;
+        height: 2.6rem;
+        display: inline-block;
+    }
+}
+
+.ch-header__menu-mobile__btn {
+    margin-top: 3.4rem;
+    margin-right: 1rem;
+    background: transparent;
+}
+
 .ch-user-account-entry__dropdown-btn_collapsed:after {
     content: '\0020';
     display: inline-block;

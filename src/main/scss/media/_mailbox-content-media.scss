@@ -1,0 +1,40 @@
+$break-desktop-large: 1200px;
+$break-desktop: 992px;
+$break-tablet: 770px;
+$break-phone: 640px;
+
+
+.form-type__search {
+
+    @media screen and (max-width: $break-desktop) {
+        width: 19rem;
+    }
+
+    @media screen and (max-width: 880px) {
+        width: 5rem;
+    }
+
+    .form-type__search__input {
+        @media screen and (max-width: $break-desktop) {
+            width: 70%;
+        }
+
+        @media screen and (max-width: 880px) {
+            display: none;
+        }
+    }
+
+    .form-type__search__button {
+        @media screen and (max-width: 880px) {
+            border-radius: .5rem;
+        }
+      }
+}
+
+.ch-page-heading__county-messages {
+    @media screen and (max-width: 688px) {
+        position: relative;
+        top: -7rem;
+        left: -7.5rem;
+    }
+}
