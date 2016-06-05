@@ -658,19 +658,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/Abstract*.java</exclude>
-                                <exclude>**/*Cucumber*.java</exclude>
                             </excludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>without-cucumber</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>**/*Cucumber*.java</include>
-                            </includes>
                         </configuration>
                     </execution>
                 </executions>
@@ -843,7 +831,7 @@
                         <version>2.19.1</version>
                         <executions>
                             <execution>
-                                <id>integration-test</id>
+                                <id>acceptance-test</id>
                                 <goals>
                                     <goal>integration-test</goal>
                                 </goals>

@@ -21,7 +21,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -128,7 +127,6 @@ public class AttachmentResourceIntTest {
         assertThat(testAttachment.getFileSize()).isEqualTo(DEFAULT_FILE_SIZE);
         assertThat(testAttachment.getFileDescription()).isEqualTo(DEFAULT_FILE_DESCRIPTION);
         assertThat(testAttachment.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
-        assertThat(testAttachment.getFile()).isEqualTo(DEFAULT_FILE);
         assertThat(testAttachment.getFileContentType()).isEqualTo(DEFAULT_FILE_CONTENT_TYPE);
     }
 
@@ -148,8 +146,7 @@ public class AttachmentResourceIntTest {
                 .andExpect(jsonPath("$.[*].fileSize").value(hasItem(DEFAULT_FILE_SIZE)))
                 .andExpect(jsonPath("$.[*].fileDescription").value(hasItem(DEFAULT_FILE_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE_STR)))
-                .andExpect(jsonPath("$.[*].fileContentType").value(hasItem(DEFAULT_FILE_CONTENT_TYPE)))
-                .andExpect(jsonPath("$.[*].file").value(hasItem(Base64Utils.encodeToString(DEFAULT_FILE))));
+                .andExpect(jsonPath("$.[*].fileContentType").value(hasItem(DEFAULT_FILE_CONTENT_TYPE)));
     }
 
     @Test
@@ -168,8 +165,7 @@ public class AttachmentResourceIntTest {
             .andExpect(jsonPath("$.fileSize").value(DEFAULT_FILE_SIZE))
             .andExpect(jsonPath("$.fileDescription").value(DEFAULT_FILE_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.creationDate").value(DEFAULT_CREATION_DATE_STR))
-            .andExpect(jsonPath("$.fileContentType").value(DEFAULT_FILE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.file").value(Base64Utils.encodeToString(DEFAULT_FILE)));
+            .andExpect(jsonPath("$.fileContentType").value(DEFAULT_FILE_CONTENT_TYPE));
     }
 
     @Test
@@ -211,7 +207,6 @@ public class AttachmentResourceIntTest {
         assertThat(testAttachment.getFileSize()).isEqualTo(UPDATED_FILE_SIZE);
         assertThat(testAttachment.getFileDescription()).isEqualTo(UPDATED_FILE_DESCRIPTION);
         assertThat(testAttachment.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
-        assertThat(testAttachment.getFile()).isEqualTo(UPDATED_FILE);
         assertThat(testAttachment.getFileContentType()).isEqualTo(UPDATED_FILE_CONTENT_TYPE);
     }
 
