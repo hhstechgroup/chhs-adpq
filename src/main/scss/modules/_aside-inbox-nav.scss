@@ -12,7 +12,39 @@
     padding: 0 0 0 2.7rem;
     transition: none;
     position: relative;
+
+    &:hover {
+      .ch-aside-nav-item__text {
+          color: #3e94cf;
+      }
+    }
 }
+
+.ch-aside-nav-item__link_icon_inbox:hover {
+    &:before {
+        background: url(../images/out-sprite-icons/icon-aside-inbox-hover.png) 0 0 no-repeat;
+    }
+}
+
+.ch-aside-nav-item__link_icon_sent:hover {
+    &:before {
+        background: url(../images/out-sprite-icons/icon-sent-hover.png) 0 0 no-repeat;
+    }
+}
+
+.ch-aside-nav-item__link_icon_drafts:hover {
+    &:before {
+        background: url(../images/out-sprite-icons/icon-drafts-hover.png) 0 0 no-repeat;
+    }
+}
+
+.ch-aside-nav-item__link_icon_deleted:hover {
+    &:before {
+        background: url(../images/out-sprite-icons/icon-recycle-bin-hover.png) 0 0 no-repeat;
+    }
+}
+
+
 
 .ch-aside-nav-item__link_active {
     border-left: 0.3rem solid #0071bc;
