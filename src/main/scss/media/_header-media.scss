@@ -28,3 +28,9 @@
         display: inline-block;
     }
 }
+
+.ch-mobile-mailbox__nav {
+    @media screen and (max-width: $break-phone) {
+        display: flex;
+    }
+}

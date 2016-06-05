@@ -46,7 +46,13 @@ $break-phone: 640px;
 }
 
 .ch-layout__content {
-  @media screen and (max-width: $break-phone) {
-      display: none;
-  }
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-mobile-layout {
+    @media screen and (max-width: $break-phone) {
+        display: block !important;
+    }
 }
