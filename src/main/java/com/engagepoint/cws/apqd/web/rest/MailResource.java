@@ -80,10 +80,13 @@ public class MailResource {
 
         Page<Message> page;
 
+        final String CONTACT_FILTER_MARK = "BY_LOGIN_";
+
         if (search.equals("-1")) {
             page = filterMessages(directory, pageable);
-        } else if (search.startsWith("C++")) {
-            page = filterMessagesByDestination(directory, search.substring(3, search.length()), pageable);
+        } else if (search.startsWith(CONTACT_FILTER_MARK)) {
+            String searchLogin = search.substring(CONTACT_FILTER_MARK.length(), search.length());
+            page = filterMessagesByDestination(directory, searchLogin, pageable);
         } else {
             page = filterMessagesByContent(directory, search, pageable);
         }

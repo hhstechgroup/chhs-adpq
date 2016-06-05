@@ -60,6 +60,12 @@ public class MailResourceTest {
     private static final String CURRENT_LOGIN = "current1";
     private static final String TO_LOGIN = "userto1";
 
+    enum MAIL_FILTER {
+        NONE,
+        LOGIN,
+        BODY
+    }
+
     @Inject
     private InboxRepository inboxRepository;
 
@@ -157,15 +163,19 @@ public class MailResourceTest {
             .andExpect(status().isCreated());
     }
 
-    private void assertGetMessages(Message testMessage, EMailDirectory eMailDirectory, boolean searchInBody) throws Exception {
+    private void assertGetMessages(Message testMessage, EMailDirectory eMailDirectory, MAIL_FILTER mailFilter) throws Exception {
         assertThat(testMessage.getId()).isNotNull();
 
-        String searchWord = testMessage.getBody().split(" ")[0];
+        String searchWord = "-1";
+        if (mailFilter == MAIL_FILTER.LOGIN) {
+            searchWord = "BY_LOGIN_" + (eMailDirectory == EMailDirectory.INBOX
+                ? testMessage.getFrom().getLogin() : testMessage.getTo().getLogin());
+        } else if (mailFilter == MAIL_FILTER.BODY) {
+            searchWord = testMessage.getBody().split(" ")[0];
+        }
 
         restMailResourceMockMvc.perform(
-            get(String.format("/api/mails/%s/%s?sort=id,desc",
-                eMailDirectory,
-                searchInBody ? searchWord : "-1")))
+            get(String.format("/api/mails/%s/%s?sort=id,desc", eMailDirectory, searchWord)))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(testMessage.getId().intValue())))
@@ -243,7 +253,7 @@ public class MailResourceTest {
 
         // test get from fromUser drafts folder
 
-        assertGetMessages(testMessage, EMailDirectory.DRAFTS, false);
+        assertGetMessages(testMessage, EMailDirectory.DRAFTS, MAIL_FILTER.NONE);
 
         // test update
 
@@ -270,8 +280,8 @@ public class MailResourceTest {
 
         // test get from fromUser sent folder
 
-        assertGetMessages(testMessage, EMailDirectory.SENT, false);
-        assertGetMessages(testMessage, EMailDirectory.SENT, true);
+        assertGetMessages(testMessage, EMailDirectory.SENT, MAIL_FILTER.NONE);
+        assertGetMessages(testMessage, EMailDirectory.SENT, MAIL_FILTER.BODY);
 
         testMessage = messageRepository.findAll().iterator().next();
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
@@ -281,8 +291,8 @@ public class MailResourceTest {
 
         setCurrentUser(toUser);
 
-        assertGetMessages(testMessage, EMailDirectory.INBOX, false);
-        assertGetMessages(testMessage, EMailDirectory.INBOX, true);
+        assertGetMessages(testMessage, EMailDirectory.INBOX, MAIL_FILTER.NONE);
+        assertGetMessages(testMessage, EMailDirectory.INBOX, MAIL_FILTER.BODY);
 
         // test confirmReading
 
