@@ -56,8 +56,8 @@ public class Message implements Serializable {
     @Column(name = "unread_messages_count")
     private int unreadMessagesCount;
 
-    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
+        fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Attachment> attachments = new HashSet<>();
 
     @OneToOne
