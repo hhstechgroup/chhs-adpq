@@ -833,7 +833,7 @@
                             <execution>
                                 <id>acceptance-test</id>
                                 <goals>
-                                    <goal>acceptance-test</goal>
+                                    <goal>integration-test</goal>
                                 </goals>
                             </execution>
                             <execution>
