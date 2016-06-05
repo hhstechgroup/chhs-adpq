@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: baseline;
     border-bottom: 0.1rem solid #d6d7da;
+    margin-bottom: 3.5rem;
 }
 
 .profile-form__header-text {
@@ -47,7 +48,7 @@
 .ch-section__header {
     font-size: 1.8rem;
     line-height: 1;
-    color: #0071bc;
+    color: #080808;
     font-weight: 400;
     text-transform: uppercase;
     margin: 0 0 2.1rem;
@@ -82,6 +83,7 @@
     line-height: 2.4rem;
     margin-bottom: 0.3rem;
     display: block;
+    font-weight: 400;
 }
 
 .ch-form-input.ch-form-input_disable {
@@ -213,4 +215,123 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
 .ch-input-block__form-input_half-width {
     width: 50%;
     padding-right: 1rem;
+}
+
+.profile-form {
+
+    .panel {
+        width: 53.6rem;
+        margin: 0 auto;
+        border: none;
+        box-shadow: none;
+    }
+
+    .panel-body {
+        padding: 0;
+        border-width: 0;
+    }
+
+    .panel-heading {
+        background: #fff;
+        padding: 2.4rem 0;
+        border-bottom: 1px solid #d6d7da;
+        border-width: 0 0 1px 0;
+
+    }
+
+    .panel-group .panel + .panel {
+        margin: 0 auto;
+    }
+
+    .panel-group .panel:first-child .panel-heading {
+        padding-top: 0;
+    }
+
+    .panel-title > a {
+        width: 100%;
+        padding: 1.2rem 0;
+        color: #080808;
+        position: relative;
+    }
+
+    .accordion-toggle:after {
+        content: '';
+        width: 1rem;
+        height: .7rem;
+        position: absolute;
+        right: 2rem;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        background: url(../images/out-sprite-icons/icon-arrow-down.png) no-repeat center;
+
+    }
+
+    .panel-group .panel-heading + .panel-collapse > .panel-body {
+        border-width: 0 0 1px 0;
+    }
+
+    .panel-open {
+
+        .panel-title > a {
+            color: #5894ca;
+        }
+
+        .accordion-toggle:after {
+            transform: rotate(-180deg);
+        }
+
+        .panel-heading {
+            border-width: 0;
+        }
+
+        .panel-body {
+            padding-bottom: 3rem;
+            border-bottom: 1px solid #d6d7da;
+        }
+
+        .ch-section__header_icon.ch-section__header_icon_drafts:before {
+            background: url(../images/out-sprite-icons/icon-drafts-profile-active.png) no-repeat center;
+        }
+
+        .ch-section__header_icon.ch-section__header_icon_map-pointer:before {
+            background: url(../images/out-sprite-icons/icon-map-pointer-profile-active.png) no-repeat center;
+        }
+
+        .ch-section__header_icon.ch-section__header_icon_password:before {
+            background: url(../images/out-sprite-icons/icon-password-active.png) no-repeat center;
+        }
+    }
+}
+
+.ch-section__header_icon {
+    padding-left: 3rem;
+    position: relative;
+}
+
+.ch-section__header_icon:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    margin-right: 1.2rem;
+}
+
+.ch-section__header_icon.ch-section__header_icon_drafts:before {
+    width: 1.8rem;
+    height: 2.1rem;
+    background: url(../images/out-sprite-icons/icon-drafts-profile.png) no-repeat center;
+}
+
+.ch-section__header_icon.ch-section__header_icon_map-pointer:before {
+    width: 1.6rem;
+    height: 2.1rem;
+    background: url(../images/out-sprite-icons/icon-map-pointer-profile.png) no-repeat center;
+}
+
+.ch-section__header_icon.ch-section__header_icon_password:before {
+    width: 1.8rem;
+    height: 2.1rem;
+    background: url(../images/out-sprite-icons/icon-password.png) no-repeat center;
 }
