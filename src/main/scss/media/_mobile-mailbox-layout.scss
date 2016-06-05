@@ -1,0 +1,17 @@
+.ch-mobile-contacts {
+    margin-top: 3rem;
+
+    .ch-aside-contacts__short__arrow {
+        width: 2.6rem;
+        height: 1.4rem;
+        top: 1rem;
+    }
+
+    .ch-aside-contacts__short__arrow.down {
+        background: url("../images/us-icon/arrow-down-big.png") no-repeat center;
+    }
+
+    .ch-aside-contacts__short__arrow.up {
+        background: url("../images/us-icon/arrow-up-big.png") no-repeat center;
+    }
+}
