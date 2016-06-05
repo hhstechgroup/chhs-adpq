@@ -38,3 +38,21 @@ $break-phone: 640px;
         left: -7.5rem;
     }
 }
+
+.ch-layout__aside {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-layout__content {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-mobile-layout {
+    @media screen and (max-width: $break-phone) {
+        display: block !important;
+    }
+}

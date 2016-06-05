@@ -1,0 +1,37 @@
+<div class="ch-mobile-contacts">
+
+    <div class="ch-contacts__body">
+        <ul class="ch-aside-contacts">
+
+              <li ng-repeat="contact in contacts" class="ch-aside-contacts__item">
+                    <div class="ch-aside-contacts__short clearfix" ng-click="showFullDetails = !showFullDetails">
+                        <div class="ch-aside-contacts__image">
+                            <span class="icon icon-user"></span>
+                        </div>
+                        <div class="ch-aside-contacts__person">
+                            <h3 class="ch-aside-contacts__person-name"><span>{{contact.firstName}} {{contact.lastName}}</span></h3>
+                            <h4 class="ch-aside-contacts__person-role"><span>{{contact.roleDescription}}</span></h4>
+                        </div>
+                        <span class="ch-aside-contacts__short__arrow up" ng-show="showFullDetails"></span>
+                        <span class="ch-aside-contacts__short__arrow down" ng-show="!showFullDetails"></span>
+                    </div>
+
+                    <div class="ch-aside-contacts__full" ng-show="showFullDetails">
+                        <div class="ch-aside-contacts__action-btn">
+                            <button type="button" class="ch-contacts-btn" ng-click="composeMail(contact)">
+                                <span class="ch-contacts-btn__icon"></span>
+                                <span class="ch-contacts-btn__text">Compose</span>
+                            </button>
+                        </div>
+                        <div class="ch-aside-contacts__description">
+                            <h3 class="ch-contacts-description__phone"><span>{{contact.phone | formatTel}}</span></h3>
+                            <h4 class="ch-contacts-description__address"><span>{{contact.place | formatAddress}}</span></h4>
+                            <a href="" class="ch-contacts-description__filter" ng-click="filterByContact(contact)"><span>Filter Mails By Contact</span></a>
+                        </div>
+                    </div>
+              </li>
+
+        </ul>
+
+    </div>
+</div>
