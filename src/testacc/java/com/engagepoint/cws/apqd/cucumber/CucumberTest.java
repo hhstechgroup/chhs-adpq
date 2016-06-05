@@ -9,7 +9,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
         format = {"pretty", "html:target/html/","json:target/cucumber.json"},
         //plugin = "pretty",
-        features = "src/test/features")
+        features = "src/testacc/features")
 public class CucumberTest {
 
 }

@@ -841,12 +841,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>2.19.1</version>
-                        <configuration>
-                            <testSourceDirectory>src/testacc/java</testSourceDirectory>
-                            <additionalClasspathElements>
-                                <additionalClasspathElement>${basedir}/src/testacc/features</additionalClasspathElement>
-                            </additionalClasspathElements>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>integration-test</id>
@@ -861,6 +855,12 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <testSourceDirectory>src/testacc/java</testSourceDirectory>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${basedir}/src/testacc/features</additionalClasspathElement>
+                            </additionalClasspathElements>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
