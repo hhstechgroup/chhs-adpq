@@ -81,9 +81,11 @@ public class MailResource {
         Page<Message> page;
 
         if (search.equals("-1")) {
-            page = loadMessagesViaSQL(directory, pageable);
+            page = filterMessages(directory, pageable);
+        } else if (search.startsWith("C++")) {
+            page = filterMessagesByDestination(directory, search.substring(3, search.length()), pageable);
         } else {
-            page = loadMessagesViaElastic(directory, search, pageable);
+            page = filterMessagesByContent(directory, search, pageable);
         }
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page,
@@ -174,7 +176,23 @@ public class MailResource {
             .body(result);
     }
 
-    private Page<Message> loadMessagesViaElastic(EMailDirectory directory, String search, Pageable pageable) {
+    private Page<Message> filterMessagesByDestination(EMailDirectory directory, String searchLogin, Pageable pageable) {
+        String query = null;
+
+        if (directory == EMailDirectory.INBOX) {
+            query = "+from.login:" + searchLogin;
+        } else if (directory == EMailDirectory.SENT) {
+            query = "+to.login:" + searchLogin;
+        } else if (directory == EMailDirectory.DRAFTS) {
+            throw new UnsupportedOperationException("not implemented yet");
+        } else if (directory == EMailDirectory.DELETED) {
+            throw new UnsupportedOperationException("not implemented yet");
+        }
+
+        return messageSearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    private Page<Message> filterMessagesByContent(EMailDirectory directory, String search, Pageable pageable) {
         String query = null;
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
@@ -191,7 +209,7 @@ public class MailResource {
         return messageSearchRepository.search(queryStringQuery(query), pageable);
     }
 
-    private Page<Message> loadMessagesViaSQL(EMailDirectory directory, Pageable pageable) {
+    private Page<Message> filterMessages(EMailDirectory directory, Pageable pageable) {
         Page<Message> page = null;
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 

@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log, Message, ParseLinks, MailService) {
+    .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log,
+                                          Message, ParseLinks, MailService, filterByDestination) {
 
         $scope.pageNum = 0;
         $scope.pageSize = 10;
@@ -11,6 +12,7 @@ angular.module('apqdApp')
         $scope.totalItems = 0;
         $scope.searchString = '';
         $scope.prevSearchString = '';
+        $scope.filterByDestination = filterByDestination;
 
         $scope.loadPage = function() {
 
@@ -19,9 +21,16 @@ angular.module('apqdApp')
                 $scope.pageNum = 0;
             }
 
+            var searchString;
+            if (!_.isNil(filterByDestination)) {
+                searchString = "C++" + filterByDestination.login;
+            } else {
+                searchString = _.isEmpty($scope.searchString.trim()) ? '-1' : $scope.searchString.trim();
+            }
+
             var query = {
                 dir: $stateParams.directory.toUpperCase(),
-                search: _.isEmpty($scope.searchString.trim()) ? '-1' : $scope.searchString.trim(),
+                search: searchString,
                 page: $scope.pageNum,
                 size: $scope.pageSize
             };

@@ -24,6 +24,16 @@ angular.module('apqdApp')
             $state.go('ch-inbox.new-mail', {mailId: undefined});
         };
 
+        $scope.filterByContact = function(contact) {
+            angular.merge($state.params, {contact: contact});
+
+            if ($state.current.name !== 'ch-inbox.messages') {
+                $state.go('ch-inbox.messages', {directory: 'inbox'});
+            } else {
+                $state.go('ch-inbox.messages', {directory: $state.params.directory}, {reload: true});
+            }
+        };
+
         $scope.updateContactList = function() {
             Contacts.avl({}, function(result) {
                 $scope.contacts = result;
