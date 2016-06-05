@@ -1,5 +1,5 @@
 <ul class="ch-main-nav-list">
-    <li class="ch-main-nav-list__item" has-any-authority="PARENT, WORKER">
+    <li class="ch-main-nav-list__item" has-any-authority="PARENT, CASE_WORKER">
         <div class="ch-main-nav-item">
             <a class="ch-main-nav-item__link" ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-main-nav-item__link_active">
                 <span class="icon icon-inbox ch-main-nav-item__icon"></span>
@@ -20,6 +20,14 @@
     </li>
     <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
         <div class="ch-main-nav-item">
+            <a class="ch-main-nav-item__link" ui-sref="metrics" ui-sref-active="ch-main-nav-item__link_active">
+                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
+                <span class="ch-main-nav-item__text">Metrics</span>
+            </a>
+        </div>
+    </li>
+    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
+        <div class="ch-main-nav-item">
             <a class="ch-main-nav-item__link" ui-sref="user-management" ui-sref-active="ch-main-nav-item__link_active">
                 <span class="icon icon-facilities ch-main-nav-item__icon"></span>
                 <span class="ch-main-nav-item__text">Users</span>
@@ -31,14 +39,6 @@
             <a class="ch-main-nav-item__link" ui-sref="tracker" ui-sref-active="ch-main-nav-item__link_active">
                 <span class="icon icon-facilities ch-main-nav-item__icon"></span>
                 <span class="ch-main-nav-item__text">Tracker</span>
-            </a>
-        </div>
-    </li>
-    <li class="ch-main-nav-list__item" has-authority="ROLE_ADMIN">
-        <div class="ch-main-nav-item">
-            <a class="ch-main-nav-item__link" ui-sref="metrics" ui-sref-active="ch-main-nav-item__link_active">
-                <span class="icon icon-facilities ch-main-nav-item__icon"></span>
-                <span class="ch-main-nav-item__text">Metrics</span>
             </a>
         </div>
     </li>
