@@ -1,4 +1,27 @@
-<div class="ch-mobile-folders">
+<div class="ch-mobile-mailbox__nav">
+
+    <div class="ch-mobile-mailbox__nav-tab">
+        <a href="" class="ch-mobile-mailbox__nav-tab__link"
+                   ng-click="isFoldersVisible=!isFoldersVisible"
+                   >
+
+            <span class="ch-mobile-mailbox__nav-tab__text">Folders</span>
+        </a>
+    </div>
+
+    <div class="ch-mobile-mailbox__nav-tab">
+        <a href="" class="ch-mobile-mailbox__nav-tab__link"
+                   ng-click="isContactsVisible=!isContactsVisible"
+                   >
+            <span class="ch-mobile-mailbox__nav-tab__text">Contacts</span>
+        </a>
+    </div>
+
+</div>
+
+<div class="ch-mobile-folders"
+     ng-show="isFoldersVisible"
+     ng-hide="isContactsVisible">
 
   <div class="ch-mobile-folders__inbox-nav">
 
@@ -65,12 +88,15 @@
 
     <div  ui-view="mailbox-content"></div>
 
+</div>
 
-<!-- <div class="ch-mobile-contacts"> -->
 
-<!-- Contacts Template -->
+<div class="ch-mobile-contacts"
+    ng-show="isContactsVisible"
+    ng-hide="isFoldersVisible">
 
-    <!-- <div class="ch-contacts__body">
+
+<div class="ch-contacts__body">
         <ul class="ch-aside-contacts">
 
               <li ng-repeat="contact in contacts" class="ch-aside-contacts__item">
@@ -102,5 +128,5 @@
               </li>
 
         </ul>
-    </div> -->
-</div>
+    </div>
+  </div>

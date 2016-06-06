@@ -23,15 +23,18 @@ angular.module('apqdApp')
 
                 stompClient.subscribe("/user/topic/mail/drafts", function (data) {
                     $rootScope.$broadcast("apqdApp:updateDraftsCount", JSON.parse(data.body));
-                });
+                    data.ack();
+                }, {ack: 'client'});
 
                 stompClient.subscribe("/user/topic/mail/inbox", function (data) {
                     $rootScope.$broadcast("apqdApp:updateUnreadInboxCount", JSON.parse(data.body));
-                });
+                    data.ack();
+                }, {ack: 'client'});
 
                 stompClient.subscribe("/user/topic/mail/deleted", function (data) {
                     $rootScope.$broadcast("apqdApp:updateUnreadDeletedCount", JSON.parse(data.body));
-                });
+                    data.ack();
+                }, {ack: 'client'});
 
                 receiveUnreadCounts();
             });

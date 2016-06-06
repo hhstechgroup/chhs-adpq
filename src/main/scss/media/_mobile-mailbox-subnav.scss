@@ -14,6 +14,7 @@
 .ch-mobile-mailbox__nav-tab__link {
     padding: 2rem 4rem;
     width: 100%;
+    border-bottom: .6rem solid #fff;
 }
 .ch-mobile-mailbox__nav-tab__link.ch-mobile-mailbox__nav-tab__link_active {
     border-bottom: .6rem solid #0071bc;
@@ -27,3 +28,7 @@
     font-size: 2.8rem;
     color: #5b616b;
 }
+
+// .ch-menu-mobile__folders-show {
+//     display: block !important;
+// }
