@@ -3,9 +3,9 @@
 
     <div class="ch-page-heading">
 
-        <div ng-if="mails.length > 0" ng-click="selectAll()" class="ch-page-heading__select">
+        <div ng-if="mails.length > 0" class="ch-page-heading__select">
             <div class="form-type__checkbox_empty-label">
-                <input id="selectAll" type="checkbox" ng-model="allSelected">
+                <input id="selectAll" type="checkbox" ng-click="selectAll()" ng-model="allSelected">
                 <label for="selectAll"></label>
             </div>
         </div>
