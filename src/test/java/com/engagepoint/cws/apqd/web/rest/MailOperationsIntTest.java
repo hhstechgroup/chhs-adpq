@@ -11,6 +11,7 @@ import com.engagepoint.cws.apqd.config.JHipsterProperties;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
+import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
@@ -26,6 +27,7 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -50,6 +52,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -183,6 +187,20 @@ public class MailOperationsIntTest {
 
         assertUserEmail(jHipsterProperties, messageSource, templateEngine, mockMailSender,
             user, "email.activation.title", "creationEmail");
+
+        // also test AccountResource.getAccount
+
+        setCurrentUser(user);
+
+        restMockMvc.perform(get("/api/account")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.login").value(user.getLogin()))
+                .andExpect(jsonPath("$.firstName").value(user.getFirstName()))
+                .andExpect(jsonPath("$.lastName").value(user.getLastName()))
+                .andExpect(jsonPath("$.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.authorities").value(AuthoritiesConstants.USER));
     }
 
     @Test

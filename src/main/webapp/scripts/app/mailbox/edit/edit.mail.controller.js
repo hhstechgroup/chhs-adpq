@@ -2,7 +2,7 @@
 
 angular.module('apqdApp')
     .controller('EditMailCtrl', function ($rootScope, $stateParams, $scope, $state, $log, mail, identity,
-                                          AutoSaveService, DraftMessage, Contacts, Upload, Message, FileService, ngToast)
+                                          AutoSaveService, DraftMessage, Contacts, Upload, Message, FileService, ngToast, $templateCache)
     {
         $scope.mail = _.cloneDeep(mail);
 
@@ -99,15 +99,7 @@ angular.module('apqdApp')
                     $rootScope.backToPreviousState();
                     ngToast.create({
                         className : "",
-                        content : '<div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_success"> ' +
-                        '<div class="ch-alert-msg__icon ch-alert-msg__icon_success"></div> ' +
-                        '<div class="ch-alert-msg__text"> ' +
-                        '<p class="ch-alert-msg__title">Success</p>' +
-                        '<p class="ch-alert-msg__info">Your message has been sent!</p></div>' +
-                        '<div class="ch-alert-msg__btn-close">' +
-                        '<button type="button" class="close-btn close-btn_white"></button>' +
-                        '</div>' +
-                        '</div>'
+                        content : $templateCache.get('messageSentNotification.html')
                     });
                 }, $log.info);
             }
