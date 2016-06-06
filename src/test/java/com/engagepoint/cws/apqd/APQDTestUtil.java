@@ -1,6 +1,5 @@
 package com.engagepoint.cws.apqd;
 
-import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Draft;
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.MailBox;
@@ -8,7 +7,6 @@ import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
-import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.DraftRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
@@ -211,18 +209,6 @@ public final class APQDTestUtil {
     }
 
     /*
-     * Deleted-related
-     */
-
-    public static Deleted prepareDeleted(DeletedRepository deletedRepository) {
-        return deletedRepository.saveAndFlush(new Deleted());
-    }
-
-    public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
-        return deletedRepository.saveAndFlush(deleted);
-    }
-
-    /*
      * Draft-related
      */
 
@@ -241,7 +227,7 @@ public final class APQDTestUtil {
      * MailBox-related
      */
 
-    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, Deleted deleted, Draft draft, User user) {
+    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, Draft draft, User user) {
         MailBox mailBox = new MailBox();
         mailBox.setInbox(inbox);
         mailBox.setOutbox(outbox);
@@ -251,10 +237,9 @@ public final class APQDTestUtil {
     }
 
     public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, InboxRepository inboxRepository,
-                                         OutboxRepository outboxRepository, DeletedRepository deletedRepository,
-                                         DraftRepository draftRepository) {
+                                         OutboxRepository outboxRepository, DraftRepository draftRepository) {
         return prepareMailBox(mailBoxRepository, prepareInbox(inboxRepository), prepareOutbox(outboxRepository),
-            prepareDeleted(deletedRepository), prepareDraft(draftRepository), null);
+            prepareDraft(draftRepository), null);
     }
 
     /*
