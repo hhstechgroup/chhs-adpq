@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('ThreadViewCtrl', function ($rootScope, $state, $scope, $log, messageThread, ConfirmMessage,
+    .controller('ThreadViewCtrl', function ($rootScope, $state, $stateParams, $scope, $log, messageThread, ConfirmMessage,
                                             DeleteMessageService, identity) {
         $scope.messageThread = messageThread;
 
@@ -38,6 +38,10 @@ angular.module('apqdApp')
                     $state.go($state.current, {}, {reload: true});
                 }
             });
+        };
+
+        $scope.showDeleteButtons = function() {
+            return _.isEmpty($stateParams.readOnly);
         };
 
         $scope.deleteAll = function() {

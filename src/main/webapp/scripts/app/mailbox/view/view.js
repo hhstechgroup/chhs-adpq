@@ -4,7 +4,7 @@ angular.module('apqdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('ch-inbox.view', {
-                url: '/view/:mailId',
+                url: '/view/:mailId/:readOnly',
                 data: {
                     authorities: ['CASE_WORKER', 'PARENT'],
                     pageTitle: ''
