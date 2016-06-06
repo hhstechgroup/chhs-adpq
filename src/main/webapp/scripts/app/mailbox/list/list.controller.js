@@ -2,7 +2,8 @@
 
 angular.module('apqdApp')
     .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log,
-                                          Message, ParseLinks, MailService, filterByDestination) {
+                                          Message, ParseLinks, MailService, filterByDestination,
+                                          DeleteMessageService) {
 
         $scope.pageNum = 0;
         $scope.pageSize = 10;
@@ -98,7 +99,10 @@ angular.module('apqdApp')
         };
 
         $scope.deleteSelected = function() {
-            $log.info('deleted');
+            DeleteMessageService.delete(_.filter($scope.mails, {selected: true}), function() {
+                $scope.allSelected = false;
+                $scope.loadPage();
+            }, $log.error);
         };
 
         $scope.getUnreadMessageStyle = function(mail) {

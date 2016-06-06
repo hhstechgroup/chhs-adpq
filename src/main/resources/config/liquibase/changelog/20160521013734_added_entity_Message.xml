@@ -44,7 +44,6 @@
             <column name="inbox_id" type="bigint"/>
             <column name="outbox_id" type="bigint"/>
             <column name="draft_id" type="bigint"/>
-            <column name="deleted_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="message" columnName="date_created" columnDataType="datetime"/>
@@ -89,12 +88,6 @@
                                  constraintName="fk_message_draft_id"
                                  referencedColumnNames="id"
                                  referencedTableName="draft"/>
-
-        <addForeignKeyConstraint baseColumnNames="deleted_id"
-                                 baseTableName="message"
-                                 constraintName="fk_message_deleted_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="deleted"/>
 
     </changeSet>
 </databaseChangeLog>

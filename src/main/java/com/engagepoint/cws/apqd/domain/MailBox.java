@@ -31,9 +31,6 @@ public class MailBox implements Serializable {
     private Outbox outbox;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    private Deleted deleted;
-
-    @OneToOne(cascade = CascadeType.PERSIST)
     private Draft draft;
 
     @OneToOne
@@ -78,14 +75,6 @@ public class MailBox implements Serializable {
 
     public void setContacts(Set<User> users) {
         this.contacts = users;
-    }
-
-    public Deleted getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Deleted deleted) {
-        this.deleted = deleted;
     }
 
     public Draft getDraft() {

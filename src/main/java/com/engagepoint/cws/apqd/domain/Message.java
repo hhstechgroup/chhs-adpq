@@ -84,11 +84,6 @@ public class Message implements Serializable {
     @Field(ignoreFields = {"messages", "mailBox"})
     private Draft draft;
 
-    @ManyToOne
-    @JoinColumn(name = "deleted_id")
-    @Field(ignoreFields = {"messages", "mailBox"})
-    private Deleted deleted;
-
     public Long getId() {
         return id;
     }
@@ -215,14 +210,6 @@ public class Message implements Serializable {
 
     public void setDraft(Draft draft) {
         this.draft = draft;
-    }
-
-    public Deleted getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Deleted deleted) {
-        this.deleted = deleted;
     }
 
     @Override

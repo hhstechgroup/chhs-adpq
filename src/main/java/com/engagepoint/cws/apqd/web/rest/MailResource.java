@@ -1,10 +1,12 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.MessageThread;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
+import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
@@ -63,6 +65,9 @@ public class MailResource {
 
     @Inject
     private MessageThreadSearchRepository messageThreadSearchRepository;
+
+    @Inject
+    private DeletedRepository deletedRepository;
 
     @PostConstruct
     public void init() {
@@ -155,6 +160,34 @@ public class MailResource {
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping(value = "/mails/delete",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<Void> deleteMessages(@RequestBody Message[] messages) throws URISyntaxException {
+        for (Message message : messages) {
+            deleteMessageInSQL(message);
+            deleteMessageInElastic(message);
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/mails/restore",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<Void> restoreMessages(@RequestBody Message[] messages) throws URISyntaxException {
+        for (Message message : messages) {
+            restoreMessageInSQL(message);
+            restoreMessageInElastic(message);
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
     @Transactional
     public void sendInvitationLetter(Message message) {
         User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
@@ -217,13 +250,13 @@ public class MailResource {
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         if (directory == EMailDirectory.INBOX) {
-            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
+            page = messageRepository.findAllInbox(user, pageable);
         } else if (directory == EMailDirectory.SENT) {
-            page = messageRepository.findAllByOutboxIsNotNullAndFromIsOrderByDateUpdatedDesc(user, pageable);
+            page = messageRepository.findAllOutbox(user, pageable);
         } else if (directory == EMailDirectory.DRAFTS) {
-            page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(user, pageable);
+            page = messageRepository.findAllDrafts(user, pageable);
         } else if (directory == EMailDirectory.DELETED) {
-            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
+            page = messageRepository.findAllDeleted(user, pageable);
         }
 
         return page;
@@ -373,5 +406,48 @@ public class MailResource {
         }
 
         return thread;
+    }
+
+    private void deleteMessageInSQL(Message message) {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        Deleted deleted = new Deleted();
+        deleted.setDeletedDate(ZonedDateTime.now());
+        deleted.setMessages(message);
+        deleted.setDeletedBy(user);
+        deletedRepository.save(deleted);
+    }
+
+    private void restoreMessageInSQL(Message message) {
+        Deleted deleted = deletedRepository.findOneByMessage(message);
+        deletedRepository.delete(deleted);
+
+//        message.setStatus(MessageStatus.READ);
+//        message.setDateUpdated(ZonedDateTime.now());
+//        messageRepository.save(message);
+    }
+
+    private void deleteMessageInElastic(Message message) {
+        MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
+        for (Message ms : thread.getThread()) {
+            if (ms.equals(message)) {
+                ms.setDateUpdated(ZonedDateTime.now());
+                messageSearchRepository.save(ms);
+                messageThreadSearchRepository.save(thread);
+                return;
+            }
+        }
+    }
+
+    private void restoreMessageInElastic(Message message) {
+        MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
+        for (Message ms : thread.getThread()) {
+            if (ms.equals(message)) {
+                ms.setStatus(MessageStatus.READ);
+                messageSearchRepository.save(ms);
+                messageThreadSearchRepository.save(thread);
+                return;
+            }
+        }
     }
 }

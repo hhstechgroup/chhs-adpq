@@ -1,21 +1,7 @@
 package com.engagepoint.cws.apqd;
 
-import com.engagepoint.cws.apqd.domain.Authority;
-import com.engagepoint.cws.apqd.domain.Deleted;
-import com.engagepoint.cws.apqd.domain.Draft;
-import com.engagepoint.cws.apqd.domain.Inbox;
-import com.engagepoint.cws.apqd.domain.MailBox;
-import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.Outbox;
-import com.engagepoint.cws.apqd.domain.User;
-import com.engagepoint.cws.apqd.repository.AuthorityRepository;
-import com.engagepoint.cws.apqd.repository.DeletedRepository;
-import com.engagepoint.cws.apqd.repository.DraftRepository;
-import com.engagepoint.cws.apqd.repository.InboxRepository;
-import com.engagepoint.cws.apqd.repository.MailBoxRepository;
-import com.engagepoint.cws.apqd.repository.MessageRepository;
-import com.engagepoint.cws.apqd.repository.OutboxRepository;
-import com.engagepoint.cws.apqd.repository.UserRepository;
+import com.engagepoint.cws.apqd.domain.*;
+import com.engagepoint.cws.apqd.repository.*;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -118,9 +104,6 @@ public final class APQDTestUtil {
     }
 
     public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
-        Set<Message> messages = new HashSet<>();
-        messages.add(message);
-        deleted.setMessages(messages);
         return deletedRepository.saveAndFlush(deleted);
     }
 
@@ -147,7 +130,6 @@ public final class APQDTestUtil {
         MailBox mailBox = new MailBox();
         mailBox.setInbox(inbox);
         mailBox.setOutbox(outbox);
-        mailBox.setDeleted(deleted);
         mailBox.setDraft(draft);
         mailBox.setUser(user);
         return mailBoxRepository.saveAndFlush(mailBox);

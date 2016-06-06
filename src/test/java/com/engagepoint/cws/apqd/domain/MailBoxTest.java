@@ -53,7 +53,6 @@ public class MailBoxTest {
         assertThat(testMailBox).isNotNull();
         assertThat(testMailBox.getInbox()).isNotNull();
         assertThat(testMailBox.getOutbox()).isNotNull();
-        assertThat(testMailBox.getDeleted()).isNotNull();
         assertThat(testMailBox.getDraft()).isNotNull();
     }
 
