@@ -2,6 +2,7 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.Appender;
 import com.engagepoint.cws.apqd.Application;
@@ -14,7 +15,6 @@ import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.KeyAndPasswordDTO;
-import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +26,6 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -56,7 +55,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -106,7 +104,7 @@ public class MailOperationsIntTest {
 
     private MockMvc restMockMvc;
 
-    private Appender mockLogAppender;
+    private Appender<ILoggingEvent> mockLogAppender;
 
     @PostConstruct
     public void setup() {
@@ -213,26 +211,16 @@ public class MailOperationsIntTest {
         return matcher.find() ? matcher.group(1) : "";
     }
 
-    @Test()
+    @Test
     @Transactional
     public void testMailSendFailed() throws Exception {
         ReflectionTestUtils.setField(mailService, "javaMailSender", failingMockMailSender);
 
         User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
 
-        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
-        assertThat(managedUserDTO.getId()).isNull();
+        performCreateUser(restMockMvc, user).andExpect(status().isCreated());
 
-        restMockMvc.perform(
-            post("/api/users")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(
-                    managedUserDTO
-                )))
-            .andExpect(status().isCreated())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-
-        verify(mockLogAppender).doAppend(argThat(new ArgumentMatcher() {
+        verify(mockLogAppender).doAppend(argThat(new ArgumentMatcher<ILoggingEvent>() {
             @Override
             public boolean matches(final Object argument) {
                 LoggingEvent loggingEvent = (LoggingEvent) argument;
@@ -242,22 +230,12 @@ public class MailOperationsIntTest {
         }));
     }
 
-    @Test()
+    @Test
     @Transactional
     public void testCreateUser() throws Exception {
         User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
 
-        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
-        assertThat(managedUserDTO.getId()).isNull();
-
-        restMockMvc.perform(
-            post("/api/users")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(
-                    managedUserDTO
-                )))
-            .andExpect(status().isCreated())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+        performCreateUser(restMockMvc, user).andExpect(status().isCreated());
 
         assertUserEmail(user, "email.activation.title", "creationEmail");
     }

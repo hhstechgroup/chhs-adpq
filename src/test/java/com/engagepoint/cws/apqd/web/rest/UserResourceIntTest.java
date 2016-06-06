@@ -8,7 +8,6 @@ import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
-import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,18 +25,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.NestedServletException;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.expectUser;
-import static com.engagepoint.cws.apqd.APQDTestUtil.newUserAnnaBrown;
-import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static com.engagepoint.cws.apqd.APQDTestUtil.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -97,6 +92,7 @@ public class UserResourceIntTest {
         UserResource userResource = new UserResource();
         ReflectionTestUtils.setField(userResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(userResource, "mailService", mailService);
+        ReflectionTestUtils.setField(userResource, "authorityRepository", authorityRepository);
         ReflectionTestUtils.setField(userResource, "userService", userService);
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
@@ -139,22 +135,14 @@ public class UserResourceIntTest {
             .andExpect(header().string(HttpHeaders.LINK, startsWith("<")));
     }
 
-    @Test()
+    @Test
     @Transactional
     public void testCreateAndUpdateUser() throws Exception {
         User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
 
         // create user
 
-        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
-        assertThat(managedUserDTO.getId()).isNull();
-
-        ResultActions resultActions = restUserMockMvc.perform(
-            post("/api/users")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(
-                    managedUserDTO
-                )))
+        ResultActions resultActions = performCreateUser(restUserMockMvc, user)
             .andExpect(status().isCreated())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(header().string("X-apqdApp-alert", "user-management.created"))
@@ -162,28 +150,111 @@ public class UserResourceIntTest {
 
         expectUser(resultActions, user);
 
-        user = userRepository.findAll().iterator().next();
+        user = userRepository.findOneByLogin(user.getLogin()).get();
 
+        user.setLogin(user.getLogin() + "1");
+        user.setEmail("a." + user.getEmail());
         user.setFirstName("Anishka");
         user.setLastName("Krzhykova");
         user.setSsnLast4Digits("5678");
 
         // update user
 
-        managedUserDTO = new ManagedUserDTO(user);
-        assertThat(managedUserDTO.getId()).isNotNull();
-
-        resultActions = restUserMockMvc.perform(
-            put("/api/users")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(
-                    managedUserDTO
-                )))
+        performUpdateUser(restUserMockMvc, user)
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(header().string("X-apqdApp-alert", "user-management.updated"))
             .andExpect(header().string("X-apqdApp-params", user.getLogin()));
 
-        expectUser(resultActions, user);
+        User updatedUser = userRepository.findOneByLogin(user.getLogin()).get();
+        assertUser(updatedUser, user);
+    }
+
+    @Test
+    @Transactional
+    public void testCreateUserLoginAlreadyInUse() throws Exception {
+        User userAnna = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        User userJohn = newUserJohnWhite(passwordEncoder, authorityRepository);
+
+        // create user
+
+        performCreateUser(restUserMockMvc, userAnna).andExpect(status().isCreated());
+
+        userJohn.setLogin(userAnna.getLogin());
+
+        // try to create other user with the same login
+
+        performCreateUser(restUserMockMvc, userJohn)
+            .andExpect(status().isBadRequest())
+            .andExpect(header().string("X-apqdApp-error", "error.userexists"))
+            .andExpect(header().string("X-apqdApp-params", "user-management"))
+            .andExpect(content().bytes(new byte[]{}));
+    }
+
+    @Test
+    @Transactional
+    public void testCreateUserEmailAlreadyInUse() throws Exception {
+        User userAnna = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        User userJohn = newUserJohnWhite(passwordEncoder, authorityRepository);
+
+        // create user
+
+        performCreateUser(restUserMockMvc, userAnna).andExpect(status().isCreated());
+
+        userJohn.setEmail(userAnna.getEmail());
+
+        // try to create other user with the same email
+
+        performCreateUser(restUserMockMvc, userJohn)
+            .andExpect(status().isBadRequest())
+            .andExpect(header().string("X-apqdApp-error", "error.emailexists"))
+            .andExpect(header().string("X-apqdApp-params", "user-management"))
+            .andExpect(content().bytes(new byte[]{}));
+    }
+
+    @Test(expected = NestedServletException.class)
+    @Transactional
+    public void testUpdateUserLoginAlreadyInUse() throws Exception {
+        User userAnna = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        User userJohn = newUserJohnWhite(passwordEncoder, authorityRepository);
+
+        // create users
+
+        performCreateUser(restUserMockMvc, userAnna).andExpect(status().isCreated());
+        performCreateUser(restUserMockMvc, userJohn).andExpect(status().isCreated());
+
+        userJohn = userRepository.findOneByLogin(userJohn.getLogin()).get();
+        userJohn.setLogin(userAnna.getLogin());
+
+        // try to update other user with the same login
+
+        performUpdateUser(restUserMockMvc, userJohn)
+            .andExpect(status().isBadRequest())
+            .andExpect(header().string("X-apqdApp-error", "error.userexists"))
+            .andExpect(header().string("X-apqdApp-params", "user-management"))
+            .andExpect(content().bytes(new byte[]{}));
+    }
+
+    @Test(expected = NestedServletException.class)
+    @Transactional
+    public void testUpdateUserEmailAlreadyInUse() throws Exception {
+        User userAnna = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        User userJohn = newUserJohnWhite(passwordEncoder, authorityRepository);
+
+        // create users
+
+        performCreateUser(restUserMockMvc, userAnna).andExpect(status().isCreated());
+        performCreateUser(restUserMockMvc, userJohn).andExpect(status().isCreated());
+
+        userJohn = userRepository.findOneByLogin(userJohn.getLogin()).get();
+        userJohn.setEmail(userAnna.getEmail());
+
+        // try to update other user with the same email
+
+        performUpdateUser(restUserMockMvc, userJohn)
+            .andExpect(status().isBadRequest())
+            .andExpect(header().string("X-apqdApp-error", "error.emailexists"))
+            .andExpect(header().string("X-apqdApp-params", "user-management"))
+            .andExpect(content().bytes(new byte[]{}));
     }
 }

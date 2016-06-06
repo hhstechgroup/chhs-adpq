@@ -18,10 +18,14 @@ import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
+import com.engagepoint.cws.apqd.web.rest.TestUtil;
+import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
+import org.assertj.core.api.StrictAssertions;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDate;
@@ -29,7 +33,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public final class APQDTestUtil {
     /**
@@ -39,8 +45,8 @@ public final class APQDTestUtil {
      * to:
      *      <a href="">newuser</a>
      *
-     * @param content
-     * @return
+     * @param content string
+     * @return string
      */
     public static String cutQuotedUrls(String content) {
         return content.replaceAll("\"http[^\"]+\"", "\"\"");
@@ -84,21 +90,63 @@ public final class APQDTestUtil {
     }
 
     public static User newUserAnnaBrown(PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
-        User user = prepareUser(null, passwordEncoder, "newuser");
+        User user = prepareUser(null, passwordEncoder, "newuseranna");
 
         user.setLangKey("en");
-        user.setEmail("newuser@company.com");
+        user.setEmail("newuseranna@company.com");
         user.setFirstName("Anna");
         user.setLastName("Brown");
         user.setSsnLast4Digits("4321");
         user.setActivated(true);
         user.setCaseNumber("S123");
         user.setBirthDate(LocalDate.ofEpochDay(0L));
-        user.setPhoneNumber("1111111111");
+        user.setPhoneNumber("1111-111-111");
 
         setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
         return user;
+    }
+
+    public static User newUserJohnWhite(PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+        User user = prepareUser(null, passwordEncoder, "newuserjohn");
+
+        user.setLangKey("en");
+        user.setEmail("newuserjohn@company.com");
+        user.setFirstName("John");
+        user.setLastName("White");
+        user.setSsnLast4Digits("5432");
+        user.setActivated(true);
+        user.setCaseNumber("S234");
+        user.setBirthDate(LocalDate.ofEpochDay(0L));
+        user.setPhoneNumber("1111-111-222");
+
+        setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
+
+        return user;
+    }
+
+    public static ResultActions performCreateUser(MockMvc restUserMockMvc, User user) throws Exception {
+        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
+        StrictAssertions.assertThat(managedUserDTO.getId()).isNull();
+
+        return restUserMockMvc.perform(
+            post("/api/users")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    managedUserDTO
+                )));
+    }
+
+    public static ResultActions performUpdateUser(MockMvc restUserMockMvc, User user) throws Exception {
+        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
+        assertThat(managedUserDTO.getId()).isNotNull();
+
+        return restUserMockMvc.perform(
+            put("/api/users")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    managedUserDTO
+                )));
     }
 
     public static void expectUser(ResultActions resultActions, User user) throws Exception {
@@ -109,6 +157,15 @@ public final class APQDTestUtil {
             .andExpect(jsonPath("$.firstName").value(user.getFirstName()))
             .andExpect(jsonPath("$.lastName").value(user.getLastName()))
             .andExpect(jsonPath("$.ssnLast4Digits").value(user.getSsnLast4Digits()));
+    }
+
+    public static void assertUser(User actual, User expected) {
+        assertThat(actual.getId()).isEqualTo(expected.getId());
+        assertThat(actual.getLogin()).isEqualTo(expected.getLogin());
+        assertThat(actual.getEmail()).isEqualTo(expected.getEmail());
+        assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
+        assertThat(actual.getLastName()).isEqualTo(expected.getLastName());
+        assertThat(actual.getSsnLast4Digits()).isEqualTo(expected.getSsnLast4Digits());
     }
 
     /*
