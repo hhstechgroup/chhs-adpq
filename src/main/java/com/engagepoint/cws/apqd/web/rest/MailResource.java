@@ -401,7 +401,7 @@ public class MailResource {
             Message saved = messageRepository.findOne(message.getId());
             Message root = saved.getReplyOn();
             if (root != null && root.getReplyOn() == null) {
-                root.setBiDirectional(1);
+                root.setBiDirectional(1L);
                 messageRepository.save(root);
             }
         }

@@ -63,7 +63,7 @@ public class Message implements Serializable {
     private int unreadMessagesCountFrom;
 
     @Column(name = "bi_directional")
-    private Integer biDirectional;
+    private Long biDirectional;
 
     @OneToMany(mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
         fetch = FetchType.EAGER, orphanRemoval = true)
@@ -237,11 +237,11 @@ public class Message implements Serializable {
         this.unreadMessagesCountFrom = unreadMessagesCountFrom;
     }
 
-    public Integer isBiDirectional() {
+    public Long isBiDirectional() {
         return biDirectional;
     }
 
-    public void setBiDirectional(Integer biDirectional) {
+    public void setBiDirectional(Long biDirectional) {
         this.biDirectional = biDirectional;
     }
 
