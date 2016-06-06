@@ -180,26 +180,29 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
             Integer zabbixPort = zabbixProperties.getPort();
             Integer periodSec = zabbixProperties.getPeriodSec();
             String hostMetadata = zabbixProperties.getHostMetadata();
+            int connectionTimeout = zabbixProperties.getConnectionTimeoutSec() * 1000;
+            int socketTimeout = zabbixProperties.getSocketTimeoutSec() * 1000;
 
             String appInstanceId = buildApplicationInstanceId();
             LOGGER.info("'{}' will be used as application host value on Zabbix", appInstanceId);
 
             boolean hostIsConfigured = false;
 
-            ApqdZabbixSender zabbixActiveRequestSender = new ApqdZabbixSender(zabbixHost, zabbixPort);
+            ApqdZabbixSender apqdZabbixSender =
+                new ApqdZabbixSender(zabbixHost, zabbixPort, connectionTimeout, socketTimeout);
 
             ActiveChecksRequest activeChecksRequest = new ActiveChecksRequest();
             activeChecksRequest.setHost(appInstanceId);
             activeChecksRequest.setHostMetadata(hostMetadata);
 
-            ApqdZabbixResponse zabbixRespone = zabbixActiveRequestSender.send(activeChecksRequest);
+            ApqdZabbixResponse zabbixRespone = apqdZabbixSender.send(activeChecksRequest);
 
             if(zabbixRespone.getType() == ZabbixResponseType.SUCCESS){
                 hostIsConfigured = true;
                 LOGGER.info("Zabbix host '{}' was already configured", appInstanceId);
             }else if(zabbixRespone.getType() == ZabbixResponseType.FAILED){
-                //send another request to check if host was successfully configured as a result of first one
-                ApqdZabbixResponse zabbixRespone2 = zabbixActiveRequestSender.send(activeChecksRequest);
+                //send another request to check if host was successfully configured as a result of the first one
+                ApqdZabbixResponse zabbixRespone2 = apqdZabbixSender.send(activeChecksRequest);
 
                 if(zabbixRespone2.getType() == ZabbixResponseType.SUCCESS) {
                     hostIsConfigured = true;
@@ -208,7 +211,8 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
             }
 
             if(hostIsConfigured) {
-                ZabbixSender zabbixSender = new ZabbixSender(zabbixHost, zabbixPort);
+                ZabbixSender zabbixSender = new ZabbixSender(zabbixHost, zabbixPort, connectionTimeout, socketTimeout);
+
                 ZabbixReporter zabbixReporter = ZabbixReporter.forRegistry(metricRegistry)
                     .hostName(appInstanceId).build(zabbixSender);
 

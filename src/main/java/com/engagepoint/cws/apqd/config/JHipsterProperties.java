@@ -435,6 +435,10 @@ public class JHipsterProperties {
 
             private int periodSec = 60;
 
+            private int socketTimeoutSec = 3;
+
+            private int connectionTimeoutSec = 3;
+
             private String hostMetadata;
 
             public boolean isEnabled() {
@@ -475,6 +479,22 @@ public class JHipsterProperties {
 
             public void setHostMetadata(String hostMetadata) {
                 this.hostMetadata = hostMetadata;
+            }
+
+            public int getSocketTimeoutSec() {
+                return socketTimeoutSec;
+            }
+
+            public void setSocketTimeoutSec(int socketTimeoutSec) {
+                this.socketTimeoutSec = socketTimeoutSec;
+            }
+
+            public int getConnectionTimeoutSec() {
+                return connectionTimeoutSec;
+            }
+
+            public void setConnectionTimeoutSec(int connectionTimeoutSec) {
+                this.connectionTimeoutSec = connectionTimeoutSec;
             }
         }
     }

@@ -89,8 +89,10 @@ jhipster:
             port: 2003
             prefix: intake
         zabbix:
-            enabled: false
+            enabled: true
             host: localhost
             port: 10051
             periodSec: 60
             hostMetadata: HOSTPOOL
+            socketTimeoutSec: 3
+            connectionTimeoutSec: 3
