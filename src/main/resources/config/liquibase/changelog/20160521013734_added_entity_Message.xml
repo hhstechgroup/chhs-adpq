@@ -35,6 +35,7 @@
 
             <column name="date_updated" type="timestamp"/>
 
+            <column name="unread_messages_count" type="integer"/>
             <column name="unread_messages_count_to" type="integer"/>
             <column name="unread_messages_count_from" type="integer"/>
 
@@ -45,7 +46,9 @@
             <column name="inbox_id" type="bigint"/>
             <column name="outbox_id" type="bigint"/>
             <column name="draft_id" type="bigint"/>
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+
+            <column name="bi_directional" type="bigint" />
+
         </createTable>
         <dropDefaultValue tableName="message" columnName="date_created" columnDataType="datetime"/>
 

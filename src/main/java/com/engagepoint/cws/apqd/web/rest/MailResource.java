@@ -141,6 +141,7 @@ public class MailResource {
         moveMessageFromDraftToInbox(message, userTo, userFrom);
         updateUnreadCountOnSend(message);
         updateMessageThread(message);
+        updateBiDirectional(message);
 
         mailBoxService.notifyClientAboutDraftsCount();
         mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
@@ -393,6 +394,17 @@ public class MailResource {
 
         messageSearchRepository.save(message);
         messageThreadSearchRepository.save(thread);
+    }
+
+    private void updateBiDirectional(Message message) {
+        if (message.getReplyOn() != null) {
+            Message saved = messageRepository.findOne(message.getId());
+            Message root = saved.getReplyOn();
+            if (root != null && root.getReplyOn() == null) {
+                root.setBiDirectional(1);
+                messageRepository.save(root);
+            }
+        }
     }
 
     private void updateInbox(Message message, MessageThread thread) {

@@ -53,7 +53,7 @@ public class Message implements Serializable {
     @Column(name = "date_updated")
     private ZonedDateTime dateUpdated;
 
-    @Transient
+    @Column(name = "unread_messages_count")
     private int unreadMessagesCount;
 
     @Column(name = "unread_messages_count_to")
@@ -61,6 +61,9 @@ public class Message implements Serializable {
 
     @Column(name = "unread_messages_count_from")
     private int unreadMessagesCountFrom;
+
+    @Column(name = "bi_directional")
+    private Integer biDirectional;
 
     @OneToMany(mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
         fetch = FetchType.EAGER, orphanRemoval = true)
@@ -232,6 +235,14 @@ public class Message implements Serializable {
 
     public void setUnreadMessagesCountFrom(int unreadMessagesCountFrom) {
         this.unreadMessagesCountFrom = unreadMessagesCountFrom;
+    }
+
+    public Integer isBiDirectional() {
+        return biDirectional;
+    }
+
+    public void setBiDirectional(Integer biDirectional) {
+        this.biDirectional = biDirectional;
     }
 
     @Override

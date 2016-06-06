@@ -41,8 +41,8 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 
     @Query("SELECT m FROM Message m " +
            " WHERE m.inbox IS NOT NULL " +
-           "   AND m.replyOn IS NULL " +
-           "   AND m.to = :to " +
+           "   AND ((m.replyOn IS NULL AND m.to = :to) OR " +
+           "        (m.biDirectional IS NOT NULL AND m.from = :to))" +
            "   AND NOT EXISTS (" +
            "       SELECT d FROM Deleted d " +
            "        WHERE d.deletedBy = :to " +
