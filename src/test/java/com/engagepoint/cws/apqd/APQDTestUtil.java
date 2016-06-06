@@ -20,6 +20,8 @@ import com.engagepoint.cws.apqd.web.rest.dto.ContactDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import org.assertj.core.api.StrictAssertions;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,6 +57,11 @@ public final class APQDTestUtil {
      * User-related
      */
 
+    private static org.springframework.security.core.userdetails.User createSpringSecurityUser(User user) {
+        final Set<GrantedAuthority> authorities = new HashSet<>();
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
+    }
+
     /**
      * Usage:
      *      TestUtil.setCurrentUser(user);
@@ -63,9 +70,14 @@ public final class APQDTestUtil {
      *
      * @param user User
      */
-    public static void setCurrentUser(User user) {
+    public static void setCurrentUser(final User user) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+            createSpringSecurityUser(user), user.getPassword());
+        // authentication set Authenticated true
+
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+        securityContext.setAuthentication(authentication);
+
         SecurityContextHolder.setContext(securityContext);
     }
 
@@ -100,7 +112,7 @@ public final class APQDTestUtil {
         user.setActivated(true);
         user.setCaseNumber("S123");
         user.setBirthDate(LocalDate.ofEpochDay(0L));
-        user.setPhoneNumber("1111-111-111");
+        user.setPhoneNumber("111-111-1111");
 
         addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
@@ -118,7 +130,7 @@ public final class APQDTestUtil {
         user.setActivated(true);
         user.setCaseNumber("S234");
         user.setBirthDate(LocalDate.ofEpochDay(0L));
-        user.setPhoneNumber("1111-111-222");
+        user.setPhoneNumber("222-222-2222");
 
         addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
@@ -166,6 +178,8 @@ public final class APQDTestUtil {
         assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
         assertThat(actual.getLastName()).isEqualTo(expected.getLastName());
         assertThat(actual.getSsnLast4Digits()).isEqualTo(expected.getSsnLast4Digits());
+        assertThat(actual.getPhoneNumber()).isEqualTo(expected.getPhoneNumber());
+        assertThat(actual.getCaseNumber()).isEqualTo(expected.getCaseNumber());
     }
 
     public static void expectHasContact(ResultActions resultActions, User contact) throws Exception {
