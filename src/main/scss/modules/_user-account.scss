@@ -273,7 +273,8 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
 
     .panel-open {
 
-        .panel-title > a {
+        .panel-title > a,
+        .ch-section__header {
             color: #5894ca;
         }
 

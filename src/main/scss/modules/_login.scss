@@ -4,7 +4,8 @@ $break-tablet: 770px;
 $break-phone: 640px;
 
 .ch-login-bg,
-.ch-reset-request-bg {
+.ch-reset-request-bg,
+.ch-profile-feedback-bg {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -30,7 +31,8 @@ $break-phone: 640px;
     min-width: 550px;
 }
 
-.ch-reset-request {
+.ch-reset-request,
+.ch-profile-feedback {
     width: 100%;
     height: 100%;
     padding-top: 10rem;
@@ -94,11 +96,16 @@ $break-phone: 640px;
     padding-right: 5%;
 }
 
-.ch-reset-request__logo-image {
+.ch-reset-request__logo-image,
+.ch-profile-feedback__logo-image {
     width: 100%;
     a {
         width: 100%;
     }
+}
+
+.ch-profile-feedback__logo-image {
+    text-align: center;
 }
 
 .logo-image {
@@ -106,6 +113,13 @@ $break-phone: 640px;
     height: 4.7rem;
     display: inline-block;
     background: url("../images/us-icon/logo-white.png") no-repeat center;
+}
+
+.logo-image_xl {
+    width: 19.8rem;
+    height: 6.6rem;
+    display: inline-block;
+    background: url("../images/main-nav/logo-xl.png") no-repeat center;
 }
 
 .ch-login__form {
@@ -202,7 +216,8 @@ $break-phone: 640px;
     }
   }
 
-.ch-reset-request__form {
+.ch-reset-request__form,
+.ch-profile-feedback__form {
     margin-top: 3rem;
     padding-left: 4rem;
     padding-right: 4rem;
@@ -211,7 +226,8 @@ $break-phone: 640px;
 }
 
 .ch-login__form__title,
-.ch-reset-request__form__title {
+.ch-reset-request__form__title,
+.ch-profile-feedback__form__title {
     font-size: 2.4rem;
     text-align: center;
     margin-top: 2.5rem;
@@ -439,3 +455,31 @@ $break-phone: 640px;
         background: #cbcdcf;
     }
 }
+
+.ch-profile-feedback__form_succeeded {
+    .icon-process-succeed {
+        display: block;
+        margin: 3.8rem auto 0;
+    }
+}
+
+.ch-profile-feedback__form {
+    padding-bottom: 3.6rem;
+}
+
+.ch-profile-feedback__text {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.6rem;
+    margin-bottom: .6rem;
+}
+
+.ch-profile-feedback__text_center {
+    text-align: center;
+}
+
+.ch-profile-feedback-controls {
+    margin-top: 2.8rem;
+}
+

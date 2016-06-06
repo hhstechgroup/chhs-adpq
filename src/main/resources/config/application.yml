@@ -80,16 +80,7 @@ jhipster:
 # ===================================================================
 
 apqd:
-    state: CA
-    cws-office: 5669 Gibraltar Dr,Pleasanton, CA 94588
-    google-maps-bounds:
-        north-east:
-            latitude: 42
-            longitude: -114.13
-        south-west:
-            latitude: 32.53
-            longitude: -124.43
-    webSocketAllowOrigins: "*"
+    default-address: 744 P St,Sacramento, CA 95814
 
 hhs-api:
     hhs-api-url: https://chhs.data.ca.gov/resource/mffa-c6z5.json

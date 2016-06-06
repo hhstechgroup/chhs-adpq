@@ -1,16 +1,43 @@
-<div>
+<div class="ch-profile-feedback">
+    <div class="ch-profile-feedback-bg"></div>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 translate="activate.title">Activation</h1>
+        <div class="col-lg-3 col-md-4 col-sm-8 centered">
 
-            <div class="alert alert-success" ng-show="success" translate="activate.messages.success">
-                <strong>Your user has been activated.</strong> Please <a class="alert-link" href="#/login">sign in</a>.
+            <div class="ch-profile-feedback__logo-image">
+                <a href=""><span class="logo-image logo-image_xl"></span></a>
             </div>
 
-            <div class="alert alert-danger" ng-show="error" translate="activate.messages.error">
-                <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
-            </div>
+            <div class="ch-profile-feedback__form" ng-class="{ ch-profile-feedback__form_succeeded: success }">
+                <span class="icon icon-process-succeed" ng-show="success"></span>
+                <h3 class="ch-profile-feedback__form__title">Activation</h3>
 
+                <div class="ch-profile-feedback__text-body" ng-show="success">
+                    <p class="ch-profile-feedback__text ch-profile-feedback__text_center">
+                        Your user has been activated.
+                    </p>
+                    <p class="ch-profile-feedback__text ch-profile-feedback__text_center">
+                        Please sign in.
+                    </p>
+                </div>
+
+                <div class="ch-profile-feedback__text-body" ng-show="error">
+                    <p class="ch-profile-feedback__text ch-profile-feedback__text_center">
+                        Your user could not be activated.
+                    </p>
+                    <p class="ch-profile-feedback__text ch-profile-feedback__text_center">
+                        Please use the registration form to sign up.
+                    </p>
+                </div>
+
+
+                <div class="ch-profile-feedback-controls">
+                    <div class="ch-profile-feedback-controls__button">
+                        <button type="button" class="ch-option-btn ch-option-btn_fullwidth">
+                            <span class="ch-option-btn__text">Sign In</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

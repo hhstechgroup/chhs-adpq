@@ -53,23 +53,15 @@
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
-                <button type="button" class="ch-option-btn" ng-click="openDefaultAddressModal()">
-                    <span class="ch-option-btn__text">show popup</span>
-                </button>
-            </div>
         </div>
     </section>
 </div>
 
-<div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside">
+<div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside"></div>
 
-</div>
-
-<!--start main content-->
 <div class = "ch-layout__content ch-layout__content_facilities" ng-class="{ 'ch-layout__content_fullwidth' : isContentFullWidth }" ui-view="main">
     <div>
         <leaflet defaults="defaults" lf-center="center" markers="locations" layers="layers" style="height: calc(100vh - 14.8rem);"></leaflet>
     </div>
-</div><!--end main content-->
+</div>
 
