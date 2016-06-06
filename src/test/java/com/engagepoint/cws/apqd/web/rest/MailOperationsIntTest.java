@@ -33,17 +33,12 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.mail.Address;
-import javax.mail.internet.MimeMessage;
 
-import java.util.Locale;
 import java.util.Optional;
-import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -134,7 +129,7 @@ public class MailOperationsIntTest {
     }
 
     @Before
-    public void before () {
+    public void before() {
         Logger logger = (Logger) LoggerFactory.getLogger(MailService.class);
         logger.addAppender(mockLogAppender);
 
@@ -145,57 +140,6 @@ public class MailOperationsIntTest {
     public void after() {
         Logger logger = (Logger) LoggerFactory.getLogger(MailService.class);
         logger.detachAppender(mockLogAppender);
-    }
-
-    private void assertThatMessageFromIs(MimeMessage mimeMessage, String email) throws Exception {
-        Address[] senders = mimeMessage.getFrom();
-        assertThat(senders).isNotNull();
-        assertThat(senders.length).isGreaterThan(0);
-        assertThat(senders[0]).isNotNull();
-        assertThat(senders[0].toString()).isEqualTo(email);
-    }
-
-    private void assertThatMessageRecipientIs(MimeMessage mimeMessage, String email) throws Exception {
-        Address[] recipients = mimeMessage.getAllRecipients();
-        assertThat(recipients).isNotNull();
-        assertThat(recipients.length).isGreaterThan(0);
-        assertThat(recipients[0]).isNotNull();
-        assertThat(recipients[0].toString()).isEqualTo(email);
-    }
-
-    private String getUserEmailSubject(User user, String subjectKey) {
-        return messageSource.getMessage(subjectKey, null, Locale.forLanguageTag(user.getLangKey()));
-    }
-
-    private String getUserEmailContent(User user, String contentTemplateName) {
-        Locale locale = Locale.forLanguageTag(user.getLangKey());
-        Context context = new Context(locale);
-        context.setVariable("user", user);
-        context.setVariable("baseUrl", "http://localhost:80/");
-
-        return templateEngine.process(contentTemplateName, context);
-    }
-
-    private void assertUserEmail(User user, String subjectKey, String contentTemplateName) throws Exception {
-        Future<MimeMessage> futureMimeMessage = mockMailSender.getFutureMimeMessage();
-        assertThat(futureMimeMessage).isNotNull();
-        assertThat(futureMimeMessage.isDone()).isTrue();
-
-        MimeMessage mimeMessage = futureMimeMessage.get();
-        assertThat(mimeMessage).isNotNull();
-
-        assertThatMessageFromIs(mimeMessage, jHipsterProperties.getMail().getFrom());
-        assertThatMessageRecipientIs(mimeMessage, user.getEmail());
-
-        assertThat(mimeMessage.getSubject()).isNotNull();
-        assertThat(mimeMessage.getSubject()).isEqualTo(getUserEmailSubject(user, subjectKey));
-
-        assertThat(mimeMessage.getContent()).isNotNull();
-        assertThat(
-            cutQuotedUrls(mimeMessage.getContent().toString())
-        ).isEqualTo(
-            cutQuotedUrls(getUserEmailContent(user, contentTemplateName))
-        );
     }
 
     /**
@@ -237,7 +181,8 @@ public class MailOperationsIntTest {
 
         performCreateUser(restMockMvc, user).andExpect(status().isCreated());
 
-        assertUserEmail(user, "email.activation.title", "creationEmail");
+        assertUserEmail(jHipsterProperties, messageSource, templateEngine, mockMailSender,
+            user, "email.activation.title", "creationEmail");
     }
 
     @Test
@@ -260,7 +205,8 @@ public class MailOperationsIntTest {
         assertThat(testUser).isNotNull();
         assertThat(testUser.isPresent()).isTrue();
 
-        assertUserEmail(user, "email.activation.title", "activationEmail");
+        assertUserEmail(jHipsterProperties, messageSource, templateEngine, mockMailSender,
+            user, "email.activation.title", "activationEmail");
 
         // activateAccount
 
@@ -284,7 +230,8 @@ public class MailOperationsIntTest {
                 ))
             .andExpect(status().isOk());
 
-        assertUserEmail(user, "email.reset.title", "passwordResetEmail");
+        assertUserEmail(jHipsterProperties, messageSource, templateEngine, mockMailSender,
+            user, "email.reset.title", "passwordResetEmail");
 
         // finishPasswordReset
 

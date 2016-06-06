@@ -1,5 +1,6 @@
 package com.engagepoint.cws.apqd;
 
+import com.engagepoint.cws.apqd.config.JHipsterProperties;
 import com.engagepoint.cws.apqd.domain.Draft;
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.MailBox;
@@ -19,6 +20,7 @@ import com.engagepoint.cws.apqd.web.rest.TestUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.ContactDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import org.assertj.core.api.StrictAssertions;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,10 +29,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import javax.mail.Address;
+import javax.mail.internet.MimeMessage;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -283,5 +291,65 @@ public final class APQDTestUtil {
 
         assertThat(entity1.hashCode()).isNotNull();
         assertThat(entity1.toString().length()).isGreaterThan(0);
+    }
+
+    /*
+     * real EMail related
+     */
+
+    private static void assertThatMessageFromIs(MimeMessage mimeMessage, String email) throws Exception {
+        Address[] senders = mimeMessage.getFrom();
+        assertThat(senders).isNotNull();
+        assertThat(senders.length).isGreaterThan(0);
+        assertThat(senders[0]).isNotNull();
+        assertThat(senders[0].toString()).isEqualTo(email);
+    }
+
+    private static void assertThatMessageRecipientIs(MimeMessage mimeMessage, String email) throws Exception {
+        Address[] recipients = mimeMessage.getAllRecipients();
+        assertThat(recipients).isNotNull();
+        assertThat(recipients.length).isGreaterThan(0);
+        assertThat(recipients[0]).isNotNull();
+        assertThat(recipients[0].toString()).isEqualTo(email);
+    }
+
+    private static String getUserEmailSubject(MessageSource messageSource, User user, String subjectKey) {
+        return messageSource.getMessage(subjectKey, null, Locale.forLanguageTag(user.getLangKey()));
+    }
+
+    private static String getUserEmailContent(SpringTemplateEngine templateEngine, User user, String contentTemplateName) {
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable("user", user);
+        context.setVariable("baseUrl", "http://localhost:80/");
+
+        return templateEngine.process(contentTemplateName, context);
+    }
+
+    public static void assertUserEmail(JHipsterProperties jHipsterProperties,
+                                       MessageSource messageSource,
+                                       SpringTemplateEngine templateEngine,
+                                       MockMailSender mockMailSender,
+                                       User user, String subjectKey, String contentTemplateName) throws Exception {
+
+        Future<MimeMessage> futureMimeMessage = mockMailSender.getFutureMimeMessage();
+        assertThat(futureMimeMessage).isNotNull();
+        assertThat(futureMimeMessage.isDone()).isTrue();
+
+        MimeMessage mimeMessage = futureMimeMessage.get();
+        assertThat(mimeMessage).isNotNull();
+
+        assertThatMessageFromIs(mimeMessage, jHipsterProperties.getMail().getFrom());
+        assertThatMessageRecipientIs(mimeMessage, user.getEmail());
+
+        assertThat(mimeMessage.getSubject()).isNotNull();
+        assertThat(mimeMessage.getSubject()).isEqualTo(getUserEmailSubject(messageSource, user, subjectKey));
+
+        assertThat(mimeMessage.getContent()).isNotNull();
+        assertThat(
+            cutQuotedUrls(mimeMessage.getContent().toString())
+        ).isEqualTo(
+            cutQuotedUrls(getUserEmailContent(templateEngine, user, contentTemplateName))
+        );
     }
 }

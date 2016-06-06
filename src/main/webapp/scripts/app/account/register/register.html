@@ -26,10 +26,6 @@
         <div class="ch-sign-up__form">
             <h3 class="ch-sign-up__form__title" ng-show="!success">Sign Up</h3>
 
-            <div class="ch-sign-up-success" ng-show="success" translate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
-
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 
               <div class="ch-sign-up__form__group ch-sign-up__form__group_row">
@@ -113,7 +109,7 @@
                 </div>
 
                 <div class="ch-sign-up__form__group">
-                    <label class="control-label" for="email" >License number/Case number</label>
+                    <label class="control-label" for="email" >Family case number / License case number</label>
                     <input type="text" class="form-control" id="caseNumber" name="caseNumber" placeholder="License number/Case number"
                            ng-model="registerAccount.caseNumber" ng-maxlength=20 required>
                     <div ng-show="form.caseNumber.$dirty && form.caseNumber.$invalid">

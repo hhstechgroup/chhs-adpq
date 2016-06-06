@@ -1,5 +1,6 @@
 package com.engagepoint.cws.apqd.web.rest;
 
+import com.engagepoint.cws.apqd.APQDTestUtil;
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.MockMailSender;
 import com.engagepoint.cws.apqd.config.JHipsterProperties;
@@ -30,8 +31,12 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.inject.Inject;
 
+import java.util.Optional;
+
 import static com.engagepoint.cws.apqd.APQDTestUtil.*;
+import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -256,5 +261,19 @@ public class UserResourceIntTest {
             .andExpect(header().string("X-apqdApp-error", "error.emailexists"))
             .andExpect(header().string("X-apqdApp-params", "user-management"))
             .andExpect(content().bytes(new byte[]{}));
+    }
+
+    @Test
+    @Transactional
+    public void testDeleteUser() throws Exception {
+        User user = APQDTestUtil.newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userRepository.saveAndFlush(user);
+
+        restUserMockMvc.perform(delete("/api/users/{login}", user.getLogin())
+            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk());
+
+        Optional<User> optional = userRepository.findOneById(user.getId());
+        assertThat(optional.isPresent()).isFalse();
     }
 }

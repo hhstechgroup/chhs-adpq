@@ -11,6 +11,7 @@ import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
+import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import org.junit.Before;
 import org.junit.Test;
@@ -393,5 +394,46 @@ public class AccountResourceIntTest {
 
         User updatedUser = userRepository.findOneByEmail(user.getEmail()).get();
         assertUser(updatedUser, user);
+    }
+
+    @Test
+    @Transactional
+    public void testChangePassword() throws Exception {
+        User user = APQDTestUtil.newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userRepository.saveAndFlush(user);
+
+        setCurrentUser(user);
+
+        String newPassword = RandomUtil.generatePassword();
+
+        restMvc.perform(
+            post("/api/account/change_password")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(newPassword))
+            .andExpect(status().isOk());
+
+        User updatedUser = userRepository.findOneByLogin(user.getLogin()).get();
+        assertThat(updatedUser.getPassword()).isNotEqualTo(passwordEncoder.encode(newPassword));
+    }
+
+    @Test
+    @Transactional
+    public void testChangeIncorrectPassword() throws Exception {
+        User user = APQDTestUtil.newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userRepository.saveAndFlush(user);
+
+        setCurrentUser(user);
+
+        String newPassword = "111";
+
+        restMvc.perform(
+            post("/api/account/change_password")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(newPassword))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string("Incorrect password"));
+
+        User updatedUser = userRepository.findOneByLogin(user.getLogin()).get();
+        assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
     }
 }
