@@ -64,7 +64,7 @@ class LookupGenderGatlingTest extends Simulation {
             .exec(http("Create new lookupGender")
             .post("/api/lookupGenders")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "genderCode":"SAMPLE_TEXT", "genderName":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "genderCode":"F", "genderName":"Female"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_lookupGender_url")))
             .pause(10)
