@@ -42,6 +42,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import static com.engagepoint.cws.apqd.APQDTestUtil.addUserRole;
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertUserEmail;
 import static com.engagepoint.cws.apqd.APQDTestUtil.expectHasContact;
 import static com.engagepoint.cws.apqd.APQDTestUtil.newUserAnnaBrown;
 import static com.engagepoint.cws.apqd.APQDTestUtil.newUserJohnWhite;
@@ -113,6 +114,8 @@ public class MailResourceIntTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
+    private MockMailSender mockMailSender;
+
     private MockMvc restResourceMockMvc;
 
     private User fromUser;
@@ -127,16 +130,17 @@ public class MailResourceIntTest {
     @Inject
     private SpringTemplateEngine templateEngine;
 
-
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
+
+        mockMailSender = new MockMailSender();
 
         MailService mailService = new MailService();
         ReflectionTestUtils.setField(mailService, "jHipsterProperties", jHipsterProperties);
         ReflectionTestUtils.setField(mailService, "messageSource", messageSource);
         ReflectionTestUtils.setField(mailService, "templateEngine", templateEngine);
-        ReflectionTestUtils.setField(mailService, "javaMailSender", new MockMailSender());
+        ReflectionTestUtils.setField(mailService, "javaMailSender", mockMailSender);
 
         MailResource mailResource = new MailResource();
         ReflectionTestUtils.setField(mailResource, "userRepository", userRepository);
@@ -241,6 +245,9 @@ public class MailResourceIntTest {
                     message
                 )))
             .andExpect(status().isOk());
+
+        assertUserEmail(jHipsterProperties, messageSource, templateEngine, mockMailSender,
+            message.getTo(), "email.newMessage.alert.title", "newMessageAlertEmail");
     }
 
     private void assertConfirmReading(Message message) throws Exception {

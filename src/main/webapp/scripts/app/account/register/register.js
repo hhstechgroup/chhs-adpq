@@ -22,5 +22,19 @@ angular.module('apqdApp')
                         return $translate.refresh();
                     }]
                 }
+            })
+            .state('registerme-saved', {
+                parent: 'account',
+                url: '/registerme',
+                data: {
+                    authorities: [],
+                    pageTitle: 'register.title'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/account/register/register-saved.html',
+                        controller: 'RegisterSavedController'
+                    }
+                }
             });
     });
