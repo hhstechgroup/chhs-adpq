@@ -289,7 +289,8 @@ public class MailResourceIntTest {
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
         assertThat(testMessage.getDateCreated()).isNotNull();
         assertThat(testMessage.getDateUpdated()).isNotNull();
-        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(1);
+        assertThat(testMessage.getUnreadMessagesCountFrom()).isEqualTo(0);
+        assertThat(testMessage.getUnreadMessagesCountTo()).isEqualTo(1);
 
         // test get from fromUser sent folder
 
@@ -299,7 +300,6 @@ public class MailResourceIntTest {
 
         testMessage = messageRepository.findOne(testMessage.getId());
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
-        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(1);
 
         // test get from toUser inbox folder
 
