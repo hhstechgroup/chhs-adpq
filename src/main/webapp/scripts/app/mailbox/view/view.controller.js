@@ -39,6 +39,11 @@ angular.module('apqdApp')
         };
 
         $scope.deleteOne = function(mail) {
+            if (_.last(messageThread.thread).id === mail.id) {
+                $scope.deleteAll();
+                return;
+            }
+
             $scope.delete([mail]).then(function() {
                 if (messageThread.thread.length === 1) {
                     $rootScope.backToPreviousState();
