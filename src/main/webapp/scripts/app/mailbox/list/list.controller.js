@@ -62,7 +62,7 @@ angular.module('apqdApp')
         $scope.openMail = function(mail) {
             if ($stateParams.directory === 'drafts') {
                 $state.go('ch-inbox.new-mail', {mailId: mail.id});
-            } if ($stateParams.directory === 'deleted') {
+            } else if ($stateParams.directory === 'deleted') {
                 $state.go('ch-inbox.view', {mailId: mail.id, readOnly: true});
             } else {
                 $state.go('ch-inbox.view', {mailId: mail.id});
