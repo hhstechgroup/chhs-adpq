@@ -99,6 +99,7 @@ public class MailResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page,
             "/api/messages/" + directory);
 
+        actualizeCounts(page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
@@ -138,7 +139,7 @@ public class MailResource {
 
         updateUserContacts(userFrom, userTo);
         moveMessageFromDraftToInbox(message, userTo, userFrom);
-        updateUnreadCount(message);
+        updateUnreadCountOnSend(message);
         updateMessageThread(message);
 
         mailBoxService.notifyClientAboutDraftsCount();
@@ -197,7 +198,7 @@ public class MailResource {
 
         updateUserContacts(userFrom, userTo);
         moveMessageFromDraftToInbox(message, userTo, userFrom);
-        updateUnreadCount(message);
+        updateUnreadCountOnSend(message);
         updateMessageThread(message);
     }
 
@@ -323,29 +324,36 @@ public class MailResource {
         messageRepository.save(message);
     }
 
-    private void updateUnreadCount(Message message) {
+    private void updateUnreadCountOnSend(Message message) {
         Long rootId = message.getReplyOn() != null ? message.getReplyOn().getId() : message.getId();
 
         MessageThread thread = findOrCreateMessageThreadByMessageId(rootId);
         Message root = thread.getThread().get(0);
 
-        int unread = root.getUnreadMessagesCount() + 1;
+        int unread = root.getUnreadMessagesCountTo() + 1;
         ZonedDateTime updated = ZonedDateTime.now();
 
         root.setDateUpdated(updated);
-        root.setUnreadMessagesCount(unread);
+        root.setUnreadMessagesCountTo(unread);
         messageThreadSearchRepository.save(thread);
 
         root = messageRepository.findOne(root.getId());
-        root.setUnreadMessagesCount(unread);
+        root.setUnreadMessagesCountTo(unread);
         root.setDateUpdated(updated);
         messageRepository.save(root);
     }
 
     private void setReadStatusToAllMessagesInThread(Message message) {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
         MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
         Message root = thread.getThread().get(0);
-        root.setUnreadMessagesCount(0);
+
+        if (message.getTo().equals(user)) {
+            root.setUnreadMessagesCountTo(0);
+        } else {
+            root.setUnreadMessagesCountFrom(0);
+        }
 
         for (Message msg : thread.getThread()) {
             if (msg.getStatus() == MessageStatus.UNREAD) {
@@ -361,7 +369,12 @@ public class MailResource {
         }
 
         root = messageRepository.findOne(root.getId());
-        root.setUnreadMessagesCount(0);
+        if (message.getTo().equals(user)) {
+            root.setUnreadMessagesCountTo(0);
+        } else {
+            root.setUnreadMessagesCountFrom(0);
+        }
+
         messageRepository.save(root);
         messageThreadSearchRepository.save(thread);
     }
@@ -458,5 +471,17 @@ public class MailResource {
         mailBoxService.notifyClientAboutUnreadInboxCount(user);
         mailBoxService.notifyClientAboutDeletedCount();
         mailBoxService.notifyClientAboutDraftsCount();
+    }
+
+    private void actualizeCounts(Page<Message> page) {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        for (Message message : page.getContent()) {
+            if (message.getTo().equals(user)) {
+                message.setUnreadMessagesCount(message.getUnreadMessagesCountTo());
+            } else {
+                message.setUnreadMessagesCount(message.getUnreadMessagesCountFrom());
+            }
+        }
     }
 }

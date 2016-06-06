@@ -35,7 +35,8 @@
 
             <column name="date_updated" type="timestamp"/>
 
-            <column name="unread_messages_count" type="integer"/>
+            <column name="unread_messages_count_to" type="integer"/>
+            <column name="unread_messages_count_from" type="integer"/>
 
             <column name="reply_on_id" type="bigint" />
             <column name="to_id" type="bigint" />

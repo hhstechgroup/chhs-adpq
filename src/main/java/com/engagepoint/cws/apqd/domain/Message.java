@@ -53,8 +53,14 @@ public class Message implements Serializable {
     @Column(name = "date_updated")
     private ZonedDateTime dateUpdated;
 
-    @Column(name = "unread_messages_count")
+    @Transient
     private int unreadMessagesCount;
+
+    @Column(name = "unread_messages_count_to")
+    private int unreadMessagesCountTo;
+
+    @Column(name = "unread_messages_count_from")
+    private int unreadMessagesCountFrom;
 
     @OneToMany(mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
         fetch = FetchType.EAGER, orphanRemoval = true)
@@ -210,6 +216,22 @@ public class Message implements Serializable {
 
     public void setDraft(Draft draft) {
         this.draft = draft;
+    }
+
+    public int getUnreadMessagesCountTo() {
+        return unreadMessagesCountTo;
+    }
+
+    public void setUnreadMessagesCountTo(int unreadMessagesCountTo) {
+        this.unreadMessagesCountTo = unreadMessagesCountTo;
+    }
+
+    public int getUnreadMessagesCountFrom() {
+        return unreadMessagesCountFrom;
+    }
+
+    public void setUnreadMessagesCountFrom(int unreadMessagesCountFrom) {
+        this.unreadMessagesCountFrom = unreadMessagesCountFrom;
     }
 
     @Override
