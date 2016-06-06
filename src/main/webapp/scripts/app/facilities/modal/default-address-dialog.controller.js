@@ -12,10 +12,14 @@ angular.module('apqdApp')
 
             $scope.close = function (addressFeature) {
                 if ($scope.saveAddressToProfile) {
-                    AddressUtils.addAddressToAccount(addressFeature, userProfile);
-                    Place.save(userProfile.place, function() {
-                        Auth.updateAccount(userProfile);
-                    });
+                    AddressUtils.addAddressToAccount(addressFeature, userProfile).then(
+                        function() {
+                            Place.save(userProfile.place, function(place) {
+                                userProfile.place = place;
+                                Auth.updateAccount(userProfile);
+                            });
+                        }
+                    );
                 }
                 $uibModalInstance.close(addressFeature);
             };

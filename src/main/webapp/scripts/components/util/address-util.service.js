@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .factory('AddressUtils', ['LookupState', function (LookupState) {
+    .factory('AddressUtils', ['$q', 'LookupState', function ($q, LookupState) {
         function formatStreet(place) {
             return _.isNil(place) ? '' : _([place.streetNumber, place.streetName, formatUnitNumber(place.unitNumber)])
                 .omitBy(_.isNil).omitBy(_.isEmpty).values().join(' ');
@@ -34,6 +34,7 @@ angular.module('apqdApp')
 
         return {
             addAddressToAccount: function (addressFeature, account) {
+                var q = $q.defer();
                 LookupState.query().$promise.then(function(states) {
                     if (!account.place) {
                         account.place = {};
@@ -47,7 +48,9 @@ angular.module('apqdApp')
 
                     account.place.latitude = addressFeature.latlng.lat;
                     account.place.longitude = addressFeature.latlng.lng;
+                    q.resolve();
                 });
+                return q.promise;
             },
 
             formatAddress: function formatAddress(place, defaultValue) {
