@@ -1,4 +1,6 @@
 <section class="ch-aside-facilities" ng-show="isAsideVisible">
+    <div>RESULTS: {{agencies.length}} Agencies</div>
+    <button type="button" ng-click="resetFilters();">Reset Filters</button>
     <ul class="ch-facilities">
         <li class="ch-facilities__item" ng-repeat="agency in agencies  | orderBy: 'distanceValue'">
             <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
