@@ -3,16 +3,16 @@
     <div class="ch-facility__tags">
         <ul class="ch-facility-tags clearfix">
             <li class="ch-facility-tags__tag">
-                <span class="ch-facilities-tag ch-facilities-tag_foster-family">{{agency.facility_type | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_foster-family">{{agency.facility_type}}</span>
             </li>
             <li class="ch-facility-tags__tag" ng-show="agency.facility_status === 'LICENSED'">
-                <span class="ch-facilities-tag ch-facilities-tag_status_green">{{agency.facility_status | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_status_green">{{agency.facility_status}}</span>
             </li>
             <li class="ch-facility-tags__tag" ng-show="agency.facility_status === 'CLOSED'">
-                <span class="ch-facilities-tag ch-facilities-tag_status_red">{{agency.facility_status | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_status_red">{{agency.facility_status}}</span>
             </li>
             <li class="ch-facility-tags__tag" ng-show="agency.facility_status === 'PENDING'">
-                <span class="ch-facilities-tag ch-facilities-tag_status_orange">{{agency.facility_status | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_status_orange">{{agency.facility_status}}</span>
             </li>
         </ul>
     </div>
