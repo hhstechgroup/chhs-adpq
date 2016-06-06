@@ -2,7 +2,8 @@
 
 angular.module('apqdApp')
     .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log,
-                                          Message, ParseLinks, MailService, filterByDestination) {
+                                          Message, ParseLinks, MailService, filterByDestination,
+                                          DeleteMessageService, RestoreMessageService, identity) {
 
         $scope.pageNum = 0;
         $scope.pageSize = 10;
@@ -80,9 +81,21 @@ angular.module('apqdApp')
             }
         };
 
+        $scope.getActionName = function() {
+            return ($stateParams.directory === 'deleted' ? 'Restore' : 'Delete');
+        };
+
         $scope.getTargetName = function(mail) {
-            if ($stateParams.directory === 'inbox' || $stateParams.directory === 'deleted') {
+            if ($stateParams.directory === 'inbox') {
                 return mail.from.firstName + ' ' + mail.from.lastName;
+            } if ($stateParams.directory === 'deleted') {
+
+                if (identity.login === mail.to.login) {
+                    return mail.from.firstName + ' ' + mail.from.lastName;
+                } else {
+                    return mail.to.firstName + ' ' + mail.to.lastName;
+                }
+
             } else {
                 return (!_.isNil(mail.to) ? mail.to.firstName + ' ' + mail.to.lastName : '');
             }
@@ -98,7 +111,17 @@ angular.module('apqdApp')
         };
 
         $scope.deleteSelected = function() {
-            $log.info('deleted');
+            if ($stateParams.directory === 'deleted') {
+                RestoreMessageService.restore(_.filter($scope.mails, {selected: true}), function() {
+                    $scope.allSelected = false;
+                    $scope.loadPage();
+                }, $log.error);
+            } else {
+                DeleteMessageService.delete(_.filter($scope.mails, {selected: true}), function() {
+                    $scope.allSelected = false;
+                    $scope.loadPage();
+                }, $log.error);
+            }
         };
 
         $scope.getUnreadMessageStyle = function(mail) {

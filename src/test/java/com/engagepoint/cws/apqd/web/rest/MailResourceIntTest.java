@@ -4,15 +4,10 @@ import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
-import com.engagepoint.cws.apqd.repository.DeletedRepository;
-import com.engagepoint.cws.apqd.repository.DraftRepository;
-import com.engagepoint.cws.apqd.repository.InboxRepository;
-import com.engagepoint.cws.apqd.repository.MailBoxRepository;
-import com.engagepoint.cws.apqd.repository.MessageRepository;
-import com.engagepoint.cws.apqd.repository.OutboxRepository;
-import com.engagepoint.cws.apqd.repository.UserRepository;
+import com.engagepoint.cws.apqd.repository.*;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageThreadSearchRepository;
+import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,17 +23,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
-import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
-import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
-import static com.engagepoint.cws.apqd.APQDTestUtil.setCurrentUser;
-import static com.engagepoint.cws.apqd.APQDTestUtil.setMailBox;
+import static com.engagepoint.cws.apqd.APQDTestUtil.*;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -52,13 +44,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class MailResourceTest {
+public class MailResourceIntTest {
     private static final String MSG_SUBJECT = "subject";
     private static final String MSG_SUBJECT_UPDATED = "subject updated";
     private static final String MSG_BODY = "body";
     private static final String MSG_BODY_UPDATED = "body updated";
-    private static final String CURRENT_LOGIN = "current1";
-    private static final String TO_LOGIN = "userto1";
 
     enum MAIL_FILTER {
         NONE,
@@ -80,6 +70,9 @@ public class MailResourceTest {
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private AuthorityRepository authorityRepository;
 
     @Inject
     private PasswordEncoder passwordEncoder;
@@ -105,7 +98,7 @@ public class MailResourceTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
-    private MockMvc restMailResourceMockMvc;
+    private MockMvc restResourceMockMvc;
 
     private User fromUser;
     private User toUser;
@@ -113,16 +106,20 @@ public class MailResourceTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        MailResource eMailResource = new MailResource();
 
-        ReflectionTestUtils.setField(eMailResource, "userRepository", userRepository);
-        ReflectionTestUtils.setField(eMailResource, "messageRepository", messageRepository);
-        ReflectionTestUtils.setField(eMailResource, "mailBoxService", mailBoxService);
-        ReflectionTestUtils.setField(eMailResource, "mailBoxRepository", mailBoxRepository);
-        ReflectionTestUtils.setField(eMailResource, "messageSearchRepository", messageSearchRepository);
-        ReflectionTestUtils.setField(eMailResource, "messageThreadSearchRepository", messageThreadSearchRepository);
+        MailResource mailResource = new MailResource();
+        ReflectionTestUtils.setField(mailResource, "userRepository", userRepository);
+        ReflectionTestUtils.setField(mailResource, "messageRepository", messageRepository);
+        ReflectionTestUtils.setField(mailResource, "mailBoxService", mailBoxService);
+        ReflectionTestUtils.setField(mailResource, "mailBoxRepository", mailBoxRepository);
+        ReflectionTestUtils.setField(mailResource, "messageSearchRepository", messageSearchRepository);
+        ReflectionTestUtils.setField(mailResource, "messageThreadSearchRepository", messageThreadSearchRepository);
 
-        this.restMailResourceMockMvc = MockMvcBuilders.standaloneSetup(eMailResource)
+        ContactResource contactResource = new ContactResource();
+        ReflectionTestUtils.setField(contactResource, "userRepository", userRepository);
+        ReflectionTestUtils.setField(contactResource, "authorityRepository", authorityRepository);
+
+        this.restResourceMockMvc = MockMvcBuilders.standaloneSetup(mailResource, contactResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
@@ -137,13 +134,15 @@ public class MailResourceTest {
     private Message prepareData() {
         // create Users and Mailboxes
 
-        fromUser = prepareUser(userRepository, passwordEncoder, CURRENT_LOGIN);
+        fromUser = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        addUserRole(authorityRepository, fromUser, AuthoritiesConstants.CASE_WORKER);
         setMailBox(userRepository, fromUser,
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository, draftRepository));
 
         setCurrentUser(fromUser);
 
-        toUser = prepareUser(userRepository, passwordEncoder, TO_LOGIN);
+        toUser = newUserJohnWhite(passwordEncoder, authorityRepository);
+        addUserRole(authorityRepository, toUser, AuthoritiesConstants.PARENT);
         setMailBox(userRepository, toUser,
             prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository, draftRepository));
 
@@ -155,7 +154,7 @@ public class MailResourceTest {
     private void assertCreateMessage(Message newMessage) throws Exception {
         assertThat(newMessage.getId()).isNull();
 
-        restMailResourceMockMvc.perform(
+        restResourceMockMvc.perform(
             put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
@@ -175,7 +174,7 @@ public class MailResourceTest {
             searchWord = testMessage.getBody().split(" ")[0];
         }
 
-        restMailResourceMockMvc.perform(
+        restResourceMockMvc.perform(
             get(String.format("/api/mails/%s/%s?sort=id,desc", eMailDirectory, searchWord)))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -187,7 +186,7 @@ public class MailResourceTest {
     private void assertUpdateMessage(Message updatedMessage) throws Exception {
         assertThat(updatedMessage.getId()).isNotNull();
 
-        restMailResourceMockMvc.perform(
+        restResourceMockMvc.perform(
             put("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
@@ -203,7 +202,7 @@ public class MailResourceTest {
     private void assertSendMessage(Message message) throws Exception {
         assertThat(message.getId()).isNotNull();
 
-        restMailResourceMockMvc.perform(
+        restResourceMockMvc.perform(
             post("/api/mails/draft")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
@@ -215,7 +214,7 @@ public class MailResourceTest {
     private void assertConfirmReading(Message message) throws Exception {
         assertThat(message.getId()).isNotNull();
 
-        restMailResourceMockMvc.perform(
+        restResourceMockMvc.perform(
             post("/api/mails/confirm")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(
@@ -227,7 +226,7 @@ public class MailResourceTest {
     private void assertMessageThread(Message message) throws Exception {
         assertThat(message.getId()).isNotNull();
 
-        restMailResourceMockMvc.perform(
+        restResourceMockMvc.perform(
             get("/api/mails/thread/" + message.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -236,6 +235,22 @@ public class MailResourceTest {
             .andExpect(jsonPath("$.thread[*].id").value(hasItem(message.getId().intValue())))
             .andExpect(jsonPath("$.thread[*].subject").value(hasItem(message.getSubject())))
             .andExpect(jsonPath("$.thread[*].body").value(hasItem(message.getBody())));
+    }
+
+    private void assertGetContactsForMailTo(User expectedContact) throws Exception {
+        ResultActions resultActions = restResourceMockMvc.perform(
+            get("/api/contacts"))
+            .andExpect(status().isOk());
+
+        expectHasContact(resultActions, expectedContact);
+    }
+
+    private void assertGetContactsList(User expectedContact) throws Exception {
+        ResultActions resultActions = restResourceMockMvc.perform(
+            post("/api/contacts"))
+            .andExpect(status().isOk());
+
+        expectHasContact(resultActions, expectedContact);
     }
 
     @Test
@@ -307,5 +322,14 @@ public class MailResourceTest {
         // test message thread
 
         assertMessageThread(testMessage);
+
+        // test ContactResource.getContactsForMailTo and getContactsList
+
+        setCurrentUser(fromUser);
+        assertGetContactsForMailTo(toUser);
+
+        setCurrentUser(toUser);
+        assertGetContactsForMailTo(fromUser);
+        assertGetContactsList(fromUser);
     }
 }

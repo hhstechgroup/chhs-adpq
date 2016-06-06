@@ -1,6 +1,5 @@
 package com.engagepoint.cws.apqd;
 
-import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Draft;
 import com.engagepoint.cws.apqd.domain.Inbox;
@@ -19,6 +18,7 @@ import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.TestUtil;
+import com.engagepoint.cws.apqd.web.rest.dto.ContactDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import org.assertj.core.api.StrictAssertions;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +33,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -78,10 +79,11 @@ public final class APQDTestUtil {
         return userRepository == null ? user : userRepository.saveAndFlush(user);
     }
 
-    public static void setUserRole(AuthorityRepository authorityRepository, User user, String role) {
-        Set<Authority> authorities = new HashSet<>();
-        authorities.add(authorityRepository.findOne(role));
-        user.setAuthorities(authorities);
+    public static void addUserRole(AuthorityRepository authorityRepository, User user, String role) {
+        if (user.getAuthorities() == null) {
+            user.setAuthorities(new HashSet<>());
+        }
+        user.getAuthorities().add(authorityRepository.findOne(role));
     }
 
     public static void setMailBox(UserRepository userRepository, User user, MailBox mailBox) {
@@ -102,7 +104,7 @@ public final class APQDTestUtil {
         user.setBirthDate(LocalDate.ofEpochDay(0L));
         user.setPhoneNumber("1111-111-111");
 
-        setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
+        addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
         return user;
     }
@@ -120,7 +122,7 @@ public final class APQDTestUtil {
         user.setBirthDate(LocalDate.ofEpochDay(0L));
         user.setPhoneNumber("1111-111-222");
 
-        setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
+        addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
         return user;
     }
@@ -168,6 +170,16 @@ public final class APQDTestUtil {
         assertThat(actual.getSsnLast4Digits()).isEqualTo(expected.getSsnLast4Digits());
     }
 
+    public static void expectHasContact(ResultActions resultActions, User contact) throws Exception {
+        ContactDTO contactDTO = new ContactDTO(contact);
+        resultActions
+            .andExpect(jsonPath("$.[*].login").value(hasItem(contactDTO.getLogin())))
+            .andExpect(jsonPath("$.[*].firstName").value(hasItem(contactDTO.getFirstName())))
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(contactDTO.getLastName())))
+            .andExpect(jsonPath("$.[*].phone").value(hasItem(contactDTO.getPhone())))
+            .andExpect(jsonPath("$.[*].roleDescription").value(hasItem(contactDTO.getRoleDescription())));
+    }
+
     /*
      * Inbox-related
      */
@@ -207,9 +219,6 @@ public final class APQDTestUtil {
     }
 
     public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
-        Set<Message> messages = new HashSet<>();
-        messages.add(message);
-        deleted.setMessages(messages);
         return deletedRepository.saveAndFlush(deleted);
     }
 
@@ -236,7 +245,6 @@ public final class APQDTestUtil {
         MailBox mailBox = new MailBox();
         mailBox.setInbox(inbox);
         mailBox.setOutbox(outbox);
-        mailBox.setDeleted(deleted);
         mailBox.setDraft(draft);
         mailBox.setUser(user);
         return mailBoxRepository.saveAndFlush(mailBox);

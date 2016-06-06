@@ -56,6 +56,15 @@ public class Message implements Serializable {
     @Column(name = "unread_messages_count")
     private int unreadMessagesCount;
 
+    @Column(name = "unread_messages_count_to")
+    private int unreadMessagesCountTo;
+
+    @Column(name = "unread_messages_count_from")
+    private int unreadMessagesCountFrom;
+
+    @Column(name = "bi_directional")
+    private Integer biDirectional;
+
     @OneToMany(mappedBy = "message", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
         fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Attachment> attachments = new HashSet<>();
@@ -83,11 +92,6 @@ public class Message implements Serializable {
     @JoinColumn(name = "draft_id")
     @Field(ignoreFields = {"messages", "mailBox"})
     private Draft draft;
-
-    @ManyToOne
-    @JoinColumn(name = "deleted_id")
-    @Field(ignoreFields = {"messages", "mailBox"})
-    private Deleted deleted;
 
     public Long getId() {
         return id;
@@ -217,12 +221,28 @@ public class Message implements Serializable {
         this.draft = draft;
     }
 
-    public Deleted getDeleted() {
-        return deleted;
+    public int getUnreadMessagesCountTo() {
+        return unreadMessagesCountTo;
     }
 
-    public void setDeleted(Deleted deleted) {
-        this.deleted = deleted;
+    public void setUnreadMessagesCountTo(int unreadMessagesCountTo) {
+        this.unreadMessagesCountTo = unreadMessagesCountTo;
+    }
+
+    public int getUnreadMessagesCountFrom() {
+        return unreadMessagesCountFrom;
+    }
+
+    public void setUnreadMessagesCountFrom(int unreadMessagesCountFrom) {
+        this.unreadMessagesCountFrom = unreadMessagesCountFrom;
+    }
+
+    public Integer isBiDirectional() {
+        return biDirectional;
+    }
+
+    public void setBiDirectional(Integer biDirectional) {
+        this.biDirectional = biDirectional;
     }
 
     @Override

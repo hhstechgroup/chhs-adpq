@@ -15,7 +15,7 @@
 
         <div ng-if="hasSelected()" class="ch-page-heading__actions" ng-click="deleteSelected()">
             <span class="icon icon-remove" ></span>
-            <span class="actions__text">Delete</span>
+            <span class="actions__text">{{getActionName()}}</span>
         </div>
 
         <div class="ch-page-heading__search">

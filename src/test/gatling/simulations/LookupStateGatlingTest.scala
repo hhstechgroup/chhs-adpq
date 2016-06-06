@@ -64,7 +64,7 @@ class LookupStateGatlingTest extends Simulation {
             .exec(http("Create new lookupState")
             .post("/api/lookupStates")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "stateCode":"SAMPLE_TEXT", "stateName":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "stateCode":"MO", "stateName":"Missouri"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_lookupState_url")))
             .pause(10)

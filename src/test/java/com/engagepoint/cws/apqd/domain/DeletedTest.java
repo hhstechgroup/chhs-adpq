@@ -35,7 +35,6 @@ public class DeletedTest {
 
     private Deleted createEntity(String messageSubject, String messageBody) {
         Deleted deleted = new Deleted();
-        deleted.setMailBox(mailBoxRepository.saveAndFlush(new MailBox()));
         Message message = prepareMessage(messageRepository, messageSubject, messageBody, null, null);
         return setMessage(deletedRepository, deleted, message);
     }
@@ -44,19 +43,9 @@ public class DeletedTest {
     @Transactional
     public void testEntityFields() throws Exception {
         Deleted deleted = createEntity("message subject", "message body");
-        Message message = deleted.getMessages().iterator().next();
 
         Deleted testDeleted = deletedRepository.findOne(deleted.getId());
         assertThat(testDeleted).isNotNull();
-        assertThat(testDeleted.getMessages()).isNotNull();
-        assertThat(testDeleted.getMessages().size()).isGreaterThan(0);
-
-        Message testMessage = testDeleted.getMessages().iterator().next();
-        assertThat(testMessage.getSubject()).isEqualTo(message.getSubject());
-        assertThat(testMessage.getBody()).isEqualTo(message.getBody());
-
-        MailBox testMailBox = testDeleted.getMailBox();
-        assertThat(testMailBox).isNotNull();
     }
 
     @Test
