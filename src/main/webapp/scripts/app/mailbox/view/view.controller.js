@@ -21,13 +21,21 @@ angular.module('apqdApp')
         }
 
         $scope.getFromOrTo = function(mail) {
-            return identity.login === mail.from.login ? 'To: ' : 'From: ';
+            if ($scope.messageThread.thread.length > 1) {
+                return 'From:';
+            } else {
+                return identity.login === mail.from.login ? 'To: ' : 'From: ';
+            }
         };
 
         $scope.getFromOrToName = function(mail) {
-            return (identity.login === mail.from.login ?
+            if ($scope.messageThread.thread.length > 1) {
+                return mail.from.firstName + ' ' + mail.from.lastName;
+            } else {
+                return (identity.login === mail.from.login ?
                     mail.to.firstName + ' ' + mail.to.lastName :
                     mail.from.firstName + ' ' + mail.from.lastName);
+            }
         };
 
         $scope.deleteOne = function(mail) {
