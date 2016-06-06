@@ -11,7 +11,6 @@ import com.engagepoint.cws.apqd.web.rest.dto.ContactDTO;
 import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,8 +42,7 @@ public class ContactResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<ContactDTO>> getAllContacts(Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<ContactDTO>> getContactsForMailTo() throws URISyntaxException {
 
         Page<User> page = loadContacts4CurrentUser();
         List<ContactDTO> managedUserDTOs = page.getContent().stream()
@@ -59,8 +57,7 @@ public class ContactResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<ContactDTO>> getContacts()
-        throws URISyntaxException {
+    public ResponseEntity<List<ContactDTO>> getContactsList() throws URISyntaxException {
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         List<ContactDTO> contactDTOs = userFrom.getMailBox().getContacts().stream()
