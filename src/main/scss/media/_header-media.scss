@@ -1,6 +1,8 @@
 .ch-header {
     @media screen and (max-width: $break-phone) {
         height: 10rem;
+        position: fixed;
+        z-index: 10000;
     }
 }
 

@@ -7,7 +7,7 @@
                 <a href=""><span class="logo-image logo-image_xl"></span></a>
             </div>
 
-            <div class="ch-profile-feedback__form" ng-class="{ ch-profile-feedback__form_succeeded: success }">
+            <div class="ch-profile-feedback__form ch-profile-feedback__form_succeeded">
                 <span class="icon icon-process-succeed" ng-show="success"></span>
                 <h3 class="ch-profile-feedback__form__title">Activation</h3>
 
@@ -32,7 +32,7 @@
 
                 <div class="ch-profile-feedback-controls">
                     <div class="ch-profile-feedback-controls__button">
-                        <button type="button" class="ch-option-btn ch-option-btn_fullwidth">
+                        <button type="button" class="ch-option-btn ch-option-btn_fullwidth" ui-sref="login">
                             <span class="ch-option-btn__text">Sign In</span>
                         </button>
                     </div>

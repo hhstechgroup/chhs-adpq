@@ -333,19 +333,22 @@ public class MailResource {
 
         ZonedDateTime updated = ZonedDateTime.now();
         root.setDateUpdated(updated);
+        int unread;
         if (message.getTo().equals(root.getFrom())) {
-            root.setUnreadMessagesCountFrom(root.getUnreadMessagesCountFrom() + 1);
+            unread = root.getUnreadMessagesCountFrom() + 1;
+            root.setUnreadMessagesCountFrom(unread);
         } else {
-            root.setUnreadMessagesCountTo(root.getUnreadMessagesCountTo() + 1);
+            unread = root.getUnreadMessagesCountTo() + 1;
+            root.setUnreadMessagesCountTo(unread);
         }
         messageThreadSearchRepository.save(thread);
 
         root = messageRepository.findOne(root.getId());
         root.setDateUpdated(updated);
         if (message.getTo().equals(root.getFrom())) {
-            root.setUnreadMessagesCountFrom(root.getUnreadMessagesCountFrom() + 1);
+            root.setUnreadMessagesCountFrom(unread);
         } else {
-            root.setUnreadMessagesCountTo(root.getUnreadMessagesCountTo() + 1);
+            root.setUnreadMessagesCountTo(unread);
         }
         messageRepository.save(root);
     }
