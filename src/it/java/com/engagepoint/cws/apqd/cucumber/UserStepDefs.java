@@ -127,21 +127,18 @@ public class UserStepDefs {
 
     @When("^open facilities page$")
     public void open_facilities_page() throws Throwable {
-        //click_css_and_wait(".ch-user-account-entry__dropdown-btn");
-        //$("[ng-click='logout()']").shouldBe(visible);
-        //$(".ch-user-account-entry__dropdown-btn").click();
-        //$("[ng-click='logout()']").waitUntil(disappear, 4000);
         click_xpath_and_wait(".//a[@href='#/facilities']");
         sleep(2000);
-        //click_css_and_wait(".ch-user-account-entry__dropdown-btn");
-        //$("[ng-click='logout()']").shouldBe(visible);
-        //$(".ch-user-account-entry__dropdown-btn").click();
-        //$("[ng-click='logout()']").waitUntil(disappear, 4000);
+        click_xpath_and_wait(".//*[@class='ch-modal__row']/descendant::input");
+        $(By.xpath(".//*[@class='ch-modal__row']/descendant::input")).setValue("90807");
+        click_xpath_and_wait(".//*[@class='modal-content']/descendant::button");
+        $(By.xpath(".//*[@class='modal-content']/descendant::button")).waitUntil(disappear, 4000);
         $("#search-text").shouldBe(visible);
     }
 
     @When("^open and verify Metrics page$")
     public void open_and_verify_Metrics_page() throws Throwable {
+        $("a[href='#/metrics']").hover();
         click_css_and_wait("a[href='#/metrics']");
         $(By.xpath(".//h2[text()='Application Metrics']")).shouldBe(visible);
         $(By.xpath(".//*[text()='JVM Metrics']")).shouldBe(visible);
@@ -153,6 +150,7 @@ public class UserStepDefs {
 
     @When("^open and verify Users page$")
     public void open_and_verify_Users_page() throws Throwable {
+        $("a[href='#/user-management']").hover();
         click_css_and_wait("a[href='#/user-management']");
         $(By.xpath(".//*[text()='Create a new user']")).shouldBe(visible);
         $(By.xpath(".//*[contains(@ui-sref,'user-management.delete')]")).shouldBe(visible);
@@ -162,6 +160,7 @@ public class UserStepDefs {
 
     @When("^open and verify Tracker page$")
     public void open_and_verify_Tracker_page() throws Throwable {
+        $("a[href='#/tracker']").hover();
         click_css_and_wait("a[href='#/tracker']");
         $(By.xpath(".//h2[text()='Real-time user activities']")).shouldBe(visible);
         $(By.xpath(".//th[text()='User']/../th[text()='IP Address']/../th[text()='Current page']/../th[text()='Time']/..")).shouldBe(visible);
@@ -169,6 +168,7 @@ public class UserStepDefs {
 
     @When("^open and verify Health page$")
     public void open_and_verify_Health_page() throws Throwable {
+        $("a[href='#/health']").hover();
         click_css_and_wait("a[href='#/health']");
         $(By.xpath(".//h2[text()='Health checks']")).shouldBe(visible);
         $(By.xpath(".//th[text()='Service name']/../th[text()='Status']/../th[text()='Details']/..")).shouldBe(visible);
@@ -176,19 +176,25 @@ public class UserStepDefs {
 
     @When("^open and verify Configuration page$")
     public void open_and_verify_Configuration_page() throws Throwable {
+        $("a[href='#/configuration']").hover();
         click_css_and_wait("a[href='#/configuration']");
+        $(By.xpath(".//h2[text()='Configuration']")).shouldBe(visible);
         $(By.xpath(".//th[contains(.,'Prefix')]/../th[contains(.,'Properties')]/..")).shouldBe(visible);
     }
 
     @When("^open and verify Audit page$")
     public void open_and_verify_Audit_page() throws Throwable {
+        $("a[href='#/audits']").hover();
         click_css_and_wait("a[href='#/audits']");
+        $(By.xpath(".//h2[text()='Audits']")).shouldBe(visible);
         $(By.xpath(".//th[contains(.,'Date')]/../th[contains(.,'User')]/../th[contains(.,'State')]/../th[contains(.,'Extra data')]/..")).shouldBe(visible);
     }
 
     @When("^open and verify Logs page$")
     public void open_and_verify_Logs_page() throws Throwable {
+        $("a[href='#/logs']").hover();
         click_css_and_wait("a[href='#/logs']");
+        $(By.xpath(".//h2[text()='Logs']")).shouldBe(visible);
         $(By.xpath(".//th[contains(.,'Name')]/../th[contains(.,'Level')]/..")).shouldBe(visible);
     }
 
@@ -265,7 +271,7 @@ public class UserStepDefs {
     public void do_Ask_About_for_facility_with_address_and_name_and_send_letter(String facilityAddress, String facilityName) throws Throwable {
         click_xpath_and_wait(".//span[contains(text(),'" + facilityAddress + "')]/ancestor::div[@class='ch-facility']/*[text()='" + facilityName + "']/../descendant::button[text()='Ask about']");
         click_css_and_wait("[ng-click='sendMail()']");
-
+        $("[ng-click='sendMail()']").waitUntil(disappear, 4000);
     }
 
     @Then("^verify letter contains attachment$")
