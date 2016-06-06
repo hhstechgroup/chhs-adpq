@@ -111,8 +111,7 @@ angular.module('apqdApp')
         };
 
         $scope.deleteSelected = function() {
-            if ($stateParams.directory === 'deleted') {
-            } else {
+            if ($stateParams.directory !== 'deleted') {
                 DeleteMessageService.delete(_.filter($scope.mails, {selected: true}), function() {
                     $scope.allSelected = false;
                     $scope.loadPage();
