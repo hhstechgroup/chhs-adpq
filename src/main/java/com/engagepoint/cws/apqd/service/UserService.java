@@ -11,6 +11,7 @@ import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.MailResource;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
+import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,8 +104,7 @@ public class UserService {
             });
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, String caseNumber) {
+    public User createUserInformation(UserDTO userDTO) {
 
         User newUser = new User();
         MailBox mailBox = prepareMailbox();
@@ -112,19 +112,19 @@ public class UserService {
         newUser.setMailBox(mailBox);
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.PARENT);
         Set<Authority> authorities = new HashSet<>();
-        String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(login);
+        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        newUser.setLogin(userDTO.getLogin());
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setLangKey(langKey);
-        newUser.setSsnLast4Digits(ssnLast4Digits);
-        newUser.setBirthDate(birthDate);
-        newUser.setGender(gender);
-        newUser.setPhoneNumber(phoneNumber);
-        newUser.setCaseNumber(caseNumber);
+        newUser.setFirstName(userDTO.getFirstName());
+        newUser.setLastName(userDTO.getLastName());
+        newUser.setEmail(userDTO.getEmail().toLowerCase());
+        newUser.setLangKey(userDTO.getLangKey());
+        newUser.setSsnLast4Digits(userDTO.getSsnLast4Digits());
+        newUser.setBirthDate(userDTO.getBirthDate());
+        newUser.setGender(userDTO.getGender());
+        newUser.setPhoneNumber(userDTO.getPhoneNumber());
+        newUser.setCaseNumber(userDTO.getCaseNumber());
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
