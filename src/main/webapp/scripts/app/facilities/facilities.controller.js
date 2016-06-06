@@ -89,9 +89,10 @@ angular.module('apqdApp')
 
                     }
                 ).then(function (distance) {
-                    agency.distance = distance;
+                    agency.distance = distance.toFixed(1);
+                    agency.distanceValue = distance;
 
-                    locations['fn' + agency.facility_number +'_'+ distance.replace('.', '_')] = {
+                    locations['fn' + agency.facility_number +'_'+ agency.distance.replace('.', '_')] = {
                         layer: 'agencies',
                         lat: agency.location.coordinates[1],
                         lng: agency.location.coordinates[0],
