@@ -331,16 +331,22 @@ public class MailResource {
         MessageThread thread = findOrCreateMessageThreadByMessageId(rootId);
         Message root = thread.getThread().get(0);
 
-        int unread = root.getUnreadMessagesCountTo() + 1;
         ZonedDateTime updated = ZonedDateTime.now();
-
         root.setDateUpdated(updated);
-        root.setUnreadMessagesCountTo(unread);
+        if (message.getTo().equals(root.getFrom())) {
+            root.setUnreadMessagesCountFrom(root.getUnreadMessagesCountFrom() + 1);
+        } else {
+            root.setUnreadMessagesCountTo(root.getUnreadMessagesCountTo() + 1);
+        }
         messageThreadSearchRepository.save(thread);
 
         root = messageRepository.findOne(root.getId());
-        root.setUnreadMessagesCountTo(unread);
         root.setDateUpdated(updated);
+        if (message.getTo().equals(root.getFrom())) {
+            root.setUnreadMessagesCountFrom(root.getUnreadMessagesCountFrom() + 1);
+        } else {
+            root.setUnreadMessagesCountTo(root.getUnreadMessagesCountTo() + 1);
+        }
         messageRepository.save(root);
     }
 
@@ -448,18 +454,16 @@ public class MailResource {
     private void restoreMessageInSQL(Message message) {
         Deleted deleted = deletedRepository.findOneByMessage(message);
         deletedRepository.delete(deleted);
-
-//        message.setStatus(MessageStatus.READ);
-//        message.setDateUpdated(ZonedDateTime.now());
-//        messageRepository.save(message);
     }
 
     private void deleteMessageInElastic(Message message) {
         MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
         for (Message ms : thread.getThread()) {
             if (ms.equals(message)) {
-                ms.setDateUpdated(ZonedDateTime.now());
-                messageSearchRepository.save(ms);
+//                ms.setDateUpdated(ZonedDateTime.now());
+//                messageSearchRepository.save(ms);
+                thread.getThread().remove(ms);
+                messageSearchRepository.delete(ms);
                 messageThreadSearchRepository.save(thread);
                 return;
             }
