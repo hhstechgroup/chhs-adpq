@@ -100,4 +100,16 @@ public class MailService {
         sendEmail(user.getEmail(), subject, content, false, true);
     }
 
+    @Async
+    public void sendNewMessageAlertMail(User user, String baseUrl) {
+        LOGGER.debug("Sending new message alert e-mail to '{}'", user.getEmail());
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable("user", user);
+        context.setVariable("baseUrl", baseUrl);
+        String content = templateEngine.process("newMessageAlertEmail", context);
+        String subject = messageSource.getMessage("email.newMessage.alert.title", null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
+    }
+
 }

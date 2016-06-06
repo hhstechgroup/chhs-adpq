@@ -1,13 +1,22 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.engagepoint.cws.apqd.Application;
+import com.engagepoint.cws.apqd.MockMailSender;
+import com.engagepoint.cws.apqd.config.JHipsterProperties;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
-import com.engagepoint.cws.apqd.repository.*;
+import com.engagepoint.cws.apqd.repository.AuthorityRepository;
+import com.engagepoint.cws.apqd.repository.DraftRepository;
+import com.engagepoint.cws.apqd.repository.InboxRepository;
+import com.engagepoint.cws.apqd.repository.MailBoxRepository;
+import com.engagepoint.cws.apqd.repository.MessageRepository;
+import com.engagepoint.cws.apqd.repository.OutboxRepository;
+import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageThreadSearchRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
+import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +24,7 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.MessageSource;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -26,11 +36,19 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.*;
+import static com.engagepoint.cws.apqd.APQDTestUtil.addUserRole;
+import static com.engagepoint.cws.apqd.APQDTestUtil.expectHasContact;
+import static com.engagepoint.cws.apqd.APQDTestUtil.newUserAnnaBrown;
+import static com.engagepoint.cws.apqd.APQDTestUtil.newUserJohnWhite;
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
+import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMessage;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setCurrentUser;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setMailBox;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -100,14 +118,31 @@ public class MailResourceIntTest {
     private User fromUser;
     private User toUser;
 
+    @Inject
+    private JHipsterProperties jHipsterProperties;
+
+    @Inject
+    private MessageSource messageSource;
+
+    @Inject
+    private SpringTemplateEngine templateEngine;
+
+
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
+
+        MailService mailService = new MailService();
+        ReflectionTestUtils.setField(mailService, "jHipsterProperties", jHipsterProperties);
+        ReflectionTestUtils.setField(mailService, "messageSource", messageSource);
+        ReflectionTestUtils.setField(mailService, "templateEngine", templateEngine);
+        ReflectionTestUtils.setField(mailService, "javaMailSender", new MockMailSender());
 
         MailResource mailResource = new MailResource();
         ReflectionTestUtils.setField(mailResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(mailResource, "messageRepository", messageRepository);
         ReflectionTestUtils.setField(mailResource, "mailBoxService", mailBoxService);
+        ReflectionTestUtils.setField(mailResource, "mailService", mailService);
         ReflectionTestUtils.setField(mailResource, "mailBoxRepository", mailBoxRepository);
         ReflectionTestUtils.setField(mailResource, "messageSearchRepository", messageSearchRepository);
         ReflectionTestUtils.setField(mailResource, "messageThreadSearchRepository", messageThreadSearchRepository);

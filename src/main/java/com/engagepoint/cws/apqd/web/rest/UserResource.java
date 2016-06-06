@@ -11,6 +11,7 @@ import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
+import com.engagepoint.cws.apqd.web.rest.util.HttpRequestUtil;
 import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,12 +112,7 @@ public class UserResource {
                 .body(null);
         } else {
             User newUser = userService.createUser(managedUserDTO);
-            String baseUrl = request.getScheme() + // "http"
-            "://" +                                // "://"
-            request.getServerName() +              // "myhost"
-            ":" +                                  // ":"
-            request.getServerPort() +              // "80"
-            request.getContextPath();              // "/myContextPath" or "" if deployed in root context
+            String baseUrl = HttpRequestUtil.buildBaseUrl(request);
             mailService.sendCreationEmail(newUser, baseUrl);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert( "user-management.created", newUser.getLogin()))
