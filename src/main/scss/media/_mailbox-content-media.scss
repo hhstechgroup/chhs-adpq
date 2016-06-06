@@ -203,6 +203,12 @@ $break-phone: 640px;
     }
 }
 
+.ch-menu-mobile__pane {
+    @media screen and (min-width: $break-phone) {
+        display: none;
+    }
+}
+
 .ch-content-item__checkbox {
 
     @media screen and (max-width: $break-phone) {
