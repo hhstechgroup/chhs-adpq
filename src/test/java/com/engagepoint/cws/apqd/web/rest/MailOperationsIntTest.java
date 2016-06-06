@@ -2,6 +2,7 @@ package com.engagepoint.cws.apqd.web.rest;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.Appender;
 import com.engagepoint.cws.apqd.Application;
@@ -10,12 +11,10 @@ import com.engagepoint.cws.apqd.config.JHipsterProperties;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
-import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.KeyAndPasswordDTO;
-import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +26,6 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -43,16 +41,13 @@ import javax.inject.Inject;
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
-import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.engagepoint.cws.apqd.APQDTestUtil.cutQuotedUrls;
-import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
-import static com.engagepoint.cws.apqd.APQDTestUtil.setUserRole;
+import static com.engagepoint.cws.apqd.APQDTestUtil.*;
 import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
@@ -60,9 +55,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -102,17 +94,17 @@ public class MailOperationsIntTest {
     @Inject
     private UserService userService;
 
-    //
-
     @Inject
     private AuthorityRepository authorityRepository;
+
+    //
 
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     private MockMvc restMockMvc;
 
-    private Appender mockLogAppender;
+    private Appender<ILoggingEvent> mockLogAppender;
 
     @PostConstruct
     public void setup() {
@@ -184,24 +176,6 @@ public class MailOperationsIntTest {
         return templateEngine.process(contentTemplateName, context);
     }
 
-    private User newUser() {
-        User user = prepareUser(null, passwordEncoder, "newuser");
-
-        user.setLangKey("en");
-        user.setEmail("newuser@company.com");
-        user.setFirstName("Anna");
-        user.setLastName("Brown");
-        user.setSsnLast4Digits("4321");
-        user.setActivated(true);
-        user.setCaseNumber("S123");
-        user.setBirthDate(LocalDate.ofEpochDay(0L));
-        user.setPhoneNumber("1111111111");
-
-        setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
-
-        return user;
-    }
-
     private void assertUserEmail(User user, String subjectKey, String contentTemplateName) throws Exception {
         Future<MimeMessage> futureMimeMessage = mockMailSender.getFutureMimeMessage();
         assertThat(futureMimeMessage).isNotNull();
@@ -237,26 +211,16 @@ public class MailOperationsIntTest {
         return matcher.find() ? matcher.group(1) : "";
     }
 
-    @Test()
+    @Test
     @Transactional
     public void testMailSendFailed() throws Exception {
         ReflectionTestUtils.setField(mailService, "javaMailSender", failingMockMailSender);
 
-        User user = newUser();
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
 
-        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
-        assertThat(managedUserDTO.getId()).isNull();
+        performCreateUser(restMockMvc, user).andExpect(status().isCreated());
 
-        restMockMvc.perform(
-            post("/api/users")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(
-                    managedUserDTO
-                )))
-            .andExpect(status().isCreated())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-
-        verify(mockLogAppender).doAppend(argThat(new ArgumentMatcher() {
+        verify(mockLogAppender).doAppend(argThat(new ArgumentMatcher<ILoggingEvent>() {
             @Override
             public boolean matches(final Object argument) {
                 LoggingEvent loggingEvent = (LoggingEvent) argument;
@@ -266,30 +230,12 @@ public class MailOperationsIntTest {
         }));
     }
 
-    @Test()
+    @Test
     @Transactional
     public void testCreateUser() throws Exception {
-        User user = newUser();
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
 
-        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
-        assertThat(managedUserDTO.getId()).isNull();
-
-        restMockMvc.perform(
-            post("/api/users")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(
-                    managedUserDTO
-                )))
-            .andExpect(status().isCreated())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(header().string("X-apqdApp-alert", "user-management.created"))
-            .andExpect(header().string("X-apqdApp-params", user.getLogin()))
-            .andExpect(jsonPath("$.id").exists())
-            .andExpect(jsonPath("$.login").value(user.getLogin()))
-            .andExpect(jsonPath("$.email").value(user.getEmail()))
-            .andExpect(jsonPath("$.firstName").value(user.getFirstName()))
-            .andExpect(jsonPath("$.lastName").value(user.getLastName()))
-            .andExpect(jsonPath("$.ssnLast4Digits").value(user.getSsnLast4Digits()));
+        performCreateUser(restMockMvc, user).andExpect(status().isCreated());
 
         assertUserEmail(user, "email.activation.title", "creationEmail");
     }
@@ -297,7 +243,7 @@ public class MailOperationsIntTest {
     @Test
     @Transactional
     public void testRegisterValid() throws Exception {
-        User user = newUser();
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
         UserDTO userDTO = new UserDTO(user, user.getPassword());
 
         // registerAccount
@@ -326,7 +272,7 @@ public class MailOperationsIntTest {
     @Test
     @Transactional
     public void testRequestPasswordResetSuccess() throws Exception {
-        User user = newUser();
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
         userRepository.saveAndFlush(user);
 
         // requestPasswordReset

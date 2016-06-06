@@ -129,6 +129,7 @@ public class MailResourceTest {
 
     @Before
     public void before() {
+        messageRepository.deleteAll();
         messageSearchRepository.deleteAll();
         messageThreadSearchRepository.deleteAll();
     }
@@ -262,7 +263,7 @@ public class MailResourceTest {
 
         assertUpdateMessage(testMessage);
 
-        testMessage = messageRepository.findAll().iterator().next();
+        testMessage = messageRepository.findOne(testMessage.getId());
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.DRAFT);
         assertThat(testMessage.getDateCreated()).isNotNull();
         assertThat(testMessage.getDateUpdated()).isNull();
@@ -272,7 +273,7 @@ public class MailResourceTest {
 
         assertSendMessage(testMessage);
 
-        testMessage = messageRepository.findAll().iterator().next();
+        testMessage = messageRepository.findOne(testMessage.getId());
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
         assertThat(testMessage.getDateCreated()).isNotNull();
         assertThat(testMessage.getDateUpdated()).isNotNull();
@@ -284,7 +285,7 @@ public class MailResourceTest {
         assertGetMessages(testMessage, EMailDirectory.SENT, MAIL_FILTER.LOGIN);
         assertGetMessages(testMessage, EMailDirectory.SENT, MAIL_FILTER.BODY);
 
-        testMessage = messageRepository.findAll().iterator().next();
+        testMessage = messageRepository.findOne(testMessage.getId());
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
         assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(1);
 
@@ -300,7 +301,7 @@ public class MailResourceTest {
 
         assertConfirmReading(testMessage);
 
-        testMessage = messageRepository.findAll().iterator().next();
+        testMessage = messageRepository.findOne(testMessage.getId());
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.READ);
 
         // test message thread
