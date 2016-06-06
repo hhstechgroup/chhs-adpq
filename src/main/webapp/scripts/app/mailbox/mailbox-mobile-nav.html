@@ -1,6 +1,76 @@
-<div class="ch-mobile-contacts">
+<div class="ch-mobile-folders">
 
-    <div class="ch-contacts__body">
+  <div class="ch-mobile-folders__inbox-nav">
+
+    <div class="ch-mobile-folders__action-btn">
+        <button type="button" class="ch-option-btn"  ui-sref="ch-inbox.new-mail">
+            <span class="ch-option-btn__text">Compose</span>
+        </button>
+    </div>
+
+    <div class="ch-multi-select-dropdown__mobile">
+        <button type="button" class="ch-multi-select-dropdown__btn-mobile" ng-click="statusesConfig.showList = !statusesConfig.showList;">
+            <span class="ch-multi-select-dropdown__btn-mobile-text">Incoming</span>
+            <span class="ch-multi-select-dropdown__btn-mobile-icon"></span>
+        </button>
+
+        <div class="ch-multi-select-dropdown__popup" ng-show="statusesConfig.showList" ng-mouseleave="statusesConfig.showList = false">
+
+          <ul class="ch-aside-nav-list">
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_inbox"
+                         ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Inbox</span>
+                          <span ng-if="unreadInboxCount > 0" class="ch-aside-nav-item__counter">({{unreadInboxCount}})</span>
+                      </a>
+                  </div>
+              </li>
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_sent"
+                         ui-sref="ch-inbox.messages({directory: 'sent'})" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Sent mail</span>
+                      </a>
+                  </div>
+              </li>
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_drafts"
+                         ui-sref="ch-inbox.messages({directory: 'drafts'})" ui-sref-opts="{directory: 'drafts'}" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Drafts</span>
+                          <span ng-if="draftsCount > 0" class="ch-aside-nav-item__counter">({{draftsCount}})</span>
+                      </a>
+                  </div>
+              </li>
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_deleted"
+                         ui-sref="ch-inbox.messages({directory: 'deleted'})" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Deleted</span>
+                          <span ng-if="unreadDeletedCount > 0" class="ch-aside-nav-item__counter">({{unreadDeletedCount}})</span>
+                      </a>
+                  </div>
+              </li>
+          </ul>
+        </div>
+
+    </div>
+
+    </div>
+
+    <div  ui-view="mailbox-content"></div>
+
+
+<!-- <div class="ch-mobile-contacts"> -->
+
+<!-- Contacts Template -->
+
+    <!-- <div class="ch-contacts__body">
         <ul class="ch-aside-contacts">
 
               <li ng-repeat="contact in contacts" class="ch-aside-contacts__item">
@@ -32,6 +102,5 @@
               </li>
 
         </ul>
-
-    </div>
+    </div> -->
 </div>
