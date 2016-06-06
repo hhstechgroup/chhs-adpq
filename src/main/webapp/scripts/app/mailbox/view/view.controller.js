@@ -5,6 +5,11 @@ angular.module('apqdApp')
                                             DeleteMessageService, identity) {
         $scope.messageThread = messageThread;
 
+        var mails = $scope.messageThread.thread;
+        if (_.last(mails).id > _.first(mails).id) {
+            $scope.messageThread.thread = _.reverse(mails);
+        }
+
         $scope.backToPreviousState = $rootScope.backToPreviousState;
 
         var unreadMessageInThread = _.find($scope.messageThread.thread, function(mail) {
