@@ -15,6 +15,8 @@ angular.module('apqdApp')
         $scope.passwordsDoNotMatch = null;
         $scope.passwordChangingContainer = {};
 
+        $scope.isProfileGeneralInformation = true;
+
         $scope.changePassword = function () {
             if ($scope.passwordChangingContainer.newPassword !== $scope.passwordChangingContainer.confirmPassword) {
                 $scope.passwordChangingError = null;
