@@ -207,9 +207,6 @@ public final class APQDTestUtil {
     }
 
     public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
-        Set<Message> messages = new HashSet<>();
-        messages.add(message);
-        deleted.setMessages(messages);
         return deletedRepository.saveAndFlush(deleted);
     }
 
@@ -236,7 +233,6 @@ public final class APQDTestUtil {
         MailBox mailBox = new MailBox();
         mailBox.setInbox(inbox);
         mailBox.setOutbox(outbox);
-        mailBox.setDeleted(deleted);
         mailBox.setDraft(draft);
         mailBox.setUser(user);
         return mailBoxRepository.saveAndFlush(mailBox);

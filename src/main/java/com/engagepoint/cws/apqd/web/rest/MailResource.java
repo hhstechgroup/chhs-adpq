@@ -171,6 +171,7 @@ public class MailResource {
             deleteMessageInElastic(message);
         }
 
+        notifyClientAboutAllCount();
         return ResponseEntity.ok().build();
     }
 
@@ -185,6 +186,7 @@ public class MailResource {
             restoreMessageInElastic(message);
         }
 
+        notifyClientAboutAllCount();
         return ResponseEntity.ok().build();
     }
 
@@ -449,5 +451,12 @@ public class MailResource {
                 return;
             }
         }
+    }
+
+    private void notifyClientAboutAllCount() {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        mailBoxService.notifyClientAboutUnreadInboxCount(user);
+        mailBoxService.notifyClientAboutDeletedCount();
+        mailBoxService.notifyClientAboutDraftsCount();
     }
 }

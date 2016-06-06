@@ -18,6 +18,9 @@ angular.module('apqdApp')
                 resolve: {
                     filterByDestination: ['$state', function($state) {
                         return $state.params.contact;
+                    }],
+                    identity: ['Principal', function(Principal) {
+                        return Principal.identity();
                     }]
                 }
             });
