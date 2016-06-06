@@ -45,38 +45,6 @@ public class ApqdZabbixSender {
         return createResponse(responseData);
     }
 
-    ApqdZabbixResponse createResponse(byte[] responseData){
-
-        if (responseData == null || responseData.length < HEADERS_LENGTH) {
-            LOGGER.error("It seems that Zabbix server response is empty");
-            return ApqdZabbixResponse.EMPTY_RESPONSE;
-        }
-
-        String jsonString = new String(responseData, HEADERS_LENGTH, responseData.length - HEADERS_LENGTH);
-        LOGGER.info("Zabbix response:{}", jsonString);
-
-        return createResponse(jsonString);
-    }
-
-    ApqdZabbixResponse createResponse(String jsonString){
-
-        ApqdZabbixResponse response = new ApqdZabbixResponse(jsonString);
-
-        JSONObject jsonObject = JSON.parseObject(jsonString);
-        response.setJsonValue(jsonObject);
-        String responseTypeStr = jsonObject.getString(RESPONSE_FLAG_KEY);
-
-        if(SUCCESS_RESPONSE_FLAG.equals(responseTypeStr)){
-            response.setType(SUCCESS);
-        } else if(SUCCESS_FAILED_FLAG.equals(responseTypeStr)){
-            response.setType(FAILED);
-        }else{
-            response.setType(UNKNOWN);
-            LOGGER.error("Zabbix has returned unknown response type: {}", responseTypeStr);
-        }
-        return response;
-    }
-
     private byte[] send (byte[] request) throws IOException {
 
         Socket socket = null;
@@ -108,5 +76,37 @@ public class ApqdZabbixSender {
                 outputStream.close();
             }
         }
+    }
+
+    static ApqdZabbixResponse createResponse(byte[] responseData){
+
+        if (responseData == null || responseData.length <= HEADERS_LENGTH) {
+            LOGGER.error("It seems that Zabbix server response is empty");
+            return ApqdZabbixResponse.EMPTY_RESPONSE;
+        }
+
+        String jsonString = new String(responseData, HEADERS_LENGTH, responseData.length - HEADERS_LENGTH);
+        LOGGER.info("Zabbix response:{}", jsonString);
+
+        return createResponseFromJsonString(jsonString);
+    }
+
+    static ApqdZabbixResponse createResponseFromJsonString(String jsonString){
+
+        ApqdZabbixResponse response = new ApqdZabbixResponse(jsonString);
+
+        JSONObject jsonObject = JSON.parseObject(jsonString);
+        response.setJsonValue(jsonObject);
+        String responseTypeStr = jsonObject.getString(RESPONSE_FLAG_KEY);
+
+        if(SUCCESS_RESPONSE_FLAG.equals(responseTypeStr)){
+            response.setType(SUCCESS);
+        } else if(SUCCESS_FAILED_FLAG.equals(responseTypeStr)){
+            response.setType(FAILED);
+        }else{
+            response.setType(UNKNOWN);
+            LOGGER.error("Zabbix has returned unknown response type: {}", responseTypeStr);
+        }
+        return response;
     }
 }
