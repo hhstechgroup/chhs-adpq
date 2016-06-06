@@ -1,5 +1,9 @@
 angular.module('apqdApp')
     .factory('GeocoderService', ['leafletData', '$q', '$http', function (leafletData, $q, $http) {
+        var deg2rad = function (deg) {
+            return deg * (Math.PI/180)
+        };
+
         var getDistance = function (lat1,lon1,lat2,lon2) {
             var R = 6371 * .621371; // Radius of the earth in miles
             var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -10,14 +14,8 @@ angular.module('apqdApp')
                     Math.sin(dLon/2) * Math.sin(dLon/2)
                 ;
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-            var d = R * c; // Distance in miles
-            return d;
+            return R * c; // Distance in miles
         };
-
-        var deg2rad = function (deg) {
-            return deg * (Math.PI/180)
-        };
-
 
         return {
 

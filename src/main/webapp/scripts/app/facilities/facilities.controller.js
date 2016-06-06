@@ -239,7 +239,7 @@ angular.module('apqdApp')
         $scope.updateTypesLabel = function() {
             $scope.updateDropDownLabel($scope.facilityTypes, $scope.typesConfig, $scope.ALL_TYPES_LABEL);
         };
-        $scope.onTypeClick = function(type) {
+        $scope.onTypeClick = function() {
             $scope.updateTypesLabel();
             $scope.invalidate();
         };
@@ -247,7 +247,7 @@ angular.module('apqdApp')
         $scope.updateStatusesLabel = function() {
             $scope.updateDropDownLabel($scope.facilityStatuses, $scope.statusesConfig, $scope.ALL_STATUSES_LABEL);
         };
-        $scope.onStatusClick = function(status) {
+        $scope.onStatusClick = function() {
             $scope.updateStatusesLabel();
             $scope.invalidate();
         };

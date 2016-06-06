@@ -53,7 +53,7 @@ angular.module('apqdApp')
                 return q.promise;
             },
 
-            formatAddress: function formatAddress(place, defaultValue) {
+            formatAddress: function (place, defaultValue) {
                 if (_.isNil(defaultValue)) {
                     defaultValue = '';
                 }
