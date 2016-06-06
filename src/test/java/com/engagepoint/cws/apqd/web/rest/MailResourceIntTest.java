@@ -63,9 +63,6 @@ public class MailResourceIntTest {
     private OutboxRepository outboxRepository;
 
     @Inject
-    private DeletedRepository deletedRepository;
-
-    @Inject
     private DraftRepository draftRepository;
 
     @Inject
@@ -137,14 +134,14 @@ public class MailResourceIntTest {
         fromUser = newUserAnnaBrown(passwordEncoder, authorityRepository);
         addUserRole(authorityRepository, fromUser, AuthoritiesConstants.CASE_WORKER);
         setMailBox(userRepository, fromUser,
-            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository, draftRepository));
+            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, draftRepository));
 
         setCurrentUser(fromUser);
 
         toUser = newUserJohnWhite(passwordEncoder, authorityRepository);
         addUserRole(authorityRepository, toUser, AuthoritiesConstants.PARENT);
         setMailBox(userRepository, toUser,
-            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, deletedRepository, draftRepository));
+            prepareMailBox(mailBoxRepository, inboxRepository, outboxRepository, draftRepository));
 
         // create new Message with no id
 
@@ -292,7 +289,8 @@ public class MailResourceIntTest {
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
         assertThat(testMessage.getDateCreated()).isNotNull();
         assertThat(testMessage.getDateUpdated()).isNotNull();
-        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(1);
+        assertThat(testMessage.getUnreadMessagesCountFrom()).isEqualTo(0);
+        assertThat(testMessage.getUnreadMessagesCountTo()).isEqualTo(1);
 
         // test get from fromUser sent folder
 
@@ -302,7 +300,6 @@ public class MailResourceIntTest {
 
         testMessage = messageRepository.findOne(testMessage.getId());
         assertThat(testMessage.getStatus()).isEqualTo(MessageStatus.UNREAD);
-        assertThat(testMessage.getUnreadMessagesCount()).isEqualTo(1);
 
         // test get from toUser inbox folder
 
