@@ -30,6 +30,7 @@ angular.module('apqdApp')
                     fullWidth: 650,
                     expanded: true,
                     markers: false,
+                    panToPoint: false,
                     latlng: true,
                     place : true
                 });
