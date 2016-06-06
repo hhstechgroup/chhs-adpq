@@ -86,8 +86,4 @@ jhipster:
 # ===================================================================
 
 apqd:
-    state: test state
-    cws-office: test cwsOffice
-    nlp-mode : opennlp
-    #referral-report-type: FULL_REFERRAL
-    referral-report-type: SUSPECTED_CHILD_ABUSE_FORM
+    default-address: test defaultAddres

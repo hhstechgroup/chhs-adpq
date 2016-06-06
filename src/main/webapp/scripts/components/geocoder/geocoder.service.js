@@ -1,5 +1,5 @@
 angular.module('apqdApp')
-    .factory('GeocoderService', ['leafletData', '$q', function (leafletData, $q) {
+    .factory('GeocoderService', ['leafletData', '$q', '$http', function (leafletData, $q, $http) {
         var getDistance = function (lat1,lon1,lat2,lon2) {
             var R = 6371 * .621371; // Radius of the earth in miles
             var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -34,11 +34,19 @@ angular.module('apqdApp')
                     place : true
                 });
                 geocoder.on('select', onSelect);
-                leafletData.getMap().then(function (map) {
-                    geocoder.addTo(map);
-                    document.getElementById(containerId).appendChild(geocoder._container);
-                });
+                leafletData.getMap().then(
+                    function (map) {
+                        geocoder.addTo(map);
+                        document.getElementById(containerId).appendChild(geocoder._container);
+                    },
+                    function(reason) {
+                        $log.warn('Cannot find map for ', containerId, reason);
+                    });
                 return geocoder;
+            },
+
+            searchAddress: function(address) {
+                return $http.get('http://nominatim.openstreetmap.org/search?format=json&q=' + address);
             },
 
             distance : function (location1, location2) {
