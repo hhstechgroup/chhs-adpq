@@ -13,15 +13,16 @@ angular.module('apqdApp')
         $scope.passwordSuccessfullyChanged = null;
         $scope.passwordChangingError = null;
         $scope.passwordsDoNotMatch = null;
+        $scope.passwordChangingContainer = {};
 
         $scope.changePassword = function () {
-            if ($scope.newPassword !== $scope.confirmPassword) {
+            if ($scope.passwordChangingContainer.newPassword !== $scope.passwordChangingContainer.confirmPassword) {
                 $scope.passwordChangingError = null;
                 $scope.passwordSuccessfullyChanged = null;
                 $scope.passwordsDoNotMatch = 'ERROR';
             } else {
                 $scope.passwordsDoNotMatch = null;
-                Auth.changePassword($scope.newPassword).then(function () {
+                Auth.changePassword($scope.passwordChangingContainer.newPassword).then(function () {
                     $scope.passwordChangingError = null;
                     $scope.passwordSuccessfullyChanged = 'OK';
                 }).catch(function () {

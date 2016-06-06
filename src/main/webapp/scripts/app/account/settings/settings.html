@@ -292,7 +292,7 @@
                                 <div class="ch-input-block">
                                     <label for="newPassword" class="ch-input-block__label">New Password</label>
                                     <div class="ch-input-block__form-input">
-                                        <input type="password" name="newPassword" id="newPassword" class="ch-form-input" ng-model="newPassword" ng-minlength=5 ng-maxlength=50 />
+                                        <input type="password" name="newPassword" id="newPassword" class="ch-form-input" ng-model="passwordChangingContainer.newPassword" ng-minlength=5 ng-maxlength=50 />
                                     </div>
                                 </div>
                                 <div ng-show="form.newPassword.$dirty && form.newPassword.$invalid">
@@ -303,13 +303,13 @@
                                         Your password cannot be longer than 50 characters.
                                     </p>
                                 </div>
-                                <password-strength-bar password-to-check="newPassword"></password-strength-bar>
+                                <password-strength-bar password-to-check="passwordChangingContainer.newPassword"></password-strength-bar>
                             </div>
                             <div class="ch-flex-row__input-block">
                                 <div class="ch-input-block">
                                     <label for="confirmPassword" class="ch-input-block__label">Confirm New Password</label>
                                     <div class="ch-input-block__form-input">
-                                        <input type="password" name="confirmPassword" id="confirmPassword" class="ch-form-input" ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 />
+                                        <input type="password" name="confirmPassword" id="confirmPassword" class="ch-form-input" ng-model="passwordChangingContainer.confirmPassword" ng-minlength=5 ng-maxlength=50 />
                                     </div>
                                 </div>
                                 <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
