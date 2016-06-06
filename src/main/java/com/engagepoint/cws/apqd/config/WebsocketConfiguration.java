@@ -35,6 +35,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/websocket/tracker")
+            .setAllowedOrigins("*")
             .setHandshakeHandler(new DefaultHandshakeHandler() {
                 @Override
                 protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
@@ -51,6 +52,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
             .setInterceptors(httpSessionHandshakeInterceptor());
 
         registry.addEndpoint("/websocket/mailbox")
+            .setAllowedOrigins("*")
             .withSockJS();
     }
 

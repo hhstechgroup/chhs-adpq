@@ -2,8 +2,10 @@
 
 angular.module('apqdApp')
     .controller('FacilitiesController',
-    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService', 'GeocoderService', 'chLayoutConfigFactory', '$uibModal',
-    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService, GeocoderService, chLayoutConfigFactory, $uibModal) {
+    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService',
+        'GeocoderService', 'chLayoutConfigFactory', '$uibModal', 'Principal', 'AppPropertiesService', 'AddressUtils',
+    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService,
+              GeocoderService, chLayoutConfigFactory, $uibModal, Principal, AppPropertiesService, AddressUtils) {
         $scope.ALL_TYPES_LABEL = 'All Types';
         $scope.ALL_STATUSES_LABEL = 'All Statuses';
         $scope.DEFAULT_ZOOM = 13;
@@ -47,40 +49,65 @@ angular.module('apqdApp')
         };
 
         $scope.viewConfig = {presentation: 'list'};
-        $scope.center = {autoDiscover: true, zoom: $scope.DEFAULT_ZOOM};
+        $scope.center = {lat: 0, lng: 0, zoom: $scope.DEFAULT_ZOOM};
+
+        $scope.getHomeLocation = function (latLng, message) {
+            if (!message) {
+                message = 'You are here';
+            }
+            return {
+                layer: 'place',
+                lat: latLng.lat,
+                lng: latLng.lng,
+                //focus: true,
+                message: message,
+                icon: {
+                    iconUrl: 'assets/images/icon_pin_home.png',
+                    iconAnchor: [46, 46]
+                }
+            }
+        };
+
+
+        $scope.currentLocation = $scope.getHomeLocation($scope.center);
 
         $scope.searchText = '';
         $scope.facilityTypes = FacilityType;
         $scope.facilityStatuses = FacilityStatus;
 
-        var centerWatchUnregister = $scope.$watch('center.autoDiscover', function(newValue) {
-            if (!newValue) {
-                $scope.currentLocation = $scope.getHomeLocation($scope.center);
-                $scope.invalidate();
-
-                centerWatchUnregister();
-            }
-        });
-
         $scope.createLocations = function() {
             var locations = {};
             _.each($scope.agencies, function (agency) {
-                locations['fn' + agency.facility_number] = {
-                    layer: 'agencies',
-                    lat: agency.location.coordinates[1],
-                    lng: agency.location.coordinates[0],
-                    message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
-                    getMessageScope: function() {
-                        var scope = $scope.$new();
-                        scope.agency = agency;
-                        scope.viewConfig = {presentation: 'popup'};
-                        return scope;
+                GeocoderService.distance(
+                    {
+                        latitude: agency.location.coordinates[1],
+                        longitude: agency.location.coordinates[0]
                     },
-                    icon: {
-                        iconUrl: $scope.defineIcon(agency),
-                        iconAnchor: [13, 13]
+                    {
+                        latitude: $scope.currentLocation.lat,
+                        longitude: $scope.currentLocation.lng
+
                     }
-                };
+                ).then(function (distance) {
+                    agency.distance = distance;
+
+                    locations['fn' + agency.facility_number +'_'+ distance.replace('.', '_')] = {
+                        layer: 'agencies',
+                        lat: agency.location.coordinates[1],
+                        lng: agency.location.coordinates[0],
+                        message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
+                        getMessageScope: function() {
+                            var scope = $scope.$new();
+                            scope.agency = agency;
+                            scope.viewConfig = {presentation: 'popup'};
+                            return scope;
+                        },
+                        icon: {
+                            iconUrl: $scope.defineIcon(agency),
+                            iconAnchor: [13, 13]
+                        }
+                    };
+                });
             });
             if ($scope.currentLocation) {
                 locations.current = $scope.currentLocation;
@@ -101,6 +128,7 @@ angular.module('apqdApp')
 
         $scope.findLocationByAddress = function(address) {
             $log.debug('findLocationByAddress', address);
+            $scope.onSelectAddress($scope.addressFeature);
         };
 
         $scope.findAgenciesByTextQuery = function(event) {
@@ -115,6 +143,9 @@ angular.module('apqdApp')
 
         $scope.findAgenciesWithinBox = function(bounds) {
             $scope.text = $scope.searchText;
+            if ($scope.center.lat === 0 && $scope.center.lng === 0) {
+                return;
+            }
 
             var northEast = bounds._northEast;
             var southWest = bounds._southWest;
@@ -147,23 +178,6 @@ angular.module('apqdApp')
                     $log.error('Failed to get agencies from findAgenciesByFilter', reason);
                 }
             );
-        };
-
-        $scope.getHomeLocation = function (latLng, message) {
-            if (!message) {
-                message = 'You are here';
-            }
-            return {
-                layer: 'place',
-                lat: latLng.lat,
-                lng: latLng.lng,
-                //focus: true,
-                message: message,
-                icon: {
-                    iconUrl: 'assets/images/icon_pin_home.png',
-                    iconAnchor: [46, 46]
-                }
-            }
         };
 
         $scope.$on("leafletDirectiveMap.viewreset", function(event) {
@@ -210,6 +224,9 @@ angular.module('apqdApp')
         };
 
         $scope.onSelectAddress = function (addressFeature) {
+            if (_.isNil(addressFeature)) {
+                return;
+            }
             $log.debug(addressFeature);
             var latLng = addressFeature.latlng;
             $scope.center.lat = latLng.lat;
@@ -264,13 +281,93 @@ angular.module('apqdApp')
             $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
         });
 
-        $scope.openDefaultAddressModal = function() {
+        $scope.openDefaultAddressModal = function(userProfile) {
             $uibModal.open({
                 templateUrl: 'scripts/app/facilities/modal/default-address-dialog.html',
                 controller: 'DefaultAddressModalCtrl',
                 size: 'facilities-default-address',
                 windowClass: 'ch-general-modal',
-                resolve: {}
-            });
+                resolve: {
+                    userProfile: function() {
+                        return userProfile;
+                    }
+                }
+            }).result.then($scope.addressApplied, $scope.addressRejected);
+        };
+
+        $scope.addressApplied = function(addressFeature) {
+            $scope.onSelectAddress(addressFeature);
+        };
+        $scope.addressRejected = function() {
+            if (navigator.geolocation) {
+                $log.debug('Geolocation is supported!');
+                $scope.getGeoLocation();
+            } else {
+                $log.warn('Geolocation is not supported for this Browser/OS version yet.');
+                $scope.getAddressFromProperties();
+            }
         }
+
+
+        $scope.getGeoLocation = function () {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    $scope.center.lat = position.coords.latitude;
+                    $scope.center.lng = position.coords.longitude;
+                    $scope.currentLocation = $scope.getHomeLocation($scope.center, 'You are here');
+                },
+                function () {
+                    $scope.getAddressFromProperties();
+                }
+            );
+        };
+
+        $scope.getAddressFromProperties = function () {
+            AppPropertiesService.defaultAddress(function (response) {
+                var address = response.data;
+                GeocoderService.searchAddress(address).then(function (response) {
+                    var data = response.data[0];
+                    $scope.onSelectAddress({
+                        latlng: {
+                            lat: parseFloat(data.lat),
+                            lng: parseFloat(data.lon)
+                        },
+                        feature: {
+                            properties: {
+                                label: data.display_name
+                            }
+                        }
+                    })
+                });
+            });
+        };
+
+        $scope.getCurrentLocation = function() {
+            var q = $q.defer();
+            var geoSuccess = function(position) {
+                var marker = createMarker(position.coords.latitude, position.coords.longitude, 'current');
+                q.resolve(marker);
+            };
+            navigator.geolocation.getCurrentPosition(geoSuccess, q.reject);
+            return q.promise;
+        };
+
+
+        Principal.identity().then(function(userProfile) {
+            if (_.isNil(userProfile) || _.isNil(userProfile.place)) {
+                $scope.openDefaultAddressModal(userProfile);
+            } else {
+                $scope.onSelectAddress({
+                    latlng: {
+                        lat: userProfile.place.latitude,
+                        lng: userProfile.place.longitude
+                    },
+                    feature: {
+                        properties: {
+                            label: AddressUtils.formatAddress(userProfile.place)
+                        }
+                    }
+                })
+            }
+        })
     }]);

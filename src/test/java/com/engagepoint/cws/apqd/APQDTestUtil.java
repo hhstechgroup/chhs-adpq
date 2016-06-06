@@ -1,7 +1,5 @@
 package com.engagepoint.cws.apqd;
 
-import com.engagepoint.cws.apqd.domain.Authority;
-import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Draft;
 import com.engagepoint.cws.apqd.domain.Inbox;
 import com.engagepoint.cws.apqd.domain.MailBox;
@@ -9,23 +7,36 @@ import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.Outbox;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
-import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.DraftRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.OutboxRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
+import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
+import com.engagepoint.cws.apqd.web.rest.TestUtil;
+import com.engagepoint.cws.apqd.web.rest.dto.ContactDTO;
+import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
+import org.assertj.core.api.StrictAssertions;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public final class APQDTestUtil {
     /**
@@ -35,8 +46,8 @@ public final class APQDTestUtil {
      * to:
      *      <a href="">newuser</a>
      *
-     * @param content
-     * @return
+     * @param content string
+     * @return string
      */
     public static String cutQuotedUrls(String content) {
         return content.replaceAll("\"http[^\"]+\"", "\"\"");
@@ -46,6 +57,11 @@ public final class APQDTestUtil {
      * User-related
      */
 
+    private static org.springframework.security.core.userdetails.User createSpringSecurityUser(User user) {
+        final Set<GrantedAuthority> authorities = new HashSet<>();
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
+    }
+
     /**
      * Usage:
      *      TestUtil.setCurrentUser(user);
@@ -54,9 +70,14 @@ public final class APQDTestUtil {
      *
      * @param user User
      */
-    public static void setCurrentUser(User user) {
+    public static void setCurrentUser(final User user) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+            createSpringSecurityUser(user), user.getPassword());
+        // authentication set Authenticated true
+
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+        securityContext.setAuthentication(authentication);
+
         SecurityContextHolder.setContext(securityContext);
     }
 
@@ -68,15 +89,107 @@ public final class APQDTestUtil {
         return userRepository == null ? user : userRepository.saveAndFlush(user);
     }
 
-    public static void setUserRole(AuthorityRepository authorityRepository, User user, String role) {
-        Set<Authority> authorities = new HashSet<>();
-        authorities.add(authorityRepository.findOne(role));
-        user.setAuthorities(authorities);
+    public static void addUserRole(AuthorityRepository authorityRepository, User user, String role) {
+        if (user.getAuthorities() == null) {
+            user.setAuthorities(new HashSet<>());
+        }
+        user.getAuthorities().add(authorityRepository.findOne(role));
     }
 
     public static void setMailBox(UserRepository userRepository, User user, MailBox mailBox) {
         user.setMailBox(mailBox);
         userRepository.saveAndFlush(user);
+    }
+
+    public static User newUserAnnaBrown(PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+        User user = prepareUser(null, passwordEncoder, "newuseranna");
+
+        user.setLangKey("en");
+        user.setEmail("newuseranna@company.com");
+        user.setFirstName("Anna");
+        user.setLastName("Brown");
+        user.setSsnLast4Digits("4321");
+        user.setActivated(true);
+        user.setCaseNumber("S123");
+        user.setBirthDate(LocalDate.ofEpochDay(0L));
+        user.setPhoneNumber("111-111-1111");
+
+        addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
+
+        return user;
+    }
+
+    public static User newUserJohnWhite(PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+        User user = prepareUser(null, passwordEncoder, "newuserjohn");
+
+        user.setLangKey("en");
+        user.setEmail("newuserjohn@company.com");
+        user.setFirstName("John");
+        user.setLastName("White");
+        user.setSsnLast4Digits("5432");
+        user.setActivated(true);
+        user.setCaseNumber("S234");
+        user.setBirthDate(LocalDate.ofEpochDay(0L));
+        user.setPhoneNumber("222-222-2222");
+
+        addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
+
+        return user;
+    }
+
+    public static ResultActions performCreateUser(MockMvc restUserMockMvc, User user) throws Exception {
+        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
+        StrictAssertions.assertThat(managedUserDTO.getId()).isNull();
+
+        return restUserMockMvc.perform(
+            post("/api/users")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    managedUserDTO
+                )));
+    }
+
+    public static ResultActions performUpdateUser(MockMvc restUserMockMvc, User user) throws Exception {
+        ManagedUserDTO managedUserDTO = new ManagedUserDTO(user);
+        assertThat(managedUserDTO.getId()).isNotNull();
+
+        return restUserMockMvc.perform(
+            put("/api/users")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    managedUserDTO
+                )));
+    }
+
+    public static void expectUser(ResultActions resultActions, User user) throws Exception {
+        resultActions
+            .andExpect(jsonPath("$.id").exists())
+            .andExpect(jsonPath("$.login").value(user.getLogin()))
+            .andExpect(jsonPath("$.email").value(user.getEmail()))
+            .andExpect(jsonPath("$.firstName").value(user.getFirstName()))
+            .andExpect(jsonPath("$.lastName").value(user.getLastName()))
+            .andExpect(jsonPath("$.ssnLast4Digits").value(user.getSsnLast4Digits()));
+    }
+
+    public static void assertUser(User actual, User expected) {
+        assertThat(actual.getId()).isEqualTo(expected.getId());
+        assertThat(actual.getLogin()).isEqualTo(expected.getLogin());
+        assertThat(actual.getEmail()).isEqualTo(expected.getEmail());
+        assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
+        assertThat(actual.getLastName()).isEqualTo(expected.getLastName());
+        assertThat(actual.getSsnLast4Digits()).isEqualTo(expected.getSsnLast4Digits());
+        assertThat(actual.getPhoneNumber()).isEqualTo(expected.getPhoneNumber());
+        assertThat(actual.getCaseNumber()).isEqualTo(expected.getCaseNumber());
+    }
+
+    public static void expectHasContact(ResultActions resultActions, User contact) throws Exception {
+        ContactDTO contactDTO = new ContactDTO(contact);
+        resultActions
+            .andExpect(jsonPath("$.[*].login").value(hasItem(contactDTO.getLogin())))
+            .andExpect(jsonPath("$.[*].firstName").value(hasItem(contactDTO.getFirstName())))
+            .andExpect(jsonPath("$.[*].lastName").value(hasItem(contactDTO.getLastName())))
+            .andExpect(jsonPath("$.[*].phone").value(hasItem(contactDTO.getPhone())))
+            .andExpect(jsonPath("$.[*].roleDescription").value(hasItem(contactDTO.getRoleDescription())));
     }
 
     /*
@@ -110,21 +223,6 @@ public final class APQDTestUtil {
     }
 
     /*
-     * Deleted-related
-     */
-
-    public static Deleted prepareDeleted(DeletedRepository deletedRepository) {
-        return deletedRepository.saveAndFlush(new Deleted());
-    }
-
-    public static Deleted setMessage(DeletedRepository deletedRepository, Deleted deleted, Message message) {
-        Set<Message> messages = new HashSet<>();
-        messages.add(message);
-        deleted.setMessages(messages);
-        return deletedRepository.saveAndFlush(deleted);
-    }
-
-    /*
      * Draft-related
      */
 
@@ -143,21 +241,19 @@ public final class APQDTestUtil {
      * MailBox-related
      */
 
-    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, Deleted deleted, Draft draft, User user) {
+    public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, Inbox inbox, Outbox outbox, Draft draft, User user) {
         MailBox mailBox = new MailBox();
         mailBox.setInbox(inbox);
         mailBox.setOutbox(outbox);
-        mailBox.setDeleted(deleted);
         mailBox.setDraft(draft);
         mailBox.setUser(user);
         return mailBoxRepository.saveAndFlush(mailBox);
     }
 
     public static MailBox prepareMailBox(MailBoxRepository mailBoxRepository, InboxRepository inboxRepository,
-                                         OutboxRepository outboxRepository, DeletedRepository deletedRepository,
-                                         DraftRepository draftRepository) {
+                                         OutboxRepository outboxRepository, DraftRepository draftRepository) {
         return prepareMailBox(mailBoxRepository, prepareInbox(inboxRepository), prepareOutbox(outboxRepository),
-            prepareDeleted(deletedRepository), prepareDraft(draftRepository), null);
+            prepareDraft(draftRepository), null);
     }
 
     /*

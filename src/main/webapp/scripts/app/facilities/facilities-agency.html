@@ -29,6 +29,11 @@
                     <span class="ch-facility-info__address">{{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</span>
                 </div>
             </li>
+            <li class="ch-facility-info__part">
+                <div class="ch-facility-info-text">
+                    <span class="ch-facility-info__address">Distance: {{agency.distance}} miles</span>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="ch-facility__info" ng-show="viewConfig.presentation == 'popup' || agency.showPartFlag">
@@ -47,6 +52,9 @@
             </li>
             <li class="ch-facility-info__part" ng-show="viewConfig.presentation === 'popup'">
                 <div class="ch-facility-info-text">Address: {{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</div>
+            </li>
+            <li class="ch-facility-info__part" ng-show="viewConfig.presentation === 'popup'">
+                <div class="ch-facility-info-text">Distance: {{agency.distance}} miles</div>
             </li>
             <li class="ch-facility-info__part" ng-show="viewConfig.presentation === 'popup'">
                 <div class="ch-facility-info-text">License First Date: {{agency.license_first_date | date: 'MM/dd/yyyy'}}</div>

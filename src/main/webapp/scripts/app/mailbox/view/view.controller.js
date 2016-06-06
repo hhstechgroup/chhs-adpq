@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('ThreadViewCtrl', function ($rootScope, $scope, $log, messageThread, ConfirmMessage, identity) {
+    .controller('ThreadViewCtrl', function ($rootScope, $state, $scope, $log, messageThread, ConfirmMessage,
+                                            DeleteMessageService, identity) {
         $scope.messageThread = messageThread;
 
         $scope.backToPreviousState = $rootScope.backToPreviousState;
@@ -24,8 +25,23 @@ angular.module('apqdApp')
                     mail.from.firstName + ' ' + mail.from.lastName);
         };
 
-        $scope.calculateLineBreaks = function(body) {
-            var match = body.match(/\n/g);
-            return _.isNil(match) ? 5 : match.length + 1;
+        $scope.deleteOne = function(mail) {
+            $scope.delete([mail]).then(function() {
+                if (messageThread.thread.length === 1) {
+                    $rootScope.backToPreviousState();
+                } else {
+                    $state.go($state.current, {}, {reload: true});
+                }
+            });
+        };
+
+        $scope.deleteAll = function() {
+            $scope.delete(messageThread.thread).then(function() {
+                $rootScope.backToPreviousState();
+            });
+        };
+
+        $scope.delete = function(mails) {
+            return DeleteMessageService.delete(mails, function() {}, $log.error).$promise;
         };
     });

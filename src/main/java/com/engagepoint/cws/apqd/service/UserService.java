@@ -176,10 +176,6 @@ public class UserService {
         draft.setMailBox(mailBox);
         mailBox.setDraft(draft);
 
-        Deleted deleted = new Deleted();
-        deleted.setMailBox(mailBox);
-        mailBox.setDeleted(deleted);
-
         return mailBoxRepository.save(mailBox);
     }
 

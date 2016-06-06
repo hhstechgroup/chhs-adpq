@@ -13,15 +13,16 @@ angular.module('apqdApp')
         $scope.passwordSuccessfullyChanged = null;
         $scope.passwordChangingError = null;
         $scope.passwordsDoNotMatch = null;
+        $scope.passwordChangingContainer = {};
 
         $scope.changePassword = function () {
-            if ($scope.newPassword !== $scope.confirmPassword) {
+            if ($scope.passwordChangingContainer.newPassword !== $scope.passwordChangingContainer.confirmPassword) {
                 $scope.passwordChangingError = null;
                 $scope.passwordSuccessfullyChanged = null;
                 $scope.passwordsDoNotMatch = 'ERROR';
             } else {
                 $scope.passwordsDoNotMatch = null;
-                Auth.changePassword($scope.newPassword).then(function () {
+                Auth.changePassword($scope.passwordChangingContainer.newPassword).then(function () {
                     $scope.passwordChangingError = null;
                     $scope.passwordSuccessfullyChanged = 'OK';
                 }).catch(function () {
@@ -91,13 +92,13 @@ angular.module('apqdApp')
         };
 
         $scope.onSelectAddress = function (addressFeature) {
-            $scope.settingsAccount.place.streetName = addressFeature.feature.properties.name;
-            $scope.settingsAccount.place.cityName = addressFeature.feature.properties.locality;
-            $scope.settingsAccount.place.state = _.find($scope.states, function(state) {
-                return _.upperCase(state.stateCode) === _.upperCase(addressFeature.feature.properties.region_a);
+            $scope.$apply(function () {
+                $scope.settingsAccount.place.streetName = addressFeature.feature.properties.name;
+                $scope.settingsAccount.place.cityName = addressFeature.feature.properties.locality;
+                $scope.settingsAccount.place.state = _.find($scope.states, function(state) {
+                    return _.upperCase(state.stateCode) === _.upperCase(addressFeature.feature.properties.region_a);
+                });
+                $scope.settingsAccount.place.zipCode = addressFeature.feature.properties.postalcode;
             });
-            $scope.settingsAccount.place.zipCode = addressFeature.feature.properties.postalcode;
         };
-
-        $scope.addGeocoder();
     });
