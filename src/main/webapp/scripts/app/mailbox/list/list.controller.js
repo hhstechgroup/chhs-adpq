@@ -88,18 +88,18 @@ angular.module('apqdApp')
         };
 
         $scope.getTargetName = function(mail) {
-            if ($stateParams.directory === 'inbox') {
-                return mail.from.firstName + ' ' + mail.from.lastName;
-            } if ($stateParams.directory === 'deleted') {
-
-                if (identity.login === mail.to.login) {
-                    return mail.from.firstName + ' ' + mail.from.lastName;
-                } else {
-                    return mail.to.firstName + ' ' + mail.to.lastName;
-                }
-
+            if ($stateParams.directory === 'inbox' || $stateParams.directory === 'deleted') {
+                return $scope.getTitle(mail);
             } else {
                 return (!_.isNil(mail.to) ? mail.to.firstName + ' ' + mail.to.lastName : '');
+            }
+        };
+
+        $scope.getTitle = function(mail) {
+            if (identity.login === mail.to.login) {
+                return mail.from.firstName + ' ' + mail.from.lastName;
+            } else {
+                return mail.to.firstName + ' ' + mail.to.lastName;
             }
         };
 
