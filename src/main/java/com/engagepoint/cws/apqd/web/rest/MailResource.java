@@ -13,7 +13,9 @@ import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageThreadSearchRepository;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
+import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
+import com.engagepoint.cws.apqd.web.rest.util.HttpRequestUtil;
 import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
 import org.slf4j.Logger;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -68,6 +71,9 @@ public class MailResource {
 
     @Inject
     private DeletedRepository deletedRepository;
+
+    @Inject
+    private MailService mailService;
 
     @PostConstruct
     public void init() {
@@ -133,7 +139,7 @@ public class MailResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
-    public ResponseEntity<Void> sendMessage(@Valid @RequestBody Message message) throws URISyntaxException {
+    public ResponseEntity<Void> sendMessage(@Valid @RequestBody Message message, HttpServletRequest request) throws URISyntaxException {
         User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
@@ -146,6 +152,8 @@ public class MailResource {
         mailBoxService.notifyClientAboutDraftsCount();
         mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
 
+        String baseUrl = HttpRequestUtil.buildBaseUrl(request);
+        mailService.sendNewMessageAlertMail(userTo, baseUrl);
         return ResponseEntity.ok().build();
     }
 

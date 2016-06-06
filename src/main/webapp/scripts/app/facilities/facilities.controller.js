@@ -89,9 +89,10 @@ angular.module('apqdApp')
 
                     }
                 ).then(function (distance) {
-                    agency.distance = distance;
+                    agency.distance = distance.toFixed(1);
+                    agency.distanceValue = distance;
 
-                    locations['fn' + agency.facility_number] = {
+                    locations['fn' + agency.facility_number +'_'+ agency.distance.replace('.', '_')] = {
                         layer: 'agencies',
                         lat: agency.location.coordinates[1],
                         lng: agency.location.coordinates[0],
@@ -239,7 +240,6 @@ angular.module('apqdApp')
             $scope.updateDropDownLabel($scope.facilityTypes, $scope.typesConfig, $scope.ALL_TYPES_LABEL);
         };
         $scope.onTypeClick = function(type) {
-            type.selected = !type.selected;
             $scope.updateTypesLabel();
             $scope.invalidate();
         };
@@ -248,7 +248,6 @@ angular.module('apqdApp')
             $scope.updateDropDownLabel($scope.facilityStatuses, $scope.statusesConfig, $scope.ALL_STATUSES_LABEL);
         };
         $scope.onStatusClick = function(status) {
-            status.selected = !status.selected;
             $scope.updateStatusesLabel();
             $scope.invalidate();
         };
@@ -260,6 +259,23 @@ angular.module('apqdApp')
             } else {
                 config.label = defaultValue;
             }
+        };
+
+        $scope.resetFilters = function() {
+            $scope.clearFilter($scope.facilityTypes);
+            $scope.updateTypesLabel();
+
+            $scope.clearFilter($scope.facilityStatuses);
+            $scope.updateStatusesLabel();
+
+            $scope.searchText = $scope.text = '';
+            $scope.invalidate();
+        };
+
+        $scope.clearFilter = function(model) {
+            _.each(model, function(item) {
+                item.selected = false;
+            });
         };
 
         $scope.getSelected = function(model) {
@@ -306,7 +322,7 @@ angular.module('apqdApp')
                 $log.warn('Geolocation is not supported for this Browser/OS version yet.');
                 $scope.getAddressFromProperties();
             }
-        }
+        };
 
 
         $scope.getGeoLocation = function () {

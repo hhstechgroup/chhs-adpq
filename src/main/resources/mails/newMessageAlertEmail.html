@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.newMessage.alert.title}">CWS Parent Portal New Message</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.newMessage.alert.greeting(${user.firstName},${user.lastName})}">
+    Dear
+</p>
+<p>
+    You have a new message in the CWS Parent Portal.
+</p>
+<p>
+    <a th:href="@{|${baseUrl}|}">Log in</a><span> to see the message</span>
+</p>
+<p>
+    <div>Regards,</div>
+    <em>CWS Parent Portal Team</em>
+</p>
+</body>
+</html>
