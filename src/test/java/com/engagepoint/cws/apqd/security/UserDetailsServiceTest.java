@@ -23,8 +23,8 @@ import javax.inject.Inject;
 
 import java.util.Collection;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.addUserRole;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
-import static com.engagepoint.cws.apqd.APQDTestUtil.setUserRole;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -70,7 +70,7 @@ public class UserDetailsServiceTest {
         final String LOGIN = "activeUser".toLowerCase();
         User user = prepareUser(null, passwordEncoder, LOGIN);
         user.setActivated(true);
-        setUserRole(authorityRepository, user, AuthoritiesConstants.USER);
+        addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
         userRepository.saveAndFlush(user);
 
