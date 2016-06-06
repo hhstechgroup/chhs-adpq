@@ -49,6 +49,7 @@
         </div>
 
         <div class="ch-header__menu-mobile">
+            <div class="ch-header__menu-mobile__bg"></div>
             <div class="ch-menu-mobile__bg"
                  ng-class="{ 'ch-menu-mobile__bg-show': isMobileMenuVisible, 'ch-menu-mobile__bg-hide': !isAsideVisible}"
                  ng-click="isMobileMenuVisible = !isMobileMenuVisible"></div>
@@ -62,17 +63,17 @@
                  ng-class="{ 'ch-menu-mobile__active': isMobileMenuVisible, 'ch-menu-mobile__hide': !isAsideVisible}">
 
                 <h3 class="ch-menu-mobile__title clearfix">
-                    <span class="ch-menu-mobile__title__icon"></span>
-                    <span class="ch-menu-mobile__title__text">INBOX</span>
+                    <span class="ch-menu-mobile__title__text">MENU</span>
                 </h3>
 
                 <ul class="ch-menu-mobile__list">
                   <li class="ch-menu-mobile__list__item" has-any-authority="PARENT, CASE_WORKER">
 
                       <div class="ch-mobile-main-nav-item">
-                          <a class="ch-mobile-main-nav-item__link" ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-main-nav-item__link_active">
-                              <span class="icon icon-inbox"></span>
-                              <div class="ch-mobile-main-nav-item__text-bundle">
+                          <a class="ch-mobile-main-nav-item__link" ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-menu-mobile__link_active">
+
+                              <div class="ch-mobile-main-nav-item__text-bundle" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
+                                  <span class="icon icon-inbox"></span>
                                   <span class="ch-mobile-main-nav-item__text">Inbox</span>
                                   <span ng-if="unreadInboxCount > 0" class="ch-mobile-main-nav-item__inbox-counter">{{unreadInboxCount}}</span>
                               </div>
@@ -84,11 +85,13 @@
                   <li class="ch-menu-mobile__list__item" has-authority="PARENT">
 
                     <div class="ch-mobile-main-nav-item">
-                        <a class="ch-mobile-main-nav-item__link" ui-sref="ch-facilities" ui-sref-active="ch-main-nav-item__link_active">
-                            <span class="icon icon-facilities"></span>
+                        <a class="ch-mobile-main-nav-item__link" ui-sref="ch-facilities" ui-sref-active="ch-menu-mobile__link_active" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
+
                             <div class="ch-mobile-main-nav-item__text-bundle">
+                                <span class="icon icon-facilities"></span>
                                 <span class="ch-mobile-main-nav-item__text">Facilities</span>
                             </div>
+
                         </a>
                     </div>
 
@@ -97,9 +100,10 @@
                   <li class="ch-menu-mobile__list__item">
 
                     <div class="ch-mobile-main-nav-item">
-                        <a class="ch-mobile-main-nav-item__link" ui-sref="settings" ui-sref-active="ch-main-nav-item__link_active">
-                            <span class="icon icon-profile"></span>
+                        <a class="ch-mobile-main-nav-item__link" ng-click="isMobileMenuVisible = !isMobileMenuVisible" ui-sref="settings" ui-sref-active="ch-menu-mobile__link_active">
+
                             <div class="ch-mobile-main-nav-item__text-bundle">
+                                <span class="icon icon-profile"></span>
                                 <span class="ch-mobile-main-nav-item__text">My Profile</span>
                             </div>
                         </a>
@@ -108,7 +112,7 @@
                   </li>
                 </ul>
 
-                <div class="ch-mobile-main-nav__sign-out clearfix">
+                <div class="ch-mobile-main-nav__sign-out clearfix" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
                     <button type="button" class="ch-mobile-main-nav__sign-out__btn" ng-click="logout()">
                         <span class="icon icon-user-account-exit"></span>
                         <span class="ch-plane-btn__text">Sign out</span>

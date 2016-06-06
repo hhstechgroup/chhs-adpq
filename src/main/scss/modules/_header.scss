@@ -49,6 +49,8 @@
     margin-right: 1rem;
     background: transparent;
     display: none;
+    position: relative;
+    z-index: 10002;
 }
 
 .ch-user-account-entry__dropdown-btn_collapsed:after {
