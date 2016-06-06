@@ -6,6 +6,10 @@ import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
 import com.codahale.metrics.health.HealthCheckRegistry;
 import com.codahale.metrics.jvm.*;
+import com.engagepoint.cws.apqd.config.zabbix.ActiveChecksRequest;
+import com.engagepoint.cws.apqd.config.zabbix.ApqdZabbixResponse;
+import com.engagepoint.cws.apqd.config.zabbix.ApqdZabbixSender;
+import com.engagepoint.cws.apqd.config.zabbix.ZabbixResponseType;
 import com.ryantenney.metrics.spring.config.annotation.EnableMetrics;
 import com.ryantenney.metrics.spring.config.annotation.MetricsConfigurerAdapter;
 import fr.ippon.spark.metrics.SparkReporter;
@@ -19,6 +23,7 @@ import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -155,23 +160,62 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
         @PostConstruct
         @SuppressWarnings("squid:UnusedPrivateMethod")
         private void init() {
-            if (jHipsterProperties.getMetrics().getZabbix().isEnabled()) {
-                LOGGER.info("Initializing Metrics Zabbix reporting");
 
-                JHipsterProperties.Metrics.Zabbix zabbixProperties = jHipsterProperties.getMetrics().getZabbix();
+            if (!jHipsterProperties.getMetrics().getZabbix().isEnabled()) {
+                return;
+            }
 
-                String zabbixHost = zabbixProperties.getHost();
-                Integer zabbixPort = zabbixProperties.getPort();
-                Integer periodSec = zabbixProperties.getPeriodSec();
-                String hostMetadata = zabbixProperties.getHostMetadata();
+            LOGGER.info("Initializing Metrics Zabbix reporting");
 
-                String appInstanceId = buildApplicationInstanceId();
+            try {
+                confugureApplicationInstanceZabbixHost(jHipsterProperties.getMetrics().getZabbix());
+            } catch (Throwable t) {
+                LOGGER.error("Error at configuring application instance host on Zabbix ", t);
+            }
+        }
 
+        private void confugureApplicationInstanceZabbixHost(JHipsterProperties.Metrics.Zabbix zabbixProperties) throws IOException {
+
+            String zabbixHost = zabbixProperties.getHost();
+            Integer zabbixPort = zabbixProperties.getPort();
+            Integer periodSec = zabbixProperties.getPeriodSec();
+            String hostMetadata = zabbixProperties.getHostMetadata();
+
+            String appInstanceId = buildApplicationInstanceId();
+            LOGGER.info("'{}' will be used as application host value on Zabbix", appInstanceId);
+
+            boolean hostIsConfigured = false;
+
+            ApqdZabbixSender zabbixActiveRequestSender = new ApqdZabbixSender(zabbixHost, zabbixPort);
+
+            ActiveChecksRequest activeChecksRequest = new ActiveChecksRequest();
+            activeChecksRequest.setHost(appInstanceId);
+            activeChecksRequest.setHostMetadata(hostMetadata);
+
+            ApqdZabbixResponse zabbixRespone = zabbixActiveRequestSender.send(activeChecksRequest);
+
+            if(zabbixRespone.getType() == ZabbixResponseType.SUCCESS){
+                hostIsConfigured = true;
+                LOGGER.info("Zabbix host '{}' was already configured", appInstanceId);
+            }else if(zabbixRespone.getType() == ZabbixResponseType.FAILED){
+                //send another request to check if host was successfully configured as a result of first one
+                ApqdZabbixResponse zabbixRespone2 = zabbixActiveRequestSender.send(activeChecksRequest);
+
+                if(zabbixRespone2.getType() == ZabbixResponseType.SUCCESS) {
+                    hostIsConfigured = true;
+                    LOGGER.info("Zabbix host '{}' is successfully configured", appInstanceId);
+                }
+            }
+
+            if(hostIsConfigured) {
                 ZabbixSender zabbixSender = new ZabbixSender(zabbixHost, zabbixPort);
                 ZabbixReporter zabbixReporter = ZabbixReporter.forRegistry(metricRegistry)
                     .hostName(appInstanceId).build(zabbixSender);
 
                 zabbixReporter.start(periodSec, TimeUnit.SECONDS);
+                LOGGER.info("Zabbix reporter is successfully started", appInstanceId);
+            }else{
+                LOGGER.error("Zabbix host '{}' is not successfully configured", appInstanceId);
             }
         }
 
@@ -189,7 +233,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
                 joiner.add(severPort);
 
             } catch (UnknownHostException e) {
-                LOGGER.error("Host name error, \"{}\" will be used as application instance ID used on Zabbix",
+                LOGGER.error("Host name error, '{}' will be used as host name on Zabbix",
                     APPLICATION_INSTANCE_PREFIX, e);
             }
 
