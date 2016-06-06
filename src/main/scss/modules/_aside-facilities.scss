@@ -49,6 +49,30 @@
     margin-right: 0;
 }
 
+.ch-facilities-list_top-results {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: inherit;
+    padding-bottom: 1rem; }
+
+.ch-facilities-list_top-count-message {
+    color: #000; }
+
+.ch-facilities-list_top-times {
+    color: #80b8de; }
+
+.ch-facilities-list_top-white-on-primary {
+    color: #fff;
+    background-color: #0071bc;
+    padding: 0.5rem 1rem 0.6rem 1rem;
+    line-height: 1.1rem;
+    border-radius: 1rem; }
+
+.ch-facilities-list_top-pane {
+    background-color: #f1f1f1;
+    padding: 1.9rem 3.2rem 2.4rem 2.5rem;
+    border-bottom: .1rem solid #cbcdcf;  }
+
 .ch-facilities-tag {
     padding: 0.5rem 1rem 0.5rem 0.9rem;
     display: block;
