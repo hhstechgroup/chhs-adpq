@@ -80,9 +80,8 @@ public class UserStepDefs {
         $("[ng-model='registerAccount.lastName']").setValue(login);
         $("#password").setValue(password);
         $("#confirmPassword").setValue(password);
-        $("[type*='submit']").click();
-        $(By.xpath(".//a[text()='I have an account']")).shouldBe(visible);
-        $(By.xpath(".//div[contains(text(),'check your email for confirmation')]")).shouldBe(visible).shouldHave(text("Please check your email for confirmation."));
+        click_css_and_wait("[type*='submit']");
+        $(By.xpath(".//*[contains(text(),'check your email')]")).shouldBe(visible).shouldHave(text("Please check your email"));
     }
 
     @When("^check confirmation letter for email '(.*)'$")
@@ -352,7 +351,9 @@ public class UserStepDefs {
     @Then("^tweet with text '(.*)' from '(.*)' should be presented$")
     public void tweet_with_text_sss_from_mic_should_be_presented(String text, String from) throws Throwable {
         $(By.xpath(".//iframe[contains(@id,'twitter')]")).waitUntil(appear, 4000);
-        switchTo().innerFrame("twitter-widget-0");
+        //switchTo().frame("[title='Twitter Timeline']");
+        switchTo().frame(2);
+        //switchTo().innerFrame("Twitter Timeline");
         $(By.xpath(".//*[contains(@class,'timeline-TweetList-tweet')]/*/*[@class='timeline-Tweet-text' and contains(text(),'" + text + "')]/../../descendant::div[@class='TweetAuthor']/a/span[text()='" + from + "']")).shouldBe(visible);
         $("[aria-label='Like']").shouldBe(visible);
         $("[aria-label='Share Tweet']").shouldBe(visible);

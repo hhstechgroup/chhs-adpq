@@ -119,7 +119,7 @@
 
                 <div class="ch-new-mail__row">
                     <div class="ch-new-mail-text-body">
-                        <div class="ch-new-mail-text-body__text-counter">{{4000 - mail.body.length}} symbols left</div>
+                        <div class="ch-new-mail-text-body__text-counter">{{4000 - mail.body.length}} characters left</div>
                         <textarea cols="30" maxlength="4000" rows="20" ng-model="mail.body"
                                   ng-change="onTextChange()"
                                   ng-class="isBodyInvalid ? ' ch-invalid-field' : ''"
