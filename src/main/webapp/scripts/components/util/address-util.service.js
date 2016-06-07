@@ -64,7 +64,7 @@ angular.module('apqdApp')
                         function() {
                             $log.warn('Cannot load states');
                         }
-                    )
+                    );
                 }
                 return q.promise;
             },
