@@ -341,20 +341,26 @@ angular.module('apqdApp')
         $scope.getAddressFromProperties = function () {
             AppPropertiesService.defaultAddress(function (response) {
                 var address = response.data;
-                GeocoderService.searchAddress(address).then(function (response) {
-                    var data = response.data[0];
-                    $scope.onSelectAddress({
-                        latlng: {
-                            lat: parseFloat(data.lat),
-                            lng: parseFloat(data.lon)
-                        },
-                        feature: {
-                            properties: {
-                                label: data.display_name
+                GeocoderService.searchAddress(address).then(
+                    function (response) {
+                        var data = response.data[0];
+                        $scope.onSelectAddress({
+                            latlng: {
+                                lat: parseFloat(data.lat),
+                                lng: parseFloat(data.lon)
+                            },
+                            feature: {
+                                properties: {
+                                    label: data.display_name
+                                }
                             }
-                        }
-                    })
-                });
+                        })
+                    },
+                    function() {
+                        $log.warn('Cannot get address details');
+                        $scope.getAddressFromProperties();
+                    }
+                );
             });
         };
 
