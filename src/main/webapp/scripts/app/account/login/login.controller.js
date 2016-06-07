@@ -2,7 +2,7 @@
 
 angular.module('apqdApp')
     .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, MailBoxService,
-     AuthenticationErrorService) {
+     AuthenticationErrorService, $uibModal) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -40,4 +40,13 @@ angular.module('apqdApp')
 
 
         $scope.initTwitterTimeline();
+
+        $scope.openPrivacyPolicyModal = function() {
+            $uibModal.open({
+                templateUrl: 'scripts/app/account/login/modal/privacy-policy-dialog.html',
+                controller: 'PrivacyPolicyModalCtrl',
+                size: 'privacy-policy',
+                windowClass: 'ch-general-modal'
+            });
+        };
     });
