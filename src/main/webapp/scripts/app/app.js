@@ -95,7 +95,7 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
 
             Principal.hasAuthority('PARENT').then(function(has) {
                 if (has) {
-                    $state.go('ch-facilities', {}, {reload: true});
+                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
                 }
             });
 
