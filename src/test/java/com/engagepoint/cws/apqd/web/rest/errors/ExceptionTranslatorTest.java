@@ -19,6 +19,7 @@ import static org.assertj.core.api.StrictAssertions.assertThat;
 public class ExceptionTranslatorTest {
     private static final String EXCEPTION_MSG = "error";
     private static final String PARAM_1 = "param1";
+    private static final String PARAM_2 = "param2";
 
     private static ExceptionTranslator EXCEPTION_TRANSLATOR;
 
@@ -34,9 +35,11 @@ public class ExceptionTranslatorTest {
 
         @Override
         public List<FieldError> getFieldErrors() {
-            final FieldError fe = new FieldError(getObjectName(), PARAM_1, "");
+            final FieldError fe1 = new FieldError(getObjectName(), PARAM_1, "");
+            final FieldError fe2 = new FieldError(getObjectName(), PARAM_2, "");
             return new ArrayList<FieldError>(){{
-                add(fe);
+                add(fe1);
+                add(fe2);
             }};
         }
     }
@@ -64,12 +67,17 @@ public class ExceptionTranslatorTest {
         assertThat(errorDTO.getMessage()).isEqualTo(ErrorConstants.ERR_VALIDATION);
         assertThat(errorDTO.getDescription()).isNull();
         assertThat(errorDTO.getFieldErrors()).isNotNull();
-        assertThat(errorDTO.getFieldErrors().size()).isEqualTo(1);
+        assertThat(errorDTO.getFieldErrors().size()).isEqualTo(2);
 
-        FieldErrorDTO fieldError = errorDTO.getFieldErrors().get(0);
-        assertThat(fieldError.getObjectName()).isEqualTo(EXCEPTION_TRANSLATOR.getClass().getName());
-        assertThat(fieldError.getField()).isEqualTo(PARAM_1);
-        assertThat(fieldError.getMessage()).isNull();
+        FieldErrorDTO fieldError1 = errorDTO.getFieldErrors().get(0);
+        assertThat(fieldError1.getObjectName()).isEqualTo(EXCEPTION_TRANSLATOR.getClass().getName());
+        assertThat(fieldError1.getField()).isEqualTo(PARAM_1);
+        assertThat(fieldError1.getMessage()).isNull();
+
+        FieldErrorDTO fieldError2 = errorDTO.getFieldErrors().get(1);
+        assertThat(fieldError2.getObjectName()).isEqualTo(EXCEPTION_TRANSLATOR.getClass().getName());
+        assertThat(fieldError2.getField()).isEqualTo(PARAM_2);
+        assertThat(fieldError2.getMessage()).isNull();
     }
 
     @Test
