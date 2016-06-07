@@ -61,14 +61,14 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: intake@localhost
+        from: apqd@engagepoint.com
     security:
         rememberme:
             # security key (this key should be unique for your application, and kept secret)
             key: 7b2fd59e025ec84a4856f8618fea74df4806f0cd
     swagger:
-        title: intake API
-        description: intake API documentation
+        title: APQD API
+        description: APQD API documentation
         version: 0.0.1
         termsOfServiceUrl:
         contact:
@@ -79,23 +79,8 @@ jhipster:
 # Application properties
 # ===================================================================
 
-intake:
-    state: CA
-    cws-office: 5669 Gibraltar Dr,Pleasanton, CA 94588
-    google-maps-bounds:
-        north-east:
-            latitude: 42
-            longitude: -114.13
-        south-west:
-            latitude: 32.53
-            longitude: -124.43
-    #values: alchemy, opennlp
-    nlp-mode: opennlp
-    alchemyapi-key: d5cf8a179a2d822072f193ca9ae541abd711999a
-    alchemyapi-url: http://access.alchemyapi.com/calls/text/
-    #referral-report-type: FULL_REFERRAL
-    referral-report-type: SUSPECTED_CHILD_ABUSE_FORM
-    webSocketAllowOrigins: "*"
+apqd:
+    default-address: 744 P St,Sacramento, CA 95814
 
 hhs-api:
     hhs-api-url: https://chhs.data.ca.gov/resource/mffa-c6z5.json

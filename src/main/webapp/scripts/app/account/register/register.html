@@ -26,21 +26,17 @@
         <div class="ch-sign-up__form">
             <h3 class="ch-sign-up__form__title" ng-show="!success">Sign Up</h3>
 
-            <div class="ch-sign-up-success" ng-show="success" translate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
-
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 
               <div class="ch-sign-up__form__group ch-sign-up__form__group_row">
                   <div class="ch-sign-up__form__group_child">
-                      <label for="username" translate="">First Name</label>
-                      <input type="text" class="form-control" id="username" ng-model="registerAccount.firstName" placeholder="Your First Name">
+                      <label for="firstName" translate="">First Name</label>
+                      <input type="text" class="form-control" id="firstName" ng-model="registerAccount.firstName" placeholder="Your First Name">
                   </div>
 
                   <div class="ch-sign-up__form__group_child">
-                      <label for="username" translate="">Last Name</label>
-                      <input type="text" class="form-control" id="username" ng-model="registerAccount.lastName" placeholder="Your Last Name">
+                      <label for="lastName" translate="">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" ng-model="registerAccount.lastName" placeholder="Your Last Name">
                   </div>
               </div>
 
@@ -113,7 +109,7 @@
                 </div>
 
                 <div class="ch-sign-up__form__group">
-                    <label class="control-label" for="email" >License number/Case number</label>
+                    <label class="control-label" for="email" >Family case number / License case number</label>
                     <input type="text" class="form-control" id="caseNumber" name="caseNumber" placeholder="License number/Case number"
                            ng-model="registerAccount.caseNumber" ng-maxlength=20 required>
                     <div ng-show="form.caseNumber.$dirty && form.caseNumber.$invalid">
@@ -158,14 +154,14 @@
 
             <p></p>
 
-            <!-- <div class="alert alert-warning" translate="global.messages.info.authenticated">
-                If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-            </div> -->
         </div>
 
         <div class="ch-sign-up__new-account" ng-show="!success">
            <a class="" href="#">I have an account</a>
         </div>
+
+            <button class="ch-sign-up__new-account" ng-click="gLogin()">Sign In with Google</button>
+            <button class="ch-sign-up__new-account" ng-click="fLogin()">Sign In with Facebook</button>
 
     </div>
 </div>

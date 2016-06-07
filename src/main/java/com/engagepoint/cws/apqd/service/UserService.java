@@ -11,6 +11,8 @@ import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.MailResource;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
+import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.net.URISyntaxException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -67,6 +69,7 @@ public class UserService {
                 userRepository.save(user);
                 userSearchRepository.save(user);
                 sendInvitationLetter(user.getLogin());
+                attachSupportContacts(user.getLogin());
                 LOGGER.debug("Activated user: {}", user);
                 return user;
             });
@@ -101,8 +104,7 @@ public class UserService {
             });
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, String caseNumber) {
+    public User createUserInformation(UserDTO userDTO) {
 
         User newUser = new User();
         MailBox mailBox = prepareMailbox();
@@ -110,19 +112,19 @@ public class UserService {
         newUser.setMailBox(mailBox);
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.PARENT);
         Set<Authority> authorities = new HashSet<>();
-        String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(login);
+        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        newUser.setLogin(userDTO.getLogin());
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setLangKey(langKey);
-        newUser.setSsnLast4Digits(ssnLast4Digits);
-        newUser.setBirthDate(birthDate);
-        newUser.setGender(gender);
-        newUser.setPhoneNumber(phoneNumber);
-        newUser.setCaseNumber(caseNumber);
+        newUser.setFirstName(userDTO.getFirstName());
+        newUser.setLastName(userDTO.getLastName());
+        newUser.setEmail(userDTO.getEmail().toLowerCase());
+        newUser.setLangKey(userDTO.getLangKey());
+        newUser.setSsnLast4Digits(userDTO.getSsnLast4Digits());
+        newUser.setBirthDate(userDTO.getBirthDate());
+        newUser.setGender(userDTO.getGender());
+        newUser.setPhoneNumber(userDTO.getPhoneNumber());
+        newUser.setCaseNumber(userDTO.getCaseNumber());
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
@@ -137,11 +139,26 @@ public class UserService {
 
     private void sendInvitationLetter(String login) {
         Message invitation = new Message();
-        invitation.setBody("PREVED!");
-        invitation.setFrom(userRepository.findOneByLogin("worker").get());
+
+        String body;
+        try {
+            body = IOUtils.toString(getClass().getResourceAsStream("/templates/invitation.html"));
+        } catch (IOException e) {
+            throw new IllegalStateException("this should not happen", e);
+        }
+
+        invitation.setBody(body);
+        invitation.setSubject("Welcome!");
+        invitation.setFrom(userRepository.findOneByLogin("maryjenkins").get());
         invitation.setTo(userRepository.findOneByLogin(login).get());
 
         mailResource.sendInvitationLetter(invitation);
+    }
+
+    private void attachSupportContacts(String login) {
+        User user = userRepository.findOneByLogin(login).get();
+        User support = userRepository.findOneByLogin("worker").get();
+        mailResource.updateUserContacts(user, support);
     }
 
     private MailBox prepareMailbox() {
@@ -158,10 +175,6 @@ public class UserService {
         Draft draft = new Draft();
         draft.setMailBox(mailBox);
         mailBox.setDraft(draft);
-
-        Deleted deleted = new Deleted();
-        deleted.setMailBox(mailBox);
-        mailBox.setDeleted(deleted);
 
         return mailBoxRepository.save(mailBox);
     }
@@ -241,13 +254,6 @@ public class UserService {
             u.getAuthorities().size();
             return u;
         });
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserWithAuthorities(Long id) {
-        User user = userRepository.findOne(id);
-        user.getAuthorities().size(); // eagerly load the association
-        return user;
     }
 
     @Transactional(readOnly = true)

@@ -4,6 +4,7 @@
 
 .ch-layout {
     width: 100%;
+    min-width: 40rem;
 }
 
 .ch-layout__aside {
@@ -11,6 +12,7 @@
     width: 21rem;
     height: 100vh;
     border-right: 1px solid #cbcdcf;
+    background-color: #fff;
 }
 
 .ch-layout__content {

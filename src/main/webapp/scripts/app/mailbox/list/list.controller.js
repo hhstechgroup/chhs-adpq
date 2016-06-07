@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log, Message, ParseLinks, MailService) {
+    .controller('MessagesCtrl', function ($scope, $state, $stateParams, $log,
+                                          Message, ParseLinks, MailService, filterByDestination,
+                                          DeleteMessageService, RestoreMessageService, identity) {
 
         $scope.pageNum = 0;
         $scope.pageSize = 10;
@@ -11,6 +13,7 @@ angular.module('apqdApp')
         $scope.totalItems = 0;
         $scope.searchString = '';
         $scope.prevSearchString = '';
+        $scope.filterByDestination = filterByDestination;
 
         $scope.loadPage = function() {
 
@@ -19,9 +22,16 @@ angular.module('apqdApp')
                 $scope.pageNum = 0;
             }
 
+            var searchString;
+            if (!_.isNil(filterByDestination)) {
+                searchString = "BY_LOGIN_" + filterByDestination.login;
+            } else {
+                searchString = _.isEmpty($scope.searchString.trim()) ? '-1' : $scope.searchString.trim();
+            }
+
             var query = {
                 dir: $stateParams.directory.toUpperCase(),
-                search: _.isEmpty($scope.searchString.trim()) ? '-1' : $scope.searchString.trim(),
+                search: searchString,
                 page: $scope.pageNum,
                 size: $scope.pageSize
             };
@@ -52,6 +62,8 @@ angular.module('apqdApp')
         $scope.openMail = function(mail) {
             if ($stateParams.directory === 'drafts') {
                 $state.go('ch-inbox.new-mail', {mailId: mail.id});
+            } else if ($stateParams.directory === 'deleted') {
+                $state.go('ch-inbox.view', {mailId: mail.id, readOnly: true});
             } else {
                 $state.go('ch-inbox.view', {mailId: mail.id});
             }
@@ -71,8 +83,20 @@ angular.module('apqdApp')
             }
         };
 
+        $scope.getActionName = function() {
+            return ($stateParams.directory === 'deleted' ? 'Restore' : 'Delete');
+        };
+
         $scope.getTargetName = function(mail) {
             if ($stateParams.directory === 'inbox' || $stateParams.directory === 'deleted') {
+                return $scope.getTitle(mail);
+            } else {
+                return (!_.isNil(mail.to) ? mail.to.firstName + ' ' + mail.to.lastName : '');
+            }
+        };
+
+        $scope.getTitle = function(mail) {
+            if (identity.login === mail.to.login) {
                 return mail.from.firstName + ' ' + mail.from.lastName;
             } else {
                 return mail.to.firstName + ' ' + mail.to.lastName;
@@ -80,11 +104,37 @@ angular.module('apqdApp')
         };
 
         $scope.selectAll = function() {
+            $scope.allSelected = !$scope.allSelected;
             _.each($scope.mails, function(mail) {mail.selected = $scope.allSelected});
         };
 
+        $scope.hasSelected = function() {
+            return !_.isUndefined(_.find($scope.mails, {selected: true}));
+        };
+
         $scope.deleteSelected = function() {
-            $log.info('deleted');
+            if ($stateParams.directory !== 'deleted') {
+                DeleteMessageService.delete(_.filter($scope.mails, {selected: true}), function() {
+                    $scope.allSelected = false;
+                    $scope.loadPage();
+                }, $log.error);
+            }
+        };
+
+        $scope.getUnreadMessageStyle = function(mail) {
+            if ($state.params.directory === 'inbox' || $state.params.directory === 'deleted') {
+                return mail.unreadMessagesCount > 0 ? 'ch-content-item_active' : '';
+            } else {
+                return '';
+            }
+        };
+
+        $scope.getUnreadMessageCount = function(mail) {
+            if ($state.params.directory === 'inbox' || $state.params.directory === 'deleted') {
+                return mail.unreadMessagesCount;
+            } else {
+                return 0;
+            }
         };
 
         $scope.loadPage();

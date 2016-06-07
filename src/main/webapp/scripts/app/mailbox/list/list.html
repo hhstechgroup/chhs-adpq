@@ -1,16 +1,25 @@
 <div class="ch-page">
+    <div class="ch-page-bg"></div>
 
     <div class="ch-page-heading">
 
-        <div class="ch-page-heading__select">
+        <div ng-if="mails.length > 0" class="ch-page-heading__select">
             <div class="form-type__checkbox_empty-label">
                 <input id="selectAll" type="checkbox" ng-click="selectAll()" ng-model="allSelected">
                 <label for="selectAll"></label>
             </div>
         </div>
 
-        <div class="ch-page-heading__actions">
-            <span class="icon icon-remove" ng-click="deleteSelected()"></span>
+        <div ng-if="mails.length == 0" class="ch-page-heading__select">
+            <span>NO MESSAGES</span>
+        </div>
+
+        <div ng-if="!hasSelected()" class="ch-page-heading__actions_hidden">
+        </div>
+
+        <div ng-if="hasSelected()" class="ch-page-heading__actions" ng-click="deleteSelected()">
+            <span class="icon icon-remove" ></span>
+            <span class="actions__text">{{getActionName()}}</span>
         </div>
 
         <div class="ch-page-heading__search">
@@ -36,7 +45,7 @@
                     </div>
 
                     <div class="ch-button-group__item">
-                        <button type="button" class="ch-button-group__btn ch-button-group__btn_left-border" ng-click="nextPage()">
+                        <button type="button" class="ch-button-group__btn_left-border" ng-click="nextPage()">
                             <span class="icon icon-pagination-arrow-right"></span>
                         </button>
                     </div>
@@ -54,10 +63,10 @@
 
     <ul class="ch-page-content">
 
-        <li ng-repeat="mail in mails" ng-class="mail.unreadMessagesCount > 0 ? 'ch-content-item_active' : ''"
+        <li ng-repeat="mail in mails" ng-class="getUnreadMessageStyle(mail)"
             class="ch-content-item">
 
-            <div class="ch-content-item__checkbox">
+            <div class="ch-content-item__checkbox" ng-click="mail.selected = !mail.selected" >
                 <div class="form-type__checkbox_empty-label">
                     <input id="select{{mail.id}}" type="checkbox" name="select{{mail.id}}"
                            ng-model="mail.selected">
@@ -68,7 +77,7 @@
             <div ng-click="openMail(mail)">
                 <div class="ch-content-item__person">
                     <span class="person-name">{{getTargetName(mail)}}</span>
-                    <span ng-if="mail.unreadMessagesCount > 0" class="person-chain-count">({{mail.unreadMessagesCount}})</span>
+                    <span ng-if="getUnreadMessageCount(mail) > 0" class="person-chain-count">({{getUnreadMessageCount(mail)}})</span>
                 </div>
 
                 <div class="ch-content-item__entry">

@@ -5,7 +5,6 @@
                 <div class="ch-input-block">
                     <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon_left">
                         <div id="geocoder" >
-                          <!--<input type="search" name="search-address" id="search-address"  class="ch-form-input ch-form-input_small ch-form-input_search" value="7025 E McKiney Ave, Fresno, CA 93737" />-->
                         </div>
                     </div>
                 </div>
@@ -20,15 +19,15 @@
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
                 <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="showTypes = !showTypes">
-                        <span class="ch-multi-select-dropdown__btn-text">All Types</span>
+                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="typesConfig.showList = !typesConfig.showList;">
+                        <span class="ch-multi-select-dropdown__btn-text">{{typesConfig.label}}</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" ng-show="showTypes" ng-mouseleave="showTypes = false">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="typesConfig.showList" ng-mouseleave="typesConfig.showList = false">
                         <ul class="ch-checkboxes-list">
                             <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.id | orderBy: 'id'">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="{{type.id}}" type="checkbox" ng-click="type.selected = !type.selected; findAgenciesWithinBox();">
+                                    <input id="{{type.id}}" type="checkbox" ng-model="type.selected" ng-click="onTypeClick(type)">
                                     <label for="{{type.id}}">{{type.name | capitalize:true}}</label>
                                 </div>
                             </li>
@@ -38,15 +37,15 @@
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
                 <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="showStatuses = !showStatuses">
-                        <span class="ch-multi-select-dropdown__btn-text">All Statuses</span>
+                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="statusesConfig.showList = !statusesConfig.showList;">
+                        <span class="ch-multi-select-dropdown__btn-text">{{statusesConfig.label}}</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" ng-show="showStatuses" ng-mouseleave="showStatuses = false">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="statusesConfig.showList" ng-mouseleave="statusesConfig.showList = false">
                         <ul class="ch-checkboxes-list">
                             <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.id | orderBy: 'id'">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="{{status.id}}" type="checkbox" ng-click="status.selected = !status.selected; findAgenciesWithinBox();">
+                                    <input id="{{status.id}}" type="checkbox" ng-model="status.selected" ng-click="onStatusClick(status);">
                                     <label for="{{status.id}}">{{status.name | capitalize:true}}</label>
                                 </div>
                             </li>
@@ -54,23 +53,15 @@
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
-                <button type="button" class="ch-option-btn" ng-click="openDefaultAddressModal()">
-                    <span class="ch-option-btn__text">show popup</span>
-                </button>
-            </div>
         </div>
     </section>
 </div>
 
-<div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside">
+<div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside"></div>
 
-</div>
-
-<!--start main content-->
 <div class = "ch-layout__content ch-layout__content_facilities" ng-class="{ 'ch-layout__content_fullwidth' : isContentFullWidth }" ui-view="main">
     <div>
         <leaflet defaults="defaults" lf-center="center" markers="locations" layers="layers" style="height: calc(100vh - 14.8rem);"></leaflet>
     </div>
-</div><!--end main content-->
+</div>
 

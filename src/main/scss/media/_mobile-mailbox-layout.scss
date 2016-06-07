@@ -1,0 +1,115 @@
+.ch-mobile-layout {
+    display: none;
+}
+.ch-mobile-contacts {
+    margin-top: 3rem;
+
+    .ch-aside-contacts__short__arrow {
+        width: 2.6rem;
+        height: 1.4rem;
+        top: 1rem;
+    }
+
+    .ch-aside-contacts__short__arrow.down {
+        background: url("../images/us-icon/arrow-down-big.png") no-repeat center;
+    }
+
+    .ch-aside-contacts__short__arrow.up {
+        background: url("../images/us-icon/arrow-up-big.png") no-repeat center;
+    }
+}
+
+.ch-mobile-folders__action-btn {
+    padding: 3rem 1.5rem;
+
+    .ch-option-btn {
+        width: 100%;
+        height: 7.7rem;
+    }
+
+    .ch-option-btn__text {
+        font-size: 2.8rem;
+    }
+}
+
+
+.ch-multi-select-dropdown__btn-mobile {
+    padding: 0.7rem 0 0.7rem 2.6rem;
+    border: 0.1rem solid #5b616b;
+    text-align: left;
+    width: 100%;
+    height: 7rem;
+    font-size: 1.4rem;
+    position: relative;
+}
+
+.ch-multi-select-dropdown__btn-mobile-text {
+    font-size: 2.8rem;
+}
+
+.ch-multi-select-dropdown__btn-mobile-icon {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 3.7rem;
+    pointer-events: none;
+    right: 0;
+}
+
+.ch-multi-select-dropdown__btn-mobile-icon::after {
+    background: url("../images/us-icon/arrow-down-big.png") no-repeat right center;
+    content: "\0020";
+    position: absolute;
+    width: 2.6rem;
+    height: 1.4rem;
+    top: 50%;
+    right: 50%;
+    margin: -0.35rem -0.6rem 0 0 ;
+}
+
+.ch-multi-select-dropdown__mobile {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    height: 7.7rem;
+    position: relative;
+  }
+
+.ch-multi-select-dropdown__popup {
+    width: calc(100% - 3rem);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9000;
+    padding: 1.5rem 1.4rem;
+    margin-left: 1.5rem;
+    border: .1rem solid #cbcdcf;
+    background: #fff;
+}
+
+.ch-mobile-folders__inbox-nav {
+    border-bottom: .1rem solid #cbcdcf;
+    padding-bottom: 2rem;
+}
+
+.ch-mobile-contacts,
+.ch-mobile-folders {
+    display: none;
+}
+
+.ch-mobile-contacts.ch-show-folders {
+    display: none !important;
+}
+
+.ch-mobile-folders.ch-show-contacts {
+    display: none !important;
+}
+
+.ch-hide-contacts,
+.ch-hide-folders {
+    display: none !important;
+}
+
+.ch-show-contacts,
+.ch-show-folders {
+    display: block !important;
+}

@@ -239,9 +239,9 @@ public class JHipsterProperties {
 
     public static class Swagger {
 
-        private String title = "intake API";
+        private String title = "APQD API";
 
-        private String description = "intake API documentation";
+        private String description = "APQD API documentation";
 
         private String version = "0.0.1";
 
@@ -390,7 +390,7 @@ public class JHipsterProperties {
 
             private int port = 2003;
 
-            private String prefix = "intake";
+            private String prefix = "apqd";
 
             public boolean isEnabled() {
                 return enabled;

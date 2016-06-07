@@ -1,10 +1,12 @@
+
+
 <aside class="ch-aside-section">
     <div class="ch-aside-section__item">
         <nav class="ch-aside-nav">
 
             <div class="ch-aside-nav__action-btn">
                 <button type="button" class="ch-option-btn"  ui-sref="ch-inbox.new-mail">
-                    <span class="ch-option-btn__text">Compose Mail</span>
+                    <span class="ch-option-btn__text">Compose</span>
                 </button>
             </div>
 
@@ -24,7 +26,7 @@
                         <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_sent"
                            ui-sref="ch-inbox.messages({directory: 'sent'})" ui-sref-active="ch-aside-nav-item__link_active">
 
-                            <span class="ch-aside-nav-item__text">Sent mail</span>
+                            <span class="ch-aside-nav-item__text">Sent Messages</span>
                         </a>
                     </div>
                 </li>
@@ -66,7 +68,7 @@
                                 </div>
                                 <div class="ch-aside-contacts__person">
                                     <h3 class="ch-aside-contacts__person-name"><span>{{contact.firstName}} {{contact.lastName}}</span></h3>
-                                    <h4 class="ch-aside-contacts__person-role"><span>Case Worker</span></h4>
+                                    <h4 class="ch-aside-contacts__person-role"><span>{{contact.roleDescription}}</span></h4>
                                 </div>
                                 <span class="ch-aside-contacts__short__arrow up" ng-show="showFullDetails"></span>
                                 <span class="ch-aside-contacts__short__arrow down" ng-show="!showFullDetails"></span>
@@ -74,21 +76,20 @@
 
                             <div class="ch-aside-contacts__full" ng-show="showFullDetails">
                                 <div class="ch-aside-contacts__action-btn">
-                                    <button type="button" class="ch-contacts-btn">
+                                    <button type="button" class="ch-contacts-btn" ng-click="composeMail(contact)">
                                         <span class="ch-contacts-btn__icon"></span>
                                         <span class="ch-contacts-btn__text">Compose</span>
                                     </button>
                                 </div>
                                 <div class="ch-aside-contacts__description">
-                                    <h3 class="ch-contacts-description__phone"><span>(510) 268-2422</span></h3>
-                                    <h4 class="ch-contacts-description__address"><span>
-                                      401 Broadway, Oakland, CA 94604</span></h4>
-                                    <a href="" class="ch-contacts-description__filter"><span>Filter Mails By Contact</span></a>
+                                    <h3 class="ch-contacts-description__phone"><span>{{contact.phone | formatTel}}</span></h3>
+                                    <h4 class="ch-contacts-description__address"><span>{{contact.place | formatAddress}}</span></h4>
+                                    <a href="" class="ch-contacts-description__filter" ng-click="filterByContact(contact)"><span>Filter Mails By Contact</span></a>
                                 </div>
                             </div>
                       </li>
 
-                </ul>               
+                </ul>
 
             </div>
         </div>

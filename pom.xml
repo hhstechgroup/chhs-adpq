@@ -74,7 +74,13 @@
     </properties>
 
     <dependencies>
-
+        <!-- selenide -->
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>3.5.1</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate4</artifactId>
@@ -518,9 +524,6 @@
             <testResource>
                 <directory>src/test/resources</directory>
             </testResource>
-            <testResource>
-                <directory>src/test/features</directory>
-            </testResource>
         </testResources>
         <pluginManagement>
             <plugins>
@@ -655,19 +658,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/Abstract*.java</exclude>
-                                <exclude>**/*Cucumber*.java</exclude>
                             </excludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>without-cucumber</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>**/*Cucumber*.java</include>
-                            </includes>
                         </configuration>
                     </execution>
                 </executions>
@@ -775,7 +766,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.19</version>
+                <version>2.18.1</version>
             </plugin>
         </plugins>
     </reporting>
@@ -826,6 +817,81 @@
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>acceptance-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <executions>
+                            <execution>
+                                <id>acceptance-test</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <includes>
+                                <include>**/*IT.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/it/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>add-resource</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-test-resource</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/it/resources</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <!-- log configuration -->
+                <logback.loglevel>DEBUG</logback.loglevel>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-undertow</artifactId>
                 </dependency>
             </dependencies>
         </profile>
@@ -955,24 +1021,6 @@
                                         <assembly>
                                             <basedir>/</basedir>
                                             <dockerFileDir>dockerfiles/chhs-apqd</dockerFileDir>
-                                        </assembly>
-                                    </build>
-                                </image>
-                                <image>
-                                    <name>chhs-apqd-elasticsearch</name>
-                                    <alias>chhs-apqd-elasticsearch</alias>
-                                    <registry>docker-registry-sdg.engagepoint.us:5000</registry>
-                                    <build>
-                                        <cleanup>remove</cleanup>
-                                        <nocache>true</nocache>
-                                        <tags>
-                                            <!--                                            <tag>${maven.build.timestamp}</tag> -->
-                                            <tag>${project.version}</tag>
-                                            <tag>${docker.jenkins.build}</tag>
-                                        </tags>
-                                        <assembly>
-                                            <basedir>/</basedir>
-                                            <dockerFileDir>dockerfiles/chhs-apqd-elasticsearch</dockerFileDir>
                                         </assembly>
                                     </build>
                                 </image>

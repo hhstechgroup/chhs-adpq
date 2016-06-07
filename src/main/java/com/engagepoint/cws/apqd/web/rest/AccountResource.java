@@ -11,6 +11,7 @@ import com.engagepoint.cws.apqd.service.UserService;
 import com.engagepoint.cws.apqd.web.rest.dto.KeyAndPasswordDTO;
 import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
+import com.engagepoint.cws.apqd.web.rest.util.HttpRequestUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,17 +67,8 @@ public class AccountResource {
             .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
                 .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
-                    User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-                    userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                    userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(), userDTO.getGender(),
-                    userDTO.getPhoneNumber(), userDTO.getCaseNumber());
-                    String baseUrl = request.getScheme() + // "http"
-                    "://" +                                // "://"
-                    request.getServerName() +              // "myhost"
-                    ":" +                                  // ":"
-                    request.getServerPort() +              // "80"
-                    request.getContextPath();              // "/myContextPath" or "" if deployed in root context
-
+                    User user = userService.createUserInformation(userDTO);
+                    String baseUrl = HttpRequestUtil.buildBaseUrl(request);
                     mailService.sendActivationEmail(user, baseUrl);
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
@@ -205,12 +197,7 @@ public class AccountResource {
     public ResponseEntity<?> requestPasswordReset(@RequestBody String mail, HttpServletRequest request) {
         return userService.requestPasswordReset(mail)
             .map(user -> {
-                String baseUrl = request.getScheme() +
-                    "://" +
-                    request.getServerName() +
-                    ":" +
-                    request.getServerPort() +
-                    request.getContextPath();
+                String baseUrl = HttpRequestUtil.buildBaseUrl(request);
                 mailService.sendPasswordResetMail(user, baseUrl);
                 return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));

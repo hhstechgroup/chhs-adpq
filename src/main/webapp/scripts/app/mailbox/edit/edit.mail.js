@@ -16,11 +16,14 @@ angular.module('apqdApp')
                     }
                 },
                 resolve: {
-                    mail: ['$stateParams', 'Message', function($stateParams, Message) {
+                    mail: ['$state', '$stateParams', 'Message', function($state, $stateParams, Message) {
                         if (!_.isEmpty($stateParams.mailId)) {
                             return Message.get({id: $stateParams.mailId}).$promise;
                         } else {
-                            return null;
+                            return {
+                                to: $state.params.contact,
+                                askAbout: $state.params.askAbout
+                            };
                         }
                     }],
                     identity: ['Principal', function(Principal) {

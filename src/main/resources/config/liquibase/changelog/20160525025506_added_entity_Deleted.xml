@@ -13,16 +13,28 @@
     <property name="floatType" value="float4" dbms="postgresql, h2"/>
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
-    <!--
-        Added the entity Deleted.
-    -->
     <changeSet id="20160525025506" author="jhipster">
         <createTable tableName="deleted">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
+
+            <column name="message_id" type="bigint"/>
+            <column name="deleted_by_id" type="bigint"/>
+            <column name="deleted_date" type="timestamp"/>
         </createTable>
-        
+
+        <addForeignKeyConstraint baseColumnNames="message_id"
+                                 baseTableName="deleted"
+                                 constraintName="fk_deleted_message_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="message"/>
+
+        <addForeignKeyConstraint baseColumnNames="deleted_by_id"
+                                 baseTableName="deleted"
+                                 constraintName="fk_deleted_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
     </changeSet>
+
 </databaseChangeLog>

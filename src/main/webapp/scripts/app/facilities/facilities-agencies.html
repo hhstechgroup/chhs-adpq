@@ -1,6 +1,10 @@
 <section class="ch-aside-facilities" ng-show="isAsideVisible">
+    <div class="ch-facilities-list_top-pane">
+        <div class="ch-facilities-list_top-results">RESULTS: <span class="ch-facilities-list_top-count-message">{{agencies.length}} Agencies</span></div>
+        <button class="ch-facilities-list_top-white-on-primary" type="button" ng-click="resetFilters();">RESET FILTERS <span class="ch-facilities-list_top-times">&times;</span></button>
+    </div>
     <ul class="ch-facilities">
-        <li class="ch-facilities__item" ng-repeat="agency in agencies">
+        <li class="ch-facilities__item" ng-repeat="agency in agencies  | orderBy: 'distanceValue'">
             <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
         </li>
     </ul>

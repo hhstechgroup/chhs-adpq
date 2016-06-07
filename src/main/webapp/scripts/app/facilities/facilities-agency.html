@@ -3,20 +3,20 @@
     <div class="ch-facility__tags">
         <ul class="ch-facility-tags clearfix">
             <li class="ch-facility-tags__tag">
-                <span class="ch-facilities-tag ch-facilities-tag_foster-family">{{agency.facility_type | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_foster-family">{{agency.facility_type}}</span>
             </li>
             <li class="ch-facility-tags__tag" ng-show="agency.facility_status === 'LICENSED'">
-                <span class="ch-facilities-tag ch-facilities-tag_status_green">{{agency.facility_status | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_status_green">{{agency.facility_status}}</span>
             </li>
             <li class="ch-facility-tags__tag" ng-show="agency.facility_status === 'CLOSED'">
-                <span class="ch-facilities-tag ch-facilities-tag_status_red">{{agency.facility_status | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_status_red">{{agency.facility_status}}</span>
             </li>
             <li class="ch-facility-tags__tag" ng-show="agency.facility_status === 'PENDING'">
-                <span class="ch-facilities-tag ch-facilities-tag_status_orange">{{agency.facility_status | capitalize:true}}</span>
+                <span class="ch-facilities-tag ch-facilities-tag_status_orange">{{agency.facility_status}}</span>
             </li>
         </ul>
     </div>
-    <div class="ch-facility__info" ng-hide="viewConfig.presentation === 'popup'">
+    <div class="ch-facility__info" ng-show="viewConfig.presentation === 'list'">
         <ul class="ch-facility-info">
             <li class="ch-facility-info__part">
                 <div class="ch-facility-info-text">
@@ -29,9 +29,14 @@
                     <span class="ch-facility-info__address">{{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</span>
                 </div>
             </li>
+            <li class="ch-facility-info__part">
+                <div class="ch-facility-info-text">
+                    <span class="ch-facility-info__address">Distance: {{agency.distance}} miles</span>
+                </div>
+            </li>
         </ul>
     </div>
-    <div class="ch-facility__info" ng-hide="viewConfig.presentation === 'list' && agency.hidePartFlag">
+    <div class="ch-facility__info" ng-show="viewConfig.presentation == 'popup' || agency.showPartFlag">
         <ul class="ch-facility-info">
             <li class="ch-facility-info__part">
                 <div class="ch-facility-info-text">Facility Number: {{agency.facility_number}}</div>
@@ -42,13 +47,16 @@
             <li class="ch-facility-info__part">
                 <div class="ch-facility-info-text">License First Date: {{agency.license_first_date | date: 'MM/dd/yyyy'}}</div>
             </li>
-            <li class="ch-facility-info__part" ng-hide="viewConfig.presentation === 'list'">
+            <li class="ch-facility-info__part" ng-show="viewConfig.presentation === 'popup'">
                 <div class="ch-facility-info-text">Administrator: {{agency.facility_administrator | capitalize:true}}</div>
             </li>
-            <li class="ch-facility-info__part" ng-hide="viewConfig.presentation === 'list'">
+            <li class="ch-facility-info__part" ng-show="viewConfig.presentation === 'popup'">
                 <div class="ch-facility-info-text">Address: {{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</div>
             </li>
-            <li class="ch-facility-info__part" ng-hide="viewConfig.presentation === 'list'">
+            <li class="ch-facility-info__part" ng-show="viewConfig.presentation === 'popup'">
+                <div class="ch-facility-info-text">Distance: {{agency.distance}} miles</div>
+            </li>
+            <li class="ch-facility-info__part" ng-show="viewConfig.presentation === 'popup'">
                 <div class="ch-facility-info-text">License First Date: {{agency.license_first_date | date: 'MM/dd/yyyy'}}</div>
             </li>
             <li class="ch-facility-info__part">
@@ -67,10 +75,10 @@
             <div class="ch-facilities-btn-group__btn">
                 <button type="button" ng-click="askAbout(agency)" class="ch-plane-btn ch-plane-btn_primary">Ask about</button>
             </div>
-            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || !agency.hidePartFlag" ng-click="agency.hidePartFlag = !agency.hidePartFlag">
+            <div class="ch-facilities-btn-group__btn" ng-show="viewConfig.presentation !== 'popup' && !agency.showPartFlag" ng-click="agency.showPartFlag = !agency.showPartFlag">
                 <button type="button" class="ch-plane-btn ch-plane-btn_secondary">Show more</button>
             </div>
-            <div class="ch-facilities-btn-group__btn" ng-hide="viewConfig.presentation === 'popup' || agency.hidePartFlag" ng-click="agency.hidePartFlag = !agency.hidePartFlag">
+            <div class="ch-facilities-btn-group__btn" ng-show="viewConfig.presentation !== 'popup' && agency.showPartFlag" ng-click="agency.showPartFlag = !agency.showPartFlag">
                 <button type="button" class="ch-plane-btn ch-plane-btn_secondary">Hide details</button>
             </div>
         </div>

@@ -64,7 +64,7 @@ class AttachmentGatlingTest extends Simulation {
             .exec(http("Create new attachment")
             .post("/api/attachments")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "fileName":"SAMPLE_TEXT", "fileMimeType":"SAMPLE_TEXT", "fileSize":"0", "fileDescription":"SAMPLE_TEXT", "creationDate":"2020-01-01T00:00:00.000Z", "file":null}""")).asJSON
+            .body(StringBody("""{"id":null, "fileName":"SAMPLE_TEXT", "fileContentType":"text/plain", "fileMimeType":"SAMPLE_TEXT", "fileSize":"0", "fileDescription":"SAMPLE_TEXT", "creationDate":"2020-01-01T00:00:00.000Z", "file":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_attachment_url")))
             .pause(10)

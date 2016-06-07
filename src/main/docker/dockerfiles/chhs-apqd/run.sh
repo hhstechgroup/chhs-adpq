@@ -32,6 +32,6 @@ if [ -d ${JHIPSTER_SPRING} ]; then
     --spring.data.elasticsearch.cluster-nodes=${SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES} \
     --spring.datasource.url=${SPRING_DATASOURCE_URL} \
 else
-  echo "java -jar /intake.war --spring.profiles.active=prod ${JHIPSTER_SPRING}"
+  echo "java -jar /chhs-apqd.war --spring.profiles.active=prod ${JHIPSTER_SPRING}"
   java -jar /chhs-apqd.war --spring.profiles.active=prod ${JHIPSTER_SPRING}
 fi

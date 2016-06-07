@@ -1,331 +1,402 @@
-<form class="profile-form" name="form" role="form" novalidate ng-submit="save()" show-validation>
-    <div class="profile-form__header">
-        <h1 class="profile-form__header-text">My Profile</h1>
-        <div class="profile-form__submit-btn">
-            <input type="submit" class="ch-plane-btn ch-plane-btn_save" value="Save Changes"
-                   ng-disabled="form.$invalid" />
+<section class="profile-form">
+    <form name="form" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="profile-form__header">
+            <h1 class="profile-form__header-text">My Profile</h1>
+            <div class="profile-form__submit-btn">
+                <input type="submit" class="ch-plane-btn ch-plane-btn_save" value="Save Changes"
+                       ng-disabled="form.$invalid" />
+            </div>
         </div>
-    </div>
-    <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
-        <strong>Settings saved!</strong>
-    </div>
+        <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
+            <strong>Settings saved!</strong>
+        </div>
 
-    <div class="alert alert-danger" ng-show="errorEmailExists" translate="settings.messages.error.emailexists">
-        <strong>E-mail is already in use!</strong> Please choose another one.
-    </div>
+        <div class="alert alert-danger" ng-show="errorEmailExists" translate="settings.messages.error.emailexists">
+            <strong>E-mail is already in use!</strong> Please choose another one.
+        </div>
 
-    <div class="alert alert-danger" ng-show="error" translate="settings.messages.error.fail">
-        <strong>An error has occurred!</strong> Settings could not be saved.
-    </div>
-    <section class="profile-form__section">
-        <div class="ch-section">
-            <h1 class="ch-section__header">General information</h1>
-            <div class="ch-section__content">
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="user-name" class="ch-input-block__label">Username</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="text" name="user-name" id="user-name" class="ch-form-input ch-form-input_disable" value="{{settingsAccount.login}}" disabled />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="firstName" class="ch-input-block__label">First Name</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="text" id="firstName" name="firstName" class="ch-form-input" placeholder="{{'settings.form.firstname.placeholder' | translate}}" ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required maxlength="50" />
-                            </div>
-                            <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
-                                <p class="help-block"
-                                   ng-show="form.firstName.$error.required" translate="settings.messages.validate.firstname.required">
-                                    Your first name is required.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.firstName.$error.minlength" translate="settings.messages.validate.firstname.minlength">
-                                    Your first name is required to be at least 1 character.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.firstName.$error.maxlength" translate="settings.messages.validate.firstname.maxlength">
-                                    Your first name cannot be longer than 50 characters.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="lastName" class="ch-input-block__label">Last Name</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="text" id="lastName" name="lastName" class="ch-form-input" placeholder="{{'settings.form.lastname.placeholder' | translate}}" ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required maxlength="50" />
-                            </div>
-                            <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
-                                <p class="help-block"
-                                   ng-show="form.lastName.$error.required" translate="settings.messages.validate.lastname.required">
-                                    Your last name is required.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.lastName.$error.minlength" translate="settings.messages.validate.lastname.minlength">
-                                    Your last name is required to be at least 1 character.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.lastName.$error.maxlength" translate="settings.messages.validate.lastname.maxlength">
-                                    Your last name cannot be longer than 50 characters.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="license" class="ch-input-block__label">License/Case number</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="text" name=license" id="license" class="ch-form-input" ng-model="settingsAccount.caseNumber" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="birth-date" class="ch-input-block__label">Date of Birth <span id="date-of-birth-hint" class="ch-input-block__addition">(For example: 04 28 1986)</span></label>
-                            <div class="ch-input-block__form-group">
-                                <div class="ch-input-block__form-input ch-input-block__form-input_2dig ch-input-block__form-input_mr_10">
-                                    <input aria-describedby="date-of-birth-hint" name="birthDateMonth" id="birth-date" class="ch-form-input" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" placeholder="Month" ng-model="birthDateMonth" />
-                                </div>
-                                <div class="ch-input-block__form-input ch-input-block__form-input_2dig ch-input-block__form-input_mr_10">
-                                    <input aria-describedby="date-of-birth-hint" name="birthDateDay" class="ch-form-input" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" placeholder="Day" ng-model="birthDateDay" />
-                                </div>
-                                <div class="ch-input-block__form-input ch-input-block__form-input_4dig ch-input-block__form-input_mr_10">
-                                    <input aria-describedby="date-of-birth-hint" name="birthDateYear" class="ch-form-input" placeholder="Year" pattern="[0-9]{4}" type="number" min="1900" max="3000" ng-model="birthDateYear" />
+        <div class="alert alert-danger" ng-show="error" translate="settings.messages.error.fail">
+            <strong>An error has occurred!</strong> Settings could not be saved.
+        </div>
+
+        <uib-accordion close-others="true">
+            <uib-accordion-group is-open="isProfileGeneralInformation">
+                <uib-accordion-heading>
+                    <span class="ch-section__header ch-section__header_icon ch-section__header_icon_drafts">General information</span>
+                </uib-accordion-heading>
+                <div class="ch-section__content">
+                    <div class="ch-flex-row">
+                        <div class="ch-flex-row__input-block">
+                            <div class="ch-input-block">
+                                <label for="user-name" class="ch-input-block__label">Username</label>
+                                <div class="ch-input-block__form-input">
+                                    <input type="text" name="user-name" id="user-name" class="ch-form-input ch-form-input_disable" value="{{settingsAccount.login}}" disabled />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div ng-show="form.birthDateMonth.$dirty && form.birthDateMonth.$invalid">
-                    <p class="help-block" ng-show="form.birthDateMonth.$invalid">
-                        Your birth month is invalid.
-                    </p>
-                    <p class="help-block" ng-show="form.birthDateMonth.$error.minlength">
-                        Your birth month is required to be at least 1.
-                    </p>
-                    <p class="help-block" ng-show="form.birthDateMonth.$error.maxlength">
-                        Your birth month cannot be more than 12.
-                    </p>
-                </div>
+                    <div class="ch-flex-row">
+                        <div class="ch-flex-row__input-block">
+                            <div class="ch-input-block">
+                                <label for="firstName" class="ch-input-block__label">First Name</label>
+                                <div class="ch-input-block__form-input">
+                                    <input type="text" id="firstName" name="firstName" class="ch-form-input" placeholder="{{'settings.form.firstname.placeholder' | translate}}" ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required maxlength="50" />
+                                </div>
+                                <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
+                                    <p class="help-block"
+                                       ng-show="form.firstName.$error.required" translate="settings.messages.validate.firstname.required">
+                                        Your first name is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="form.firstName.$error.minlength" translate="settings.messages.validate.firstname.minlength">
+                                        Your first name is required to be at least 1 character.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="form.firstName.$error.maxlength" translate="settings.messages.validate.firstname.maxlength">
+                                        Your first name cannot be longer than 50 characters.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ch-flex-row__input-block">
+                            <div class="ch-input-block">
+                                <label for="lastName" class="ch-input-block__label">Last Name</label>
+                                <div class="ch-input-block__form-input">
+                                    <input type="text" id="lastName" name="lastName" class="ch-form-input" placeholder="{{'settings.form.lastname.placeholder' | translate}}" ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required maxlength="50" />
+                                </div>
+                                <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
+                                    <p class="help-block"
+                                       ng-show="form.lastName.$error.required" translate="settings.messages.validate.lastname.required">
+                                        Your last name is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="form.lastName.$error.minlength" translate="settings.messages.validate.lastname.minlength">
+                                        Your last name is required to be at least 1 character.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="form.lastName.$error.maxlength" translate="settings.messages.validate.lastname.maxlength">
+                                        Your last name cannot be longer than 50 characters.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-flex-row">
+                        <div class="ch-flex-row__input-block">
+                            <div class="ch-input-block">
+                                <label for="license" class="ch-input-block__label">License/Case number</label>
+                                <div class="ch-input-block__form-input">
+                                    <input type="text" name=license" id="license" class="ch-form-input" ng-model="settingsAccount.caseNumber" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ch-flex-row">
+                        <div class="ch-flex-row__input-block">
+                            <div class="ch-input-block">
+                                <label for="birth-date" class="ch-input-block__label">Date of Birth <span id="date-of-birth-hint" class="ch-input-block__addition">(For example: 04 28 1986)</span></label>
+                                <div class="ch-input-block__form-group">
+                                    <div class="ch-input-block__form-input ch-input-block__form-input_2dig ch-input-block__form-input_mr_10">
+                                        <input aria-describedby="date-of-birth-hint" name="birthDateMonth" id="birth-date" class="ch-form-input" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" placeholder="Month" ng-model="birthDateMonth" />
+                                    </div>
+                                    <div class="ch-input-block__form-input ch-input-block__form-input_2dig ch-input-block__form-input_mr_10">
+                                        <input aria-describedby="date-of-birth-hint" name="birthDateDay" class="ch-form-input" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" placeholder="Day" ng-model="birthDateDay" />
+                                    </div>
+                                    <div class="ch-input-block__form-input ch-input-block__form-input_4dig ch-input-block__form-input_mr_10">
+                                        <input aria-describedby="date-of-birth-hint" name="birthDateYear" class="ch-form-input" placeholder="Year" pattern="[0-9]{4}" type="number" min="1900" max="3000" ng-model="birthDateYear" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="form.birthDateMonth.$dirty && form.birthDateMonth.$invalid">
+                        <p class="help-block" ng-show="form.birthDateMonth.$invalid">
+                            Your birth month is invalid.
+                        </p>
+                        <p class="help-block" ng-show="form.birthDateMonth.$error.minlength">
+                            Your birth month is required to be at least 1.
+                        </p>
+                        <p class="help-block" ng-show="form.birthDateMonth.$error.maxlength">
+                            Your birth month cannot be more than 12.
+                        </p>
+                    </div>
 
-                <div ng-show="form.birthDateDay.$dirty && form.birthDateDay.$invalid">
-                    <p class="help-block" ng-show="form.birthDateDay.$invalid">
-                        Your birth day is invalid.
-                    </p>
-                    <p class="help-block" ng-show="form.birthDateDay.$error.minlength">
-                        Your birth day is required to be at least 1.
-                    </p>
-                    <p class="help-block" ng-show="form.birthDateDay.$error.maxlength">
-                        Your birth day cannot be more than 31.
-                    </p>
-                </div>
+                    <div ng-show="form.birthDateDay.$dirty && form.birthDateDay.$invalid">
+                        <p class="help-block" ng-show="form.birthDateDay.$invalid">
+                            Your birth day is invalid.
+                        </p>
+                        <p class="help-block" ng-show="form.birthDateDay.$error.minlength">
+                            Your birth day is required to be at least 1.
+                        </p>
+                        <p class="help-block" ng-show="form.birthDateDay.$error.maxlength">
+                            Your birth day cannot be more than 31.
+                        </p>
+                    </div>
 
-                <div ng-show="form.birthDateYear.$dirty && form.birthDateYear.$invalid">
-                    <p class="help-block" ng-show="form.birthDateYear.$invalid">
-                        Your birth year is invalid.
-                    </p>
-                    <p class="help-block" ng-show="form.birthDateYear.$error.minlength">
-                        Your birth year is required to be at least 1900.
-                    </p>
-                    <p class="help-block" ng-show="form.birthDateYear.$error.maxlength">
-                        Your birth year cannot be more than 3000.
-                    </p>
-                </div>
+                    <div ng-show="form.birthDateYear.$dirty && form.birthDateYear.$invalid">
+                        <p class="help-block" ng-show="form.birthDateYear.$invalid">
+                            Your birth year is invalid.
+                        </p>
+                        <p class="help-block" ng-show="form.birthDateYear.$error.minlength">
+                            Your birth year is required to be at least 1900.
+                        </p>
+                        <p class="help-block" ng-show="form.birthDateYear.$error.maxlength">
+                            Your birth year cannot be more than 3000.
+                        </p>
+                    </div>
 
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label class="ch-input-block__label">Gender</label>
-                            <ul class="ch-input-block__form-input">
-                                <li class="ch-input-block__form-input-li" ng-repeat="gender in lookupGender track by gender.id">
-                                    <label for="gender{{gender.id}}" class="ch-input-block__label">
-                                        <input id="gender{{gender.id}}" ng-value="gender" ng-model="settingsAccount.gender" type="radio" name=gender" class="ch-form-input" />
-                                        <span class="ch-input-block__label-radio">{{gender.genderName}}</span>
-                                    </label>
-                                </li>
-                            </ul>
+                    <div class="ch-flex-row">
+                        <div class="ch-flex-row__input-block">
+                            <div class="ch-input-block">
+                                <label class="ch-input-block__label">Gender</label>
+                                <ul class="ch-input-block__form-input">
+                                    <li class="ch-input-block__form-input-li" ng-repeat="gender in lookupGender track by gender.id">
+                                        <label for="gender{{gender.id}}" class="ch-input-block__label">
+                                            <input id="gender{{gender.id}}" ng-value="gender" ng-model="settingsAccount.gender" type="radio" name=gender" class="ch-form-input" />
+                                            <span class="ch-input-block__label-radio">{{gender.genderName}}</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+            </uib-accordion-group>
+
+            <uib-accordion-group is-open="isProfileContactInformationOpen">
+                <uib-accordion-heading>
+                    <span class="ch-section__header ch-section__header_icon ch-section__header_icon_map-pointer">Contact information</span>
+                </uib-accordion-heading>
+
+                    <div class="ch-section__content">
+                        <div class="ch-flex-row">
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block" add-geocoder-search-field>
+                                    <label for="geocoder" class="ch-input-block__label">Search Address</label>
+                                    <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
+                                        <span id="geocoder">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ch-flex-row">
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="street" class="ch-input-block__label">Street Address</label>
+                                    <div class="ch-input-block__form-input">
+                                        <input type="text" name="street" id="street" class="ch-form-input" ng-model="settingsAccount.place.streetName" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ch-flex-row">
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="city" class="ch-input-block__label">City</label>
+                                    <div class="ch-input-block__form-input">
+                                        <input type="text" name="city" id="city" class="ch-form-input" ng-model="settingsAccount.place.cityName"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="state" class="ch-input-block__label">State</label>
+                                    <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_right">
+                                        <span class="ch-form-input-icon ch-form-input-icon_right ch-form-input-icon_arrow-down"></span>
+                                        <select type="text" name="state" id="state" class="ch-form-input" ng-model="settingsAccount.place.state" ng-options="state.stateName for state in states track by state.id">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ch-flex-row">
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="zipCode" class="ch-input-block__label">Zip</label>
+                                    <div class="ch-input-block__form-input ch-input-block__form-input_4dig">
+                                        <input type="text" name="zipCode" id="zipCode" class="ch-form-input" ng-model="settingsAccount.place.zipCode" ng-maxlength="5" ng-minlength="5"
+                                               ui-mask="99999" ui-mask-placeholder ui-mask-placeholder-char="_" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ch-flex-row">
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="email" class="ch-input-block__label">Email Address</label>
+                                    <div class="ch-input-block__form-input">
+                                        <input type="email" name="email" id="email" class="ch-form-input" placeholder="{{'global.form.email.placeholder' | translate}}" ng-model="settingsAccount.email" ng-minlength=5 ng-maxlength=100 required maxlength="100" />
+                                    </div>
+                                    <div ng-show="form.email.$dirty && form.email.$invalid">
+                                        <p class="help-block"
+                                           ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
+                                            Your e-mail is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
+                                            Your e-mail is invalid.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
+                                            Your e-mail is required to be at least 5 characters.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
+                                            Your e-mail cannot be longer than 100 characters.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="telephone" class="ch-input-block__label">Telephone</label>
+                                    <div class="ch-input-block__form-input">
+                                        <input type="tel" name="telephone" id="telephone" class="ch-form-input" id="phoneNumber" name="phoneNumber" placeholder="Telephone"
+                                               ng-model="settingsAccount.phoneNumber" ng-maxlength=20 maxlength="20"
+                                               ui-mask="(999) 999-9999"
+                                               ui-mask-placeholder ui-mask-placeholder-char="_" />
+                                    </div>
+                                    <div ng-show="form.phoneNumber.$dirty && form.phoneNumber.$invalid">
+                                        <p class="help-block"
+                                           ng-show="form.phoneNumber.$error.maxlength">
+                                            Your Phone Number cannot be longer than 20 characters.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </uib-accordion-group>
+            <uib-accordion-group is-open="isProfileChangePasswordOpen">
+                <uib-accordion-heading>
+                    <span class="ch-section__header ch-section__header_icon ch-section__header_icon_password">Change password</span>
+                </uib-accordion-heading>
+
+                    <div class="alert alert-success" ng-show="passwordSuccessfullyChanged">
+                        <strong>Password changed!</strong>
+                    </div>
+                    <div class="alert alert-danger" ng-show="passwordChangingError">
+                        <strong>An error has occurred!</strong> The password could not be changed.
+                    </div>
+
+                    <div class="alert alert-danger" ng-show="passwordsDoNotMatch">
+                        The password and its confirmation do not match!
+                    </div>
+
+                    <div class="ch-section__content">
+                        <div class="ch-flex-row">
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="newPassword" class="ch-input-block__label">New Password</label>
+                                    <div class="ch-input-block__form-input">
+                                        <input type="password" name="newPassword" id="newPassword" class="ch-form-input" ng-model="passwordChangingContainer.newPassword" ng-minlength=5 ng-maxlength=50 />
+                                    </div>
+                                </div>
+                                <div ng-show="form.newPassword.$dirty && form.newPassword.$invalid">
+                                    <p class="help-block" ng-show="form.newPassword.$error.minlength">
+                                        Your password is required to be at least 5 characters.
+                                    </p>
+                                    <p class="help-block" ng-show="form.newPassword.$error.maxlength">
+                                        Your password cannot be longer than 50 characters.
+                                    </p>
+                                </div>
+                                <password-strength-bar password-to-check="passwordChangingContainer.newPassword"></password-strength-bar>
+                            </div>
+                            <div class="ch-flex-row__input-block">
+                                <div class="ch-input-block">
+                                    <label for="confirmPassword" class="ch-input-block__label">Confirm New Password</label>
+                                    <div class="ch-input-block__form-input">
+                                        <input type="password" name="confirmPassword" id="confirmPassword" class="ch-form-input" ng-model="passwordChangingContainer.confirmPassword" ng-minlength=5 ng-maxlength=50 />
+                                    </div>
+                                </div>
+                                <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
+                                    <p class="help-block" ng-show="form.confirmPassword.$error.minlength">
+                                        Your confirmation password is required to be at least 5 characters.
+                                    </p>
+                                    <p class="help-block" ng-show="form.confirmPassword.$error.maxlength">
+                                        Your confirmation password cannot be longer than 50 characters.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ch-flex-row">
+                                <button type="button" class="ch-option-btn" ng-click="changePassword()">
+                                    <span class="ch-option-btn__text">Change password</span>
+                                </button>
+                        </div>
+                    </div>
+                </uib-accordion-group>
+        </uib-accordion>
+        <div id="map"  style="display: none;">
+            <leaflet defaults="defaults" markers="locations" style="height: calc(100vh - 14.8rem);"></leaflet>
+        </div>
+    </form>
+</section>
+
+    <div style="display: none">
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_success">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_success"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Success</p>
+                <p class="ch-alert-msg__info">Your changes were saved successfully</p>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_white"></button>
             </div>
         </div>
-    </section>
-    <section class="profile-form__section">
-        <div class="ch-section">
-            <h1 class="ch-section__header">Contact information</h1>
-            <div class="ch-section__content">
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="geocoder" class="ch-input-block__label">Search Address</label>
-                            <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
-                               <!-- <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>-->
-                                <span id="geocoder">
-                                   <!-- <input type="search" name="search-address" id="search-address" class="ch-form-input ch-form-input_search" placeholder="Search Address" />-->
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="street" class="ch-input-block__label">Street Address</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="text" name="street" id="street" class="ch-form-input" ng-model="settingsAccount.place.streetName" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="city" class="ch-input-block__label">City</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="text" name="city" id="city" class="ch-form-input" ng-model="settingsAccount.place.cityName"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="state" class="ch-input-block__label">State</label>
-                            <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_right">
-                                <span class="ch-form-input-icon ch-form-input-icon_right ch-form-input-icon_arrow-down"></span>
-                                <select type="text" name="state" id="state" class="ch-form-input" ng-model="settingsAccount.place.state" ng-options="state.stateName for state in states track by state.id">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="zip" class="ch-input-block__label">Zip</label>
-                            <div class="ch-input-block__form-input ch-input-block__form-input_4dig">
-                                <input type="text" name="zip" id="zip" class="ch-form-input" ng-model="settingsAccount.place.zipCode"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="email" class="ch-input-block__label">Email Address</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="email" name="email" id="email" class="ch-form-input" placeholder="{{'global.form.email.placeholder' | translate}}" ng-model="settingsAccount.email" ng-minlength=5 ng-maxlength=100 required maxlength="100" />
-                            </div>
-                            <div ng-show="form.email.$dirty && form.email.$invalid">
-                                <p class="help-block"
-                                   ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
-                                    Your e-mail is required.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
-                                    Your e-mail is invalid.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
-                                    Your e-mail is required to be at least 5 characters.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
-                                    Your e-mail cannot be longer than 100 characters.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="telephone" class="ch-input-block__label">Telephone</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="tel" name="telephone" id="telephone" class="ch-form-input" id="phoneNumber" name="phoneNumber" placeholder="Telephone"
-                                       ng-model="settingsAccount.phoneNumber" ng-maxlength=20 maxlength="20"
-                                       ui-mask="(999) 999-9999"
-                                       ui-mask-placeholder ui-mask-placeholder-char="_" />
-                            </div>
-                            <div ng-show="form.phoneNumber.$dirty && form.phoneNumber.$invalid">
-                                <p class="help-block"
-                                   ng-show="form.phoneNumber.$error.maxlength">
-                                    Your Phone Number cannot be longer than 20 characters.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_warn">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_warn"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Warning</p>
+                <p class="ch-alert-msg__info">Your changes not saved</p>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_black"></button>
             </div>
         </div>
-    </section>
-    <section class="profile-form__section">
-
-        <div class="ch-section">
-            <h1 class="ch-section__header">Change password</h1>
-
-            <div class="alert alert-success" ng-show="passwordSuccessfullyChanged">
-                <strong>Password changed!</strong>
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_err">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_err"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Error 404</p>
+                <p class="ch-alert-msg__info">Lorem ipsum dolor sit amet</p>
             </div>
-            <div class="alert alert-danger" ng-show="passwordChangingError">
-                <strong>An error has occurred!</strong> The password could not be changed.
-            </div>
-
-            <div class="alert alert-danger" ng-show="passwordsDoNotMatch">
-                The password and its confirmation do not match!
-            </div>
-
-            <div class="ch-section__content">
-                <div class="ch-flex-row">
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="newPassword" class="ch-input-block__label">New Password</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="password" name="newPassword" id="newPassword" class="ch-form-input" ng-model="newPassword" ng-minlength=5 ng-maxlength=50 />
-                            </div>
-                        </div>
-                        <div ng-show="form.newPassword.$dirty && form.newPassword.$invalid">
-                            <p class="help-block" ng-show="form.newPassword.$error.minlength">
-                                Your password is required to be at least 5 characters.
-                            </p>
-                            <p class="help-block" ng-show="form.newPassword.$error.maxlength">
-                                Your password cannot be longer than 50 characters.
-                            </p>
-                        </div>
-                        <password-strength-bar password-to-check="newPassword"></password-strength-bar>
-                    </div>
-                    <div class="ch-flex-row__input-block">
-                        <div class="ch-input-block">
-                            <label for="confirmPassword" class="ch-input-block__label">Confirm New Password</label>
-                            <div class="ch-input-block__form-input">
-                                <input type="password" name="confirmPassword" id="confirmPassword" class="ch-form-input" ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 />
-                            </div>
-                        </div>
-                        <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
-                            <p class="help-block" ng-show="form.confirmPassword.$error.minlength">
-                                Your confirmation password is required to be at least 5 characters.
-                            </p>
-                            <p class="help-block" ng-show="form.confirmPassword.$error.maxlength">
-                                Your confirmation password cannot be longer than 50 characters.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="ch-flex-row">
-                        <button type="button" class="ch-option-btn" ng-click="changePassword()">
-                            <span class="ch-option-btn__text">Change password</span>
-                        </button>
-                </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_white"></button>
             </div>
         </div>
-    </section>
-    <div id="map"  style="display: none;">
-        <leaflet defaults="defaults" markers="locations" style="height: calc(100vh - 14.8rem);"></leaflet>
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_info">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_info"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Welcome!</p>
+                <p class="ch-alert-msg__info">Lorem ipsum dolor sit amet</p>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_white"></button>
+            </div>
+        </div>
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_info">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_email"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">New Message!</p>
+                <p class="ch-alert-msg__info">Lorem ipsum dolor sit amet</p>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_white"></button>
+            </div>
+        </div>
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_neutr">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_util"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Removed one message</p>
+            </div>
+            <div class="ch-alert-msg__btn">
+                <button type="button" class="ch-plane-btn ch-plane-btn_neutr">Undo</button>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_white"></button>
+            </div>
+        </div>
     </div>
-</form>

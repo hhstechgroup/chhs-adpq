@@ -1,0 +1,37 @@
+.ch-header {
+    @media screen and (max-width: $break-phone) {
+        height: 10rem;
+        
+    }
+}
+
+.ch-header__section_logo {
+
+    @media screen and (max-width: $break-phone) {
+        padding: 3rem 6.2rem 0 2.7rem;
+    }
+}
+
+.ch-main-nav-list {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-user-account-entry {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-header__menu-mobile__btn {
+    @media screen and (max-width: $break-phone) {
+        display: inline-block;
+    }
+}
+
+.ch-mobile-mailbox__nav {
+    @media screen and (max-width: $break-phone) {
+        display: flex;
+    }
+}

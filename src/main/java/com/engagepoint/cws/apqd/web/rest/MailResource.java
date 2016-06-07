@@ -1,17 +1,21 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.MessageThread;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
+import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.MessageRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageSearchRepository;
 import com.engagepoint.cws.apqd.repository.search.MessageThreadSearchRepository;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
+import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.web.rest.util.HeaderUtil;
+import com.engagepoint.cws.apqd.web.rest.util.HttpRequestUtil;
 import com.engagepoint.cws.apqd.web.rest.util.PaginationUtil;
 import com.engagepoint.cws.apqd.web.websocket.MailBoxService;
 import org.slf4j.Logger;
@@ -27,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -64,6 +69,12 @@ public class MailResource {
     @Inject
     private MessageThreadSearchRepository messageThreadSearchRepository;
 
+    @Inject
+    private DeletedRepository deletedRepository;
+
+    @Inject
+    private MailService mailService;
+
     @PostConstruct
     public void init() {
         messageThreadSearchRepository.save(new MessageThread());
@@ -80,15 +91,21 @@ public class MailResource {
 
         Page<Message> page;
 
+        final String CONTACT_FILTER_MARK = "BY_LOGIN_";
+
         if (search.equals("-1")) {
-            page = loadMessagesViaSQL(directory, pageable);
+            page = filterMessages(directory, pageable);
+        } else if (search.startsWith(CONTACT_FILTER_MARK)) {
+            String searchLogin = search.substring(CONTACT_FILTER_MARK.length(), search.length());
+            page = filterMessagesByDestination(directory, searchLogin, pageable);
         } else {
-            page = loadMessagesViaElastic(directory, search, pageable);
+            page = filterMessagesByContent(directory, search, pageable);
         }
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page,
             "/api/messages/" + directory);
 
+        actualizeCounts(page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
@@ -122,18 +139,21 @@ public class MailResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional
-    public ResponseEntity<Void> sendMessage(@Valid @RequestBody Message message) throws URISyntaxException {
+    public ResponseEntity<Void> sendMessage(@Valid @RequestBody Message message, HttpServletRequest request) throws URISyntaxException {
         User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         updateUserContacts(userFrom, userTo);
         moveMessageFromDraftToInbox(message, userTo, userFrom);
-        updateUnreadCount(message);
+        updateUnreadCountOnSend(message);
         updateMessageThread(message);
+        updateBiDirectional(message);
 
         mailBoxService.notifyClientAboutDraftsCount();
         mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
 
+        String baseUrl = HttpRequestUtil.buildBaseUrl(request);
+        mailService.sendNewMessageAlertMail(userTo, baseUrl);
         return ResponseEntity.ok().build();
     }
 
@@ -150,6 +170,36 @@ public class MailResource {
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping(value = "/mails/delete",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<Void> deleteMessages(@RequestBody Message[] messages) throws URISyntaxException {
+        for (Message message : messages) {
+            deleteMessageInSQL(message);
+            deleteMessageInElastic(message);
+        }
+
+        notifyClientAboutAllCount();
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/mails/restore",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public ResponseEntity<Void> restoreMessages(@RequestBody Message[] messages) throws URISyntaxException {
+        for (Message message : messages) {
+            restoreMessageInSQL(message);
+            restoreMessageInElastic(message);
+        }
+
+        notifyClientAboutAllCount();
+        return ResponseEntity.ok().build();
+    }
+
     @Transactional
     public void sendInvitationLetter(Message message) {
         User userTo = userRepository.findOneByLogin(message.getTo().getLogin()).get();
@@ -157,11 +207,8 @@ public class MailResource {
 
         updateUserContacts(userFrom, userTo);
         moveMessageFromDraftToInbox(message, userTo, userFrom);
-        updateUnreadCount(message);
+        updateUnreadCountOnSend(message);
         updateMessageThread(message);
-
-        mailBoxService.notifyClientAboutDraftsCount();
-        mailBoxService.notifyClientAboutUnreadInboxCount(message.getTo());
     }
 
     public ResponseEntity<Message> createMessage(@Valid @RequestBody Message message) throws URISyntaxException {
@@ -177,7 +224,23 @@ public class MailResource {
             .body(result);
     }
 
-    private Page<Message> loadMessagesViaElastic(EMailDirectory directory, String search, Pageable pageable) {
+    private Page<Message> filterMessagesByDestination(EMailDirectory directory, String searchLogin, Pageable pageable) {
+        String query = null;
+
+        if (directory == EMailDirectory.INBOX) {
+            query = "+from.login:" + searchLogin;
+        } else if (directory == EMailDirectory.SENT) {
+            query = "+to.login:" + searchLogin;
+        } else if (directory == EMailDirectory.DRAFTS) {
+            throw new UnsupportedOperationException("not implemented yet");
+        } else if (directory == EMailDirectory.DELETED) {
+            throw new UnsupportedOperationException("not implemented yet");
+        }
+
+        return messageSearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    private Page<Message> filterMessagesByContent(EMailDirectory directory, String search, Pageable pageable) {
         String query = null;
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
@@ -194,18 +257,18 @@ public class MailResource {
         return messageSearchRepository.search(queryStringQuery(query), pageable);
     }
 
-    private Page<Message> loadMessagesViaSQL(EMailDirectory directory, Pageable pageable) {
+    private Page<Message> filterMessages(EMailDirectory directory, Pageable pageable) {
         Page<Message> page = null;
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         if (directory == EMailDirectory.INBOX) {
-            page = messageRepository.findAllByInboxIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
+            page = messageRepository.findAllInbox(user, pageable);
         } else if (directory == EMailDirectory.SENT) {
-            page = messageRepository.findAllByOutboxIsNotNullAndFromIsOrderByDateUpdatedDesc(user, pageable);
+            page = messageRepository.findAllOutbox(user, pageable);
         } else if (directory == EMailDirectory.DRAFTS) {
-            page = messageRepository.findAllByDraftIsNotNullAndFromIsOrderByDateCreatedDesc(user, pageable);
+            page = messageRepository.findAllDrafts(user, pageable);
         } else if (directory == EMailDirectory.DELETED) {
-            page = messageRepository.findAllByDeletedIsNotNullAndReplyOnIsNullAndToIsOrderByDateUpdatedDesc(user, pageable);
+            page = messageRepository.findAllDeleted(user, pageable);
         }
 
         return page;
@@ -230,7 +293,7 @@ public class MailResource {
         return message;
     }
 
-    private void updateUserContacts(User userFrom, User userTo) {
+    public void updateUserContacts(User userFrom, User userTo) {
         boolean updateTo = true;
         boolean updateFrom = true;
 
@@ -270,29 +333,38 @@ public class MailResource {
         messageRepository.save(message);
     }
 
-    private void updateUnreadCount(Message message) {
+    private void updateUnreadCountOnSend(Message message) {
         Long rootId = message.getReplyOn() != null ? message.getReplyOn().getId() : message.getId();
 
         MessageThread thread = findOrCreateMessageThreadByMessageId(rootId);
         Message root = thread.getThread().get(0);
 
-        int unread = root.getUnreadMessagesCount() + 1;
         ZonedDateTime updated = ZonedDateTime.now();
-
         root.setDateUpdated(updated);
-        root.setUnreadMessagesCount(unread);
+        int unread;
+        if (message.getTo().equals(root.getFrom())) {
+            unread = root.getUnreadMessagesCountFrom() + 1;
+            root.setUnreadMessagesCountFrom(unread);
+        } else {
+            unread = root.getUnreadMessagesCountTo() + 1;
+            root.setUnreadMessagesCountTo(unread);
+        }
         messageThreadSearchRepository.save(thread);
 
         root = messageRepository.findOne(root.getId());
-        root.setUnreadMessagesCount(unread);
         root.setDateUpdated(updated);
+        if (message.getTo().equals(root.getFrom())) {
+            root.setUnreadMessagesCountFrom(unread);
+        } else {
+            root.setUnreadMessagesCountTo(unread);
+        }
         messageRepository.save(root);
     }
 
     private void setReadStatusToAllMessagesInThread(Message message) {
         MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
         Message root = thread.getThread().get(0);
-        root.setUnreadMessagesCount(0);
+        resetUnreadCount(message, root);
 
         for (Message msg : thread.getThread()) {
             if (msg.getStatus() == MessageStatus.UNREAD) {
@@ -308,9 +380,18 @@ public class MailResource {
         }
 
         root = messageRepository.findOne(root.getId());
-        root.setUnreadMessagesCount(0);
+        resetUnreadCount(message, root);
+
         messageRepository.save(root);
         messageThreadSearchRepository.save(thread);
+    }
+
+    private void resetUnreadCount(Message message, Message root) {
+        if (message.getTo().equals(root.getFrom())) {
+            root.setUnreadMessagesCountFrom(0);
+        } else {
+            root.setUnreadMessagesCountTo(0);
+        }
     }
 
     private void updateMessageThread(Message message) {
@@ -327,6 +408,17 @@ public class MailResource {
 
         messageSearchRepository.save(message);
         messageThreadSearchRepository.save(thread);
+    }
+
+    private void updateBiDirectional(Message message) {
+        if (message.getReplyOn() != null) {
+            Message saved = messageRepository.findOne(message.getId());
+            Message root = saved.getReplyOn();
+            if (root != null && root.getReplyOn() == null) {
+                root.setBiDirectional(1L);
+                messageRepository.save(root);
+            }
+        }
     }
 
     private void updateInbox(Message message, MessageThread thread) {
@@ -355,5 +447,65 @@ public class MailResource {
         }
 
         return thread;
+    }
+
+    private void deleteMessageInSQL(Message message) {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        Deleted deleted = new Deleted();
+        deleted.setDeletedDate(ZonedDateTime.now());
+        deleted.setMessages(message);
+        deleted.setDeletedBy(user);
+        deletedRepository.save(deleted);
+    }
+
+    private void restoreMessageInSQL(Message message) {
+        Deleted deleted = deletedRepository.findOneByMessage(message);
+        deletedRepository.delete(deleted);
+    }
+
+    private void deleteMessageInElastic(Message message) {
+        MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
+        for (Message ms : thread.getThread()) {
+            if (ms.equals(message)) {
+//                ms.setDateUpdated(ZonedDateTime.now());
+//                messageSearchRepository.save(ms);
+                thread.getThread().remove(ms);
+                messageSearchRepository.delete(ms);
+                messageThreadSearchRepository.save(thread);
+                return;
+            }
+        }
+    }
+
+    private void restoreMessageInElastic(Message message) {
+        MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
+        for (Message ms : thread.getThread()) {
+            if (ms.equals(message)) {
+                ms.setStatus(MessageStatus.READ);
+                messageSearchRepository.save(ms);
+                messageThreadSearchRepository.save(thread);
+                return;
+            }
+        }
+    }
+
+    private void notifyClientAboutAllCount() {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        mailBoxService.notifyClientAboutUnreadInboxCount(user);
+        mailBoxService.notifyClientAboutDeletedCount();
+        mailBoxService.notifyClientAboutDraftsCount();
+    }
+
+    private void actualizeCounts(Page<Message> page) {
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+
+        for (Message message : page.getContent()) {
+            if (message.getTo().equals(user)) {
+                message.setUnreadMessagesCount(message.getUnreadMessagesCountTo());
+            } else {
+                message.setUnreadMessagesCount(message.getUnreadMessagesCountFrom());
+            }
+        }
     }
 }

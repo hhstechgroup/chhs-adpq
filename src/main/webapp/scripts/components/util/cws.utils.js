@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .filter('tel', function () {
+    .filter('formatTel', function () {
         return function (tel) {
             if (!tel) {
                 return '';
@@ -50,5 +50,26 @@ angular.module('apqdApp')
     .filter('defaultValue', function () {
         return function (value, defaultValue) {
             return _.isNil(value) ? defaultValue : value;
+        }
+    })
+    .filter('formatAddress', function () {
+        return function(place) {
+            if (_.isNil(place)) {
+                return '';
+            }
+
+            var zip = _([place.zipCode, place.zipSuffix]).omitBy(_.isNil).omitBy(_.isEmpty).values().join('-');
+            var stateZip = _([
+                _.isNil(place.state) ? '' : place.state.stateCode,
+                zip
+            ]).omitBy(_.isNil).omitBy(_.isEmpty).values().join(' ');
+
+            return _([place.streetName, place.cityName, stateZip]).omitBy(_.isNil).omitBy(_.isEmpty).values().join(', ');
+        }
+    })
+    .filter('convertFileSizeToHuman', function () {
+        return function (size) {
+            var i = Math.floor( Math.log(size) / Math.log(1024) );
+            return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
         }
     });

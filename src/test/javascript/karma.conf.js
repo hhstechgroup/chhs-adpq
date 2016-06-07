@@ -59,6 +59,7 @@ module.exports = function (config) {
             'main/webapp/bower_components/ui-leaflet/dist/ui-leaflet.js',
             'main/webapp/bower_components/lodash/lodash.js',
             'main/webapp/bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js',
+            'main/webapp/bower_components/angular-animate/angular-animate.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',

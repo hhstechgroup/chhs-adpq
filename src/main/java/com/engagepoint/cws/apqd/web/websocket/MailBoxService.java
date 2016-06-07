@@ -37,19 +37,19 @@ public class MailBoxService {
     }
 
     public void notifyClientAboutUnreadInboxCount(User userTo) {
-        Long unreadInboxCount = messageRepository.countByInboxIsNotNullAndToAndStatus(userTo, MessageStatus.UNREAD);
+        Long unreadInboxCount = messageRepository.countByInbox(userTo, MessageStatus.UNREAD);
         messagingTemplate.convertAndSendToUser(userTo.getLogin(), TOPIC_MAIL_INBOX, unreadInboxCount);
     }
 
     public void notifyClientAboutDraftsCount() {
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-        Long draftsCount = messageRepository.countByDraftIsNotNullAndFrom(userFrom);
+        Long draftsCount = messageRepository.countByDrafts(userFrom);
         messagingTemplate.convertAndSendToUser(userFrom.getLogin(), TOPIC_MAIL_DRAFTS, draftsCount);
     }
 
     public void notifyClientAboutDeletedCount() {
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-        Long draftsCount = messageRepository.countByDeletedIsNotNullAndToAndStatus(userFrom, MessageStatus.UNREAD);
+        Long draftsCount = messageRepository.countByDeleted(userFrom);
         messagingTemplate.convertAndSendToUser(userFrom.getLogin(), TOPIC_MAIL_DELETED, draftsCount);
     }
 }

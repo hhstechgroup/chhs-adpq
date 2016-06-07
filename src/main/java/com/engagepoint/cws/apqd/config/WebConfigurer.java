@@ -74,7 +74,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
 
         FilterRegistration.Dynamic hazelcastWebFilter = servletContext.addFilter("hazelcastWebFilter", new SpringAwareWebFilter());
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("instance-name", "intake");
+        parameters.put("instance-name", "apqd");
         // Name of the distributed map storing your web session objects
         parameters.put("map-name", "clustered-http-sessions");
 
