@@ -216,12 +216,13 @@ public class UserStepDefs {
         }
         click_css_and_wait("[ng-click='sendMail()']");
         $("[ng-click='sendMail()']").shouldBe(disappear);
-
+        click_xpath_and_wait(".//*[contains(@class,'ch-alert-msg')]/*[text()='Message has been sent!']");
+        $(By.xpath(".//*[contains(@class,'ch-alert-msg')]/*[text()='Message has been sent!']")).waitUntil(disappear, 4000);
     }
 
     @Then("^verify letter to '(.*)' with subject '(.*)' and text '(.*)' is sent$")
     public void verify_letter_is_sent(@Transform(VarsConverter.class) String recipient, @Transform(VarsConverter.class) String subject, @Transform(VarsConverter.class) String messageText) throws Throwable {
-        click_xpath_and_wait(".//a/span[text()='Sent mail']");
+        click_xpath_and_wait(".//a/span[text()='Sent Messages']");
         $(By.xpath(".//div[contains(@ng-click,'openMail')]")).waitUntil(appear, 4000);
         click_xpath_and_wait(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + recipient + "']/../../*/span[text()='" + subject + "']");
         $(By.xpath(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + recipient + "']/../../*/span[text()='" + subject + "']")).shouldBe(disappear);
@@ -242,6 +243,8 @@ public class UserStepDefs {
         $(By.xpath(".//textarea")).setValue(messageText);
         click_xpath_and_wait(".//button[@ng-click='sendMail()']");
         $(By.xpath(".//button[@ng-click='sendMail()']")).waitUntil(disappear, 4000);
+        click_xpath_and_wait(".//*[contains(@class,'ch-alert-msg')]/*[text()='Message has been sent!']");
+        $(By.xpath(".//*[contains(@class,'ch-alert-msg')]/*[text()='Message has been sent!']")).waitUntil(disappear, 4000);
     }
 
     @Then("^verify letter in thread from '(.*)' has text '(.*)'$")
@@ -271,6 +274,9 @@ public class UserStepDefs {
         click_xpath_and_wait(".//span[contains(text(),'" + facilityAddress + "')]/ancestor::div[@class='ch-facility']/*[text()='" + facilityName + "']/../descendant::button[text()='Ask about']");
         click_css_and_wait("[ng-click='sendMail()']");
         $("[ng-click='sendMail()']").waitUntil(disappear, 4000);
+        click_xpath_and_wait(".//*[contains(@class,'ch-alert-msg')]/*[text()='Message has been sent!']");
+        $(By.xpath(".//*[contains(@class,'ch-alert-msg')]/*[text()='Message has been sent!']")).waitUntil(disappear, 4000);
+
     }
 
     @Then("^verify letter contains attachment$")
@@ -291,7 +297,7 @@ public class UserStepDefs {
 
     @When("^fill gender '(.*)', DOB mm-dd-yyyy '(.*)'-'(.*)'-'(.*)', license number '(.*)' in General Information$")
     public void fill_gender_DOB_license_number_in_General_Information(String gender, String month, String day, String year, String licenseNum) throws Throwable {
-        click_xpath_and_wait(".//span[text()='General information']");
+        //click_xpath_and_wait(".//span[text()='General information']");
         $(By.xpath(".//span[text()='" + gender + "']")).click();
         $("[placeholder='Month']").shouldBe(visible);
         click_css_and_wait("[placeholder='Month']");
@@ -301,7 +307,7 @@ public class UserStepDefs {
         click_css_and_wait("[placeholder='Year']");
         $("[placeholder='Year']").setValue(year);
         $("#license").setValue(licenseNum);
-        click_xpath_and_wait(".//span[text()='General information']");
+        //click_xpath_and_wait(".//span[text()='General information']");
     }
 
     @When("^fill address '(.*)', email '(.*)', telephone '(.*)' in Contact Information$")

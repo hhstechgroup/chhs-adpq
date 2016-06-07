@@ -4,7 +4,7 @@
         <button class="ch-facilities-list_top-white-on-primary" type="button" ng-click="resetFilters();">RESET FILTERS <span class="ch-facilities-list_top-times">&times;</span></button>
     </div>
     <ul class="ch-facilities">
-        <li id="agency{{agency.facility_number}}" class="ch-facilities__item" ng-repeat="agency in agencies  | orderBy: 'distanceValue'">
+        <li id="agency{{agency.facility_number}}" class="ch-facilities__item" ng-repeat="agency in agencies">
             <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
         </li>
     </ul>

@@ -12,12 +12,12 @@ angular.module('apqdApp')
             $scope.mail.body =
                 "I am interested in more information about '" + fName + "'\n\n" +
                 "Because: \n" +
-                "    (check all that apply) \n" +
-                "<x> I would like to schedule a visit \n" +
-                "<x> I want to know what services they offer \n" +
-                "<x> I need temporary placement for my kid \n" +
-                "<x> I want to visit my child there \n" +
-                "<x> Other reasons.... \n\n\n" +
+                "    (delete what is not applicable) \n" +
+                "I would like to schedule a visit  \n" +
+                "I want to know what services they offer \n" +
+                "I need temporary placement for my kid \n" +
+                "I want to visit my child there  \n" +
+                "Other reasons.... \n\n\n" +
                 "    Thanks.";
         }
 
@@ -53,12 +53,19 @@ angular.module('apqdApp')
         };
 
         $scope.saveWithoutValidation = function() {
-            if ($scope.isValid()) {
+            if ($scope.isValid() && !$scope.sendingInProgress) {
                 if ($scope.isReplyOn && _.isEmpty($scope.mail.body.trim())) {
                     return;
                 }
 
-                $scope.saveDraft();
+                $scope.autoSaveInProgress = true;
+                $scope.saveDraft().then(function() {
+                    $scope.autoSaveInProgress = false;
+                    if ($scope.postponeSending) {
+                        $scope.postponeSending = false;
+                        $scope.sendMail();
+                    }
+                });
             }
         };
 
@@ -72,7 +79,8 @@ angular.module('apqdApp')
         };
 
         $scope.isValid = function() {
-            return !_.isNil($scope.mail.body) &&
+            return !_.isNil($scope.mail.to) &&
+                   !_.isNil($scope.mail.body) &&
                    !_.isNil($scope.mail.subject) &&
                    !_.isEmpty($scope.mail.body.trim()) &&
                    !_.isEmpty($scope.mail.subject.trim());
@@ -92,9 +100,16 @@ angular.module('apqdApp')
         };
 
         $scope.sendMail = function() {
+            if ($scope.autoSaveInProgress) {
+                $scope.postponeSending = true;
+                return;
+            }
+
             $scope.showValidation();
             if ($scope.isValid()) {
+                $scope.sendingInProgress = true;
                 DraftMessage.send($scope.mail, function () {
+                    $scope.sendingInProgress = false;
                     $rootScope.$broadcast("apqdApp:updateContactList");
                     $rootScope.backToPreviousState();
                     ngToast.create({
@@ -102,6 +117,7 @@ angular.module('apqdApp')
                         content : $templateCache.get('messageSentNotification.html')
                     });
                 }, function () {
+                    $scope.sendingInProgress = false;
                     ngToast.create({
                         className : "",
                         content : $templateCache.get('messageNotSentNotification.html')

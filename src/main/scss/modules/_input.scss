@@ -93,7 +93,7 @@
   }
 
   .form-type__search__button {
-      width: 5.2rem;
+      width: 5.0rem;
       height: 3.9rem;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
@@ -548,10 +548,17 @@ select.usa-input-focus {
   box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
 }
 
-input.ng-invalid,
-input.ch-invalid-field, textarea.ch-invalid-field {
-    box-shadow: 0 0 3px red, 0 0 7px red;
-}
+    input.ng-invalid.ng-dirty,
+     input.ch-invalid-field.ng-dirty,
+      textarea.ch-invalid-field.ng-dirty {
+         box-shadow: 0 0 3px red, 0 0 7px red;;
+    }
+
+    input.ng-invalid.ng-pristine,
+    input.ch-invalid-field.ng-pristine,
+    textarea.ch-invalid-field.ng-pristine {
+          box-shadow: none;
+    }
 
 input.usa-input-success,
 input[type="text"].usa-input-success,

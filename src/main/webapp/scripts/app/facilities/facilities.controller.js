@@ -8,6 +8,10 @@ angular.module('apqdApp')
     function ($scope, $state, $log, $q, $location, $anchorScroll,
               leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService,
               GeocoderService, chLayoutConfigFactory, $uibModal, Principal, AppPropertiesService, AddressUtils) {
+        var agenciesDataSource;
+        var agenciesViewIndex;
+        var agenciesViewPage = 10;
+
         $scope.ALL_TYPES_LABEL = 'All Types';
         $scope.ALL_STATUSES_LABEL = 'All Statuses';
         $scope.DEFAULT_ZOOM = 13;
@@ -76,6 +80,14 @@ angular.module('apqdApp')
         $scope.facilityTypes = FacilityType;
         $scope.facilityStatuses = FacilityStatus;
 
+        $scope.applyInfiniteScroll = function () {
+            $('.ch-aside-facilities').bind('scroll', function(){
+                if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+                    $scope.$apply($scope.moreAgencies);
+                }
+            });
+        };
+
         $scope.scrollToAgency = function (agency) {
             var newHash = 'agency' + agency.facility_number;
             if ($location.hash() !== newHash) {
@@ -91,8 +103,8 @@ angular.module('apqdApp')
 
         $scope.createLocations = function() {
             var locations = {};
-            _.each($scope.agencies, function (agency) {
-                GeocoderService.distance(
+            _.each(agenciesDataSource, function (agency) {
+                agency.distanceValue = GeocoderService.distance(
                     {
                         latitude: agency.location.coordinates[1],
                         longitude: agency.location.coordinates[0]
@@ -101,35 +113,45 @@ angular.module('apqdApp')
                         latitude: $scope.currentLocation.lat,
                         longitude: $scope.currentLocation.lng
                     }
-                ).then(function (distance) {
-                    agency.distance = distance.toFixed(1);
-                    agency.distanceValue = distance;
+                );
+                agency.distance = agency.distanceValue.toFixed(1);
+                locations['fn' + agency.facility_number + '_' + agency.distance.replace('.', '_')] = {
+                    layer: 'agencies',
+                    lat: agency.location.coordinates[1],
+                    lng: agency.location.coordinates[0],
+                    message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
+                    getMessageScope: function () {
+                        $scope.scrollToAgency(agency);
 
-                    locations['fn' + agency.facility_number +'_'+ agency.distance.replace('.', '_')] = {
-                        layer: 'agencies',
-                        lat: agency.location.coordinates[1],
-                        lng: agency.location.coordinates[0],
-                        message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
-                        getMessageScope: function() {
-                            $scope.scrollToAgency(agency);
-
-                            var scope = $scope.$new();
-                            scope.agency = agency;
-                            scope.viewConfig = {presentation: 'popup'};
-                            return scope;
-                        },
-                        icon: {
-                            iconUrl: $scope.defineIcon(agency),
-                            iconAnchor: [13, 13]
-                        }
-                    };
-                });
+                        var scope = $scope.$new();
+                        scope.agency = agency;
+                        scope.viewConfig = {presentation: 'popup'};
+                        return scope;
+                    },
+                    icon: {
+                        iconUrl: $scope.defineIcon(agency),
+                        iconAnchor: [13, 13]
+                    }
+                };
+            });
+            agenciesDataSource.sort(function (a, b) {
+                return a.distanceValue - b.distanceValue;
             });
             if ($scope.currentLocation) {
                 locations.current = $scope.currentLocation;
             }
 
+            $scope.agencies = agenciesDataSource.slice(0, agenciesViewPage);
+            agenciesViewIndex = agenciesViewPage;
+            $scope.applyInfiniteScroll();
+
             return locations;
+        };
+
+        $scope.moreAgencies = function () {
+            if($scope.agencies && agenciesViewIndex < agenciesDataSource.length) {
+                $scope.agencies = $scope.agencies.concat(agenciesDataSource.slice(agenciesViewIndex, agenciesViewIndex += agenciesViewPage));
+            }
         };
 
         $scope.updateLocations = function() {
@@ -187,7 +209,7 @@ angular.module('apqdApp')
             FosterFamilyAgenciesService.findAgenciesByFilter(request).then(
                 function(agencies) {
                     $log.debug('agencies', agencies);
-                    $scope.agencies = agencies;
+                    agenciesDataSource = agencies;
                     $scope.updateLocations();
                 },
                 function(reason) {
