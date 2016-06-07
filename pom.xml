@@ -58,7 +58,7 @@
         <run.addResources>false</run.addResources>
         <sdn.version>4.1.1.RELEASE</sdn.version>
         <sonar-maven-plugin.version>2.6</sonar-maven-plugin.version>
-        <sonar.exclusions>src/main/webapp/assets/**/*.*, src/main/webapp/bower_components/**/*.*, src/main/webapp/dist/**/*.*, src/main/resources/prototype/**/*.*</sonar.exclusions>
+        <sonar.exclusions>documents/*.*, src/main/webapp/assets/**/*.*, src/main/webapp/bower_components/**/*.*, src/main/webapp/dist/**/*.*</sonar.exclusions>
         <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
