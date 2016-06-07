@@ -15,6 +15,7 @@ angular.module('apqdApp')
 
         $scope.ALL_TYPES_LABEL = 'All Types';
         $scope.ALL_STATUSES_LABEL = 'All Statuses';
+        $scope.DEFAULT_MARKER_MESSAGE = 'You are here';
         $scope.DEFAULT_ZOOM = 13;
 
         $scope.viewContainsCaBounds = false;
@@ -59,8 +60,20 @@ angular.module('apqdApp')
         $scope.center = {lat: 0, lng: 0, zoom: $scope.DEFAULT_ZOOM};
 
         $scope.getHomeLocation = function (latLng, message) {
+            if (message) {
+                if (!$scope.geocoder._input) {
+                    var watcherUnregister = $scope.$watch('geocoder._input', function(newValue) {
+                        if (newValue) {
+                            $scope.geocoder._input.value = message;
+                            watcherUnregister();
+                        }
+                    });
+                } else {
+                    $scope.geocoder._input.value = message;
+                }
+            }
             if (!message) {
-                message = 'You are here';
+                message = $scope.DEFAULT_MARKER_MESSAGE;
             }
             return {
                 layer: 'place',
@@ -368,7 +381,7 @@ angular.module('apqdApp')
                 function (position) {
                     $scope.center.lat = position.coords.latitude;
                     $scope.center.lng = position.coords.longitude;
-                    $scope.currentLocation = $scope.getHomeLocation($scope.center, 'You are here');
+                    $scope.currentLocation = $scope.getHomeLocation($scope.center);
                 },
                 function () {
                     $scope.getAddressFromProperties();
@@ -401,17 +414,6 @@ angular.module('apqdApp')
                 );
             });
         };
-
-        $scope.getCurrentLocation = function() {
-            var q = $q.defer();
-            var geoSuccess = function(position) {
-                var marker = createMarker(position.coords.latitude, position.coords.longitude, 'current');
-                q.resolve(marker);
-            };
-            navigator.geolocation.getCurrentPosition(geoSuccess, q.reject);
-            return q.promise;
-        };
-
 
         Principal.identity().then(function(userProfile) {
             if (_.isNil(userProfile) || _.isNil(userProfile.place) || _.isNil(userProfile.place.latitude)) {
