@@ -195,12 +195,20 @@ public class AccountResource {
         produces = MediaType.TEXT_PLAIN_VALUE)
     @Timed
     public ResponseEntity<?> requestPasswordReset(@RequestBody String mail, HttpServletRequest request) {
-        return userService.requestPasswordReset(mail)
-            .map(user -> {
-                String baseUrl = HttpRequestUtil.buildBaseUrl(request);
-                mailService.sendPasswordResetMail(user, baseUrl);
-                return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
-            }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
+        Optional<User> userByEmail = userRepository.findOneByEmail(mail);
+        if (userByEmail.isPresent()) {
+            if (userByEmail.get().getActivated()) {
+                return userService.requestPasswordReset(mail).map(user -> {
+                    String baseUrl = HttpRequestUtil.buildBaseUrl(request);
+                    mailService.sendPasswordResetMail(user, baseUrl);
+                    return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
+                }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
+            } else {
+                return new ResponseEntity<>("e-mail address not activated", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(value = "/account/reset_password/finish",
