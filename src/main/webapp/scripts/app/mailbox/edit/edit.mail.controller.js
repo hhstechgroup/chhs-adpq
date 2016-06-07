@@ -140,6 +140,15 @@ angular.module('apqdApp')
                 return;
             }
 
+            if (file.size > 10485760) {
+                ngToast.create({
+                    className : "",
+                    content : $templateCache.get('attachmentTooBig.html')
+                });
+
+                return;
+            }
+
             Upload.upload({
                 url: '/api/file',
                 data: {file: file, 'messageId': $scope.mail.id}
