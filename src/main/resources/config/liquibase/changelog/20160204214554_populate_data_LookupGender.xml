@@ -19,6 +19,6 @@
     <changeSet id="20160210332" author="leonid.marushevskiy">
         <insert tableName="lookup_gender"><column name="gender_code" value="F"/><column name="gender_name" value="Female"/></insert>
         <insert tableName="lookup_gender"><column name="gender_code" value="M"/><column name="gender_name" value="Male"/></insert>
-        <insert tableName="lookup_gender"><column name="gender_code" value="U"/><column name="gender_name" value="Unknown"/></insert>
+        <insert tableName="lookup_gender"><column name="gender_code" value="U"/><column name="gender_name" value="Other"/></insert>
     </changeSet>
 </databaseChangeLog>
