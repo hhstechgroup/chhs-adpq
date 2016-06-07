@@ -3,6 +3,17 @@ $break-desktop: 992px;
 $break-tablet: 770px;
 $break-phone: 640px;
 
+.ch-layout {
+    @media screen and (max-width: $break-phone) {
+        zoom: 0.9;
+    }
+}
+
+.ch-page {
+    @media screen and (max-width: $break-phone) {
+        height: auto;
+    }
+}
 
 .form-type__search {
 
