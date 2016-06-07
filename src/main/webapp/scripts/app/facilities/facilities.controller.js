@@ -2,9 +2,11 @@
 
 angular.module('apqdApp')
     .controller('FacilitiesController',
-    ['$scope', '$state', '$log', '$q', 'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService',
+    ['$scope', '$state', '$log', '$q', '$location', '$anchorScroll',
+        'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService',
         'GeocoderService', 'chLayoutConfigFactory', '$uibModal', 'Principal', 'AppPropertiesService', 'AddressUtils',
-    function ($scope, $state, $log, $q, leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService,
+    function ($scope, $state, $log, $q, $location, $anchorScroll,
+              leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService,
               GeocoderService, chLayoutConfigFactory, $uibModal, Principal, AppPropertiesService, AddressUtils) {
         $scope.ALL_TYPES_LABEL = 'All Types';
         $scope.ALL_STATUSES_LABEL = 'All Statuses';
@@ -68,12 +70,24 @@ angular.module('apqdApp')
             };
         };
 
-
         $scope.currentLocation = $scope.getHomeLocation($scope.center);
 
         $scope.searchText = '';
         $scope.facilityTypes = FacilityType;
         $scope.facilityStatuses = FacilityStatus;
+
+        $scope.scrollToAgency = function (agency) {
+            var newHash = 'agency' + agency.facility_number;
+            if ($location.hash() !== newHash) {
+                // set the $location.hash to `newHash` and
+                // $anchorScroll will automatically scroll to it
+                $location.hash(newHash);
+            } else {
+                // call $anchorScroll() explicitly,
+                // since $location.hash hasn't changed
+                $anchorScroll();
+            }
+        };
 
         $scope.createLocations = function() {
             var locations = {};
@@ -86,7 +100,6 @@ angular.module('apqdApp')
                     {
                         latitude: $scope.currentLocation.lat,
                         longitude: $scope.currentLocation.lng
-
                     }
                 ).then(function (distance) {
                     agency.distance = distance.toFixed(1);
@@ -98,6 +111,8 @@ angular.module('apqdApp')
                         lng: agency.location.coordinates[0],
                         message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
                         getMessageScope: function() {
+                            $scope.scrollToAgency(agency);
+
                             var scope = $scope.$new();
                             scope.agency = agency;
                             scope.viewConfig = {presentation: 'popup'};
