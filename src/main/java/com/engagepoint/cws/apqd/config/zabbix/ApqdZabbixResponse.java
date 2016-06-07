@@ -49,14 +49,14 @@ public class ApqdZabbixResponse {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("type:");
-        stringBuffer.append(type);
+        StringBuilder sb = new StringBuilder();
+        sb.append("type:");
+        sb.append(type);
 
         if(stringValue != null){
-            stringBuffer.append(", value:");
-            stringBuffer.append(stringValue);
+            sb.append(", value:");
+            sb.append(stringValue);
         }
-        return stringBuffer.toString() ;
+        return sb.toString() ;
     }
 }

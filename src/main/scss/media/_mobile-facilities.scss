@@ -24,19 +24,18 @@
     }
 }
 
-.ch-input-block__form-input_search-field-map .leaflet-pelias-expanded .leaflet-pelias-input {
+.ch-facilities-heading__row .ch-input-block__form-input_search-field-map .leaflet-pelias-expanded .leaflet-pelias-input {
 
     @media screen and (max-width: $break-phone) {
-        width: 100%;
+        width: 100% !important;
         height: 8rem;
         font-size: 2.8rem;
         padding-left: 6rem;
-
     }
 
 }
 
-.ch-input-block__form-input_search-field-map .leaflet-bar a.leaflet-pelias-search-icon {    
+.ch-facilities-heading__row .ch-input-block__form-input_search-field-map .leaflet-bar a.leaflet-pelias-search-icon {
 
     @media screen and (max-width: $break-phone) {
         position: relative;
@@ -46,7 +45,7 @@
     }
 }
 
-.ch-input-block__form-input_search-field-map .leaflet-pelias-expanded .leaflet-pelias-close {
+.ch-facilities-heading__row .ch-input-block__form-input_search-field-map .leaflet-pelias-expanded .leaflet-pelias-close {
     @media screen and (max-width: $break-phone) {
         margin-top: -.6rem;
         margin-right: .8rem;

@@ -38,7 +38,7 @@
                     <div class="ch-flex-row">
                         <div class="ch-flex-row__input-block">
                             <div class="ch-input-block">
-                                <label for="firstName" class="ch-input-block__label">First Name</label>
+                                <label for="firstName" class="ch-input-block__label">First Name *</label>
                                 <div class="ch-input-block__form-input">
                                     <input type="text" id="firstName" name="firstName" class="ch-form-input" placeholder="{{'settings.form.firstname.placeholder' | translate}}" ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required maxlength="50" />
                                 </div>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="ch-flex-row__input-block">
                             <div class="ch-input-block">
-                                <label for="lastName" class="ch-input-block__label">Last Name</label>
+                                <label for="lastName" class="ch-input-block__label">Last Name *</label>
                                 <div class="ch-input-block__form-input">
                                     <input type="text" id="lastName" name="lastName" class="ch-form-input" placeholder="{{'settings.form.lastname.placeholder' | translate}}" ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required maxlength="50" />
                                 </div>
@@ -84,9 +84,15 @@
                     <div class="ch-flex-row">
                         <div class="ch-flex-row__input-block">
                             <div class="ch-input-block">
-                                <label for="license" class="ch-input-block__label">License/Case number</label>
+                                <label for="license" class="ch-input-block__label">Family Case/License number *</label>
                                 <div class="ch-input-block__form-input">
-                                    <input type="text" name=license" id="license" class="ch-form-input" ng-model="settingsAccount.caseNumber" />
+                                    <input type="text" name=license" id="license" class="ch-form-input" ng-model="settingsAccount.caseNumber" required/>
+                                </div>
+                                <div ng-show="form.license.$dirty && form.license.$invalid">
+                                    <p class="help-block"
+                                       ng-show="form.license.$error.required">
+                                        Your Family Case/License number is required.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -226,7 +232,7 @@
                         <div class="ch-flex-row">
                             <div class="ch-flex-row__input-block">
                                 <div class="ch-input-block">
-                                    <label for="email" class="ch-input-block__label">Email Address</label>
+                                    <label for="email" class="ch-input-block__label">Email Address *</label>
                                     <div class="ch-input-block__form-input">
                                         <input type="email" name="email" id="email" class="ch-form-input" placeholder="{{'global.form.email.placeholder' | translate}}" ng-model="settingsAccount.email" ng-minlength=5 ng-maxlength=100 required maxlength="100" />
                                     </div>
@@ -290,12 +296,15 @@
                         <div class="ch-flex-row">
                             <div class="ch-flex-row__input-block">
                                 <div class="ch-input-block">
-                                    <label for="newPassword" class="ch-input-block__label">New Password</label>
+                                    <label for="newPassword" class="ch-input-block__label">New Password *</label>
                                     <div class="ch-input-block__form-input">
-                                        <input type="password" name="newPassword" id="newPassword" class="ch-form-input" ng-model="passwordChangingContainer.newPassword" ng-minlength=5 ng-maxlength=50 />
+                                        <input type="password" name="newPassword" id="newPassword" class="ch-form-input" ng-model="passwordChangingContainer.newPassword" ng-minlength=5 ng-maxlength=50 required/>
                                     </div>
                                 </div>
                                 <div ng-show="form.newPassword.$dirty && form.newPassword.$invalid">
+                                    <p class="help-block" ng-show="form.newPassword.$error.required">
+                                        Your password is required.
+                                    </p>
                                     <p class="help-block" ng-show="form.newPassword.$error.minlength">
                                         Your password is required to be at least 5 characters.
                                     </p>
@@ -307,12 +316,15 @@
                             </div>
                             <div class="ch-flex-row__input-block">
                                 <div class="ch-input-block">
-                                    <label for="confirmPassword" class="ch-input-block__label">Confirm New Password</label>
+                                    <label for="confirmPassword" class="ch-input-block__label">Confirm New Password *</label>
                                     <div class="ch-input-block__form-input">
-                                        <input type="password" name="confirmPassword" id="confirmPassword" class="ch-form-input" ng-model="passwordChangingContainer.confirmPassword" ng-minlength=5 ng-maxlength=50 />
+                                        <input type="password" name="confirmPassword" id="confirmPassword" class="ch-form-input" ng-model="passwordChangingContainer.confirmPassword" ng-minlength=5 ng-maxlength=50 required/>
                                     </div>
                                 </div>
                                 <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
+                                    <p class="help-block" ng-show="form.confirmPassword.$error.required">
+                                        Your confirmation password is required.
+                                    </p>
                                     <p class="help-block" ng-show="form.confirmPassword.$error.minlength">
                                         Your confirmation password is required to be at least 5 characters.
                                     </p>
