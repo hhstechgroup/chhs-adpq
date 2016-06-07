@@ -12,12 +12,12 @@ angular.module('apqdApp')
             $scope.mail.body =
                 "I am interested in more information about '" + fName + "'\n\n" +
                 "Because: \n" +
-                "    (check all that apply) \n" +
-                "<x> I would like to schedule a visit \n" +
-                "<x> I want to know what services they offer \n" +
-                "<x> I need temporary placement for my kid \n" +
-                "<x> I want to visit my child there \n" +
-                "<x> Other reasons.... \n\n\n" +
+                "    (delete what is not applicable) \n" +
+                "I would like to schedule a visit  \n" +
+                "I want to know what services they offer \n" +
+                "I need temporary placement for my kid \n" +
+                "I want to visit my child there  \n" +
+                "Other reasons.... \n\n\n" +
                 "    Thanks.";
         }
 

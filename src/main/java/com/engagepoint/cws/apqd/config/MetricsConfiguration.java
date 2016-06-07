@@ -169,8 +169,8 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
             try {
                 confugureApplicationInstanceZabbixHost(jHipsterProperties.getMetrics().getZabbix());
-            } catch (Throwable t) {
-                LOGGER.error("Error at configuring application instance host on Zabbix ", t);
+            } catch (IOException e) {
+                LOGGER.error("Error at configuring application instance host on Zabbix ", e);
             }
         }
 
