@@ -4,21 +4,34 @@ angular.module('apqdApp')
     .controller('DefaultAddressModalCtrl',
         ['$scope', '$log', '$uibModalInstance', 'Auth', 'userProfile', 'GeocoderService', 'AddressUtils', 'Place',
         function ($scope, $log, $uibModalInstance, Auth, userProfile, GeocoderService, AddressUtils, Place) {
-            $scope.updateAccount = function (addressFeature) {
+            $scope.updateProfile = function(addressFeature) {
                 AddressUtils.addAddressToAccount(addressFeature, userProfile).then(
-                    function () {
-                        Place.save(userProfile.place, function (place) {
-                            userProfile.place = place;
-                            Auth.updateAccount(userProfile);
-                        });
+                    function() {
+                        $scope.saveOrUpdateAccount(userProfile);
                     }
                 );
+            };
+
+            $scope.saveOrUpdateAccount = function(profile) {
+                if (profile.place.id) {
+                    Place.update(profile.place, function (place) {
+                        $scope.updateAccount(profile, place);
+                    });
+                } else {
+                    Place.save(profile.place, function (place) {
+                        $scope.updateAccount(profile, place);
+                    });
+                }
+            };
+            $scope.updateAccount = function(profile, place) {
+                profile.place = place;
+                Auth.updateAccount(profile);
             };
 
             $scope.onApplyAddress = function() {
                 if ($scope.addressFeature) {
                     if ($scope.saveAddressToProfile) {
-                        $scope.updateAccount($scope.addressFeature);
+                        $scope.updateProfile($scope.addressFeature);
                     }
                     $scope.close($scope.addressFeature);
                 } else {
