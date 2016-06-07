@@ -11,6 +11,7 @@ angular.module('apqdApp')
         var agenciesDataSource;
         var agenciesViewIndex;
         var agenciesViewPage = 10;
+        $scope.agenciesLength = 0;
 
         $scope.ALL_TYPES_LABEL = 'All Types';
         $scope.ALL_STATUSES_LABEL = 'All Statuses';
@@ -144,7 +145,7 @@ angular.module('apqdApp')
             $scope.agencies = agenciesDataSource.slice(0, agenciesViewPage);
             agenciesViewIndex = agenciesViewPage;
             $scope.applyInfiniteScroll();
-
+            $scope.agenciesLength = agenciesDataSource.length;
             return locations;
         };
 
