@@ -81,7 +81,7 @@ angular.module('apqdApp')
 
         $scope.applyInfiniteScroll = function () {
             $('.ch-aside-facilities').bind('scroll', function(){
-                if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
+                if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight / 1.1){
                     $scope.$apply($scope.moreAgencies);
                 }
             });
