@@ -33,11 +33,9 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
            "          AND d.message = m)")
     Long countByInbox(@Param("to") User to, @Param("status") MessageStatus status);
 
-    @Query("SELECT COUNT(m) FROM Deleted d " +
-           "  JOIN d.message m " +
-           " WHERE d.deletedBy = :deletedBy" +
-           "   AND m.status = :status")
-    Long countByDeleted(@Param("deletedBy") User deletedBy, @Param("status") MessageStatus status);
+    @Query("SELECT COUNT(d) FROM Deleted d " +
+           " WHERE d.deletedBy = :deletedBy")
+    Long countByDeleted(@Param("deletedBy") User deletedBy);
 
     @Query("SELECT m FROM Message m " +
            " WHERE m.inbox IS NOT NULL " +

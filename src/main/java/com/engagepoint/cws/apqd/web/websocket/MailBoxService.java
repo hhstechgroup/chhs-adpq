@@ -49,7 +49,7 @@ public class MailBoxService {
 
     public void notifyClientAboutDeletedCount() {
         User userFrom = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-        Long draftsCount = messageRepository.countByDeleted(userFrom, MessageStatus.UNREAD);
+        Long draftsCount = messageRepository.countByDeleted(userFrom);
         messagingTemplate.convertAndSendToUser(userFrom.getLogin(), TOPIC_MAIL_DELETED, draftsCount);
     }
 }
