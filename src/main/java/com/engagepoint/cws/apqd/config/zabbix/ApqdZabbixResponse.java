@@ -15,10 +15,6 @@ public class ApqdZabbixResponse {
 
     private JSONObject jsonValue;
 
-    public ApqdZabbixResponse(){
-        this.type = type;
-    }
-
     public ApqdZabbixResponse(ZabbixResponseType type){
         this.type = type;
     }
