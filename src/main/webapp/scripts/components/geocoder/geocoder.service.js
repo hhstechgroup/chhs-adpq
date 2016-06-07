@@ -49,10 +49,7 @@ angular.module('apqdApp')
             },
 
             distance : function (location1, location2) {
-                var deferred = $q.defer();
-                var result = getDistance(location1.latitude, location1.longitude, location2.latitude, location2.longitude);
-                deferred.resolve(result);
-                return deferred.promise;
+                return getDistance(location1.latitude, location1.longitude, location2.latitude, location2.longitude);
             }
 
         }
