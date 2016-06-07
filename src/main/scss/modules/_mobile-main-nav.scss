@@ -2,16 +2,19 @@
     position: fixed;
     z-index: 10000;
     width: 100%;
-    top: -70%;
+    top: -1000px;
     right: 0;
     left: 0;
     box-shadow: 0 2px 2px #343c47;
+    transition-property: opacity;
     transition-property: top;
-    transition-duration: 300ms;
+    transition-duration: 200ms;
+    opacity: 0;
 }
 
 .ch-menu-mobile__pane.ch-menu-mobile__active {
     top: 0;
+    opacity: 1;
 }
 
 .ch-menu-mobile__bg-show {
