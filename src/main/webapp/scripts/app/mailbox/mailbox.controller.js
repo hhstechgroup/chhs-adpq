@@ -19,6 +19,23 @@ angular.module('apqdApp')
             $scope.updateContactList();
         });
 
+        $scope.showFolders = 'ch-show-folders';
+        $scope.linkFolders = 'ch-mobile-mailbox__nav-tab__link_active';
+
+        $scope.changeFolders = function() {
+            $scope.showFolders = 'ch-show-folders';
+            $scope.linkFolders = 'ch-mobile-mailbox__nav-tab__link_active';
+            $scope.showContacts = '';
+            $scope.linkContacts= '';
+        }
+
+        $scope.changeContacts = function() {
+            $scope.showContacts = 'ch-show-contacts';
+            $scope.linkContacts = 'ch-mobile-mailbox__nav-tab__link_active';
+            $scope.showFolders = '';
+            $scope.linkFolders= '';
+        }
+
         $scope.composeMail = function(contact) {
             angular.merge($state.params, {contact: contact});
             $state.go('ch-inbox.new-mail', {mailId: undefined});

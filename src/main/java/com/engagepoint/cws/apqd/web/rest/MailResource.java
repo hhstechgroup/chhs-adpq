@@ -362,16 +362,9 @@ public class MailResource {
     }
 
     private void setReadStatusToAllMessagesInThread(Message message) {
-        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-
         MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
         Message root = thread.getThread().get(0);
-
-        if (message.getTo().equals(user)) {
-            root.setUnreadMessagesCountTo(0);
-        } else {
-            root.setUnreadMessagesCountFrom(0);
-        }
+        resetUnreadCount(message, root);
 
         for (Message msg : thread.getThread()) {
             if (msg.getStatus() == MessageStatus.UNREAD) {
@@ -387,14 +380,18 @@ public class MailResource {
         }
 
         root = messageRepository.findOne(root.getId());
-        if (message.getTo().equals(user)) {
-            root.setUnreadMessagesCountTo(0);
-        } else {
-            root.setUnreadMessagesCountFrom(0);
-        }
+        resetUnreadCount(message, root);
 
         messageRepository.save(root);
         messageThreadSearchRepository.save(thread);
+    }
+
+    private void resetUnreadCount(Message message, Message root) {
+        if (message.getTo().equals(root.getFrom())) {
+            root.setUnreadMessagesCountFrom(0);
+        } else {
+            root.setUnreadMessagesCountTo(0);
+        }
     }
 
     private void updateMessageThread(Message message) {

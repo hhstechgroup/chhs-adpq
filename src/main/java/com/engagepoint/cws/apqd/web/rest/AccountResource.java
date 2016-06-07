@@ -67,10 +67,7 @@ public class AccountResource {
             .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
                 .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
-                    User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-                    userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                    userDTO.getLangKey(), userDTO.getSsnLast4Digits(), userDTO.getBirthDate(), userDTO.getGender(),
-                    userDTO.getPhoneNumber(), userDTO.getCaseNumber());
+                    User user = userService.createUserInformation(userDTO);
                     String baseUrl = HttpRequestUtil.buildBaseUrl(request);
                     mailService.sendActivationEmail(user, baseUrl);
                     return new ResponseEntity<>(HttpStatus.CREATED);

@@ -239,7 +239,7 @@ angular.module('apqdApp')
         $scope.updateTypesLabel = function() {
             $scope.updateDropDownLabel($scope.facilityTypes, $scope.typesConfig, $scope.ALL_TYPES_LABEL);
         };
-        $scope.onTypeClick = function(type) {
+        $scope.onTypeClick = function() {
             $scope.updateTypesLabel();
             $scope.invalidate();
         };
@@ -247,7 +247,7 @@ angular.module('apqdApp')
         $scope.updateStatusesLabel = function() {
             $scope.updateDropDownLabel($scope.facilityStatuses, $scope.statusesConfig, $scope.ALL_STATUSES_LABEL);
         };
-        $scope.onStatusClick = function(status) {
+        $scope.onStatusClick = function() {
             $scope.updateStatusesLabel();
             $scope.invalidate();
         };
@@ -341,20 +341,26 @@ angular.module('apqdApp')
         $scope.getAddressFromProperties = function () {
             AppPropertiesService.defaultAddress(function (response) {
                 var address = response.data;
-                GeocoderService.searchAddress(address).then(function (response) {
-                    var data = response.data[0];
-                    $scope.onSelectAddress({
-                        latlng: {
-                            lat: parseFloat(data.lat),
-                            lng: parseFloat(data.lon)
-                        },
-                        feature: {
-                            properties: {
-                                label: data.display_name
+                GeocoderService.searchAddress(address).then(
+                    function (response) {
+                        var data = response.data[0];
+                        $scope.onSelectAddress({
+                            latlng: {
+                                lat: parseFloat(data.lat),
+                                lng: parseFloat(data.lon)
+                            },
+                            feature: {
+                                properties: {
+                                    label: data.display_name
+                                }
                             }
-                        }
-                    })
-                });
+                        })
+                    },
+                    function() {
+                        $log.warn('Cannot get address details');
+                        $scope.getAddressFromProperties();
+                    }
+                );
             });
         };
 

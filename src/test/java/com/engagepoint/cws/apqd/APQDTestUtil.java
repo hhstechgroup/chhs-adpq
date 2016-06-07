@@ -3,6 +3,7 @@ package com.engagepoint.cws.apqd;
 import com.engagepoint.cws.apqd.config.JHipsterProperties;
 import com.engagepoint.cws.apqd.domain.Draft;
 import com.engagepoint.cws.apqd.domain.Inbox;
+import com.engagepoint.cws.apqd.domain.LookupGender;
 import com.engagepoint.cws.apqd.domain.MailBox;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.Outbox;
@@ -47,6 +48,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public final class APQDTestUtil {
+    private static final LookupGender GENDER = new LookupGender();
+
+    static {
+        GENDER.setId(1L);
+    }
+
     /**
      * Use to avoid assertion errors while comparing generated html.
      * For example, this will convert string:
@@ -120,6 +127,7 @@ public final class APQDTestUtil {
         user.setActivated(true);
         user.setCaseNumber("S123");
         user.setBirthDate(LocalDate.ofEpochDay(0L));
+        user.setGender(GENDER);
         user.setPhoneNumber("111-111-1111");
 
         addUserRole(authorityRepository, user, AuthoritiesConstants.USER);

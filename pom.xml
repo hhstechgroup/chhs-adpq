@@ -11,7 +11,7 @@
 
     <groupId>com.engagepoint.chhs-apqd</groupId>
     <artifactId>chhs-apqd</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>chhs-apqd</name>
 
@@ -1021,24 +1021,6 @@
                                         <assembly>
                                             <basedir>/</basedir>
                                             <dockerFileDir>dockerfiles/chhs-apqd</dockerFileDir>
-                                        </assembly>
-                                    </build>
-                                </image>
-                                <image>
-                                    <name>chhs-apqd-elasticsearch</name>
-                                    <alias>chhs-apqd-elasticsearch</alias>
-                                    <registry>docker-registry-sdg.engagepoint.us:5000</registry>
-                                    <build>
-                                        <cleanup>remove</cleanup>
-                                        <nocache>true</nocache>
-                                        <tags>
-                                            <!--                                            <tag>${maven.build.timestamp}</tag> -->
-                                            <tag>${project.version}</tag>
-                                            <tag>${docker.jenkins.build}</tag>
-                                        </tags>
-                                        <assembly>
-                                            <basedir>/</basedir>
-                                            <dockerFileDir>dockerfiles/chhs-apqd-elasticsearch</dockerFileDir>
                                         </assembly>
                                     </build>
                                 </image>

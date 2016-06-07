@@ -13,7 +13,7 @@
             </h2>
         </div>
 
-        <div class="ch-mail-heading__item ch-mail-heading__item_action-group">
+        <div ng-show="showDeleteButtons()" class="ch-mail-heading__item ch-mail-heading__item_action-group">
             <div class="ch-page-heading__actions" ng-click="deleteAll()">
                 <span class="icon icon-remove"></span>
                 <span class="actions__text">Delete All</span>
@@ -51,7 +51,9 @@
                                 </div>
                             </div>
 
-                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-options-group">
+                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-options-group"
+                                 ng-show="showDeleteButtons()">
+
                                 <div class="ch-mail-options-group">
                                     <div class="ch-button-group-action">
                                         <a href="" role="button" ui-sref="ch-inbox.reply-mail({replyOn: mail.id})"

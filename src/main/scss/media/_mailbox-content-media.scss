@@ -3,6 +3,24 @@ $break-desktop: 992px;
 $break-tablet: 770px;
 $break-phone: 640px;
 
+.ch-layout {
+    @media screen and (max-width: $break-phone) {
+        zoom: 0.9;
+    }
+}
+
+.ch-page {
+    @media screen and (max-width: $break-phone) {
+        height: auto;
+    }
+}
+
+.profile-form {
+    @media screen and (max-width: $break-phone) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
 
 .form-type__search {
 
@@ -110,9 +128,10 @@ $break-phone: 640px;
     }
 }
 
-.ch-layout__content {
+.ch-layout__content,
+.ch-layout__content.ch-layout__content_facilities {
     @media screen and (max-width: $break-phone) {
-        display: none;
+        padding-left: 0;
     }
 }
 
@@ -226,5 +245,19 @@ $break-phone: 640px;
 .ch-new-mail-heading {
     @media screen and (max-width: $break-phone) {
         display: none;
+    }
+}
+
+.ch-sign-up__form__group_row {
+    @media screen and (max-width: $break-phone) {
+        display: block;
+
+        .ch-sign-up__form__group_child:first-child {
+            margin-right: 0;
+        }
+
+        .ch-sign-up__form__group_child:last-child {
+            margin-left: 0;
+        }
     }
 }

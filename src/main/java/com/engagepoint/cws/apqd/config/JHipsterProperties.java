@@ -435,7 +435,11 @@ public class JHipsterProperties {
 
             private int periodSec = 60;
 
-            private String apqdInstanceName;
+            private int socketTimeoutSec = 3;
+
+            private int connectionTimeoutSec = 3;
+
+            private String hostMetadata;
 
             public boolean isEnabled() {
                 return enabled;
@@ -469,12 +473,28 @@ public class JHipsterProperties {
                 this.periodSec = periodSec;
             }
 
-            public String getApqdInstanceName() {
-                return apqdInstanceName;
+            public String getHostMetadata() {
+                return hostMetadata;
             }
 
-            public void setApqdInstanceName(String apqdInstanceName) {
-                this.apqdInstanceName = apqdInstanceName;
+            public void setHostMetadata(String hostMetadata) {
+                this.hostMetadata = hostMetadata;
+            }
+
+            public int getSocketTimeoutSec() {
+                return socketTimeoutSec;
+            }
+
+            public void setSocketTimeoutSec(int socketTimeoutSec) {
+                this.socketTimeoutSec = socketTimeoutSec;
+            }
+
+            public int getConnectionTimeoutSec() {
+                return connectionTimeoutSec;
+            }
+
+            public void setConnectionTimeoutSec(int connectionTimeoutSec) {
+                this.connectionTimeoutSec = connectionTimeoutSec;
             }
         }
     }

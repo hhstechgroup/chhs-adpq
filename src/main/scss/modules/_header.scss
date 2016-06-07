@@ -36,7 +36,6 @@
     right: 2rem;
     z-index: 900;
 
-
     .icon {
         width: 4.4rem;
         height: 2.6rem;
@@ -51,6 +50,13 @@
     display: none;
     position: relative;
     z-index: 10002;
+}
+
+.icon-menu-close {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: inline-block;
+  background: url("../images/us-icon/icon-close.png") no-repeat center;
 }
 
 .ch-user-account-entry__dropdown-btn_collapsed:after {

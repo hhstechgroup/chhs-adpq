@@ -62,6 +62,8 @@ angular.module('apqdApp')
         $scope.openMail = function(mail) {
             if ($stateParams.directory === 'drafts') {
                 $state.go('ch-inbox.new-mail', {mailId: mail.id});
+            } else if ($stateParams.directory === 'deleted') {
+                $state.go('ch-inbox.view', {mailId: mail.id, readOnly: true});
             } else {
                 $state.go('ch-inbox.view', {mailId: mail.id});
             }
@@ -86,18 +88,18 @@ angular.module('apqdApp')
         };
 
         $scope.getTargetName = function(mail) {
-            if ($stateParams.directory === 'inbox') {
-                return mail.from.firstName + ' ' + mail.from.lastName;
-            } if ($stateParams.directory === 'deleted') {
-
-                if (identity.login === mail.to.login) {
-                    return mail.from.firstName + ' ' + mail.from.lastName;
-                } else {
-                    return mail.to.firstName + ' ' + mail.to.lastName;
-                }
-
+            if ($stateParams.directory === 'inbox' || $stateParams.directory === 'deleted') {
+                return $scope.getTitle(mail);
             } else {
                 return (!_.isNil(mail.to) ? mail.to.firstName + ' ' + mail.to.lastName : '');
+            }
+        };
+
+        $scope.getTitle = function(mail) {
+            if (identity.login === mail.to.login) {
+                return mail.from.firstName + ' ' + mail.from.lastName;
+            } else {
+                return mail.to.firstName + ' ' + mail.to.lastName;
             }
         };
 
@@ -111,12 +113,7 @@ angular.module('apqdApp')
         };
 
         $scope.deleteSelected = function() {
-            if ($stateParams.directory === 'deleted') {
-                //RestoreMessageService.restore(_.filter($scope.mails, {selected: true}), function() {
-                //    $scope.allSelected = false;
-                //    $scope.loadPage();
-                //}, $log.error);
-            } else {
+            if ($stateParams.directory !== 'deleted') {
                 DeleteMessageService.delete(_.filter($scope.mails, {selected: true}), function() {
                     $scope.allSelected = false;
                     $scope.loadPage();
