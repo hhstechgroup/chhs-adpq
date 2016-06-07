@@ -45,6 +45,10 @@
 
 .ch-modal__row {
     margin-bottom: 1.5rem;
+
+    .ch-input-block__form-input_search-field-map .leaflet-pelias-expanded {
+        width: 100% !important;
+    }
 }
 
 .ch-modal-controls.ch-modal-controls_has-options {
