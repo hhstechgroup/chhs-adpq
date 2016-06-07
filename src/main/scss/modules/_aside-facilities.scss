@@ -5,6 +5,13 @@
     background-color: #fff;
 }
 
+.ch-facilities__item_active {
+    padding: 1.9rem 3.2rem 2.4rem 2.5rem;
+    border-bottom: .1rem solid #cbcdcf;
+    border-top: none;
+    background-color: #e4e2e0;
+}
+
 .ch-facility__header {
     padding-left: 3.9rem;
     position: relative;

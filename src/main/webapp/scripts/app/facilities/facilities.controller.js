@@ -100,6 +100,11 @@ angular.module('apqdApp')
                 // since $location.hash hasn't changed
                 $anchorScroll();
             }
+            $scope.activeAgency = agency;
+        };
+
+        $scope.isActiveAgency = function (agency) {
+            return !_.isNil($scope.activeAgency) && agency.facility_number == $scope.activeAgency.facility_number;
         };
 
         $scope.createLocations = function() {
