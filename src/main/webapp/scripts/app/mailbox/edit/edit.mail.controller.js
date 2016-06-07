@@ -101,7 +101,12 @@ angular.module('apqdApp')
                         className : "",
                         content : $templateCache.get('messageSentNotification.html')
                     });
-                }, $log.info);
+                }, function () {
+                    ngToast.create({
+                        className : "",
+                        content : $templateCache.get('messageNotSentNotification.html')
+                    });
+                });
             }
         };
 
@@ -132,6 +137,15 @@ angular.module('apqdApp')
 
         $scope.uploadAttachment = function (file) {
             if (_.isNil(file)) {
+                return;
+            }
+
+            if (file.size > 10485760) {
+                ngToast.create({
+                    className : "",
+                    content : $templateCache.get('attachmentTooBig.html')
+                });
+
                 return;
             }
 

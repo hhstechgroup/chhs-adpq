@@ -1,7 +1,28 @@
 <div class="ch-layout__subheader">
+
+
+    <div class="ch-facilities-heading__mobile__view">
+        <div class="ch-mobile-mailbox__nav">
+
+            <div class="ch-mobile-mailbox__nav-tab">
+                <a href="" class="ch-mobile-mailbox__nav-tab__link ch-mobile-mailbox__nav-tab__link_active" ng-class="linkMapView" ng-click="changeMapView()">
+
+                    <span class="ch-mobile-mailbox__nav-tab__text">Map View</span>
+                </a>
+            </div>
+
+            <div class="ch-mobile-mailbox__nav-tab">
+                <a href="" class="ch-mobile-mailbox__nav-tab__link" ng-class="linkListView" ng-click="changeListView()">
+                    <span class="ch-mobile-mailbox__nav-tab__text">List View</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
     <section class="ch-facilities-heading">
         <div class="ch-facilities-heading__row">
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_2">
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_1">
                 <div class="ch-input-block">
                     <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon_left">
                         <div id="geocoder" >
@@ -9,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_2">
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_2">
                 <div class="ch-input-block">
                     <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
                         <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
@@ -17,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_3">
                 <div class="ch-multi-select-dropdown">
                     <button type="button" class="ch-multi-select-dropdown__btn" ng-click="typesConfig.showList = !typesConfig.showList;">
                         <span class="ch-multi-select-dropdown__btn-text">{{typesConfig.label}}</span>
@@ -35,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_4">
                 <div class="ch-multi-select-dropdown">
                     <button type="button" class="ch-multi-select-dropdown__btn" ng-click="statusesConfig.showList = !statusesConfig.showList;">
                         <span class="ch-multi-select-dropdown__btn-text">{{statusesConfig.label}}</span>
@@ -61,7 +82,6 @@
 
 <div class = "ch-layout__content ch-layout__content_facilities" ng-class="{ 'ch-layout__content_fullwidth' : isContentFullWidth }" ui-view="main">
     <div>
-        <leaflet defaults="defaults" lf-center="center" markers="locations" layers="layers" style="height: calc(100vh - 14.8rem);"></leaflet>
+        <leaflet defaults="defaults" lf-center="center" markers="locations" layers="layers" style="height: calc(100vh - 22.1rem);"></leaflet>
     </div>
 </div>
-
