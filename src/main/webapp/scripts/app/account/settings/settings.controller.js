@@ -101,6 +101,9 @@ angular.module('apqdApp')
                     return _.upperCase(state.stateCode) === _.upperCase(addressFeature.feature.properties.region_a);
                 });
                 $scope.settingsAccount.place.zipCode = addressFeature.feature.properties.postalcode;
+
+                $scope.settingsAccount.place.latitude = addressFeature.latlng.lat;
+                $scope.settingsAccount.place.longitude = addressFeature.latlng.lng;
             });
         };
     });
