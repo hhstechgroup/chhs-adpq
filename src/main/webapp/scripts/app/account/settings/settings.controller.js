@@ -18,6 +18,13 @@ angular.module('apqdApp')
         $scope.isProfileGeneralInformation = true;
 
         $scope.changePassword = function () {
+
+            if ($scope.form.newPassword.$invalid || $scope.form.confirmPassword.$invalid) {
+                $scope.form.newPassword.$setDirty();
+                $scope.form.confirmPassword.$setDirty();
+                return;
+            }
+
             if ($scope.passwordChangingContainer.newPassword !== $scope.passwordChangingContainer.confirmPassword) {
                 $scope.passwordChangingError = null;
                 $scope.passwordSuccessfullyChanged = null;
@@ -66,6 +73,25 @@ angular.module('apqdApp')
         });
 
         $scope.save = function () {
+
+            if ($scope.form.$invalid) {
+                 var invalidFields = [];
+                 angular.forEach($scope.form, function(value, key) {
+                      if (typeof value === 'object' && value.hasOwnProperty('$modelValue')) {
+                         if (value.$invalid) {
+                           invalidFields.push(value);
+                         }
+                         if (value.$name !== 'newPassword' && value.$name !== 'confirmPassword') {
+                            value.$setDirty();
+                         }
+                      }
+                 });
+                for (var i in invalidFields) {
+                    if (invalidFields[i].$name !== 'newPassword' && invalidFields[i].$name !== 'confirmPassword') {
+                        return;
+                    }
+                }
+            }
             $scope.settingsAccount.birthDate = new Date($scope.birthDateYear, $scope.birthDateMonth - 1, $scope.birthDateDay);
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
