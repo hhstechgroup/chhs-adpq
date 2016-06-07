@@ -32,6 +32,7 @@
     }
 }
 
+
 .ch-multi-select-dropdown__btn-mobile {
     padding: 0.7rem 0 0.7rem 2.6rem;
     border: 0.1rem solid #5b616b;
@@ -88,4 +89,27 @@
 .ch-mobile-folders__inbox-nav {
     border-bottom: .1rem solid #cbcdcf;
     padding-bottom: 2rem;
+}
+
+.ch-mobile-contacts,
+.ch-mobile-folders {
+    display: none;
+}
+
+.ch-mobile-contacts.ch-show-folders {
+    display: none !important;
+}
+
+.ch-mobile-folders.ch-show-contacts {
+    display: none !important;
+}
+
+.ch-hide-contacts,
+.ch-hide-folders {
+    display: none !important;
+}
+
+.ch-show-contacts,
+.ch-show-folders {
+    display: block !important;
 }

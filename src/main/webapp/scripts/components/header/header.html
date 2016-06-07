@@ -55,7 +55,8 @@
                  ng-click="isMobileMenuVisible = !isMobileMenuVisible"></div>
 
             <button type="button" class="ch-header__menu-mobile__btn" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
-                <span class="icon icon-menu-mobile"></span>
+                <span class="icon icon-menu-mobile" ng-show="!isMobileMenuVisible"></span>
+                <span class="icon icon-menu-close" ng-show="isMobileMenuVisible"></span>
             </button>
 
             <div class="ch-menu-mobile__pane ng-hide-animate"
