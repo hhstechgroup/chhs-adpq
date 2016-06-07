@@ -33,15 +33,18 @@ angular.module('apqdApp')
         }
 
         return {
-            addAddressToAccount: function (addressFeature, account) {
+            addAddressToAccount: function (addressFeature, account, states) {
                 var q = $q.defer();
-                LookupState.query().$promise.then(function(states) {
+
+                var process = function (states) {
                     if (!account.place) {
                         account.place = {};
                     }
-                    account.place.streetName = addressFeature.feature.properties.name;
+                    if (addressFeature.feature.properties.name !== addressFeature.feature.properties.locality) {
+                        account.place.streetName = addressFeature.feature.properties.name;
+                    }
                     account.place.cityName = addressFeature.feature.properties.locality;
-                    account.place.state = _.find(states, function(state) {
+                    account.place.state = _.find(states, function (state) {
                         return _.upperCase(state.stateCode) === _.upperCase(addressFeature.feature.properties.region_a);
                     });
                     account.place.zipCode = addressFeature.feature.properties.postalcode;
@@ -49,7 +52,20 @@ angular.module('apqdApp')
                     account.place.latitude = addressFeature.latlng.lat;
                     account.place.longitude = addressFeature.latlng.lng;
                     q.resolve();
-                });
+                };
+
+                if (states) {
+                    process(states);
+                } else {
+                    LookupState.query().$promise.then(
+                        function(states) {
+                            process(states);
+                        },
+                        function() {
+                            $log.warn('Cannot load states');
+                        }
+                    )
+                }
                 return q.promise;
             },
 
