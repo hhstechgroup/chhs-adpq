@@ -413,7 +413,7 @@ angular.module('apqdApp')
 
 
         Principal.identity().then(function(userProfile) {
-            if (_.isNil(userProfile) || _.isNil(userProfile.place)) {
+            if (_.isNil(userProfile) || _.isNil(userProfile.place) || _.isNil(userProfile.place.latitude)) {
                 $scope.openDefaultAddressModal(userProfile);
             } else {
                 $scope.onSelectAddress({
