@@ -193,7 +193,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
             ActiveChecksRequest activeChecksRequest = new ActiveChecksRequest();
             activeChecksRequest.setHost(appInstanceId);
-            activeChecksRequest.setHostMetadata(hostMetadata);
+            activeChecksRequest.setHost_metadata(hostMetadata);
 
             ApqdZabbixResponse zabbixRespone = apqdZabbixSender.send(activeChecksRequest);
 

@@ -41,7 +41,7 @@
                   </div>
 
                   <div class="ch-sign-up__form__group_child">
-                      <label for="lastName" translate="">Last Name</label>
+                      <label for="lastName" translate="">Last Name *</label>
                       <input type="text" class="form-control" id="lastName" ng-model="registerAccount.lastName" placeholder="Your Last Name" name="lastName" required>
                       <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
                           <p class="help-block"
@@ -53,7 +53,7 @@
               </div>
 
                 <div class="ch-sign-up__form__group">
-                    <label class="control-label" for="login" translate="global.form.username">Username *</label>
+                    <label class="control-label" for="login">Username *</label>
                     <input type="text" class="form-control" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
                            ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
                     <div ng-show="form.login.$dirty && form.login.$invalid">
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="ch-sign-up__form__group_child">
-                        <label class="control-label" for="confirmPassword" translate="">Password confirmation</label>
+                        <label class="control-label" for="confirmPassword" translate="">Password confirmation *</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
                                ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
                         <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
@@ -121,13 +121,13 @@
                 </div>
 
                 <div class="ch-sign-up__form__group">
-                    <label class="control-label" for="email" >Family case number / License number *</label>
+                    <label class="control-label" for="email" >Family case/License number *</label>
                     <input type="text" class="form-control" id="caseNumber" name="caseNumber" placeholder="License number/Case number"
                            ng-model="registerAccount.caseNumber" ng-maxlength=20 required>
                     <div ng-show="form.caseNumber.$dirty && form.caseNumber.$invalid">
                         <p class="help-block"
                                ng-show="form.caseNumber.$error.required">
-                            Family case number / License number is required.
+                            Family case/License number is required.
                         </p>
                         <p class="help-block"
                                ng-show="form.caseNumber.$error.maxlength">
