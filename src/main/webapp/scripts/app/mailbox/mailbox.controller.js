@@ -27,14 +27,14 @@ angular.module('apqdApp')
             $scope.linkFolders = 'ch-mobile-mailbox__nav-tab__link_active';
             $scope.showContacts = '';
             $scope.linkContacts= '';
-        }
+        };
 
         $scope.changeContacts = function() {
             $scope.showContacts = 'ch-show-contacts';
             $scope.linkContacts = 'ch-mobile-mailbox__nav-tab__link_active';
             $scope.showFolders = '';
             $scope.linkFolders= '';
-        }
+        };
 
         $scope.composeMail = function(contact) {
             angular.merge($state.params, {contact: contact});
