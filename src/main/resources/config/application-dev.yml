@@ -88,7 +88,9 @@ jhipster:
             prefix: apqd
         zabbix:
             enabled: false
-            host: mdc-ieed-dmr-a1.engagepoint.us
+            host: mdc-apdq-inf-a1.engagepoint.us
             port: 10051
             periodSec: 60
-            #apqdInstanceName: chhs-apqd-dev #optional
+            hostMetadata: HOSTPOOL
+            socketTimeoutSec: 3
+            connectionTimeoutSec: 3
