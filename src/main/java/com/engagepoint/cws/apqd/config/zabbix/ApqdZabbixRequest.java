@@ -10,11 +10,11 @@ import static com.engagepoint.cws.apqd.config.zabbix.ZabbixConstants.ZABBIX_HEAD
  */
 public abstract class ApqdZabbixRequest {
 
+    private String request;
+
     public ApqdZabbixRequest(String request){
         this.request = request;
     }
-
-    private final String request;
 
     public String getRequest() {
         return request;

@@ -65,7 +65,7 @@ angular.module('apqdApp')
                     iconUrl: 'assets/images/icon_pin_home.png',
                     iconAnchor: [46, 46]
                 }
-            }
+            };
         };
 
 
@@ -220,8 +220,8 @@ angular.module('apqdApp')
                 }
                 $scope.findAgenciesWithinBox(bounds);
             }, function(reason) {
-                $log.error("Cannot get map instance. ", reason)
-            })
+                $log.error("Cannot get map instance. ", reason);
+            });
         };
 
         $scope.onSelectAddress = function (addressFeature) {
@@ -284,7 +284,7 @@ angular.module('apqdApp')
 
         $scope.addGeocoder = function () {
             if(!$scope.geocoder) {
-                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
+                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress);
             }
         };
         $scope.addGeocoder();
@@ -354,7 +354,7 @@ angular.module('apqdApp')
                                     label: data.display_name
                                 }
                             }
-                        })
+                        });
                     },
                     function() {
                         $log.warn('Cannot get address details');
@@ -389,7 +389,7 @@ angular.module('apqdApp')
                             label: AddressUtils.formatAddress(userProfile.place)
                         }
                     }
-                })
+                });
             }
-        })
+        });
     }]);
