@@ -2,7 +2,7 @@
 
 angular.module('apqdApp')
     .controller('RegisterSavedController', function ($scope, $state, $interval) {
-        $scope.timeLeft = 10;
+        $scope.timeLeft = 20;
 
         $scope.interval = $interval(function() {
             $scope.timeLeft--;

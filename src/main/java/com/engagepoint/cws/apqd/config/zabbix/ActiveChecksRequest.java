@@ -8,7 +8,7 @@ public class ActiveChecksRequest extends ApqdZabbixRequest {
 
     private String host;
 
-    private String hostMetadata;
+    private String host_metadata;
 
     public ActiveChecksRequest(){
         super(ACTIVE_CHECKS_REQUEST_NAME);
@@ -22,11 +22,11 @@ public class ActiveChecksRequest extends ApqdZabbixRequest {
         this.host = host;
     }
 
-    public String getHostMetadata() {
-        return hostMetadata;
+    public String getHost_metadata() {
+        return host_metadata;
     }
 
-    public void setHostMetadata(String hostMetadata) {
-        this.hostMetadata = hostMetadata;
+    public void setHost_metadata(String hostMetadata) {
+        this.host_metadata = hostMetadata;
     }
 }
