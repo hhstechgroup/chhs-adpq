@@ -101,7 +101,12 @@ angular.module('apqdApp')
                         className : "",
                         content : $templateCache.get('messageSentNotification.html')
                     });
-                }, $log.info);
+                }, function () {
+                    ngToast.create({
+                        className : "",
+                        content : $templateCache.get('messageNotSentNotification.html')
+                    });
+                });
             }
         };
 
