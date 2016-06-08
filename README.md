@@ -1,24 +1,24 @@
 # Technical approach
 
-## 1. Project goals, objectives and task definition
+## 1. Project Goals, Objectives, and Task Definition
 
-EngagePoint understands the design, development, and implementation activities required to successfully develop a prototype (using open source technologies) in which foster parents perform of case-related functions. This prototype is an automated modern web application which scales horizontally and can be deployed to an Infrastructure as a Service (IAAS) or Platform as a Service (PAAS) provider.
+EngagePoint understands the design, development, and implementation required to develop a prototype (using open source technologies) in which foster parents perform case-related functions. This prototype, an automated modern web application, scales horizontally and can be deployed to an Infrastructure as a Service (IaaS) or Platform as a Service (PaaS) provider.
 
 ## 2. User-centric design approach
 
-EngagePoint applied user-centric design principles in creating the prototype by following the US Digital Services Playbook. See the responses in [Playbook (Play 1 - Play 3)](../../C:/wiki/display/APQD/U.S.+Digital+Services+Playbook+checklist+and+data+collected) and [Requirements C - F](../../C:/wiki/pages/viewpage.action%3FpageId=2949131) for additional information.
+EngagePoint applied user-centric design principles in creating the prototype by following the US Digital Services Playbook. See the responses in Playbook (Play 1 - Play 3) and Requirements C - F for information.
 
 ## 3. Agile Methodology
 
-To implement the prototype, we modified our Scrum methodology to align with the user-centric design approach. Additional details regarding our approach can be found in our response to [Requirement G](../../C:/wiki/pages/viewpage.action%3FpageId=2949131) and [US Digital Services Playbook Play 4](../../C:/wiki/display/APQD/U.S.+Digital+Services+Playbook+checklist+and+data+collected).
+To implement the prototype, we modified our Scrum methodology to align with the user-centric design. Our approach is detailed in our response to Requirement G and US Digital Services Playbook Play 4.
 
 ## 4. Technical architecture
 
-EngagePoint selected the Java Virtual Machine (JVM) platform and Java 1.8 as the prototype's programming language. The JVM platform is commonly used in high-load web applications, such as Google. However, small prototype web applications can be created quickly and then transitioned to production usage on the same technology platform without having to entirely rewrite the application.
+EngagePoint selected the Java Virtual Machine (JVM) platform and Java 1.8 as the prototype's programming language. The JVM platform is commonly used in high-load web applications, such as Google. However, small prototype web applications can be created quickly and then transitioned to production usage on the same technology platform without having to rewrite the application.
 
-Prototype development using the JVM platform is the correct choice due to availability of qualified developers, low development and support cost, and low risk in the short- and long- term.
+Using the JVM platform for prototype development is the correct choice due to scalability and maturity of Java as an industry standard.
 
-Maximizing our development team's performance is crucial, so we adhere to the following key factors that lead to higher productivity:
+We adhere to these factors to maximize performance:
 
 - Leverage a generic application platform for prototype construction
 - Use code generators rather than boilerplate code
@@ -35,9 +35,11 @@ To minimize risk, we considered these factors for each system architecture compo
 
 ### 4.1. Application Platform
 
-EngagePoint used the open source code generator [JHipster](https://jhipster.github.io/), which let us generate a generic application based on  [Spring Boot](http://projects.spring.io/spring-boot/),  [AnglarJS](https://angularjs.org/) with incorporated minimal for production usage functionality, such as user management, user roles, configuration, monitoring.
+EngagePoint used the open source code generator  [JHipster](https://jhipster.github.io/), which let us generate a production-ready application using  [Spring Boot](http://projects.spring.io/spring-boot/) and  [AnglarJS](https://angularjs.org/), which contain monitoring, logging, configuration, and user management functionality.
 
-JHipster let us choose technologies based on project requirements. For the prototype, EngagePoint chose this technology stack:
+JHipster lets us choose technologies based on project requirements. For the prototype, EngagePoint chose this technology stack:
+
+![Architectural diagram](https://github.com/engagepoint/chhs-adpq/tree/master/documents/Images/Architecture.png)
 
 ## 4.2. Rationale
 
@@ -45,48 +47,48 @@ The table below lists EngagePoint's architectural design decisions and their ali
 
 | Application Requirements | Technologies | Motivation and rationale |
 | --- | --- | --- |
-| Modern Web Application | HTML5, CSS3, [AngularJS](https://angularjs.org/) | AngularJS is a mature MVC JavaScript framework for web application development with decent documentation and an active GitHub community |
-| Responsive UI | [Bootstrap](http://getbootstrap.com/) | Bootstrap is a popular framework for responsive UI, simplifying responsive UI implementation complexity |
-| Allow foster parents to communicate with the case worker via a private inbox | [Elasticsearch](https://www.elastic.co/products/elasticsearch), [PostgreSQL](https://www.postgresql.org/), [Websockets](https://en.wikipedia.org/wiki/WebSocket) | - Elasticsearch implements search capabilities needed for inbox functionality like full-text search, relevancy, ranking, and fuzzy search. <br/>- PostgreSQL is production ready full-featured relational database used in an application for the persistence of messages in the private inbox. <br/>- Websockets technology is used for real-time notifications for new messages |
-| Allow foster parents to view children's residential facilities in their zip code | [Leaflet](http://leafletjs.com/) [Mapzen Search](https://mapzen.com/projects/search/?lng=-76.67925&lat=39.01412&zoom=12) | - Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps. <br/>- Mapzen Search is an open source geocoding tool used for address lookup capabilities on the facilities page. |
-| Allow foster parents to establish and manage their profile | [JHipster](https://jhipster.github.io/) [Hazelcast](http://hazelcast.org/) | - Generic JHipster application has built-in login, registration, and user profile functionality. EngagePoint has customized the generic implementation. <br/>- Hazelcast is a distributed data grid used for distributed cache capabilities and performance improvement of the application. For the prototype, we are storing user sessions as well as L2 Hibernate cache. |
-| Application prototype shall be deployable to IAAS or PAAS environment | [Spring Boot](http://projects.spring.io/spring-boot/), [Docker](https://www.docker.com/), [Jenkins](https://jenkins.io/) | - Spring Boot provides DevOps tools like externalized configuration, monitoring, and logging. Spring Boot eliminates the need to use external application containers, simplifying cloud deployment. <br/>- Docker containers are used for all components of application infrastructure (application, Elasticsearch server, PostgreSQL server). Containerization helps with automated deployment and makes application environments agnostic. <br/>- Jenkins is open source tool used to implement continuous integration and delivery. |
+| Modern Web Application | HTML5, CSS3, [AngularJS](https://angularjs.org/) | AngularJS has decent documentation and an active GitHub community with lots of open components |
+| Responsive UI | [Bootstrap](http://getbootstrap.com/) | Simplifies responsive UI implementation complexity providing CSS and JS. |
+| Allow foster parents to communicate with the case worker via a private inbox | [Elasticsearch](https://www.elastic.co/products/elasticsearch), [PostgreSQL](https://www.postgresql.org/), [Websockets](https://en.wikipedia.org/wiki/WebSocket), [HibernateORM](http://hibernate.org/orm/) | Elasticsearch implements search capabilities needed for inbox functionality like full-text search, relevancy, ranking, and fuzzy search. <br/>- We are using the relational database for the persistence of messages in the private inbox. Prototype is database agnostic. PostgreSQL is our open source choice.<br/>- Websockets technology is used for real-time notifications for new messages. |
+| Allow foster parents to view children's residential facilities in their zip code | [Leaflet](http://leafletjs.com/) [Mapzen Search](https://mapzen.com/projects/search/?lng=-76.67925&lat=39.01412&zoom=12) | - Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps. <br/>- Mapzen Search is an open source geocoding tool used for address lookup capabilities. |
+| Allow foster parents to establish and manage their profile | [JHipster](https://jhipster.github.io/) [Hazelcast](http://hazelcast.org/) | - Generic JHipster application has built-in login, registration, and user profile functionality. EngagePoint has customized the generic implementation.<br/>- Hazelcast is a distributed data grid used for distributed cache capabilities and performance improvement of the application. For the prototype, we are storing user sessions as well as L2 Hibernate cache.|
+| Automated deployment to IaaS, PaaS | [Spring Boot](http://projects.spring.io/spring-boot/), [Docker](https://www.docker.com/), [Jenkins](https://jenkins.io/) | - Spring Boot provides DevOps tools like externalized configuration, monitoring, and logging. Spring Boot eliminates the need to use external application containers, simplifying cloud deployment. <br/>- Docker containers are used for all components of application infrastructure (application, Elasticsearch server, PostgreSQL server). Containerization helps with automated deployment and makes application environments agnostic. <br/>- Jenkins is an open source tool used to implement continuous integration and delivery. |
 
 ### 4.3. Development Tools
 
-JHipster provides tools which accelerate development and reduce the need for custom coding. Entity Generator supports application prototyping, allowing the Technical Architect to describe the standard Entity Relational Diagram using JDL (a domain specific language). Based on JDL, JHipster generates boilerplate code needed for simple CRUD operations with these entities:  [Liquibase](http://www.liquibase.org/) scripts for database objects, Hibernate entities, repository classes, Java REST resources, AngularJS controllers, REST client services, routers, unit tests for Java and JavaScript, and sample administrative UI.
+JHipster provides tools that accelerate development and minimize custom coding. Entity Generator supports application prototyping, allowing the Technical Architect to describe the Entity Relational Diagram using JDL (domain specific language). Based on JDL, JHipster generates boilerplate code for simple CRUD operations with these entities:  [Liquibase](http://www.liquibase.org/) scripts for database objects, Hibernate entities, repository classes, Java REST resources, AngularJS controllers, REST client services, routers, unit tests for Java and JavaScript, and sample administrative UI.
 
-The prototype has two maven profiles: DEV and PROD. The DEV profile is used on the local development environment and incorporates in-memory H2 and Elasticsearch engines. Spring Boot provides an embedded light-weight application container, Tomcat, which runs the prototype. We used  [Browsersync](https://www.browsersync.io/) and  [Spring Boot Devtools](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html) for automated reload of front-end and back-end code. These techniques reduce development time to seconds as the developer views updates in real-time. The PROD profile builds the prototype's production version, which is optimized for production use.
+The prototype has two [Maven](https://maven.apache.org/) profiles: DEV and PROD. The DEV profile is used on the local development environment and incorporates in-memory H2 and Elasticsearch engines. Spring Boot provides an embedded lightweight application container, Tomcat, which runs the prototype. We used  [Browsersync](https://www.browsersync.io/) and  [Spring Boot Devtools](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html) for automated reload of front-end and back-end code. These techniques reduce development time as developers view real-time updates. The PROD profile builds the prototype's production version, which is optimized for production use.
 
 ### 4.4. Automated testing
 
-- These automated testing tools ensure that the prototype meets California's requirements:
-  - [Junit](http://junit.org/junit4/) - Java unit tests
-  - [Spring Boot integration testing tools](http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html) - Java integration tests
-  - [Karma JS](https://karma-runner.github.io/0.13/index.html) - JavaScript unit tests
-  - [Gatling](http://gatling.io/#/) - Load testing
-  - BDD framework  [Cucumber](https://cucumber.io/) - Acceptance testing
+These automated testing tools ensure that the prototype meets California's requirements:
+
+- [Junit](http://junit.org/junit4/) - Java unit tests
+- [Spring Boot integration testing tools](http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html) - Java integration tests
+- [Karma JS](https://karma-runner.github.io/0.13/index.html) - JavaScript unit tests
+- [Gatling](http://gatling.io/#/) - Load testing
+- BDD framework  [Cucumber](https://cucumber.io/) - Acceptance testing
 
 ### 4.5. Deployment Approach
 
-EngagePoint has experience in implementing automated Continuous Integration and Delivery for web applications. For the prototype, we used  [Jenkins](https://jenkins.io/) as a continuous integration and continuous delivery tool. Containerization using  [Docker](https://www.docker.com/) is the best approach for application delivery to target environments. Please refer to [Requirements J, L-O](https://chhs-apqd.atlassian.net/wiki/pages/viewpage.action?pageId=2949131) for additional information.
+We used  [Jenkins](https://jenkins.io/) as a continuous integration and delivery tool. Containerization using  [Docker](https://www.docker.com/) is the best approach for application delivery to target environments. Please refer to  [Requirements J, L-O](https://chhs-apqd.atlassian.net/wiki/pages/viewpage.action?pageId=2949131) for information.
 
 ## 5. Summary
 
-EngagePoint conducted these steps to implement the prototype:
+EngagePoint conducted these prototype implementation steps:
 
-1. Performed 1:1 interviews and documented results
-2. Developed an interactive wireframe and performed usability testing with users
-3. Developed user interface mock-ups using  [U.S. Web Design Standards](https://standards.usa.gov/)
-4. Generated a generic web application using JHipster with an appropriate technology stack
-5. Configured continuous integration and automated testing using Jenkins
-6. Designed a data model and generated code artifacts using JHipster's entity generator
-7. Developed custom user interfaces according to design mockups and integrated them into a generic application
-8. Modified the front-end and back-end code to support ADPQ functionality
+1.    Performed 1:1 interviews and documented results
+2.    Developed an interactive wireframe and performed usability testing with users
+3.    Developed user interface mock-ups using  [U.S. Web Design Standards](https://standards.usa.gov/) in compliance with [ADA508](https://www.section508.gov/)
+4.    Generated a generic web application using JHipster with an appropriate technology stack
+5.    Configured continuous integration and automated testing using [Jenkins](https://jenkins.io/)
+6.    Designed a data model and generated code artifacts using JHipster's entity generator
+7.    Developed custom user interfaces according to design mockups and integrated them into a generic application
+8.    Modified the front-end and back-end code to support ADPQ functionality
 
-For each prototype development stage, our team created automated tests (along with performance and acceptance tests) for Java and JavaScript code. Code quality was controlled using  [SonarQube](http://www.sonarqube.org/), incorporated in an automated continuous delivery workflow that was implemented in  [Jenkins](https://jenkins.io/). We also used manual code review in order to ensure code quality.
-
-Using this process, we have a modern single-page web application for foster parents which is cloud ready.
+For each development stage, we created automated tests (and performance and acceptance tests) for Java and JavaScript code. [SonarQube](http://www.sonarqube.org/) controlled code quality, incorporated in an automated continuous delivery workflow that was implemented in  [Jenkins](https://jenkins.io/). We also manually reviewed code to ensure quality.
+With this approach, we  implemented a modern, mobile friendly, cloud-ready web application in only three weeks.
 
 #  References
 
