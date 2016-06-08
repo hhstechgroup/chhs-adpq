@@ -4,9 +4,7 @@
     height: 91vh;
     padding: 2.5rem;
     background-color: #f1f1f1;
-
 }
-
 
 .ch-page-content {
   padding-top: 1.8rem;
@@ -41,6 +39,12 @@
         }
     }
 
+    @media screen and (max-width: 640px) {
+        height: 6rem;
+        padding: 1.4rem 1.8rem;
+        border: .3rem solid #757575;
+    }
+
   .icon {
       width: 1.6rem;
       height: 1.6rem;
@@ -61,6 +65,10 @@
     font-size: 1.4rem;
     font-weight: 800;
     color: #757575;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .actions__text_position {
@@ -70,6 +78,11 @@
     color: #757575;
     position: relative;
     top: .7rem;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.2rem;
+        top: 1.5rem;
+    }
 }
 
 .ch-page-heading__search {

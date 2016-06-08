@@ -112,7 +112,7 @@
                     <div class="ch-new-mail-field">
                         <input type="text" maxlength="100" class="ch-new-mail-field__input" ng-model="mail.subject"
                                ng-change="onTextChange()"
-                               ng-class="isSubjectInvalid ? ' ch-invalid-field' : ''"
+                               ng-class="isSubjectInvalid ? 'ch-invalid-send-field' : ''"
                                placeholder="Subject:">
                     </div>
                 </div>
@@ -121,8 +121,9 @@
                     <div class="ch-new-mail-text-body">
                         <div class="ch-new-mail-text-body__text-counter">{{4000 - mail.body.length}} characters left</div>
                         <textarea cols="30" maxlength="4000" rows="20" ng-model="mail.body"
+                                  style="border: 1px solid #777777;"
                                   ng-change="onTextChange()"
-                                  ng-class="isBodyInvalid ? ' ch-invalid-field' : ''"
+                                  ng-class="isBodyInvalid ? 'ch-invalid-send-field' : ''"
                                   class="ch-new-mail-text-body__text-input"></textarea>
                     </div>
                 </div>

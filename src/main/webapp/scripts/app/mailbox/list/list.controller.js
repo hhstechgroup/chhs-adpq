@@ -96,10 +96,10 @@ angular.module('apqdApp')
         };
 
         $scope.getTitle = function(mail) {
-            if (identity.login === mail.to.login) {
-                return mail.from.firstName + ' ' + mail.from.lastName;
+            if (!_.isNil(mail.to) && identity.login === mail.to.login) {
+                return _.isNil(mail.from) ? '' : mail.from.firstName + ' ' + mail.from.lastName;
             } else {
-                return mail.to.firstName + ' ' + mail.to.lastName;
+                return _.isNil(mail.to) ? '' : mail.to.firstName + ' ' + mail.to.lastName;
             }
         };
 

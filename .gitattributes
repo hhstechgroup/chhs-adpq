@@ -23,5 +23,8 @@
 *.bin binary
 *.zip binary
 *.doc binary
+*.DOC binary
 *.docx binary
+*.DOCX binary
 *.mp4 binary
+*.MP4 binary
