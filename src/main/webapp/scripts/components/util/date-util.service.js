@@ -70,9 +70,9 @@ angular.module('apqdApp')
 
             var date = DateUtils.convertDateTimeFromServer(dateAsString);
             if (new Date().getTime() - date.getTime() < ONE_DAY) {
-                return date.toLocaleString("en-US", {hour: 'numeric', minute: 'numeric'});
+                return moment(dateAsString, "YYYY-MM-DD'T'HH:mm:ss'Z'").format('LT');
             } else {
-                return date.toLocaleString("en-US", {day: 'numeric', month: 'short'});
+                return moment(dateAsString, "YYYY-MM-DD'T'HH:mm:ss'Z'").format('ll');
             }
         }
     }]);
