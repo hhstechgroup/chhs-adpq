@@ -71,8 +71,6 @@ public class LogsResourceTest {
         loggerDTO.setName("ROOT");
         loggerDTO.setLevel("INFO");
 
-        assertThat(loggerDTO.toString()).isNotEmpty();
-
         restResourceMockMvc.perform(
             put("/api/logs").contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(loggerDTO)))

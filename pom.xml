@@ -58,7 +58,25 @@
         <run.addResources>false</run.addResources>
         <sdn.version>4.1.1.RELEASE</sdn.version>
         <sonar-maven-plugin.version>2.6</sonar-maven-plugin.version>
-        <sonar.exclusions>documents/*.*, src/main/webapp/assets/**/*.*, src/main/webapp/bower_components/**/*.*, src/main/webapp/dist/**/*.*</sonar.exclusions>
+
+        <!-- at this stage, do not cover the JHipster framework core classes -->
+        <sonar.exclusions>
+            documents/*.*,
+            src/main/webapp/assets/**/*.*,
+            src/main/webapp/bower_components/**/*.*,
+            src/main/webapp/dist/**/*.*,
+            **com/engagepoint/cws/apqd/ApplicationWebXml.java,
+            **com/engagepoint/cws/apqd/config/AsyncConfiguration.java,
+            **com/engagepoint/cws/apqd/config/CacheConfiguration.java,
+            **com/engagepoint/cws/apqd/config/CloudDatabaseConfiguration.java,
+            **com/engagepoint/cws/apqd/config/DatabaseConfiguration.java,
+            **com/engagepoint/cws/apqd/config/ElasticSearchConfiguration.java,
+            **com/engagepoint/cws/apqd/config/LoggingAspectConfiguration.java,
+            **com/engagepoint/cws/apqd/web/filter/CachingHttpHeadersFilter.java,
+            **com/engagepoint/cws/apqd/security/CustomAccessDeniedHandler.java,
+            **com/engagepoint/cws/apqd/security/CustomPersistentRememberMeServices.java
+        </sonar.exclusions>
+
         <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
