@@ -21,7 +21,7 @@
 
                 <div class="ch-mail-heading__item ch-mail-heading__item_attach-btn">
                     <div class="ch-mail-attach-files">
-                        <div class="ch-mail-attach-files__btn">
+                        <div class="ch-mail-attach-files__btn" title="Click to attach the file">
                             <a ngf-select="upload($file)"
                                class="ch-link-btn ch-link-btn_icon ch-link-btn_icon_attach-files"
                                role="button">Attach files</a>
@@ -55,17 +55,17 @@
                         </div>
 
                         <div class="ch-attachments__list__item__file">
-                            <span class="attachments-filename">{{attachment.fileName}}</span>
-                            <span class="attachments-filesize">{{attachment.fileSize | convertFileSizeToHuman}}</span>
+                            <span class="attachments-filename" title="File name">{{attachment.fileName}}</span>
+                            <span class="attachments-filesize" title="File size">{{attachment.fileSize | convertFileSizeToHuman}}</span>
                         </div>
 
                         <div class="ch-attachments__list__item__actions">
 
                             <a href="api/file/{{attachment.id}}">
-                                <span class="icon icon-download"></span>
+                                <span class="icon icon-download" title="Download attachment"></span>
                             </a>
 
-                            <span class="icon icon-remove" ng-click="removeAttachment(attachment)"></span>
+                            <span class="icon icon-remove" ng-click="removeAttachment(attachment)" title="Remove attachment"></span>
                         </div>
                     </li>
 

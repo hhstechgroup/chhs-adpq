@@ -4,7 +4,7 @@
             <a class="ch-main-nav-item__link" ui-sref="ch-inbox.messages({directory: 'inbox'})" ng-class="{'ch-main-nav-item__link_active': $state.includes('ch-inbox')}">
                 <span class="icon icon-inbox ch-main-nav-item__icon"></span>
                 <div class="ch-main-nav-item__text-bundle">
-                    <span class="ch-main-nav-item__text">Inbox</span>
+                    <span class="ch-main-nav-item__text" title="Private Inbox for communication with case worker">Inbox</span>
                     <span ng-if="unreadInboxCount > 0" class="ch-main-nav-item__inbox-counter">{{unreadInboxCount}}</span>
                 </div>
             </a>
@@ -14,7 +14,7 @@
         <div class="ch-main-nav-item">
             <a class="ch-main-nav-item__link" ui-sref="ch-facilities" ui-sref-active="ch-main-nav-item__link_active">
                 <span class="icon icon-facilities ch-main-nav-item__icon"></span>
-                <span class="ch-main-nav-item__text">Facilities</span>
+                <span class="ch-main-nav-item__text" title="Children's residential facilities viewer">Facilities</span>
             </a>
         </div>
     </li>

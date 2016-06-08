@@ -1,7 +1,7 @@
 <div class="ch-header">
     <div class="ch-header__section ch-header__section_logo">
         <div class="ch-logo">
-            <a href="" class="ch-logo__link" ng-click="goMainPage()">
+            <a href="" class="ch-logo__link">
                 <img class="ch-logo__img" src="assets/images/logo.png" alt="Logo"/>
             </a>
         </div>
@@ -14,7 +14,7 @@
         </div>
         <div class="ch-header__subsection ch-header__subsection-user-account" ng-controller="MyProfileAndLogoutController">
             <div class="ch-user-account-entry" show-user-account-popup>
-                <div class="ch-user-account-entry__dropdown">
+                <div class="ch-user-account-entry__dropdown" title="User profile">
                     <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed" ng-click="toggleUserPopup()">
                         <span class="icon icon-user-account ch-user-account-entry__dropdown-icon ch-user-account-entry__dropdown-icon_user-account"></span>
                     </button>
@@ -33,13 +33,13 @@
                         <div class="ch-user-account-popup__controls">
                             <div class="ch-user-account-popup__profile-btn">
                                 <button type="button" class="ch-option-btn" ui-sref="settings" ng-click="isAccountPopupVisible = false;">
-                                    <span class="ch-option-btn__text">My Profile</span>
+                                    <span class="ch-option-btn__text" title="Edit user profile">My Profile</span>
                                 </button>
                             </div>
                             <div class="ch-user-account-popup__exit-btn">
                                 <button type="button" class="ch-plane-btn" ng-click="logout()">
                                     <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
-                                    <span class="ch-plane-btn__text">Sign out</span>
+                                    <span class="ch-plane-btn__text" title="Sign out from you account">Sign out</span>
                                 </button>
                             </div>
                         </div>

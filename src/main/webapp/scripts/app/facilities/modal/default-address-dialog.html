@@ -4,7 +4,7 @@
             <button type="button" class="ch-modal__close-btn" data-dismiss="modal" aria-hidden="true"
                     ng-click="clear()"></button>
             <h1 class="ch-modal__title">
-                Where do you  want to search for facilities?
+                Where do you  want to search for children's residential facilities?
             </h1>
         </div>
         <div class="ch-modal__body">
@@ -17,13 +17,13 @@
 
                 <div class="ch-modal-controls__button">
                     <button type="button" class="ch-option-btn ch-option-btn_fullwidth" ng-click="onApplyAddress();">
-                        <span class="ch-option-btn__text">Apply Address</span>
+                        <span class="ch-option-btn__text" title="Chosen address will be used as center for searching facilities around">Apply Address</span>
                     </button>
                 </div>
                 <div class="ch-modal-controls__options">
                     <div class="form-type__checkbox_empty-label">
                         <input id="saveAddressToProfile" type="checkbox" ng-click="saveAddressToProfile = !saveAddressToProfile">
-                        <label for="saveAddressToProfile">Save this address to my profile</label>
+                        <label for="saveAddressToProfile" title="Address will be saved to your profile and used next time automatically">Save this address to my profile</label>
                     </div>
                 </div>
             </div>

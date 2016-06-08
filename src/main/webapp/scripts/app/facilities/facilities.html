@@ -25,21 +25,21 @@
             <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_1">
                 <div class="ch-input-block">
                     <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon_left">
-                        <div id="geocoder" >
+                        <div id="geocoder" title="Put address where you want to search for children's residential facilities">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_2">
-                <div class="ch-input-block">
+                <div class="ch-input-block" title="Put any available information about children's residential facility like name, address or administrator name">
                     <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
                         <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
-                        <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put agency data here" />
+                        <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put facility data here" />
                     </div>
                 </div>
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_3">
-                <div class="ch-multi-select-dropdown">
+                <div class="ch-multi-select-dropdown" title="Filter facilities by type">
                     <button type="button" class="ch-multi-select-dropdown__btn" ng-click="typesConfig.showList = !typesConfig.showList;">
                         <span class="ch-multi-select-dropdown__btn-text">{{typesConfig.label}}</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_4">
-                <div class="ch-multi-select-dropdown">
+                <div class="ch-multi-select-dropdown" title="Filter facilities by status">
                     <button type="button" class="ch-multi-select-dropdown__btn" ng-click="statusesConfig.showList = !statusesConfig.showList;">
                         <span class="ch-multi-select-dropdown__btn-text">{{statusesConfig.label}}</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>

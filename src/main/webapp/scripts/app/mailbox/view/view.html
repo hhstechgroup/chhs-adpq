@@ -3,7 +3,7 @@
 
     <div class="ch-mail-heading">
         <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
-            <button type="button" class="ch-flat-btn ch-flat-btn_back-btn" ng-click="backToPreviousState()">
+            <button type="button" class="ch-flat-btn ch-flat-btn_back-btn" ng-click="backToPreviousState()" title="Return back to previous page">
             </button>
         </div>
 
@@ -16,7 +16,7 @@
         <div ng-show="showDeleteButtons()" class="ch-mail-heading__item ch-mail-heading__item_action-group">
             <div class="ch-page-heading__actions" ng-click="deleteAll()">
                 <span class="icon icon-remove"></span>
-                <span class="actions__text">Delete All</span>
+                <span class="actions__text" title="Delete all messages in the thread">Delete All</span>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                         <div class="ch-mail-header">
 
                             <div class="ch-mail-header__item">
-                                <div class="ch-mail-origin">
+                                <div class="ch-mail-origin" title="Message Sender/Recipient">
                                     <span class="ch-mail-origin__prefix">
                                         {{getFromOrTo(mail)}}
                                     </span>
@@ -46,7 +46,7 @@
 
                                     </div>
                                     <div class="ch-mail-info__date">
-                                        <span class="ch-text">{{mail | formatMailDate}}</span>
+                                        <span class="ch-text" title="Message creation time">{{mail | formatMailDate}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -58,9 +58,9 @@
                                     <div class="ch-button-group-action">
                                         <a href="" role="button" ui-sref="ch-inbox.reply-mail({replyOn: mail.id})"
                                            class="ch-button-group-action__btn ch-button-group-action__btn_reply">
-                                           <span class="actions__text_position">Reply</span></a>
+                                           <span class="actions__text_position" title="Reply on current message">Reply</span></a>
                                          <div class="ch-button-group-action__btn_remove" ng-click="deleteOne(mail)">
-                                             <span class="icon icon-remove"></span>
+                                             <span class="icon icon-remove" title="Delete current message"></span>
                                          </div>
                                     </div>
                                 </div>

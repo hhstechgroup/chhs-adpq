@@ -13,8 +13,8 @@ angular.module('apqdApp')
         var agenciesViewPage = 10;
         $scope.agenciesLength = 0;
 
-        $scope.ALL_TYPES_LABEL = 'All Types';
-        $scope.ALL_STATUSES_LABEL = 'All Statuses';
+        $scope.ALL_TYPES_LABEL = 'All Facility Types';
+        $scope.ALL_STATUSES_LABEL = 'All Facility Statuses';
         $scope.DEFAULT_MARKER_MESSAGE = 'You are here';
         $scope.DEFAULT_ZOOM = 13;
 
