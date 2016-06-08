@@ -3,15 +3,15 @@
 angular.module('apqdApp')
     .service('AuthenticationErrorService', function () {
 
-        var authenticationError = false;
+        var authenticationError = null;
 
         return {
-            setAuthenticationError: function() {
-                authenticationError = true;
+            setAuthenticationError: function(error) {
+                authenticationError = error;
             },
 
             resetAuthenticationError: function() {
-                authenticationError = false;
+                authenticationError = null;
             },
 
             getAuthenticationError: function() {

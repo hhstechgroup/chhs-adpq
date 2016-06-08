@@ -1,7 +1,8 @@
 chhs-apqd-elasticsearch:
   container_name: chhs-apqd-elasticsearch
   restart: unless-stopped
-  image: kaver79/chhs-apqd-elasticsearch  ports:
+  image: elasticsearch:1.5.2 
+  ports:
     - "9200:9200"
     - "9300:9300"
 
@@ -10,6 +11,7 @@ chhs-apqd-postgresql:
   restart: unless-stopped
   image: postgres:9.4.5
   environment:
-    - POSTGRES_USER=chhs-apqd    - POSTGRES_PASSWORD=
+    - POSTGRES_USER=chhs-apqd    
+	- POSTGRES_PASSWORD=
   ports:
     - "5432:5432"

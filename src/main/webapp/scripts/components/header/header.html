@@ -113,7 +113,7 @@
                   </li>
                 </ul>
 
-                <div class="ch-mobile-main-nav__sign-out clearfix" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
+                <div class="ch-mobile-main-nav__sign-out clearfix" ng-click="isMobileMenuVisible = !isMobileMenuVisible" ng-controller="MyProfileAndLogoutController">
                     <button type="button" class="ch-mobile-main-nav__sign-out__btn" ng-click="logout()">
                         <span class="icon icon-user-account-exit"></span>
                         <span class="ch-plane-btn__text">Sign out</span>

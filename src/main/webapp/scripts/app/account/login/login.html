@@ -48,9 +48,15 @@
               <div class="col-md-4">
 
                   <div class="ch-login__alert-failed-login"
-                       ng-show="isAuthenticationError()">
+                       ng-show="isAuthenticationFailed()">
                       <h3>Failed to sign in!</h3>
                       <h4>Please check your credentials and try again.</h4>
+                  </div>
+
+                  <div class="ch-login__alert-failed-login"
+                       ng-show="isNotActivated()">
+                      <h3>Your account has not been activated yet!</h3>
+                      <h4>Activation instructions were sent to your email. Please check your email and follow the instructions to activate your account.</h4>
                   </div>
 
                   <div class="ch-login__form">

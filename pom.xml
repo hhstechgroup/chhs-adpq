@@ -1007,7 +1007,7 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <name>chhs-apqd</name>
+                                    <name>kaver79/chhs-apqd</name>
                                     <build>
                                         <cleanup>remove</cleanup>
                                         <nocache>true</nocache>

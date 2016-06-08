@@ -23,13 +23,21 @@ angular.module('apqdApp')
                 } else {
                     $rootScope.back();
                 }
-            }).catch(function () {
-                AuthenticationErrorService.setAuthenticationError();
+            }).catch(function (err) {
+                if (err.data.message === "Not activated") {
+                   AuthenticationErrorService.setAuthenticationError("Not activated");
+                } else {
+                   AuthenticationErrorService.setAuthenticationError("Authentication failed");
+                }
             });
         };
 
-        $scope.isAuthenticationError = function() {
-            return AuthenticationErrorService.getAuthenticationError();
+        $scope.isAuthenticationFailed = function() {
+            return AuthenticationErrorService.getAuthenticationError() === "Authentication failed";
+        };
+
+        $scope.isNotActivated = function() {
+            return AuthenticationErrorService.getAuthenticationError() === "Not activated";
         };
 
         $scope.initTwitterTimeline = function () {
