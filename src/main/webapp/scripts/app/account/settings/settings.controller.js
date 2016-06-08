@@ -76,7 +76,7 @@ angular.module('apqdApp')
 
             if ($scope.form.$invalid) {
                  var invalidFields = [];
-                 angular.forEach($scope.form, function(value, key) {
+                 angular.forEach($scope.form, function(value) {
                       if (typeof value === 'object' && value.hasOwnProperty('$modelValue')) {
                          if (value.$invalid) {
                            invalidFields.push(value);

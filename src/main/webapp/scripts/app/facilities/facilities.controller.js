@@ -2,10 +2,10 @@
 
 angular.module('apqdApp')
     .controller('FacilitiesController',
-    ['$scope', '$state', '$log', '$q', '$location', '$anchorScroll',
+    ['$scope', '$state', '$log', '$q',
         'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService',
         'GeocoderService', 'chLayoutConfigFactory', '$uibModal', 'Principal', 'AppPropertiesService', 'AddressUtils',
-    function ($scope, $state, $log, $q, $location, $anchorScroll,
+    function ($scope, $state, $log, $q,
               leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService,
               GeocoderService, chLayoutConfigFactory, $uibModal, Principal, AppPropertiesService, AddressUtils) {
         var agenciesDataSource;
@@ -119,24 +119,6 @@ angular.module('apqdApp')
             });
         };
 
-        $scope.scrollToAgency = function (agency) {
-            var newHash = 'agency' + agency.facility_number;
-            if ($location.hash() !== newHash) {
-                // set the $location.hash to `newHash` and
-                // $anchorScroll will automatically scroll to it
-                $location.hash(newHash);
-            } else {
-                // call $anchorScroll() explicitly,
-                // since $location.hash hasn't changed
-                $anchorScroll();
-            }
-            $scope.activeAgency = agency;
-        };
-
-        $scope.isActiveAgency = function (agency) {
-            return !_.isNil($scope.activeAgency) && agency.facility_number == $scope.activeAgency.facility_number;
-        };
-
         $scope.createLocations = function() {
             var locations = {};
             _.each(agenciesDataSource, function (agency) {
@@ -157,8 +139,6 @@ angular.module('apqdApp')
                     lng: agency.location.coordinates[0],
                     message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
                     getMessageScope: function () {
-                        $scope.scrollToAgency(agency);
-
                         var scope = $scope.$new();
                         scope.agency = agency;
                         scope.viewConfig = {presentation: 'popup'};
