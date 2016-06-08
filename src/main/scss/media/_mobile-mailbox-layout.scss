@@ -8,6 +8,10 @@
         width: 2.6rem;
         height: 1.4rem;
         top: 1rem;
+
+        @media screen and (max-width: 640px) {
+            top: 2rem;
+        }
     }
 
     .ch-aside-contacts__short__arrow.down {
@@ -72,6 +76,14 @@
     padding-right: 1.5rem;
     height: 7.7rem;
     position: relative;
+
+    .ch-multi-select-dropdown__popup {
+        @media screen and (max-width: 640px) {
+            width: calc(100% - 3rem);
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+    }
   }
 
 .ch-multi-select-dropdown__popup {
@@ -84,6 +96,8 @@
     margin-left: 1.5rem;
     border: .1rem solid #cbcdcf;
     background: #fff;
+
+
 }
 
 

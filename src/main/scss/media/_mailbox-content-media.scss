@@ -126,13 +126,15 @@ html {
         position: absolute;
         padding-right: 1.5rem;
         padding-top: 1rem;
-        top: -3.5rem;
+        top: -4.5rem;
         right: 0;
         left: initial;
         font-size: 2.5rem;
     }
     span {
-        font-size: 2.5rem;
+      @media screen and (max-width: 640px) {
+          font-size: 2.5rem;
+      }
     }
 }
 

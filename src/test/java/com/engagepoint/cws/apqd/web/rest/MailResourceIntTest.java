@@ -3,10 +3,12 @@ package com.engagepoint.cws.apqd.web.rest;
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.MockMailSender;
 import com.engagepoint.cws.apqd.config.JHipsterProperties;
+import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Message;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
+import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.DraftRepository;
 import com.engagepoint.cws.apqd.repository.InboxRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
@@ -86,6 +88,9 @@ public class MailResourceIntTest {
     private DraftRepository draftRepository;
 
     @Inject
+    private DeletedRepository deletedRepository;
+
+    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -146,6 +151,7 @@ public class MailResourceIntTest {
         MailResource mailResource = new MailResource();
         ReflectionTestUtils.setField(mailResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(mailResource, "messageRepository", messageRepository);
+        ReflectionTestUtils.setField(mailResource, "deletedRepository", deletedRepository);
         ReflectionTestUtils.setField(mailResource, "mailBoxService", mailBoxService);
         ReflectionTestUtils.setField(mailResource, "mailService", mailService);
         ReflectionTestUtils.setField(mailResource, "mailBoxRepository", mailBoxRepository);
@@ -293,6 +299,26 @@ public class MailResourceIntTest {
         expectHasContact2(resultActions, expectedContact);
     }
 
+    private void assertDeleteMessages(Message[] messages) throws Exception {
+        restResourceMockMvc.perform(
+            post("/api/mails/delete")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    messages
+                )))
+            .andExpect(status().isOk());
+    }
+
+    private void assertRestoreMessages(Message[] messages) throws Exception {
+        restResourceMockMvc.perform(
+            post("/api/mails/restore")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    messages
+                )))
+            .andExpect(status().isOk());
+    }
+
     @Test
     @Transactional
     public void testCreateGetUpdateSendRead() throws Exception {
@@ -362,6 +388,24 @@ public class MailResourceIntTest {
         // test message thread
 
         assertMessageThread(testMessage);
+
+        // test delete messages
+
+        Message[] messages = new Message[]{ testMessage };
+        assertDeleteMessages(messages);
+
+        Deleted deleted = deletedRepository.findOneByMessageAndDeletedBy(testMessage, toUser);
+        assertThat(deleted).isNotNull();
+        assertThat(deleted.getDeletedDate()).isNotNull();
+        assertThat(deleted.getMessage()).isEqualTo(testMessage);
+        assertThat(deleted.getDeletedBy()).isEqualTo(toUser);
+
+        // test restore messages
+
+        assertRestoreMessages(messages);
+
+        deleted = deletedRepository.findOneByMessageAndDeletedBy(testMessage, toUser);
+        assertThat(deleted).isNull();
 
         // test ContactResource.getContactsForMailTo and getContactsList
 
