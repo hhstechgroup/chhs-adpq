@@ -3,11 +3,20 @@ $break-desktop: 992px;
 $break-tablet: 770px;
 $break-phone: 640px;
 
-.ch-layout {
+html {
     @media screen and (max-width: $break-phone) {
-        zoom: 0.9;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      font: 8px/1 sans-serif;
     }
 }
+
+.ch-layout {
+    @media screen and (max-width: $break-phone) {
+        zoom: 0.85;
+    }
+}
+
 
 .ch-page {
     @media screen and (max-width: $break-phone) {
@@ -55,6 +64,7 @@ $break-phone: 640px;
             height: 7rem;
             margin-top: 1.8rem;
             padding-left: 7rem;
+            font-size: 2.5rem;
         }
     }
 
@@ -81,7 +91,7 @@ $break-phone: 640px;
           .icon-search {
 
               @media screen and (max-width: $break-phone) {
-                    background: url("../images/us-icon/icon-search-mobile.png") no-repeat center;
+                    background: url("../images/us-icon/icon-search-mobile.svg") no-repeat center;
               }
           }
 
@@ -119,6 +129,10 @@ $break-phone: 640px;
         top: -3.5rem;
         right: 0;
         left: initial;
+        font-size: 2.5rem;
+    }
+    span {
+        font-size: 2.5rem;
     }
 }
 

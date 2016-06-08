@@ -71,11 +71,11 @@
 }
 
 .ch-aside-contacts__short__arrow.down {
-    background: url("../images/us-icon/arrow-down-small.png") no-repeat center;
+    background: url("../images/us-icon/arrow-down-small.svg") no-repeat center;
 }
 
 .ch-aside-contacts__short__arrow.up {
-    background: url("../images/us-icon/arrow-up-small.png") no-repeat center;
+    background: url("../images/us-icon/arrow-up-small.svg") no-repeat center;
 }
 
 .ch-aside-contacts__item {
@@ -142,16 +142,16 @@
             }
 
             .ch-contacts-btn__icon {
-                background: url("../images/us-icon/icon-add-mail-hover.png") no-repeat center;
+                background: url("../images/us-icon/icon-add-mail-hover.svg") no-repeat center;
             }
         }
     }
 
     .ch-contacts-btn__icon {
         width: 2.4rem;
-        height: 1.9rem;
+        height: 2.5rem;
         float: left;
-        background: url("../images/us-icon/icon-add-mail.png") no-repeat center;
+        background: url("../images/us-icon/icon-add-mail.svg") no-repeat center;
         position: relative;
         top: .2rem;
     }

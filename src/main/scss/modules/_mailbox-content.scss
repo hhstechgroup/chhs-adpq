@@ -3,6 +3,13 @@
     margin-right: 20px;
 }
 
+.ch-mail-editor__body {
+    @media screen and (max-width: 640px) {
+        margin-left: -2rem;
+        margin-right: -2rem;
+    }
+}
+
 .ch-mail-expanded {
     padding: 1.8rem 3rem;
     background: #fff;
@@ -165,6 +172,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 4rem;
+    height: 6rem;
 }
 
 .ch-mail-heading__item {
@@ -173,6 +181,11 @@
 
 .ch-mail-heading__item_back-control {
     flex: 0 0 7.5rem;
+
+    @media screen and (max-width: 640px) {
+        height: 100%;
+    }
+
 }
 
 .ch-mail-heading__item_heading {
@@ -183,10 +196,17 @@
 .ch-mail-heading__item_attach-btn {
     flex: 0 0 13.5rem;
     padding-right: 3.5rem;
+    @media screen and (max-width: 640px) {
+        width: 12rem;
+    }
 }
 
 .ch-mail-heading__item_action-btn {
     flex: 0 0 10rem;
+
+    @media screen and (max-width: 640px) {
+        height: 100%;
+    }
 }
 
 .ch-new-mail {
@@ -197,6 +217,21 @@
 .ch-new-mail__row {
     padding: 1.2rem;
     border-bottom: 1px solid #cbcdcf;
+
+    @media screen and (max-width: 640px) {
+        height: 9rem;
+    }
+}
+
+.ch-new-mail__row-text {
+    padding: 1.2rem;
+    border-bottom: 1px solid #cbcdcf;
+
+    .ch-new-mail-text-body__text-input  {
+        @media screen and (max-width: 640px) {
+            font-size: 2.5rem;
+        }
+    }
 }
 
 .ch-new-mail__row.ch-new-mail__row_no-pad {
@@ -215,12 +250,24 @@
 .ch-new-mail-field__label {
     display: inline-block;
     flex: 0 0 3.6rem;
+    @media screen and (max-width: 640px) {
+        padding: 2rem;
+        height: 7rem;
+        flex: none;
+
+    }
 }
 
 .ch-new-mail-field .ch-new-mail-field__input {
     flex: 1;
     display: inline-block;
     border: none;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+        padding: .5rem .7rem;
+        height: 6rem;
+    }
 }
 
 .ch-new-mail-text-body .ch-new-mail-text-body__text-input {
@@ -279,6 +326,10 @@
     font-size: 1.5rem;
     font-weight: 600;
     color: #000;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .ch-close-btn {
