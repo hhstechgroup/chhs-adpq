@@ -2,6 +2,7 @@ package com.engagepoint.cws.apqd.repository;
 
 import com.engagepoint.cws.apqd.domain.Deleted;
 import com.engagepoint.cws.apqd.domain.Message;
+import com.engagepoint.cws.apqd.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface DeletedRepository extends JpaRepository<Deleted,Long> {
 
-    Deleted findOneByMessage(Message message);
+    Deleted findOneByMessageAndDeletedBy(Message message, User deletedBy);
 }

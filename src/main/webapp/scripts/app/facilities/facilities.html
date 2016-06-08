@@ -21,7 +21,7 @@
 
     </div>
 
-    <section class="ch-facilities-heading" ng-class="showMapView">
+    <section class="ch-facilities-heading">
         <div class="ch-facilities-heading__row">
             <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_1">
                 <div class="ch-input-block">
@@ -75,6 +75,11 @@
                     </div>
                 </div>
             </div>
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_4">
+                <button class="ch-facilities-list_top-white-on-primary"
+                        type="button" ng-click="resetFilters();" title="Reset all selected filters">Reset Filters
+                  <span class="ch-facilities-list_top-times"></span></button>
+            </div>
         </div>
     </section>
 
@@ -123,7 +128,7 @@
                         <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.id | orderBy: 'id'">
                             <div class="form-type__checkbox_empty-label">
                                 <input id="{{status.id}}" type="checkbox" ng-model="status.selected" ng-click="onStatusClick(status);">
-                                <label for="{{status.id}}">{{status.name | capitalize:true}}</label>
+                                <label for="{{status.id}}"><span class="ch-popup-label-text">{{status.name | capitalize:true}}</span></label>
                             </div>
                         </li>
                     </ul>
@@ -132,20 +137,24 @@
         </div>
 
         <div class="ch-facilities-heading__mobile__view__reset-btn">
-          <button type="button" class="ch-option-btn ch-option-btn_fullwidth">
-                <span class="ch-option-btn__text">Reset Filters</span>
-          </button>
+          <button class="ch-facilities-list_mobile"
+                  type="button" ng-click="resetFilters();" title="Reset all selected filters">Reset Filters
+            <span class="ch-facilities-list_top-times"></span></button>
         </div>
 
       </div>
 
+      <div class="ch-filter-pane__title" ng-click="showFilterDetails = !showFilterDetails">
+          <div class="ch-facilities-list_top-results">RESULTS:
+              <span class="ch-facilities-list_top-count-message">{{agenciesLength}} Agencies</span>
+          </div>
 
-
-      <h3 class="ch-filter-pane__title" ng-click="showFilterDetails = !showFilterDetails">
-          <span >All Filters</span>
-          <span class="ch-filter-pane__icon up" ng-show="showFilterDetails"></span>
-          <span class="ch-filter-pane__icon down" ng-show="!showFilterDetails"></span>
-        </h3>
+          <div class="ch-filter-pane__control">
+             <span >All Filters</span>
+             <span class="ch-filter-pane__icon up" ng-show="showFilterDetails"></span>
+             <span class="ch-filter-pane__icon down" ng-show="!showFilterDetails"></span>
+          </div>
+      </div>
 
 </div>
 
