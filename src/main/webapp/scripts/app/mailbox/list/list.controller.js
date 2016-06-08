@@ -112,8 +112,13 @@ angular.module('apqdApp')
             return !_.isUndefined(_.find($scope.mails, {selected: true}));
         };
 
-        $scope.deleteSelected = function() {
-            if ($stateParams.directory !== 'deleted') {
+        $scope.deleteOrRestoreSelected = function() {
+            if ($stateParams.directory === 'deleted') {
+                RestoreMessageService.restore(_.filter($scope.mails, {selected: true}), function() {
+                    $scope.allSelected = false;
+                    $scope.loadPage();
+                }, $log.error);
+            } else {
                 DeleteMessageService.delete(_.filter($scope.mails, {selected: true}), function() {
                     $scope.allSelected = false;
                     $scope.loadPage();

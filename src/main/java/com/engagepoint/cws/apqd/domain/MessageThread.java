@@ -4,20 +4,23 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Document(indexName = "messagethread")
 public class MessageThread {
 
-    private static AtomicLong seqience = new AtomicLong();
-
     public MessageThread() {
-        this.id = seqience.addAndGet(1);
+
+    }
+
+    public MessageThread(Long id) {
+        this.id = id;
     }
 
     private Long id;
 
     private List<Message> thread = new ArrayList<>();
+
+    private List<MessageThreadDeletedItem> deletedItems = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -37,5 +40,17 @@ public class MessageThread {
 
     public void addMessage(Message message) {
         thread.add(message);
+    }
+
+    public List<MessageThreadDeletedItem> getDeletedItems() {
+        return deletedItems;
+    }
+
+    public void setDeletedItems(List<MessageThreadDeletedItem> deletedItems) {
+        this.deletedItems = deletedItems;
+    }
+
+    public void addDeletedItem(MessageThreadDeletedItem deletedItem) {
+        deletedItems.add(deletedItem);
     }
 }
