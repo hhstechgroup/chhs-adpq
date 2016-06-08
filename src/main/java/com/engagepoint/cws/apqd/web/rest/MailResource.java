@@ -91,7 +91,7 @@ public class MailResource {
 
         final String CONTACT_FILTER_MARK = "BY_LOGIN_";
 
-        if (search.equals("-1")) {
+        if ("-1".equals(search)) {
             page = filterMessages(directory, pageable);
         } else if (search.startsWith(CONTACT_FILTER_MARK)) {
             String searchLogin = search.substring(CONTACT_FILTER_MARK.length(), search.length());

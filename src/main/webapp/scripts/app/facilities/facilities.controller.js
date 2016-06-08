@@ -417,10 +417,11 @@ angular.module('apqdApp')
             });
         };
 
-        $scope.profileHasEnoughAddressData = function(profile) {
-            return !_.isNil(profile) && !_.isNil(profile.place)
-                && !_.isNil(profile.place.latitude) && !_.isNil(profile.place.longitude)
-                && !_.isNil(profile.place.cityName) && !_.isNil(profile.place.state);
+        $scope.profileHasEnoughAddressData = function (profile) {
+            var hasPlace = !_.isNil(profile) && !_.isNil(profile.place);
+            var hasLatLng = hasPlace && !_.isNil(profile.place.latitude) && !_.isNil(profile.place.longitude);
+            var hasCityState = hasPlace && !_.isNil(profile.place.cityName) && !_.isNil(profile.place.state);
+            return hasLatLng && hasCityState;
         };
 
         Principal.identity().then(function(userProfile) {
