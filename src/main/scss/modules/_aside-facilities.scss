@@ -5,7 +5,7 @@
     background-color: #fff;
 }
 
-.ch-facility__header {
+.ch-facility__heading {
     padding-left: 3.9rem;
     position: relative;
     font-size: 1.5rem;
@@ -17,7 +17,7 @@
     vertical-align: middle;
 }
 
-.ch-facility__header:before {
+.ch-facility__heading:before {
     position: absolute;
     left: 0;
     height: 3.9rem;
@@ -26,14 +26,53 @@
     background: url("../images/out-sprite-icons/icon-map-sign-lg.svg") no-repeat;
 }
 
-.ch-facility__header:after {
+.ch-facility__heading:after {
     content: "";
     display: inline-block;
     height: 100%;
     vertical-align: middle;
 }
 
+.ch-facility__header {
+    position: relative;
+}
 
+.ch-facility__header_has-subinfo {
+    padding-right: 6.2rem;
+}
+
+.ch-facility__heading-subinfo {
+    position: absolute;
+    top: 0;
+    right: -2.2rem;
+    max-width: 6.2rem;
+    padding: .5rem .8rem;
+    border: .1rem solid #cbcdcf;
+    border-radius: .4rem;
+    overflow: hidden;
+    text-align: center;
+}
+
+.ch-facility__heading-subinfo-prefix,
+.ch-facility__heading-subinfo-ending {
+    display: block;
+}
+
+.ch-facility__heading-subinfo-prefix {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #0071bc;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ch-facility__heading-subinfo-ending {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #6a6f78;
+    text-transform: uppercase;
+}
 
 .ch-facility__tags {
     margin-bottom: 1.4rem;
