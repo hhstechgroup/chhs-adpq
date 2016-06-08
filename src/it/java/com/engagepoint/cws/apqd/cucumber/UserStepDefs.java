@@ -40,6 +40,7 @@ public class UserStepDefs {
 
     @Before
     public void setup() {
+        //baseUrl = "http://west.apdq.engagepoint.us/#/";
         baseUrl = "http://mdc-apdq-app-a1.engagepoint.us:8080/#/";
         //Configuration.browser = "firefox";
 
@@ -72,7 +73,7 @@ public class UserStepDefs {
 
     @When("^register new user with email '(.*)', login '(.*)' and password '(.*)'$")
     public void open_home_page(@Transform(VarsConverter.class) String email, @Transform(VarsConverter.class) String login, String password) throws Throwable {
-        $("a[href*='#/registerme']").click();
+        click_css_and_wait("a[href*='#/registerme']");
         $("#email").setValue(email);
         $("#caseNumber").setValue("12345");
         $("#login").setValue(login);
@@ -118,9 +119,12 @@ public class UserStepDefs {
     public void open_inbox_page() throws Throwable {
         click_css_and_wait(".ch-user-account-entry__dropdown-btn");
         $("[ng-click='logout()']").shouldBe(visible);
-        $(".ch-user-account-entry__dropdown-btn").click();
+        click_css_and_wait(".ch-user-account-entry__dropdown-btn");
         $("[ng-click='logout()']").waitUntil(disappear, 4000);
         click_xpath_and_wait(".//div/span[text()='Inbox']");
+        sleep(1500);
+        $("[href='#/mail/sent']").shouldBe(visible);
+        $("[href='#/mail/drafts']").shouldBe(visible);
         $("[ui-sref='ch-inbox.new-mail']").shouldBe(visible);
     }
 
@@ -202,16 +206,15 @@ public class UserStepDefs {
         click_css_and_wait("[ui-sref='ch-inbox.new-mail']");
         sleep(2000);
         click_css_and_wait(".ch-new-mail-field__input");
-        //click_xpath_and_wait(".//div[@ui-view='mailbox-content' and contains(@class,'ch-layout__content')]/descendant::div/input[@class='ch-new-mail-field__input' and contains(@ng-click,'showContacts')]");
         sleep(2000);
         click_xpath_and_wait(".//div[contains(@ng-click,'selectContact')]/span[text()='" + recipient + "']/..");
         $(By.xpath(".//div[contains(@ng-click,'selectContact')]/span[text()='" + recipient + "']/..")).shouldBe(disappear);
         click_css_and_wait("textarea");
         $("textarea").setValue(messageText);
-        $("[ng-model='mail.subject']").click();
+        click_css_and_wait("[ng-model='mail.subject']");
         $("[ng-model='mail.subject']").setValue(subject);
         if (!attachFile.isEmpty() & !attachFile.equals(" ")) {
-            $(By.xpath(".//a[contains(text(),'Attach files')]")).click();
+            click_xpath_and_wait(".//a[contains(text(),'Attach files')]");
 //todo upload file
         }
         click_css_and_wait("[ng-click='sendMail()']");
@@ -222,7 +225,7 @@ public class UserStepDefs {
 
     @Then("^verify letter to '(.*)' with subject '(.*)' and text '(.*)' is sent$")
     public void verify_letter_is_sent(@Transform(VarsConverter.class) String recipient, @Transform(VarsConverter.class) String subject, @Transform(VarsConverter.class) String messageText) throws Throwable {
-        click_xpath_and_wait(".//a/span[text()='Sent Messages']");
+        click_css_and_wait("[href='#/mail/sent']");
         $(By.xpath(".//div[contains(@ng-click,'openMail')]")).waitUntil(appear, 4000);
         click_xpath_and_wait(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + recipient + "']/../../*/span[text()='" + subject + "']");
         $(By.xpath(".//div[contains(@ng-click,'openMail')]/*/span[text()='" + recipient + "']/../../*/span[text()='" + subject + "']")).shouldBe(disappear);
@@ -286,19 +289,14 @@ public class UserStepDefs {
 
     @When("^open my profile$")
     public void open_my_profile() throws Throwable {
-        $("#loading-bar-spinner").waitUntil(disappear, 4000);
-        $(".ch-user-account-entry__dropdown-btn").shouldBe(visible);
-        $(".ch-user-account-entry__dropdown-btn").click();
-        $(By.xpath(".//button/span[text()='My Profile']")).shouldBe(visible);
-        $(By.xpath(".//button/span[text()='My Profile']")).click();
-        $(By.xpath(".//button/span[text()='My Profile']")).shouldBe(disappear);
+        click_css_and_wait(".ch-user-account-entry__dropdown-btn");
+        click_xpath_and_wait(".//button/span[text()='My Profile']");
         $(By.xpath(".//h1[text()='My Profile']")).shouldBe(visible);
     }
 
     @When("^fill gender '(.*)', DOB mm-dd-yyyy '(.*)'-'(.*)'-'(.*)', license number '(.*)' in General Information$")
     public void fill_gender_DOB_license_number_in_General_Information(String gender, String month, String day, String year, String licenseNum) throws Throwable {
-        //click_xpath_and_wait(".//span[text()='General information']");
-        $(By.xpath(".//span[text()='" + gender + "']")).click();
+        click_xpath_and_wait(".//span[text()='" + gender + "']");
         $("[placeholder='Month']").shouldBe(visible);
         click_css_and_wait("[placeholder='Month']");
         $("[placeholder='Month']").setValue(month);
@@ -307,7 +305,6 @@ public class UserStepDefs {
         click_css_and_wait("[placeholder='Year']");
         $("[placeholder='Year']").setValue(year);
         $("#license").setValue(licenseNum);
-        //click_xpath_and_wait(".//span[text()='General information']");
     }
 
     @When("^fill address '(.*)', email '(.*)', telephone '(.*)' in Contact Information$")
@@ -317,7 +314,6 @@ public class UserStepDefs {
             $("[title='Search']").setValue(address);
             $(By.xpath(".//li/*[contains(text(),'" + address + "')]")).click();
             $("[title='Close']").click();
-            //todo delete  $("[title='Close']").click(); after fix address search
         }
         if (!email.isEmpty() & !email.equals(" ")) {
             click_css_and_wait("#email");

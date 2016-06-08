@@ -58,7 +58,7 @@
     }
 }
 
-.ch-facilities-heading,
+
 .ch-facilities-heading__input__item_2,
 .ch-facilities-heading__input__item_3,
 .ch-facilities-heading__input__item_4 {
@@ -66,6 +66,29 @@
         display: none;
     }
 }
+
+.ch-facilities-heading__mobile__view__filter {
+    display: none;
+
+    @media screen and (max-width: $break-phone) {
+        display: block;
+    }
+}
+
+.ch-aside-facilities {
+    @media screen and (max-width: $break-phone) {
+        width: 100%;
+        border-right: 0;
+    }
+}
+
+.ch-layout__aside.ch-layout__aside_facilities {
+    @media screen and (max-width: $break-phone) {
+        width: 100%;
+        border-right: 0;
+    }
+}
+
 
 .ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_2,
 .ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_3,
@@ -80,17 +103,36 @@
     padding-bottom: 3rem;
     background-color: #f1f1f1;
     border-bottom: .1rem solid #cbcdcf;
-    display: none;
 
+}
+
+.ch-aside-facilities-ear {
     @media screen and (max-width: $break-phone) {
-        display: block;
+        display: none;
     }
 }
 
 .ch-filter-pane__title {
-    text-align: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
     font-size: 2.8rem;
-    color: #0071bc;
+
+    .ch-filter-pane__control {
+        float: right;
+        font-size: 2.8rem;
+        color: #0071bc;
+    }
+
+    .ch-facilities-list_top-results {
+        display: inline-block;
+        font-size: 2.8rem;
+
+        .ch-facilities-list_top-count-message {
+            font-size: 2.8rem;
+        }
+
+    }
+
 }
 
 .ch-filter-pane__icon {
@@ -142,7 +184,7 @@
 .ch-popup-label-text {
     font-size: 2.8rem;
     position: relative;
-    top: -1rem;
+    top: 1.1rem;
 }
 
 
@@ -177,11 +219,24 @@
     }
 }
 
+.ch-facilities-list_top-pane {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-facilities-heading__item_2 {
+    @media screen and (max-width: 1200px) {
+        flex-grow: 1;
+    }
+    
+}
+
 .ch-facilities-heading__mobile__view__reset-btn {
     padding-left: 2rem;
     padding-right: 2rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     .ch-option-btn {
         height: 8rem;
     }

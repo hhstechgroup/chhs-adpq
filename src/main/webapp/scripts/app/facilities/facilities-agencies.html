@@ -1,7 +1,6 @@
 <section class="ch-aside-facilities" ng-show="isAsideVisible">
     <div class="ch-facilities-list_top-pane">
-        <div class="ch-facilities-list_top-results">RESULTS: <span class="ch-facilities-list_top-count-message">{{agenciesLength}} Agencies</span></div>
-        <button class="ch-facilities-list_top-white-on-primary" type="button" ng-click="resetFilters();" title="Reset all selected filters">RESET FILTERS <span class="ch-facilities-list_top-times">&times;</span></button>
+        <div class="ch-facilities-list_top-results">RESULTS: <span class="ch-facilities-list_top-count-message">{{agenciesLength}} Agencies</span></div>        
     </div>
     <ul class="ch-facilities">
         <li id="agency{{agency.facility_number}}" ng-repeat="agency in agencies"

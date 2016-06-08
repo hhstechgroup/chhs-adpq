@@ -60,7 +60,7 @@
     font-size: 1.5rem;
     font-weight: 600;
     line-height: inherit;
-    padding-bottom: 1rem; }
+}
 
 .ch-facilities-list_top-count-message {
     color: #000; }
@@ -72,8 +72,31 @@
     color: #fff;
     background-color: #0071bc;
     padding: 0.5rem 1rem 0.6rem 1rem;
-    line-height: 1.1rem;
-    border-radius: 1rem; }
+    width: 100%;
+    height: 3.6rem;
+    font-size: 1.4rem;
+    border-radius: .4rem;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.ch-facilities-list_mobile {
+    color: #0071bc;
+    background-color: transparent;
+    padding: 0.5rem 1rem 0.6rem 1rem;
+    width: 50%;
+    height: 8rem;
+    font-size: 2.8rem;
+    border: .2rem solid #0071bc;
+    border-radius: .4rem;
+    display: inline-block;
+    font-weight: 500;
+
+    &:hover {
+        color: #205493;
+        border-color: #205493;
+    }
+}
 
 .ch-facilities-list_top-pane {
     background-color: #f1f1f1;

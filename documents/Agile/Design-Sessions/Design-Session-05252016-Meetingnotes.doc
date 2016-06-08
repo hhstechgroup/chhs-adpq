@@ -1,0 +1,499 @@
+Message-ID: <19312286.333.1465401696841.JavaMail.js-confluence@chhs-apqd.atlassian.net>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_332_28953293.1465401696840"
+
+------=_Part_332_28953293.1465401696840
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>2016-05-25 Meeting notes</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>2016-05-25 Meeting notes</h1>
+    <div class=3D"Section1">
+        <h2 id=3D"id-2016-05-25Meetingnotes-Date">Date</h2>
+<p><time datetime=3D"2016-05-25" class=3D"date-past">25 May 2016</time></p>
+<h2 id=3D"id-2016-05-25Meetingnotes-Attendees">Attendees</h2>
+<ul>
+<li><p><a class=3D"confluence-userlink user-mention current-user-mention" d=
+ata-username=3D"admin" href=3D"/wiki/display/~admin" data-linked-resource-i=
+d=3D"196614" data-linked-resource-version=3D"1" data-linked-resource-type=
+=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Leonid=
+ Marushevskiy</a></p></li>
+<li><p><a class=3D"confluence-userlink user-mention" data-username=3D"pavel=
+.khozhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-=
+id=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=
+=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel =
+Khozhainov</a></p></li>
+<li><a class=3D"confluence-userlink user-mention" data-username=3D"dariia.i=
+armuratii" href=3D"/wiki/display/~dariia.iarmuratii" data-linked-resource-i=
+d=3D"196616" data-linked-resource-version=3D"1" data-linked-resource-type=
+=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Dariia=
+ Iarmuratii</a></li>
+<li><a class=3D"confluence-userlink user-mention" data-username=3D"monica.m=
+orales" href=3D"/wiki/display/~monica.morales" data-linked-resource-id=3D"1=
+212536" data-linked-resource-version=3D"1" data-linked-resource-type=3D"use=
+rinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Monica Morale=
+s</a></li>
+<li><a class=3D"confluence-userlink user-mention" data-username=3D"margreta=
+.silverstone" href=3D"/wiki/display/~margreta.silverstone" data-linked-reso=
+urce-id=3D"1212465" data-linked-resource-version=3D"1" data-linked-resource=
+-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">M=
+argreta Silverstone</a></li>
+</ul>
+<h2 id=3D"id-2016-05-25Meetingnotes-Goals">Goals</h2>
+<ul>
+<li>Disscuss wireframe version 3</li>
+</ul>
+<h2 id=3D"id-2016-05-25Meetingnotes-Discussionitems">Discussion items</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped relative-table confluenceTable" style=3D"width: 71.=
+22%;">
+<colgroup>
+<col style=3D"width: 6.74%;">
+<col style=3D"width: 13.82%;">
+<col style=3D"width: 30.78%;">
+<col style=3D"width: 48.65%;">
+</colgroup>
+<tbody>
+<tr>
+<th class=3D"confluenceTh">Time</th>
+<th class=3D"confluenceTh">Item</th>
+<th class=3D"confluenceTh">Who</th>
+<th class=3D"confluenceTh">Notes</th>
+</tr>
+<tr>
+<td class=3D"confluenceTd">5min</td>
+<td class=3D"confluenceTd">Show wireframe</td>
+<td class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p><a class=3D"confluence-userlink user-mention" data-username=3D"pavel.kho=
+zhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-id=
+=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=3D=
+"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel Kho=
+zhainov</a></p>
+</div></td>
+<td class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<ul>
+<li>Login looks good</li>
+<li><a class=3D"confluence-userlink user-mention" data-username=3D"dariia.i=
+armuratii" href=3D"/wiki/display/~dariia.iarmuratii" data-linked-resource-i=
+d=3D"196616" data-linked-resource-version=3D"1" data-linked-resource-type=
+=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Dariia=
+ Iarmuratii</a> - recommend add cues about the strength of the selected pas=
+sword</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">5min</td>
+<td colspan=3D"1" class=3D"confluenceTd">Registration</td>
+<td colspan=3D"1" class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p><a class=3D"confluence-userlink user-mention" data-username=3D"pavel.kho=
+zhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-id=
+=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=3D=
+"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel Kho=
+zhainov</a></p>
+</div></td>
+<td colspan=3D"1" class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p>&nbsp;</p>
+<ul class=3D"inline-task-list" data-inline-tasks-content-id=3D"1900547">
+<li data-inline-task-id=3D"1"><a class=3D"confluence-userlink user-mention"=
+ data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmurat=
+ii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1" d=
+ata-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.at=
+lassian.net/wiki">Dariia Iarmuratii</a> - remove address from registration =
+page</li>
+<li data-inline-task-id=3D"380"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - please think about mandatory fi=
+elds (follow stylebook)</li>
+<li data-inline-task-id=3D"381"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a>&nbsp;- do not require 4 digits of=
+ SSN&nbsp;</li>
+</ul>
+<p>&nbsp;</p>
+</div></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">10min</td>
+<td class=3D"confluenceTd">Facilities UI</td>
+<td class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p><a class=3D"confluence-userlink user-mention" data-username=3D"pavel.kho=
+zhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-id=
+=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=3D=
+"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel Kho=
+zhainov</a>, <a class=3D"confluence-userlink user-mention" data-username=3D=
+"margreta.silverstone" href=3D"/wiki/display/~margreta.silverstone" data-li=
+nked-resource-id=3D"1212465" data-linked-resource-version=3D"1" data-linked=
+-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.ne=
+t/wiki">Margreta Silverstone</a></p>
+</div></td>
+<td class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<ul>
+<li>Wireframe approved</li>
+<li>Can start development</li>
+<li>Can use user location if address is not filled</li>
+<li>If address is filled we will use user address zip code as a filter to s=
+earch agencies</li>
+<li><a class=3D"confluence-userlink user-mention" data-username=3D"dariia.i=
+armuratii" href=3D"/wiki/display/~dariia.iarmuratii" data-linked-resource-i=
+d=3D"196616" data-linked-resource-version=3D"1" data-linked-resource-type=
+=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Dariia=
+ Iarmuratii</a> - please add My Home icon to the map</li>
+<li><a class=3D"confluence-userlink user-mention" data-username=3D"pavel.kh=
+ozhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-id=
+=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=3D=
+"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel Kho=
+zhainov</a> - get user feedback on the appropriate labels and text inside t=
+he&nbsp;fields for the search / filters. &nbsp;</li>
+<li><a class=3D"confluence-userlink user-mention" data-username=3D"pavel.kh=
+ozhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-id=
+=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=3D=
+"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel Kho=
+zhainov</a> - get user feedback on icons&nbsp;/&nbsp;images associated with=
+&nbsp;the facilities&nbsp;</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">15min</td>
+<td colspan=3D"1" class=3D"confluenceTd">Profile</td>
+<td colspan=3D"1" class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p><a class=3D"confluence-userlink user-mention" data-username=3D"pavel.kho=
+zhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-id=
+=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=3D=
+"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel Kho=
+zhainov</a></p>
+</div></td>
+<td colspan=3D"1" class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p>&nbsp;</p>
+<ul class=3D"inline-task-list" data-inline-tasks-content-id=3D"1900547">
+<li data-inline-task-id=3D"368"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - add * for mandatory</li>
+<li data-inline-task-id=3D"369"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - last 4 digits of SSN is not man=
+datory</li>
+<li data-inline-task-id=3D"370"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - design&nbsp;address component i=
+n the same way as&nbsp;Intake application</li>
+<li data-inline-task-id=3D"371"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - misspelling: Contact Informatio=
+n</li>
+<li data-inline-task-id=3D"372"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - Remove Family Information</li>
+</ul>
+<p>&nbsp;</p>
+</div></td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd">10min</td>
+<td colspan=3D"1" class=3D"confluenceTd">Inbox</td>
+<td colspan=3D"1" class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p><a class=3D"confluence-userlink user-mention" data-username=3D"pavel.kho=
+zhainov" href=3D"/wiki/display/~pavel.khozhainov" data-linked-resource-id=
+=3D"196617" data-linked-resource-version=3D"1" data-linked-resource-type=3D=
+"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Pavel Kho=
+zhainov</a></p>
+</div></td>
+<td colspan=3D"1" class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p>&nbsp;</p>
+<ul class=3D"inline-task-list" data-inline-tasks-content-id=3D"1900547">
+<li data-inline-task-id=3D"373"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - need to show thread of messages=
+</li>
+<li data-inline-task-id=3D"375"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - Remove Assistant but set some d=
+efault recipient like County HHS</li>
+<li data-inline-task-id=3D"382"><a class=3D"confluence-userlink user-mentio=
+n" data-username=3D"dariia.iarmuratii" href=3D"/wiki/display/~dariia.iarmur=
+atii" data-linked-resource-id=3D"196616" data-linked-resource-version=3D"1"=
+ data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.=
+atlassian.net/wiki">Dariia Iarmuratii</a> - when the user is in their inbox=
+ and clicks on the contact (in the navigation area on the&nbsp;left side of=
+ the screen), the following options will be available:&nbsp;contact informa=
+tion (like address book), filtering / sorting the messages with that person=
+ (in the main&nbsp;reading panel),&nbsp;and an option to send an email to t=
+hat person<br><br></li>
+</ul>
+<ul>
+<li>Page is approved for further development</li>
+</ul>
+<p>&nbsp;</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id=3D"id-2016-05-25Meetingnotes-Actionitems">Action items</h2>
+<ul class=3D"inline-task-list" data-inline-tasks-content-id=3D"1900547">
+<li class=3D"checked" data-inline-task-id=3D"376"><a class=3D"confluence-us=
+erlink user-mention" data-username=3D"pavel.khozhainov" href=3D"/wiki/displ=
+ay/~pavel.khozhainov" data-linked-resource-id=3D"196617" data-linked-resour=
+ce-version=3D"1" data-linked-resource-type=3D"userinfo" data-base-url=3D"ht=
+tps://chhs-apqd.atlassian.net/wiki">Pavel Khozhainov</a> - ask Shelly feedb=
+ack on current design<br>done - <a href=3D"/wiki/pages/viewpage.action?page=
+Id=3D2523151">03. Shelly - 05/25/2016 - UI feedback</a></li>
+<li class=3D"checked" data-inline-task-id=3D"377"><a class=3D"confluence-us=
+erlink user-mention" data-username=3D"dariia.iarmuratii" href=3D"/wiki/disp=
+lay/~dariia.iarmuratii" data-linked-resource-id=3D"196616" data-linked-reso=
+urce-version=3D"1" data-linked-resource-type=3D"userinfo" data-base-url=3D"=
+https://chhs-apqd.atlassian.net/wiki">Dariia Iarmuratii</a> - start working=
+ on UI Design and deliver pages one by one to Product Development Team<br><=
+a href=3D"/wiki/display/APQD/07.+Design+concepts">07. Design concepts</a></=
+li>
+<li class=3D"checked" data-inline-task-id=3D"378"><a class=3D"confluence-us=
+erlink user-mention" data-username=3D"dariia.iarmuratii" href=3D"/wiki/disp=
+lay/~dariia.iarmuratii" data-linked-resource-id=3D"196616" data-linked-reso=
+urce-version=3D"1" data-linked-resource-type=3D"userinfo" data-base-url=3D"=
+https://chhs-apqd.atlassian.net/wiki">Dariia Iarmuratii</a> - use&nbsp;<a h=
+ref=3D"https://standards.usa.gov/visual-style/" class=3D"external-link" rel=
+=3D"nofollow">https://standards.usa.gov/visual-style/</a>&nbsp;for UI desig=
+n<br>same as above</li>
+</ul>
+<p>&nbsp;</p>
+    </div>
+</body>
+</html>
+------=_Part_332_28953293.1465401696840--

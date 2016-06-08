@@ -230,7 +230,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
             try {
                 InetAddress hostAddress = InetAddress.getLocalHost();
-                String hostIpAddress = hostAddress.getHostAddress();
+                String hostIpAddress = hostAddress.getHostName();
                 joiner.add(hostIpAddress);
 
                 String severPort = env.getProperty("server.port");
