@@ -547,6 +547,9 @@ select:focus,
 select.usa-input-focus {
   box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
 }
+    input.ch-invalid-send-field, textarea.ch-invalid-send-field {
+        box-shadow: 0 0 3px red, 0 0 7px red;
+    }
 
     input.ng-invalid.ng-dirty,
      input.ch-invalid-field.ng-dirty,

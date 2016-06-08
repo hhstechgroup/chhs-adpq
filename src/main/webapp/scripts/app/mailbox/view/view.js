@@ -16,8 +16,14 @@ angular.module('apqdApp')
                     }
                 },
                 resolve: {
-                    messageThread: ['MessageThread', '$stateParams', function(MessageThread, $stateParams) {
-                        return MessageThread.get({id: $stateParams.mailId}).$promise;
+                    messageThread: ['MessageThread', 'Message', '$stateParams', function(MessageThread, Message, $stateParams) {
+                        if (_.isEmpty($stateParams.readOnly)) {
+                            return Message.get({id: $stateParams.mailId}, function(mail) {
+                                return {thread: [mail]};
+                            }).$promise
+                        } else {
+                            return MessageThread.get({id: $stateParams.mailId}).$promise;
+                        }
                     }],
                     identity: ['Principal', function(Principal) {
                         return Principal.identity();
