@@ -18,6 +18,9 @@ angular.module('apqdApp')
                         $scope.updateAccount(profile, place);
                     });
                 } else {
+                    if (!profile.place.streetName) {
+                        profile.place.streetName = '';
+                    }
                     Place.save(profile.place, function (place) {
                         $scope.updateAccount(profile, place);
                     });

@@ -68,11 +68,12 @@ angular.module('apqdApp')
                 dateAsString = mail.dateCreated;
             }
 
+            var pattern = "YYYY-MM-DD'T'HH:mm:ss'Z'";
             var date = DateUtils.convertDateTimeFromServer(dateAsString);
             if (new Date().getTime() - date.getTime() < ONE_DAY) {
-                return date.toLocaleString("en-US", {hour: 'numeric', minute: 'numeric'});
+                return moment(dateAsString, pattern).format('LT');
             } else {
-                return date.toLocaleString("en-US", {day: 'numeric', month: 'short'});
+                return moment(dateAsString, pattern).format('ll');
             }
         }
     }]);

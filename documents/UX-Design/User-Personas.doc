@@ -1,0 +1,413 @@
+Message-ID: <9562489.395.1465402057336.JavaMail.js-confluence@chhs-apqd.atlassian.net>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_394_1308289.1465402057336"
+
+------=_Part_394_1308289.1465402057336
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>03. User Personas</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>03. User Personas</h1>
+    <div class=3D"Section1">
+        <h1 id=3D"id-03.UserPersonas-RubyCumar"><strong style=3D"line-heigh=
+t: 1.25;">Ruby Cumar</strong></h1>
+<p><em>Foster Parent</em><em><br></em></p>
+<p><em><br></em></p>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class=3D"confluenceTd"><strong>Age</strong></td>
+<td class=3D"confluenceTd">24</td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><strong>Occupation</strong></td>
+<td class=3D"confluenceTd">Housewife</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><strong>Status</strong></td>
+<td colspan=3D"1" class=3D"confluenceTd">Married</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><strong><span style=3D"color: rgb(=
+55,55,55);">Education</span></strong></td>
+<td colspan=3D"1" class=3D"confluenceTd">Graduate of the University of Wash=
+ington&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-Goals">Goals</h2>
+<ul>
+<li>to be a good person and perfect mother</li>
+<li>to be more informed</li>
+<li>to be more organized</li>
+<li>to&nbsp;help poor children</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-Frustrations">Frustrations</h2>
+<ul>
+<li>to do much harm to children</li>
+<li>to lose&nbsp;the foster license</li>
+<li>caseworker sudden visit</li>
+<li>to make mistakes</li>
+<li>miscommunication with my caseworker</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-BIO">BIO</h2>
+<p>Ruby&nbsp;is a housewife. She is married to Luke Cumar (28). She has two=
+ birth children (Ava, a girl of 5 years old, and&nbsp;Emma, a girl of&nbsp;=
+7 years old). She&nbsp;received her foster care license (ALE897C24) last ye=
+ar.&nbsp;</p>
+<p>She has two children placed with her in foster care (Stella (6, girl) an=
+d Lucas (9, boy)).&nbsp;She likes to help children thrive and cares about h=
+er community.&nbsp;When her kids, are at school she volunteers at the local=
+ library and keeps up her household tasks (cleaning her home, shopping for =
+the kids, preparing meals).&nbsp; She also browses&nbsp;the Internet. She i=
+s currently planning a vacation to Malibu beach and looking for vacation re=
+ntals and what to do for the kids.&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-Technology">Technology</h2>
+<ul>
+<li>uses computer</li>
+<li>uses internet</li>
+<li>uses smartphone</li>
+<li>uses tablet</li>
+</ul>
+<h1 id=3D"id-03.UserPersonas-"><strong><br></strong></h1>
+<h1 id=3D"id-03.UserPersonas-.1"><strong><br></strong></h1>
+<h1 id=3D"id-03.UserPersonas-MargaretBabayev"><strong>Margaret Babayev</str=
+ong></h1>
+<p><em>Birth&nbsp;Parent</em><em><br></em></p>
+<p><em><br></em></p>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class=3D"confluenceTd"><strong>Age</strong></td>
+<td class=3D"confluenceTd">32</td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><strong>Occupation</strong></td>
+<td class=3D"confluenceTd">Waitress</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><strong>Status</strong></td>
+<td colspan=3D"1" class=3D"confluenceTd">Single</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><strong><span style=3D"color: rgb(=
+55,55,55);">Education</span></strong></td>
+<td colspan=3D"1" class=3D"confluenceTd">2 year Community College in Hospit=
+ality</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-Goals.1">Goals</h2>
+<ul>
+<li>to return her&nbsp;children</li>
+<li>to find a better job</li>
+<li>to find a&nbsp;boyfriend</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-Frustrations.1">Frustrations</h2>
+<ul>
+<li>to lose parental rights</li>
+<li>to lose her&nbsp;job</li>
+<li>to start drinking<br><br></li>
+</ul>
+<h2 id=3D"id-03.UserPersonas-BIO.1">BIO</h2>
+<p>Margaret is a waitress. She gave birth when she was 23. She didn't have =
+a job, was alone and had problems with alcohol. Her waitress job had her le=
+aving her children alone at night. She is the birth mom of twins: Sally (9,=
+ girl) and Zane (9, boy). The stress of not much income&nbsp;made her viole=
+nt&nbsp;with her kids. She also resorted to alcohol to relieve the stress.&=
+nbsp;Her kids were taken from her&nbsp;because of these factors and calls r=
+eceived reporting that&nbsp;she was violent and hurt them.&nbsp; Now she wa=
+nts to have them returned to&nbsp;her and she is doing all that is possible=
+ for this to happen. She tries to stay in contact with her kids while she w=
+orks toward&nbsp;more stability in her life and proving that she can be a b=
+etter parent.</p>
+<p>&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-Technology.1">Technology</h2>
+<ul>
+<li>uses phone</li>
+<li>uses computer (limited use)</li>
+</ul>
+<p>&nbsp;</p>
+<h1 id=3D"id-03.UserPersonas-NiaKalyhiva">Nia Kalyhiva</h1>
+<p><em>Birth&nbsp;Parent</em><em> </em></p>
+<p>&nbsp;</p>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class=3D"confluenceTd"><strong>Age</strong></td>
+<td class=3D"confluenceTd">36</td>
+</tr>
+<tr>
+<td class=3D"confluenceTd"><strong>Occupation</strong></td>
+<td class=3D"confluenceTd">Certified Nurse Assistant (CNA)</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><strong>Status</strong></td>
+<td colspan=3D"1" class=3D"confluenceTd">Single</td>
+</tr>
+<tr>
+<td colspan=3D"1" class=3D"confluenceTd"><strong><span style=3D"color: rgb(=
+55,55,55);">Education</span></strong></td>
+<td colspan=3D"1" class=3D"confluenceTd">High School and post-high-school t=
+raining specific to becoming a CNA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id=3D"id-03.UserPersonas-Goals.2">Goals</h2>
+<ul>
+<li>to return her&nbsp;child</li>
+<li>to find the&nbsp;better job&nbsp;</li>
+</ul>
+<h2 id=3D"id-03.UserPersonas-Frustrations.2">Frustrations</h2>
+<ul>
+<li>to lose parental rights</li>
+<li>to lose her&nbsp;job</li>
+<li>to control her anger</li>
+</ul>
+<h2 id=3D"id-03.UserPersonas-BIO.2">BIO</h2>
+<p>Nia is&nbsp;a&nbsp;certified nurse assistant, working part-time at an As=
+sisted Living facility.&nbsp;The facility provides day care for the childre=
+n of their workers. The day care center&nbsp;reported the physical abuse&nb=
+sp;Alex received from Nia which then resulted in Alex being placed into fos=
+ter care. This occurred 6 months ago.&nbsp;&nbsp;&nbsp;</p>
+<h2 id=3D"id-03.UserPersonas-Technology.2">Technology</h2>
+<ul>
+<li>uses smartphone</li>
+</ul>
+<p><br><br></p>
+    </div>
+</body>
+</html>
+------=_Part_394_1308289.1465402057336--

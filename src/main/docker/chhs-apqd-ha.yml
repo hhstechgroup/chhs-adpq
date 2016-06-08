@@ -1,15 +1,14 @@
 #
 #
 # to start chhs-apqd use:
-#  docker-compose -f ha-chhs-apqd.yml up -d
+#  docker-compose -f chhs-apqd-ha.yml up -d
 #
 # for scaling use
-#  docker-compose -f ha-chhs-apqd.yml scale chhs-apqd=3
-#
+#  docker-compose -f chhs-apqd-ha.yml scale chhs-apqd-ha=3
+#  docker-compose -f chhs-apqd-ha.yml up -d --no-deps --force-recreate chhs-apqd-ha-lb
 #
 
 chhs-apqd-ha-elasticsearch:
-  #image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
   image: elasticsearch:1.5.2
   restart: unless-stopped
   ports:

@@ -26,7 +26,7 @@ public class AjaxAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 
         String login = request.getParameterMap().get("j_username")[0];
 
-        if (userRepository.findOneByLogin(login).isPresent()) {
+        if (userRepository.findOneByLogin(login).isPresent() && !"Bad credentials".equals(exception.getMessage())) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Not activated");
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");

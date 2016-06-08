@@ -1,0 +1,450 @@
+Message-ID: <16086445.509.1465403556895.JavaMail.js-confluence@chhs-apqd.atlassian.net>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_508_6296505.1465403556895"
+
+------=_Part_508_6296505.1465403556895
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>01. Shelly - 05/20/2016</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>01. Shelly - 05/20/2016</h1>
+    <div class=3D"Section1">
+        <p><strong>Shelly as SME</strong></p>
+<p>Child Welfare SME in 3+ jurisdictions. Level of input quality -<strong> =
+<strong>high</strong>.</strong></p>
+<p>02:20</p>
+<p>We have more than one type of "parent" to consider regarding potential u=
+sers. Parent type was not specified in the RFI.</p>
+<ul>
+<li>Foster parents</li>
+<li>Birth parents (many questions about)</li>
+<li>Relatives (as foster parents, kinship care providers)</li>
+</ul>
+<p>05:17 <span style=3D"color: rgb(0,0,128);">What user needs will this ser=
+vice address?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; As Foster Parent I want to know what a facility can offe=
+r for a Child in my home.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; How far away is the Agency, for instance, if I wished&nb=
+sp;to participate in Family Therapy and other services?</p>
+<p style=3D"margin-left: 60.0px;">What service types are available at the&n=
+bsp;Facility?</p>
+<p style=3D"margin-left: 60.0px;">What is the Facility Capacity?</p>
+<p style=3D"margin-left: 60.0px;">Many details about Facility such as Treat=
+ment Types offered for the Child.</p>
+<p>08:28</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Those are not residential. How many families are they li=
+censing?</p>
+<p>11:53&nbsp; <span style=3D"color: rgb(0,0,128);">Why is the user interes=
+ted in browsing facilities by&nbsp;address or zip code?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; It is unclear why the Birth Parent might browse faciliti=
+es. California&nbsp;workers may use such a system to help identify the&nbsp=
+;closest Foster Family, for example, but&nbsp;specifics on such&nbsp;protoc=
+ol is unknown.</p>
+<p>13:04</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; A Foster Family may use the system to lookup and review =
+Agencies' details.</p>
+<p>14:50 <span style=3D"color: rgb(0,0,128);">Why does the parent want to c=
+ommunicate with caseworker?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; As Birth Parent, I want to inform my Caseworker about my=
+ Parenting Program, about my visitation with the kids, about how my&nbsp;ho=
+use is clean, about how I am doing getting a job =E2=80=93 I am doing what'=
+s required in the Parent-Agency Agreement Plan.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Value: This system&nbsp;is a more private, confidential =
+way of communication when compared to email, texting, and other means curre=
+ntly used for communication.</p>
+<p>16:16</p>
+<p style=3D"margin-left: 60.0px;">No computer access for many Birth Parents=
+.</p>
+<p style=3D"margin-left: 60.0px;">The system is a wonderful solution for Fo=
+ster Parent and Caseworker(s) dialog.</p>
+<p style=3D"margin-left: 60.0px;">Case history in the form of historic, log=
+ged dialog is a great resource for users.</p>
+<p style=3D"margin-left: 60.0px;">For example, in the case of accidental in=
+jury to the Child, the user could attach a couple of pictures to a message =
+to the Caseworker showing the injury and the circumstances of the injury.</=
+p>
+<p>17:08</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; As a Caseworker, you can review the whole dialog that to=
+ok place with the Foster Parent.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; For an Adoptive Parent, the system shows a history of co=
+mmunication, identifying what the issues are.</p>
+<p>18:30 <span style=3D"color: rgb(0,0,128);">Why does the Foster Parent wa=
+nt to find Residential Facilities?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; A Residential Facility is defined as the place where the=
+ Child sleeps overnight.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Three types of Residential Facility: Long-term facilitie=
+s, Evaluative facilities, Short-term/Respite facilities</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; As Foster Parent I may want to place the Child in a Resi=
+dential Facility for a weekend, for example,&nbsp;looking up a facility by =
+zip code.</p>
+<p>20:02</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Example: A Child is not making progress, so&nbsp;the bes=
+t choice may be to place the Child--for 3 months--in a Facility that can su=
+pport/diagnose/stabilize situations in a way that residence-based support c=
+annot match (like therapy at home).</p>
+<p>22:01</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Birth Parents do have contact with their Children after =
+the CPS investigation. They have&nbsp;1 year (but up to 24 months) under Fe=
+deral law during which they can to do a Plan to be able to get their child =
+back. Visitation with the Child may be 1-3 times per week, depending on&nbs=
+p;age of the Child.</p>
+<p>24:10</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Normally, Birth Parents do not have a say as to where Ch=
+ild is placed.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; We try to place Children with Relatives first: Genogram.=
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Biological family does not have a right to know where th=
+e Foster Family lives.</p>
+<p>26:37</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; In cases where someone decides to return the Child back =
+to their family home, that happens&nbsp;through the court. A Judge makes th=
+e&nbsp;determination as to when the Child goes home.</p>
+<p>28:17</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; It is great to facilitate communication between Birth Fa=
+milies and the Case Worker.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; A Case Worker is very busy and can have 20-30 families t=
+o manage. It can be difficult to find time to hold a discussion over the ph=
+one. A messaging platform like this helps to facilitate communication under=
+ busy conditions.</p>
+<p>29:40</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Birth Family may have a choice of Agencies with which to=
+ place their child where no other realistic scenario (such as family placem=
+ent) is available. However, such a situation is typically unheard of.</p>
+<p><strong>Shelly as Foster Parent</strong></p>
+<p>33:59&nbsp;&nbsp;&nbsp;&nbsp; <span style=3D"color: rgb(0,0,128);">Why d=
+oes the user want or need this service?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; As Foster Parent I want to shop for the best Agency with=
+ the best services for me (transportation services, for example).</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Variables that dictate how the Agency works can differ. =
+I may wish to switch to a license provider that is easier to work with, an =
+agency that pays more, an agency with smaller caseload, and so on.</p>
+<p>36:23</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Can I take my smartphone and do a private communication,=
+ add pictures, add video, and make emergency calls?</p>
+<p>37:58</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Foster Parents are experienced users of smartphones, tab=
+lets, and so on.</p>
+<p>39:12&nbsp; <span style=3D"color: rgb(0,0,128);">What activities are the=
+ most important?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Foster Parent =E2=80=93 most important function is priva=
+te communication, having information at my fingertips. 4 children from 2 fa=
+milies with 2 different caseworkers plus licensee. Some kind of log to show=
+ the history. Some way to address an emergency case.</p>
+<p>42:03</p>
+<p>As a Foster Parent, I want to know:</p>
+<ul>
+<li>When will workers come to my house?</li>
+<li>What Services are being put in place for the Children in my home.</li>
+<li>Are there any changes in the Visitation Schedule?</li>
+<li>Are there any special appointments for the Child?</li>
+<li>IEP (Individualized Education Plan)</li>
+<li>Court dates =E2=80=93 alerts and notifications</li>
+</ul>
+<p>44:20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style=3D"color: rgb(0,0,128);"=
+>What does user try to avoid?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Try to avoid any miscommunication between Foster Parent =
+and Case Worker, communication between Staff and Birth Family, any claims o=
+f possible abuse in my house, and so on. I want to have the ability to prev=
+ent problems where CPS shows up at my house. These kinds of issues demand a=
+ really private channel of communication.</p>
+<p>&nbsp;</p>
+<p><strong>Shelly as SME again</strong></p>
+<p>46:31</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; No public information is available about the Foster Fami=
+ly-Case Worker-Child connection</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Foster Parent will be assigned to specific licensee. Eac=
+h Child will have their own Case Worker assigned.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Each Child has a Case Number.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Each family has a License Number. Each Child has their o=
+wn number.</p>
+<p>49:00</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Foster Parents know the Child's Case Number.</p>
+<p>49:38</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Birth parent also know the Case Number.</p>
+<p>50:48</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; There are three types of parents =E2=80=93 and Relatives too. =
+Relatives can be licensed as Foster Parents. There is a difference in the l=
+icenses. Foster Parent licensing may be handled differently from state to s=
+tate.</p>
+<p style=3D"margin-left: 60.0px;">Three Parent Types:&nbsp;</p>
+<ul>
+<ul>
+<li>Guardianship</li>
+<li>Licensed Kinship</li>
+<li>Traditional Foster Families</li>
+</ul>
+</ul>
+<p style=3D"margin-left: 30.0px;">&nbsp;</p>
+<p><strong>Shelly as Foster parent</strong></p>
+<p>53:34&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=3D"color: rgb(0,0,128);li=
+ne-height: 115.0%;font-family: Cambria , serif;font-size: 11.0pt;">What doe=
+s user expect from this product?</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Expect communication and access to my worker and to my A=
+gency. This will&nbsp;translate to better care and better quality of&nbsp;w=
+ork with the Children in my house.</p>
+<p><strong>Shelly as SME again with recommendations</strong></p>
+<p>56:10</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; A lot of our Birth Parents can=E2=80=99t read and write.=
+ Text to speech and speech to text are helpful features. Alerts for Birth p=
+arents. Voice reminder for Birth parents.</p>
+<p>57:57</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Translate everything into Spanish, especially in Califor=
+nia. Various Asian communities are also prevalent in California.</p>
+<p>59:22</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Documentation of the communication =E2=80=93 it is a gre=
+at plus for the Case Worker to be able to put the copy of it in their Court=
+ Reports, which they provide every 3 months. Foster and Birth Parents could=
+ then access and review their portions of the dialog.</p>
+<p style=3D"margin-left: 60.0px;">Have not yet addressed the ways in which =
+this system could facilitate communication between Birth Parents and Foster=
+ Parents.&nbsp;</p>
+    </div>
+</body>
+</html>
+------=_Part_508_6296505.1465403556895--
