@@ -2,17 +2,26 @@
 
 angular.module('apqdApp')
     .controller('SettingsController',
-    function ($scope, Principal, Auth, Language, $translate, lookupGender,
-            Place, GeocoderService, lookupState, AddressUtils) {
+    ['$scope', '$log', 'Principal', 'Auth', 'Language', '$translate', 'lookupGender', 'Place', 'GeocoderService', 'lookupState', 'AddressUtils',
+    function ($scope, $log, Principal, Auth, Language, $translate, lookupGender, Place, GeocoderService, lookupState, AddressUtils) {
 
-        $scope.success = null;
-        $scope.error = null;
+        $scope.resetValidation = function() {
+            $scope.validation.success = false;
+            $scope.validation.passwordSuccessfullyChanged = false;
+            $scope.validation.passwordChangingError = false;
+            $scope.validation.passwordsDoNotMatch = false;
+            $scope.validation.error = false;
+            $scope.validation.errorEmailExists = false;
+            $scope.validation.firstNameInvalid = false;
+            $scope.validation.lastNameInvalid = false;
+            $scope.validation.licenseInvalid = false;
+            $scope.validation.addressInvalid = false;
+        };
+        $scope.validation = {};
+
         $scope.lookupGender = lookupGender;
         $scope.states = lookupState;
 
-        $scope.passwordSuccessfullyChanged = null;
-        $scope.passwordChangingError = null;
-        $scope.passwordsDoNotMatch = null;
         $scope.passwordChangingContainer = {};
 
         $scope.isProfileGeneralInformation = true;
@@ -26,17 +35,17 @@ angular.module('apqdApp')
             }
 
             if ($scope.passwordChangingContainer.newPassword !== $scope.passwordChangingContainer.confirmPassword) {
-                $scope.passwordChangingError = null;
-                $scope.passwordSuccessfullyChanged = null;
-                $scope.passwordsDoNotMatch = 'ERROR';
+                $scope.validation.passwordChangingError = false;
+                $scope.validation.passwordSuccessfullyChanged = false;
+                $scope.validation.passwordsDoNotMatch = true;
             } else {
-                $scope.passwordsDoNotMatch = null;
+                $scope.validation.passwordsDoNotMatch = false;
                 Auth.changePassword($scope.passwordChangingContainer.newPassword).then(function () {
-                    $scope.passwordChangingError = null;
-                    $scope.passwordSuccessfullyChanged = 'OK';
+                    $scope.validation.passwordChangingError = false;
+                    $scope.validation.passwordSuccessfullyChanged = true;
                 }).catch(function () {
-                    $scope.passwordSuccessfullyChanged = null;
-                    $scope.passwordChangingError = 'ERROR';
+                    $scope.validation.passwordSuccessfullyChanged = false;
+                    $scope.validation.passwordChangingError = true;
                 });
             }
         };
@@ -75,6 +84,7 @@ angular.module('apqdApp')
         $scope.save = function () {
 
             if ($scope.form.$invalid) {
+                $scope.resetValidation();
                  var invalidFields = [];
                  angular.forEach($scope.form, function(value) {
                       if (typeof value === 'object' && value.hasOwnProperty('$modelValue')) {
@@ -86,31 +96,64 @@ angular.module('apqdApp')
                          }
                       }
                  });
+                var invalidFlag;
                 for (var i in invalidFields) {
                     if (invalidFields[i].$name !== 'newPassword' && invalidFields[i].$name !== 'confirmPassword') {
-                        return;
+                        $scope.setValidation(invalidFields[i].$name + 'Invalid');
+                        invalidFlag = true;
                     }
                 }
+                if (invalidFlag) {
+                    return;
+                }
             }
-            $scope.settingsAccount.birthDate = new Date($scope.birthDateYear, $scope.birthDateMonth - 1, $scope.birthDateDay);
-            Auth.updateAccount($scope.settingsAccount).then(function() {
-                $scope.error = null;
-                $scope.success = 'OK';
-                Place.update($scope.settingsAccount.place).$promise.then(function() {
-                    Principal.identity(true).then(function(account) {
-                        $scope.settingsAccount = $scope.copyAccount(account);
-                        $scope.locateGender();
-                    });
-                });
-                Language.getCurrent().then(function(current) {
-                    if ($scope.settingsAccount.langKey !== current) {
-                        $translate.use($scope.settingsAccount.langKey);
+
+            var address = AddressUtils.formatAddress($scope.settingsAccount.place);
+            GeocoderService.searchAddress(address).then(
+                function (response) {
+                    var data = response.data[0];
+                    if (!data) {
+                        $log.debug('Address cannot be found ', address);
+                        $scope.setValidation('addressInvalid');
+                        return;
                     }
-                });
-            }).catch(function() {
-                $scope.success = null;
-                $scope.error = 'ERROR';
-            });
+
+                    $scope.settingsAccount.place.latitude = data.lat;
+                    $scope.settingsAccount.place.longitude = data.lon;
+
+                    $scope.settingsAccount.birthDate = new Date($scope.birthDateYear, $scope.birthDateMonth - 1, $scope.birthDateDay);
+                    Auth.updateAccount($scope.settingsAccount).then(function() {
+                        $scope.validation.error = false;
+                        $scope.validation.success = true;
+                        Place.update($scope.settingsAccount.place).$promise.then(function() {
+                            Principal.identity(true).then(function(account) {
+                                $scope.settingsAccount = $scope.copyAccount(account);
+                                $scope.locateGender();
+                            });
+                        });
+                        Language.getCurrent().then(function(current) {
+                            if ($scope.settingsAccount.langKey !== current) {
+                                $translate.use($scope.settingsAccount.langKey);
+                            }
+                        });
+                    }).catch(function() {
+                        $scope.setError();
+                    });
+                },
+                function() {
+                    $scope.setError();
+                }
+            );
+        };
+
+        $scope.setError = function() {
+            $scope.success = false;
+            $scope.error = true;
+        };
+
+        $scope.setValidation = function(validationModel) {
+            $scope.success = false;
+            $scope.validation[validationModel] = true;
         };
 
         $scope.addGeocoder = function () {
@@ -124,4 +167,4 @@ angular.module('apqdApp')
                 AddressUtils.addAddressToAccount(addressFeature, $scope.settingsAccount, $scope.states);
             });
         };
-    });
+    }]);

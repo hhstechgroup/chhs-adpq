@@ -417,8 +417,14 @@ angular.module('apqdApp')
             });
         };
 
+        $scope.profileHasEnoughAddressData = function(profile) {
+            return !_.isNil(profile) && !_.isNil(profile.place)
+                && !_.isNil(profile.place.latitude) && !_.isNil(profile.place.longitude)
+                && !_.isNil(profile.place.cityName) && !_.isNil(profile.place.state);
+        };
+
         Principal.identity().then(function(userProfile) {
-            if (_.isNil(userProfile) || _.isNil(userProfile.place) || _.isNil(userProfile.place.latitude)) {
+            if (! $scope.profileHasEnoughAddressData(userProfile)) {
                 $scope.openDefaultAddressModal(userProfile);
             } else {
                 $scope.onSelectAddress({
