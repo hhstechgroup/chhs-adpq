@@ -1,5 +1,11 @@
 <div class="ch-facility">
-    <h3 class="ch-facility__header">{{agency.facility_name}}</h3>
+    <div class="ch-facility__header ch-facility__header_has-subinfo">
+        <h3 class="ch-facility__heading">{{agency.facility_name}}</h3>
+        <div class="ch-facility__heading-subinfo" ng-show="viewConfig.presentation == 'list'">
+            <span class="ch-facility__heading-subinfo-prefix">{{agency.distance}}</span>
+            <span class="ch-facility__heading-subinfo-ending">miles</span>
+        </div>
+    </div>
     <div class="ch-facility__tags">
         <ul class="ch-facility-tags clearfix">
             <li class="ch-facility-tags__tag">
@@ -27,11 +33,6 @@
             <li class="ch-facility-info__part">
                 <div class="ch-facility-info-text">
                     <span class="ch-facility-info__address">{{agency.location_address | capitalize:true}}, {{agency.location_city | capitalize:true}}, {{agency.facility_state}} {{agency.location_zip}}</span>
-                </div>
-            </li>
-            <li class="ch-facility-info__part">
-                <div class="ch-facility-info-text">
-                    <span class="ch-facility-info__address">Distance: {{agency.distance}} miles</span>
                 </div>
             </li>
         </ul>
