@@ -1,7 +1,8 @@
 chhs-apqd-elasticsearch:
   container_name: chhs-apqd-elasticsearch
   restart: unless-stopped
-  image: kaver79/chhs-apqd-elasticsearch  ports:
+  image: elasticsearch:1.5.2 
+  ports:
     - "9200:9200"
     - "9300:9300"
 
