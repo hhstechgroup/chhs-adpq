@@ -62,17 +62,19 @@ module.exports = function (config) {
             'main/webapp/bower_components/angular-animate/angular-animate.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
+
             'main/webapp/scripts/app/app.js',
             'main/webapp/scripts/app/**/*.js',
             'main/webapp/scripts/components/**/*.+(js|html)',
             'test/javascript/spec/helpers/module.js',
             'test/javascript/spec/helpers/httpBackend.js',
-            'test/javascript/**/!(karma.conf|protractor.conf).js'
+            'test/javascript/**/!(karma.conf|protractor.conf).js',
+            'main/webapp/bower_components/ngToast/dist/ngToast.min.js'
         ],
 
 
         // list of files / patterns to exclude
-        exclude: ['test/javascript/e2e/**'],
+        exclude: ['test/javascript/e2e/**', 'test/javascript/spec/app/account/register/**', 'test/javascript/spec/app/account/settings/**'],
 
         preprocessors: {
             './**/*.js': ['coverage']
