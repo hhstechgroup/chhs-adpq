@@ -57,7 +57,7 @@ public class MailService {
             message.setFrom(jHipsterProperties.getMail().getFrom());
             message.setSubject(subject);
             message.setText(content, isHtml);
-            //javaMailSender.send(mimeMessage);
+            javaMailSender.send(mimeMessage);
             LOGGER.debug("Sent e-mail to User '{}'", to);
         } catch (Exception e) {
             LOGGER.warn("E-mail could not be sent to user '{}', exception is: {}", to, e);

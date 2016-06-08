@@ -9,7 +9,6 @@
 #
 
 chhs-apqd-ha-elasticsearch:
-  #image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
   image: elasticsearch:1.5.2
   restart: unless-stopped
   ports:
