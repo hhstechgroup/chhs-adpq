@@ -87,20 +87,18 @@
   }
 
 .ch-multi-select-dropdown__popup {
-    width: calc(100% - 3rem);
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 9000;
-    padding: 1.5rem 1.4rem;
-    margin-left: 1.5rem;
-    border: .1rem solid #cbcdcf;
-    background: #fff;
-
-
+    @media screen and (max-width: 640px) {
+        width: calc(100% - 3rem);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 9000;
+        padding: 1.5rem 1.4rem;
+        margin-left: 1.5rem;
+        border: .1rem solid #cbcdcf;
+        background: #fff;
+    }
 }
-
-
 
 .ch-mobile-folders__inbox-nav {
     border-bottom: .1rem solid #cbcdcf;
