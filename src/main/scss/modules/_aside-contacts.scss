@@ -47,3 +47,144 @@
     color: #5b616b;
     text-transform: uppercase;
 }
+
+.ch-aside-contacts {
+    padding-left: 2.7rem;
+    padding-right: 2.7rem;
+
+    .ch-aside-contacts__item:first-child {
+        border-top: .1rem solid #cbcdcf;
+    }
+}
+
+.ch-aside-contacts__short {
+    position: relative;
+}
+
+.ch-aside-contacts__short__arrow {
+    position: absolute;
+    display: inline-block;
+    width: .8rem;
+    height: .4rem;
+    top: 2rem;
+    right: 0px;
+}
+
+.ch-aside-contacts__short__arrow.down {
+    background: url("../images/us-icon/arrow-down-small.png") no-repeat center;
+}
+
+.ch-aside-contacts__short__arrow.up {
+    background: url("../images/us-icon/arrow-up-small.png") no-repeat center;
+}
+
+.ch-aside-contacts__item {
+    padding-top: 2.2rem;
+    padding-bottom: 2.2rem;
+    border-bottom: .1rem solid #cbcdcf;
+    cursor: pointer;
+
+    &:hover {
+        .ch-aside-contacts__person-name {
+            color: #0071bc;
+        }
+    }
+}
+
+.ch-aside-contacts__image {
+    float: left;
+    width: 3.6rem;
+
+    .icon {
+        width: 3.6rem;
+        height: 3.6rem;
+    }
+}
+
+.ch-aside-contacts__person {
+    float: left;
+    padding-left: .7rem;
+    max-width: 11rem;
+}
+
+.ch-aside-contacts__person-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-top: .3rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ch-aside-contacts__person-role {
+    font-size: 1.2rem;
+    font-weight: 400;
+    padding-top: .4rem;
+    text-transform: uppercase;
+    color: #5b616b;
+}
+
+.ch-aside-contacts__action-btn {
+    margin-top: 1.5rem;
+
+    .ch-contacts-btn {
+        width: 100%;
+        padding: 0.8rem 2.4rem;
+        min-width: 5rem;
+        border: .2rem solid #0071bc;
+        border-radius: 4px;
+
+        &:hover {
+            border-color: #205493;
+
+            .ch-contacts-btn__text {
+                color: #205493;
+            }
+
+            .ch-contacts-btn__icon {
+                background: url("../images/us-icon/icon-add-mail-hover.png") no-repeat center;
+            }
+        }
+    }
+
+    .ch-contacts-btn__icon {
+        width: 2.4rem;
+        height: 1.9rem;
+        float: left;
+        background: url("../images/us-icon/icon-add-mail.png") no-repeat center;
+        position: relative;
+        top: .2rem;
+    }
+
+    .ch-contacts-btn__text {
+        display: inline-block;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #0071bc;
+    }
+}
+
+.ch-aside-contacts__description {
+    margin-top: 1rem;
+}
+
+.ch-contacts-description__phone,
+.ch-contacts-description__address {
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding-top: 1rem;
+    color: #5b616b;
+}
+
+.ch-contacts-description__filter {
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding-top: 1rem;
+    color: #0071bc;
+    text-decoration: underline;
+
+    &:hover {
+        color: #0071bc;
+        text-decoration: none;
+    }
+}

@@ -27,11 +27,10 @@ chhs-apqd-ha-postgresql:
     - "25432:5432"
 
 chhs-apqd-ha:
-  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd
+  image: kaver79/chhs-apqd
   restart: unless-stopped
   environment:
     - COOKIE=SRV insert indirect nocache
-    - spring_mail_host=172.24.232.25
     - TZ=America/New_York
 #   - logback_graylogHost=LOGBACK_GRAYLOGHOST
   ports:

@@ -1,101 +1,171 @@
 <div class="ch-layout__subheader">
+
+
+    <div class="ch-facilities-heading__mobile__view">
+        <div class="ch-mobile-mailbox__nav">
+
+            <div class="ch-mobile-mailbox__nav-tab">
+                <a href="" class="ch-mobile-mailbox__nav-tab__link ch-mobile-mailbox__nav-tab__link_active"
+                           ng-class="showLinkMapView" ng-click="changeMapView()">
+                    <span class="ch-mobile-mailbox__nav-tab__text">Map View</span>
+                </a>
+            </div>
+
+            <div class="ch-mobile-mailbox__nav-tab">
+                <a href="" class="ch-mobile-mailbox__nav-tab__link" ng-class="showLinkListView" ng-click="changeListView()">
+                    <span class="ch-mobile-mailbox__nav-tab__text">List View</span>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
     <section class="ch-facilities-heading">
         <div class="ch-facilities-heading__row">
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_2">
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_1">
                 <div class="ch-input-block">
                     <div class="ch-input-block__form-input ch-input-block__form-input_search-field-map ch-input-block__form-input_icon_left">
-                        <div id="geocoder" >
-                          <!--<input type="search" name="search-address" id="search-address"  class="ch-form-input ch-form-input_small ch-form-input_search" value="7025 E McKiney Ave, Fresno, CA 93737" />-->
+                        <div id="geocoder" title="Put address where you want to search for children's residential facilities">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_2">
-                <div class="ch-input-block">
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_2">
+                <div class="ch-input-block" title="Put any available information about children's residential facility like name, address or administrator name">
                     <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
                         <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
-                        <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put agency data here" />
+                        <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put facility data here" />
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
-                <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn">
-                        <span class="ch-multi-select-dropdown__btn-text">All Types</span>
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_3">
+                <div class="ch-multi-select-dropdown" title="Filter facilities by type">
+                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="typesConfig.showList = !typesConfig.showList;">
+                        <span class="ch-multi-select-dropdown__btn-text">{{typesConfig.label}}</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" style="display: none;">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="typesConfig.showList" ng-mouseleave="typesConfig.showList = false">
                         <ul class="ch-checkboxes-list">
-                            <li class="ch-checkboxes-list__item">
+                            <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.id | orderBy: 'id'">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="adoptionAgency" type="checkbox">
-                                    <label for="adoptionAgency">Adoption Agency</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="fosterFamilyAgency" type="checkbox">
-                                    <label for="fosterFamilyAgency">Foster Family Agency</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="fosterFamilyAgencySub" type="checkbox">
-                                    <label for="fosterFamilyAgencySub">Foster Family Agency Sub</label>
+                                    <input id="{{type.id}}" type="checkbox" ng-model="type.selected" ng-click="onTypeClick(type)">
+                                    <label for="{{type.id}}">{{type.name | capitalize:true}}</label>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="ch-facilities-heading__item ch-facilities-heading__item_1">
-                <div class="ch-multi-select-dropdown">
-                    <button type="button" class="ch-multi-select-dropdown__btn">
-                        <span class="ch-multi-select-dropdown__btn-text">All Status</span>
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_4">
+                <div class="ch-multi-select-dropdown" title="Filter facilities by status">
+                    <button type="button" class="ch-multi-select-dropdown__btn" ng-click="statusesConfig.showList = !statusesConfig.showList;">
+                        <span class="ch-multi-select-dropdown__btn-text">{{statusesConfig.label}}</span>
                         <span class="ch-multi-select-dropdown__btn-icon"></span>
                     </button>
-                    <div class="ch-multi-select-dropdown__popup" style="display: none;">
+                    <div class="ch-multi-select-dropdown__popup" ng-show="statusesConfig.showList" ng-mouseleave="statusesConfig.showList = false">
                         <ul class="ch-checkboxes-list">
-                            <li class="ch-checkboxes-list__item">
+                            <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.id | orderBy: 'id'">
                                 <div class="form-type__checkbox_empty-label">
-                                    <input id="closed" type="checkbox">
-                                    <label for="closed">Closed</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="licensed" type="checkbox">
-                                    <label for="licensed">Licensed</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="pending" type="checkbox">
-                                    <label for="pending">Pending</label>
-                                </div>
-                            </li>
-                            <li class="ch-checkboxes-list__item">
-                                <div class="form-type__checkbox_empty-label">
-                                    <input id="unlicensed" type="checkbox">
-                                    <label for="unlicensed">Unlicensed</label>
+                                    <input id="{{status.id}}" type="checkbox" ng-model="status.selected" ng-click="onStatusClick(status);">
+                                    <label for="{{status.id}}">{{status.name | capitalize:true}}</label>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_4">
+                <button class="ch-facilities-list_top-white-on-primary"
+                        type="button" ng-click="resetFilters();" title="Reset all selected filters">Reset Filters
+                  <span class="ch-facilities-list_top-times"></span></button>
             </div>
         </div>
     </section>
-</div>
-
-<div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside">
 
 </div>
 
-<!--start main content-->
-<div class = "ch-layout__content ch-layout__content_facilities" ui-view="main">
-    <div>
-        <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: calc(100vh - 14.8rem);"></leaflet>
+<div class="ch-facilities-heading__mobile__view__filter">
+
+    <div class="ch-facilities-heading__mobile__view__filter-expanded" ng-show="showFilterDetails">
+
+        <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_2">
+            <div class="ch-input-block" title="Put any available information about children's residential facility like name, address or administrator name">
+                <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
+                    <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
+                    <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put facility data here" />
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_3">
+            <div class="ch-multi-select-dropdown" title="Filter facilities by type">
+                <button type="button" class="ch-multi-select-dropdown__btn" ng-click="typesConfig.showList = !typesConfig.showList;">
+                    <span class="ch-multi-select-dropdown__btn-text">{{typesConfig.label}}</span>
+                    <span class="ch-multi-select-dropdown__btn-icon"></span>
+                </button>
+                <div class="ch-multi-select-dropdown__popup" ng-show="typesConfig.showList" ng-mouseleave="typesConfig.showList = false">
+                    <ul class="ch-checkboxes-list">
+                        <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.id | orderBy: 'id'">
+                            <div class="form-type__checkbox_empty-label">
+                                <input id="{{type.id}}" type="checkbox" ng-model="type.selected" ng-click="onTypeClick(type)">
+                                <label for="{{type.id}}"><span class="ch-popup-label-text">{{type.name | capitalize:true}}</span></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_4">
+            <div class="ch-multi-select-dropdown" title="Filter facilities by status">
+                <button type="button" class="ch-multi-select-dropdown__btn" ng-click="statusesConfig.showList = !statusesConfig.showList;">
+                    <span class="ch-multi-select-dropdown__btn-text">{{statusesConfig.label}}</span>
+                    <span class="ch-multi-select-dropdown__btn-icon"></span>
+                </button>
+                <div class="ch-multi-select-dropdown__popup" ng-show="statusesConfig.showList" ng-mouseleave="statusesConfig.showList = false">
+                    <ul class="ch-checkboxes-list">
+                        <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.id | orderBy: 'id'">
+                            <div class="form-type__checkbox_empty-label">
+                                <input id="{{status.id}}" type="checkbox" ng-model="status.selected" ng-click="onStatusClick(status);">
+                                <label for="{{status.id}}"><span class="ch-popup-label-text">{{status.name | capitalize:true}}</span></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-facilities-heading__mobile__view__reset-btn">
+          <button class="ch-facilities-list_mobile"
+                  type="button" ng-click="resetFilters();" title="Reset all selected filters">Reset Filters
+            <span class="ch-facilities-list_top-times"></span></button>
+        </div>
+
+      </div>
+
+      <div class="ch-filter-pane__title" ng-click="showFilterDetails = !showFilterDetails">
+          <div class="ch-facilities-list_top-results">RESULTS:
+              <span class="ch-facilities-list_top-count-message">{{agenciesLength}} Agencies</span>
+          </div>
+
+          <div class="ch-filter-pane__control">
+             <span >All Filters</span>
+             <span class="ch-filter-pane__icon up" ng-show="showFilterDetails"></span>
+             <span class="ch-filter-pane__icon down" ng-show="!showFilterDetails"></span>
+          </div>
+      </div>
+
+</div>
+
+<div class="ch-mobile-facilities__map-view" ng-class="showListView">
+    <div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside" ng-class="showListView"></div>
+</div>
+
+<div class="ch-mobile-facilities__list-view" ng-class="showMapView">
+    <div class = "ch-layout__content ch-layout__content_facilities" ng-class="{ 'ch-layout__content_fullwidth' : isContentFullWidth }" ui-view="main">
+        <div>
+            <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: calc(100vh - 15rem);" layers="layers"></leaflet>
+        </div>
     </div>
-</div><!--end main content-->
-
+</div>

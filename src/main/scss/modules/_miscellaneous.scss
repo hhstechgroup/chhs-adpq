@@ -20,3 +20,53 @@
 .ch-checkboxes-list__item:last-child {
     margin: 0;
 }
+
+.ch-app #loading-bar-spinner {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, .5);
+    pointer-events: inherit;
+
+    .spinner-icon {
+        width: 5rem;
+        height: 5rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -2.5rem 0 0 -2.5rem;
+    }
+}
+
+.ch-app .mCSB_container_wrapper {
+    margin-right: 0;
+}
+
+.ch-app .mCSB_container_wrapper > .mCSB_container {
+    padding-right: 0;
+}
+
+.ch-app .mCSB_scrollTools {
+    right: .2rem;
+}
+
+.ch-app .mCS-inset-2-dark.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
+    background-color: #aeb0b5;
+}
+
+.ch-app .mCS-inset-2-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: #f1f1f1;
+}
+
+a.ch-link {
+    color: #0071bc;
+    text-decoration: none; }
+a.ch-link:hover, a.ch-link:active {
+    color: #205493;
+    text-decoration: underline; }
+a.ch-link:visited {
+    color: #4c2c92; }
+a.ch-link:focus {
+    box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+    outline: 0; }

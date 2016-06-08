@@ -1,136 +1,144 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('FacilitiesController', ['$scope', '$state', '$log', '$q', 'leafletData', 'FosterFamilyAgenciesService', 'GeocoderService', function ($scope, $state, $log, $q, leafletData, FosterFamilyAgenciesService, GeocoderService) {
+    .controller('FacilitiesController',
+    ['$scope', '$state', '$log', '$q',
+        'leafletData', 'FacilityType', 'FacilityStatus', 'FosterFamilyAgenciesService',
+        'GeocoderService', 'chLayoutConfigFactory', '$uibModal', 'Principal', 'AppPropertiesService', 'AddressUtils',
+    function ($scope, $state, $log, $q,
+              leafletData, FacilityType, FacilityStatus, FosterFamilyAgenciesService,
+              GeocoderService, chLayoutConfigFactory, $uibModal, Principal, AppPropertiesService, AddressUtils) {
+        var agenciesDataSource;
+        var agenciesViewIndex;
+        var agenciesViewPage = 10;
+        $scope.agenciesLength = 0;
+
+        $scope.ALL_TYPES_LABEL = 'All Facility Types';
+        $scope.ALL_STATUSES_LABEL = 'All Facility Statuses';
+        $scope.DEFAULT_MARKER_MESSAGE = 'You are here';
+        $scope.DEFAULT_ZOOM = 13;
+
+        $scope.viewContainsCaBounds = false;
+        $scope.caBounds = new L.LatLngBounds(new L.LatLng(32.53, -124.43), new L.LatLng(42, -114.13));
+
+        $scope.typesConfig = {
+            showList: false,
+            label: $scope.ALL_TYPES_LABEL
+        };
+        $scope.statusesConfig = {
+            showList: false,
+            label: $scope.ALL_STATUSES_LABEL
+        };
         $scope.defaults = {
-            tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+            zoomControlPosition: 'bottomright',
+            scrollWheelZoom: true,
             maxZoom: 18
         };
-        $scope.viewConfig = {presentation: 'list'};
-        $scope.center = {autoDiscover: true, zoom: 13};
-
-        $scope.searchText = '';
-        $scope.statuses = [];
-        $scope.types = [];
-
-        $scope.viewConfig = {presentation: 'list'};
-
-        $scope.$watch('center.autoDiscover', function(newValue) {
-            if (!newValue) {
-                $scope.currentLocation = {
-                    lat: $scope.center.lat,
-                    lng: $scope.center.lng,
-                    //focus: true,
-                    message: 'You are here',
-                    icon: {
-                        iconUrl: 'assets/images/icon_pin_home.png',
-                        iconAnchor: [46, 46]
-                    }
-                };
-                $scope.findAgenciesWithinBox();
-
-                $scope.$watch('center.autoDiscover');
+        $scope.layers = {
+            baselayers: {
+                osm: {
+                    name: 'Map',
+                    type: 'xyz',
+                    url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                }
+            },
+            overlays: {
+                agencies: {
+                    name: "Agencies",
+                    type: "markercluster",
+                    visible: true
+                },
+                place: {
+                    name: "Place",
+                    type: "group",
+                    visible: true
+                }
             }
-        });
-
-        $scope.clearLocations = function() {
-            $scope.locations = {};
         };
 
-        $scope.initAgencies = function () {
-            $scope.agencies = [
-                {
-                    county_name: "ALAMEDA",
-                    facility_address: "401 GRAND AVE., SUITE #400",
-                    facility_administrator: "JILL JACOBS",
-                    facility_capacity: "0",
-                    facility_city: "OAKLAND",
-                    facility_name: "FAMILY BUILDERS BY ADOPTION",
-                    facility_number: "15201981",
-                    facility_state: "CA",
-                    facility_status: "LICENSED",
-                    facility_telephone_number: "(510) 272-0204",
-                    facility_type: "ADOPTION AGENCY",
-                    facility_zip: "94610",
-                    license_first_date: "2007-05-02T00:00:00.000",
-                    licensee: "FAMILY BUILDERS BY ADOPTION",
-                    location: {
-                        type: "Point",
-                        coordinates: [-76.92, 39.04]
-                    },
-                    location_address: "401 GRAND AVE., SUITE #400",
-                    location_city: "OAKLAND",
-                    location_state: "CA",
-                    location_zip: "94610",
-                    regional_office: "26"
-                },
-                {
-                    closed_date: "2012-03-14T00:00:00.000",
-                    county_name: "SAN FRANCISCO",
-                    facility_address: "1801 VICENTE STREET",
-                    facility_administrator: "JEFFREY DAVIS",
-                    facility_capacity: "0",
-                    facility_city: "SAN FRANCISCO",
-                    facility_name: "EDGEWOOD CHILDREN'S CENTER FOSTER FAMILY AGENCY",
-                    facility_number: "385200025",
-                    facility_state: "CA",
-                    facility_status: "CLOSED",
-                    facility_telephone_number: "(415) 681-3211",
-                    facility_type: "FOSTER FAMILY AGENCY",
-                    facility_zip: "94116",
-                    license_first_date: "1994-09-14T00:00:00.000",
-                    licensee: "EDGEWOOD, THE SAN FRANCISCO PROTESTANT ORPHANAGE",
-                    location: {
-                        type: "Point",
-                        coordinates: [-76.93, 39.05]
-                    },
-                    location_address: "1801 VICENTE STREET",
-                    location_city: "SAN FRANCISCO",
-                    location_state: "CA",
-                    location_zip: "94116",
-                    regional_office: "26"
-                },
-                {
-                    county_name: "SAN FRANCISCO",
-                    facility_address: "1000 BRANNAN STREET # 301",
-                    facility_administrator: "SILVER, LYNNE",
-                    facility_capacity: "1",
-                    facility_city: "SAN FRANCISCO",
-                    facility_name: "ADOPT INTERNATIONAL",
-                    facility_number: "385201715",
-                    facility_state: "CA",
-                    facility_status: "PENDING",
-                    facility_telephone_number: "(415) 934-0300",
-                    facility_type: "FOSTER FAMILY AGENCY",
-                    facility_zip: "94103",
-                    license_first_date: "2004-05-26T00:00:00.000",
-                    licensee: "ADOPT INTERNATIONAL",
-                    location: {
-                        type: "Point",
-                        coordinates: [-76.9386394, 39.06]
-                    },
-                    location_address: "1000 BRANNAN STREET # 301",
-                    location_city: "SAN FRANCISCO",
-                    location_state: "CA",
-                    location_zip: "94103",
-                    regional_office: "26"
-                }
-            ];
+        $scope.viewConfig = {presentation: 'list'};
+        $scope.center = {lat: 0, lng: 0, zoom: $scope.DEFAULT_ZOOM};
 
-            _.each($scope.agencies, function(agency) {
-                agency.hidePartFlag = true;
+        $scope.getHomeLocation = function (latLng, message) {
+            if (message) {
+                if (!$scope.geocoder._input) {
+                    var watcherUnregister = $scope.$watch('geocoder._input', function(newValue) {
+                        if (newValue) {
+                            $scope.geocoder._input.value = message;
+                            watcherUnregister();
+                        }
+                    });
+                } else {
+                    $scope.geocoder._input.value = message;
+                }
+            }
+            if (!message) {
+                message = $scope.DEFAULT_MARKER_MESSAGE;
+            }
+            return {
+                layer: 'place',
+                lat: latLng.lat,
+                lng: latLng.lng,
+                //focus: true,
+                message: message,
+                icon: {
+                    iconUrl: 'assets/images/icon_pin_home.png',
+                    iconAnchor: [46, 46]
+                }
+            };
+        };
+
+        $scope.currentLocation = $scope.getHomeLocation($scope.center);
+
+        $scope.searchText = '';
+        $scope.facilityTypes = FacilityType;
+        $scope.facilityStatuses = FacilityStatus;
+
+        $scope.showMapView = 'ch-show-map-view';
+        $scope.showLinkMapView = 'ch-mobile-mailbox__nav-tab__link_active';
+
+        $scope.changeMapView = function() {
+            $scope.showMapView = 'ch-show-map-view';
+            $scope.showLinkMapView = 'ch-mobile-mailbox__nav-tab__link_active';
+            $scope.showListView = '';
+            $scope.showLinkListView= '';
+        };
+
+        $scope.changeListView = function() {
+            $scope.showListView = 'ch-show-list-view';
+            $scope.showLinkListView = 'ch-mobile-mailbox__nav-tab__link_active';
+            $scope.showMapView = '';
+            $scope.showLinkMapView = '';
+        };
+
+        $scope.applyInfiniteScroll = function () {
+            $('.ch-aside-facilities').bind('scroll', function(){
+                if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight / 1.1){
+                    $scope.$apply($scope.moreAgencies);
+                }
             });
         };
 
-        $scope.updateLocations = function() {
-            $scope.clearLocations();
-
-            _.each($scope.agencies, function(agency) {
-                $scope.locations['fn' + agency.facility_number] = {
+        $scope.createLocations = function() {
+            var locations = {};
+            _.each(agenciesDataSource, function (agency) {
+                agency.distanceValue = GeocoderService.distance(
+                    {
+                        latitude: agency.location.coordinates[1],
+                        longitude: agency.location.coordinates[0]
+                    },
+                    {
+                        latitude: $scope.currentLocation.lat,
+                        longitude: $scope.currentLocation.lng
+                    }
+                );
+                agency.distance = agency.distanceValue.toFixed(1);
+                locations['fn' + agency.facility_number + '_' + agency.distance.replace('.', '_')] = {
+                    layer: 'agencies',
                     lat: agency.location.coordinates[1],
                     lng: agency.location.coordinates[0],
                     message: '<div ng-include src="\'scripts/app/facilities/location-popup.html\'"></div>',
-                    getMessageScope: function() {
+                    getMessageScope: function () {
                         var scope = $scope.$new();
                         scope.agency = agency;
                         scope.viewConfig = {presentation: 'popup'};
@@ -142,20 +150,39 @@ angular.module('apqdApp')
                     }
                 };
             });
-
+            agenciesDataSource.sort(function (a, b) {
+                return a.distanceValue - b.distanceValue;
+            });
             if ($scope.currentLocation) {
-                $scope.locations.current = $scope.currentLocation;
+                locations.current = $scope.currentLocation;
+            }
+
+            $scope.agencies = agenciesDataSource.slice(0, agenciesViewPage);
+            agenciesViewIndex = agenciesViewPage;
+            $scope.applyInfiniteScroll();
+            $scope.agenciesLength = agenciesDataSource.length;
+            return locations;
+        };
+
+        $scope.moreAgencies = function () {
+            if($scope.agencies && agenciesViewIndex < agenciesDataSource.length) {
+                $scope.agencies = $scope.agencies.concat(agenciesDataSource.slice(agenciesViewIndex, agenciesViewIndex += agenciesViewPage));
             }
         };
 
+        $scope.updateLocations = function() {
+            $scope.locations = $scope.createLocations();
+        };
+
         $scope.defineIcon = function(agency) {
-            if (agency.facility_type === 'ADOPTION AGENCY' && agency.facility_status === 'LICENSED') {
-                return 'assets/images/icon_pin_adoption_green.png';
-            }
+            return 'assets/images/icon_pin_'
+                + _.find(FacilityType, {name: agency.facility_type}).label + '_'
+                + _.find(FacilityStatus, {name: agency.facility_status}).color + '.png';
         };
 
         $scope.findLocationByAddress = function(address) {
             $log.debug('findLocationByAddress', address);
+            $scope.onSelectAddress($scope.addressFeature);
         };
 
         $scope.findAgenciesByTextQuery = function(event) {
@@ -165,78 +192,246 @@ angular.module('apqdApp')
             } else {
                 return;
             }
-            $scope.findAgenciesWithinBox();
+            $scope.invalidate();
         };
 
-        $scope.findAgenciesWithinBox = function() {
-            $log.debug('findAgenciesWithinBox');
+        $scope.findAgenciesWithinBox = function(bounds) {
             $scope.text = $scope.searchText;
-            leafletData.getMap().then(function (map) {
-                var bounds = map.getBounds();
-                $log.debug('map bounds:', bounds);
+            if ($scope.center.lat === 0 && $scope.center.lng === 0) {
+                return;
+            }
 
-                $scope.initAgencies();
-                $scope.updateLocations();
-
-                var northEast = bounds._northEast;
-                var southWest = bounds._southWest;
-                var request = {
-                    bounds: {
-                        northwest: {
-                            latitude: northEast.lat,
-                            longitude: southWest.lng
-                        },
-                        southeast: {
-                            latitude: southWest.lat,
-                            longitude: northEast.lng
-                        }
+            var northEast = bounds._northEast;
+            var southWest = bounds._southWest;
+            var selectedStatuses = $scope.getSelected($scope.facilityStatuses);
+            var selectedTypes = $scope.getSelected($scope.facilityTypes);
+            var request = {
+                bounds: {
+                    northwest: {
+                        latitude: northEast.lat,
+                        longitude: southWest.lng
                     },
-                    text: $scope.searchText,
-                    statuses: $scope.statuses,
-                    types: $scope.types
-                };
+                    southeast: {
+                        latitude: southWest.lat,
+                        longitude: northEast.lng
+                    }
+                },
+                text: $scope.searchText,
+                statuses: selectedStatuses,
+                types: selectedTypes
+            };
+            $log.debug('request', request);
 
-                /*
-                 FosterFamilyAgenciesService.findAgenciesByTextQuery($scope.searchText).then(
-                     function(agencies) {
-                         $scope.agencies = agencies;
-                         $scope.updateLocations();
-                     },
-                     function(reason) {
-                         $log.error('Failed to get agencies from findAgenciesByTextQuery', reason);
-                     }
-                 );
-                 */
-            }, function(reason) {
-                $log.error("Cannot get map instance. ", reason)
-            });
+            FosterFamilyAgenciesService.findAgenciesByFilter(request).then(
+                function(agencies) {
+                    $log.debug('agencies', agencies);
+                    agenciesDataSource = agencies;
+                    $scope.updateLocations();
+                },
+                function(reason) {
+                    $log.error('Failed to get agencies from findAgenciesByFilter', reason);
+                }
+            );
         };
 
         $scope.$on("leafletDirectiveMap.viewreset", function(event) {
             $log.debug(event.name);
-            $scope.findAgenciesWithinBox();
+            $scope.invalidate($scope.isDirty);
         });
 
         $scope.$on("leafletDirectiveMap.dragend", function(event) {
             $log.debug(event.name);
-            $scope.findAgenciesWithinBox();
+            $scope.invalidate($scope.isDirty);
         });
 
         $scope.$on("leafletDirectiveMap.resize", function(event) {
             $log.debug(event.name);
-            $scope.findAgenciesWithinBox();
+            $scope.invalidate($scope.isDirty);
         });
 
-
-        $scope.addGeocoder = function () {
-            if(!$scope.geocoder) {
-                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress)
+        $scope.isDirty = function(bounds) {
+            if (bounds.contains($scope.caBounds)) {
+                if ($scope.viewContainsCaBounds) {
+                    return false;
+                } else {
+                    $scope.viewContainsCaBounds = true;
+                }
+            } else {
+                $scope.viewContainsCaBounds = false;
             }
+            return true;
+        };
+
+        $scope.invalidate = function(isDirty, zoom) {
+            leafletData.getMap().then(function (map) {
+                var bounds = map.getBounds();
+                if (isDirty && !isDirty(bounds)) {
+                    return;
+                }
+                if (zoom) {
+                    map.setZoom($scope.DEFAULT_ZOOM);
+                }
+                $scope.findAgenciesWithinBox(bounds);
+            }, function(reason) {
+                $log.error("Cannot get map instance. ", reason);
+            });
         };
 
         $scope.onSelectAddress = function (addressFeature) {
-            //TODO
+            if (_.isNil(addressFeature)) {
+                return;
+            }
+            $log.debug(addressFeature);
+            var latLng = addressFeature.latlng;
+            $scope.center.lat = latLng.lat;
+            $scope.center.lng = latLng.lng;
+            $scope.currentLocation = $scope.getHomeLocation($scope.center, addressFeature.feature.properties.label);
+            $scope.invalidate(null, $scope.DEFAULT_ZOOM);
         };
 
+        $scope.updateTypesLabel = function() {
+            $scope.updateDropDownLabel($scope.facilityTypes, $scope.typesConfig, $scope.ALL_TYPES_LABEL);
+        };
+        $scope.onTypeClick = function() {
+            $scope.updateTypesLabel();
+            $scope.invalidate();
+        };
+
+        $scope.updateStatusesLabel = function() {
+            $scope.updateDropDownLabel($scope.facilityStatuses, $scope.statusesConfig, $scope.ALL_STATUSES_LABEL);
+        };
+        $scope.onStatusClick = function() {
+            $scope.updateStatusesLabel();
+            $scope.invalidate();
+        };
+
+        $scope.updateDropDownLabel = function(model, config, defaultValue) {
+            var selected = $scope.getSelected(model);
+            if (selected.length > 0) {
+                config.label = selected.length + ' Selected';
+            } else {
+                config.label = defaultValue;
+            }
+        };
+
+        $scope.resetFilters = function() {
+            $scope.clearFilter($scope.facilityTypes);
+            $scope.updateTypesLabel();
+
+            $scope.clearFilter($scope.facilityStatuses);
+            $scope.updateStatusesLabel();
+
+            $scope.searchText = $scope.text = '';
+            $scope.invalidate();
+        };
+
+        $scope.clearFilter = function(model) {
+            _.each(model, function(item) {
+                item.selected = false;
+            });
+        };
+
+        $scope.getSelected = function(model) {
+            return _.map(_.filter(model, {selected: true}), 'name');
+        };
+
+        $scope.addGeocoder = function () {
+            if(!$scope.geocoder) {
+                $scope.geocoder = GeocoderService.createGeocoder("geocoder", $scope.onSelectAddress);
+            }
+        };
         $scope.addGeocoder();
+
+        $scope.toggleBodyContentConfig = chLayoutConfigFactory.layoutConfigState.toggleBodyContentConfig;
+        $scope.$watch(function(){
+            return chLayoutConfigFactory.layoutConfigState.isAsideVisible;
+        }, function() {
+            $scope.isAsideVisible = chLayoutConfigFactory.layoutConfigState.isAsideVisible;
+            $scope.isContentFullWidth = chLayoutConfigFactory.layoutConfigState.isContentFullWidth;
+        });
+
+        $scope.openDefaultAddressModal = function(userProfile) {
+            $uibModal.open({
+                templateUrl: 'scripts/app/facilities/modal/default-address-dialog.html',
+                controller: 'DefaultAddressModalCtrl',
+                size: 'facilities-default-address',
+                windowClass: 'ch-general-modal',
+                resolve: {
+                    userProfile: function() {
+                        return userProfile;
+                    }
+                }
+            }).result.then($scope.addressApplied, $scope.addressRejected);
+        };
+
+        $scope.addressApplied = function(addressFeature) {
+            $scope.onSelectAddress(addressFeature);
+        };
+        $scope.addressRejected = function() {
+            if (navigator.geolocation) {
+                $log.debug('Geolocation is supported!');
+                $scope.getGeoLocation();
+            } else {
+                $log.warn('Geolocation is not supported for this Browser/OS version yet.');
+                $scope.getAddressFromProperties();
+            }
+        };
+
+
+        $scope.getGeoLocation = function () {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    $scope.center.lat = position.coords.latitude;
+                    $scope.center.lng = position.coords.longitude;
+                    $scope.currentLocation = $scope.getHomeLocation($scope.center);
+                },
+                function () {
+                    $scope.getAddressFromProperties();
+                }
+            );
+        };
+
+        $scope.getAddressFromProperties = function () {
+            AppPropertiesService.defaultAddress(function (response) {
+                var address = response.data;
+                GeocoderService.searchAddress(address).then(
+                    function (response) {
+                        var data = response.data[0];
+                        $scope.onSelectAddress({
+                            latlng: {
+                                lat: parseFloat(data.lat),
+                                lng: parseFloat(data.lon)
+                            },
+                            feature: {
+                                properties: {
+                                    label: data.display_name
+                                }
+                            }
+                        });
+                    },
+                    function() {
+                        $log.warn('Cannot get address details');
+                        $scope.getAddressFromProperties();
+                    }
+                );
+            });
+        };
+
+        Principal.identity().then(function(userProfile) {
+            if (_.isNil(userProfile) || _.isNil(userProfile.place) || _.isNil(userProfile.place.latitude)) {
+                $scope.openDefaultAddressModal(userProfile);
+            } else {
+                $scope.onSelectAddress({
+                    latlng: {
+                        lat: userProfile.place.latitude,
+                        lng: userProfile.place.longitude
+                    },
+                    feature: {
+                        properties: {
+                            label: AddressUtils.formatAddress(userProfile.place)
+                        }
+                    }
+                });
+            }
+        });
     }]);

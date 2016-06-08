@@ -61,7 +61,7 @@ public class UserDTO {
     private Place place;
 
     public UserDTO() {
-        // tbd
+        // nothing to do
     }
 
     public UserDTO(User user) {
@@ -91,6 +91,11 @@ public class UserDTO {
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.place = place;
+    }
+
+    public UserDTO(User user, String password) {
+        this(user);
+        this.password = password;
     }
 
     public String getPassword() {

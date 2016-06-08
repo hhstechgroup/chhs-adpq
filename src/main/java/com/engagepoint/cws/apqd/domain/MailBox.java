@@ -24,16 +24,13 @@ public class MailBox implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Inbox inbox;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Outbox outbox;
 
-    @OneToOne
-    private Deleted deleted;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Draft draft;
 
     @OneToOne
@@ -78,14 +75,6 @@ public class MailBox implements Serializable {
 
     public void setContacts(Set<User> users) {
         this.contacts = users;
-    }
-
-    public Deleted getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Deleted deleted) {
-        this.deleted = deleted;
     }
 
     public Draft getDraft() {

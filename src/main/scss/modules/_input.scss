@@ -28,7 +28,8 @@
   }
 }
 
-.ch-multi-select-dropdown__popup {
+.ch-multi-select-dropdown__popup,
+.ch-modal-controls {
     .form-type__checkbox_empty-label {
 
         input[type="checkbox"] + label {
@@ -69,39 +70,42 @@
 
   .form-type__search__input {
     width: 80%;
-    height: 3.7rem;
+    height: 3.9rem;
     float: right;
     margin: 0;
+    border-top: .2rem solid #757575;
+    border-bottom: .2rem solid #757575;
+    border-left: .2rem solid #757575;
     border-right: 0;
     background-color: transparent;
   }
 
   .form-type__search__select {
-    width: 80px;
-    height: 3.2rem;
-    margin: 0;
-    border: 0;
-    background-image: url("../images/us-icon/arrow-down-small.png");
-    background-size: .9rem;
-    background-color: transparent;
-    position: absolute;
-    right: 5.7rem;
+      width: 80px;
+      height: 3.2rem;
+      margin: 0;
+      border: 0;
+      background-image: url("../images/us-icon/arrow-down-small.png");
+      background-size: .9rem;
+      background-color: transparent;
+      position: absolute;
+      right: 5.7rem;
   }
 
   .form-type__search__button {
-    width: 5.6rem;
-    height: 3.7rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: .5rem;
-    border-bottom-right-radius: .5rem;
-    margin: 0;
-    padding: 0;
+      width: 5.0rem;
+      height: 3.9rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: .5rem;
+      border-bottom-right-radius: .5rem;
+      margin: 0;
+      padding: 0;
 
-    .icon {
-      width: 16px;
-      height: 16px;
-    }
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
   }
 
   .icon {
@@ -543,6 +547,18 @@ select:focus,
 select.usa-input-focus {
   box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
 }
+
+    input.ng-invalid.ng-dirty,
+     input.ch-invalid-field.ng-dirty,
+      textarea.ch-invalid-field.ng-dirty {
+         box-shadow: 0 0 3px red, 0 0 7px red;;
+    }
+
+    input.ng-invalid.ng-pristine,
+    input.ch-invalid-field.ng-pristine,
+    textarea.ch-invalid-field.ng-pristine {
+          box-shadow: none;
+    }
 
 input.usa-input-success,
 input[type="text"].usa-input-success,

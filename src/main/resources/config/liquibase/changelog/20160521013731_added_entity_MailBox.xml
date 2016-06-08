@@ -27,15 +27,12 @@
             <column name="outbox_id" type="bigint">
                 <constraints unique="true"/>
             </column>
-            <column name="deleted_id" type="bigint">
-                <constraints unique="true"/>
-            </column>
             <column name="draft_id" type="bigint">
                 <constraints unique="true"/>
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        
+
         <addForeignKeyConstraint baseColumnNames="inbox_id"
                                  baseTableName="mail_box"
                                  constraintName="fk_mailbox_inbox_id"
@@ -47,12 +44,6 @@
                                  constraintName="fk_mailbox_outbox_id"
                                  referencedColumnNames="id"
                                  referencedTableName="outbox"/>
-
-        <addForeignKeyConstraint baseColumnNames="deleted_id"
-                                 baseTableName="mail_box"
-                                 constraintName="fk_mailbox_deleted_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="deleted"/>
 
         <addForeignKeyConstraint baseColumnNames="draft_id"
                                  baseTableName="mail_box"

@@ -31,6 +31,34 @@
     position: relative;
 }
 
+.ch-header__menu-mobile {
+    position: absolute;
+    right: 2rem;
+    z-index: 900;
+
+    .icon {
+        width: 4.4rem;
+        height: 2.6rem;
+        display: inline-block;
+    }
+}
+
+.ch-header__menu-mobile__btn {
+    margin-top: 1.5rem;
+    margin-right: 1rem;
+    background: transparent;
+    display: none;
+    position: relative;
+    z-index: 10002;
+}
+
+.icon-menu-close {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: inline-block;
+  background: url("../images/us-icon/icon-close.png") no-repeat center;
+}
+
 .ch-user-account-entry__dropdown-btn_collapsed:after {
     content: '\0020';
     display: inline-block;

@@ -1,5 +1,6 @@
 package com.engagepoint.cws.apqd.web.rest;
 
+import com.engagepoint.cws.apqd.APQDTestUtil;
 import com.engagepoint.cws.apqd.Application;
 import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.LookupGender;
@@ -10,6 +11,7 @@ import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.service.MailService;
 import com.engagepoint.cws.apqd.service.UserService;
+import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +21,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -30,6 +33,8 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.assertUser;
+import static com.engagepoint.cws.apqd.APQDTestUtil.setCurrentUser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
@@ -66,6 +71,9 @@ public class AccountResourceIntTest {
     private AuthorityRepository authorityRepository;
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
     private UserService userService;
 
     @Mock
@@ -81,7 +89,7 @@ public class AccountResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        doNothing().when(mockMailService).sendActivationEmail((User) anyObject(), anyString());
+        doNothing().when(mockMailService).sendActivationEmail(anyObject(), anyString());
 
         AccountResource accountResource = new AccountResource();
         ReflectionTestUtils.setField(accountResource, "userRepository", userRepository);
@@ -360,5 +368,72 @@ public class AccountResourceIntTest {
         assertThat(userDup.isPresent()).isTrue();
         assertThat(userDup.get().getAuthorities()).hasSize(1)
             .containsExactly(authorityRepository.findOne(AuthoritiesConstants.PARENT));
+    }
+
+    @Test
+    @Transactional
+    public void testSaveAccount() throws Exception {
+        User user = APQDTestUtil.newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userRepository.saveAndFlush(user);
+
+        setCurrentUser(user);
+
+        user.setFirstName("Anishka");
+        user.setLastName("Krzhykova");
+        user.setSsnLast4Digits("5678");
+        user.setPhoneNumber("111-111-3333");
+        user.setCaseNumber("K333");
+
+        restMvc.perform(
+            post("/api/account")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(
+                    new UserDTO(user)
+                )))
+            .andExpect(status().isOk());
+
+        User updatedUser = userRepository.findOneByEmail(user.getEmail()).get();
+        assertUser(updatedUser, user);
+    }
+
+    @Test
+    @Transactional
+    public void testChangePassword() throws Exception {
+        User user = APQDTestUtil.newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userRepository.saveAndFlush(user);
+
+        setCurrentUser(user);
+
+        String newPassword = RandomUtil.generatePassword();
+
+        restMvc.perform(
+            post("/api/account/change_password")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(newPassword))
+            .andExpect(status().isOk());
+
+        User updatedUser = userRepository.findOneByLogin(user.getLogin()).get();
+        assertThat(updatedUser.getPassword()).isNotEqualTo(passwordEncoder.encode(newPassword));
+    }
+
+    @Test
+    @Transactional
+    public void testChangeIncorrectPassword() throws Exception {
+        User user = APQDTestUtil.newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userRepository.saveAndFlush(user);
+
+        setCurrentUser(user);
+
+        String newPassword = "111";
+
+        restMvc.perform(
+            post("/api/account/change_password")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(newPassword))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string("Incorrect password"));
+
+        User updatedUser = userRepository.findOneByLogin(user.getLogin()).get();
+        assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
     }
 }

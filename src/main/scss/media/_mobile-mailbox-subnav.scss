@@ -1,0 +1,33 @@
+.ch-mobile-mailbox__nav {
+    display: none;
+    flex-flow: row wrap;    
+}
+
+.ch-mobile-mailbox__nav-tab {
+    flex: 1;
+    text-align: center;
+    border-bottom: .1rem solid #cbcdcf;
+}
+
+
+.ch-mobile-mailbox__nav-tab__link {
+    padding: 2rem 4rem;
+    width: 100%;
+    border-bottom: .6rem solid #fff;
+}
+.ch-mobile-mailbox__nav-tab__link.ch-mobile-mailbox__nav-tab__link_active {
+    border-bottom: .6rem solid #0071bc;
+
+    .ch-mobile-mailbox__nav-tab__text {
+        color: #000;
+    }
+}
+
+.ch-mobile-mailbox__nav-tab__text {
+    font-size: 2.8rem;
+    color: #5b616b;
+}
+
+// .ch-menu-mobile__folders-show {
+//     display: block !important;
+// }

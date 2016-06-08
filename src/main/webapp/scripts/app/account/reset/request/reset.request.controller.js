@@ -6,6 +6,7 @@ angular.module('apqdApp')
         $scope.success = null;
         $scope.error = null;
         $scope.errorEmailNotExists = null;
+        $scope.errorEmailIsNotActivated = null;
         $scope.resetAccount = {};
         $timeout(function (){angular.element('[ng-model="resetAccount.email"]').focus();});
 
@@ -20,6 +21,8 @@ angular.module('apqdApp')
                 $scope.success = null;
                 if (response.status === 400 && response.data === 'e-mail address not registered') {
                     $scope.errorEmailNotExists = 'ERROR';
+                } else if (response.status === 400 && response.data === 'e-mail address not activated') {
+                    $scope.errorEmailIsNotActivated = 'ERROR';
                 } else {
                     $scope.error = 'ERROR';
                 }

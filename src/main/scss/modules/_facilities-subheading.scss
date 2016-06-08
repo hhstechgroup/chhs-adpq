@@ -15,7 +15,7 @@
 .ch-facilities-heading__row {
     display: flex;
     align-items: stretch;
-    min-height: 7.3rem;
+    height: 7.3rem;
 }
 
 .ch-facilities-heading__item {
@@ -86,8 +86,8 @@
     font-weight: 400;
 }
 
-.ch-form-input.ch-form-input_search {
-    height: auto;
+.ch-form-input.ch-form-input_small.ch-form-input_search {
+    height: 3.6rem;
 }
 
 .ch-multi-select-dropdown__btn {
@@ -97,6 +97,7 @@
     width: 100%;
     font-size: 1.4rem;
     position: relative;
+    white-space: nowrap;
 }
 
 .ch-multi-select-dropdown__btn-icon {

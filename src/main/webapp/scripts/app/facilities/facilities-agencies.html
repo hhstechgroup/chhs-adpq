@@ -1,7 +1,14 @@
-<section class="ch-aside-facilities">
+<section class="ch-aside-facilities" ng-show="isAsideVisible">
+    <div class="ch-facilities-list_top-pane">
+        <div class="ch-facilities-list_top-results">RESULTS: <span class="ch-facilities-list_top-count-message">{{agenciesLength}} Agencies</span></div>        
+    </div>
     <ul class="ch-facilities">
-        <li class="ch-facilities__item" ng-repeat="agency in agencies track by agency.facility_number">
+        <li id="agency{{agency.facility_number}}" ng-repeat="agency in agencies"
+            class="{{ isActiveAgency(agency) ? 'ch-facilities__item_active' : 'ch-facilities__item' }}">
             <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
         </li>
     </ul>
 </section>
+<button type="button" class="ch-aside-facilities-ear" ng-click="toggleBodyContentConfig()">
+    <span class="icon ch-aside-facilities-ear__icon" ng-class="{ 'icon-pagination-arrow-left': isAsideVisible, 'icon-pagination-arrow-right': !isAsideVisible}"></span>
+</button>

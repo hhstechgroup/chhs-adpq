@@ -11,6 +11,7 @@ angular.module('apqdApp')
                     setHidden = function () {
                         element.addClass('hidden');
                     },
+                    authorities = attrs.hasAnyAuthority.replace(/\s+/g, '').split(','),
                     defineVisibility = function (reset) {
                         var result;
                         if (reset) {
@@ -23,8 +24,7 @@ angular.module('apqdApp')
                         } else {
                             setHidden();
                         }
-                    },
-                    authorities = attrs.hasAnyAuthority.replace(/\s+/g, '').split(',');
+                    };
 
                 if (authorities.length > 0) {
                     defineVisibility(true);
@@ -48,6 +48,7 @@ angular.module('apqdApp')
                     setHidden = function () {
                         element.addClass('hidden');
                     },
+                    authority = attrs.hasAuthority.replace(/\s+/g, ''),
                     defineVisibility = function (reset) {
 
                         if (reset) {
@@ -62,8 +63,7 @@ angular.module('apqdApp')
                                     setHidden();
                                 }
                             });
-                    },
-                    authority = attrs.hasAuthority.replace(/\s+/g, '');
+                    };
 
                 if (authority.length > 0) {
                     defineVisibility(true);

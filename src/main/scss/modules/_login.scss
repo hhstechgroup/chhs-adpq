@@ -1,31 +1,38 @@
-/* Temp fix */
-// .ch-layout__header,
-// .ch-layout__aside {
-//   display: none !important;
-// }
-// .ch-layout__content {
-//   padding-left: 0 !important;
-// }
-/* Temp fix */
-
+$break-desktop-large: 1200px;
+$break-desktop: 992px;
+$break-tablet: 770px;
+$break-phone: 640px;
 
 .ch-login-bg,
-.ch-reset-request-bg {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: url("../images/us-icon/login-bg.jpg") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+.ch-reset-request-bg,
+.ch-profile-feedback-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url("../images/us-icon/login-bg.jpg") no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-.ch-login,
-.ch-reset-request {
+
+.rowfix {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.ch-login {
+    width: 100%;
+    height: 100%;
+    min-width: 550px;
+}
+
+.ch-reset-request,
+.ch-profile-feedback {
     width: 100%;
     height: 100%;
     padding-top: 10rem;
@@ -33,24 +40,184 @@
     padding-right: 5%;
 }
 
-.ch-login__logo-image,
-.ch-reset-request__logo-image {
+.ch-login__header {
     width: 100%;
+    height: 7rem;
+    padding-top: 1.7rem;
+    padding-bottom: 1.5rem;
+    border-bottom: .1rem solid rgba(255, 255, 255, 0.2);
+    padding-left: 5%;
+    padding-right: 5%;
+    position: relative;
+}
 
-  a {
-      width: 100%;
-  }
+.ch-login__header__logo,
+.ch-login__footer__logo {
+    float: left;
+    position: relative;
+}
+
+.ch-login__header__logo {
+    top: -.6rem;
+}
+
+.ch-login__footer__logo {
+    top: -1.5rem;
+}
+
+.ch-login__header__actions,
+.ch-login__footer__links {
+    float: right;
+}
+
+.ch-login__actions__new-account {
+    a {
+        font-size: 1.4rem;
+        border: .1rem solid #fff;
+        color: #fff;
+        border-radius: .3rem;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 700;
+        line-height: 1;
+        outline: none;
+        padding: 1rem 2rem;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+.ch-login__content,
+.ch-login__social,
+.ch-login__footer {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.ch-reset-request__logo-image,
+.ch-profile-feedback__logo-image {
+    width: 100%;
+    a {
+        width: 100%;
+    }
+}
+
+.ch-profile-feedback__logo-image {
+    text-align: center;
 }
 
 .logo-image {
-    width: 100%;
-    height: 8.5rem;
+    width: 14rem;
+    height: 4.7rem;
     display: inline-block;
     background: url("../images/us-icon/logo-white.png") no-repeat center;
 }
 
-.ch-login__form,
-.ch-reset-request__form {
+.logo-image_xl {
+    width: 19.8rem;
+    height: 6.6rem;
+    display: inline-block;
+    background: url("../images/main-nav/logo-xl.png") no-repeat center;
+}
+
+.ch-login__form {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    border: .1rem solid #cbcdcf;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.ch-login__content__text {
+    padding-top: 8rem;
+    color: #fff;
+}
+
+.ch-login__content__text-title  h3 {
+    font-size: 4.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ch-login__content__text-item,
+.ch-login__content__text-item_tablet {
+    padding-top: 4rem;
+    font-size: 1.9rem;
+    font-style: italic;
+
+    .icon {
+        width: 1.6rem;
+        height: 1.6rem;
+        display: inline-block;
+    }
+
+    span {
+        margin-right: 1.5rem;
+    }
+
+    li {
+        padding-bottom: 2.1rem;
+    }
+}
+
+.ch-login__content__text {
+    .ch-login__content__text-item {
+        @media screen and (max-width: $break-desktop) {
+            display: none;
+        }
+    }
+}
+
+.ch-login__content__text-title {
+    @media screen and (max-width: $break-desktop) {
+        text-align: center;
+    }
+}
+
+.ch-login__social {
+    @media screen and (max-width: $break-desktop) {
+        padding-top: 0;
+    }
+}
+
+.ch-login__social-title {
+    @media screen and (max-width: $break-desktop) {
+        text-align: center;
+    }
+}
+
+.ch-login__content__text-item_tablet {
+    display: none;
+    color: #fff;
+
+    @media screen and (max-width: $break-desktop) {
+        display: block;
+        padding-top: 1rem;
+        padding-bottom: 1.5rem;
+        li {
+            padding-bottom: 1rem;
+        }
+    }
+}
+
+.ch-login__footer__links .footer-links__list {
+    @media screen and (max-width: $break-tablet) {
+
+        position: relative;
+        top: -15px;
+
+        li {
+            display: list-item;
+            list-style: none;
+        }
+    }
+  }
+
+.ch-reset-request__form,
+.ch-profile-feedback__form {
     margin-top: 3rem;
     padding-left: 4rem;
     padding-right: 4rem;
@@ -59,7 +226,8 @@
 }
 
 .ch-login__form__title,
-.ch-reset-request__form__title {
+.ch-reset-request__form__title,
+.ch-profile-feedback__form__title {
     font-size: 2.4rem;
     text-align: center;
     margin-top: 2.5rem;
@@ -79,6 +247,8 @@
     input {
         height: 4.3rem;
         background: rgba(255, 255, 255, 0.4);
+        border-radius: 0 !important;
+        border: .1rem solid #000;
     }
 }
 
@@ -88,6 +258,9 @@
     .alert-link {
         text-decoration: underline;
         color: #0071bc;
+        &:hover {
+            color: #205493;
+        }
     }
 }
 
@@ -96,6 +269,9 @@
     height: 3.6rem;
     margin-top: 2.5rem;
     margin-bottom: 3rem;
+    &:hover {
+        background-color: #205493;
+    }
 }
 
 .ch-login__separator {
@@ -126,12 +302,10 @@
     right: -1rem;
 }
 
-.ch-login__new-account,
 .ch-reset-request__back {
     margin-top: 4rem;
     margin-left: 4rem;
     margin-right: 4rem;
-
 
     a {
         font-size: 1.4rem;
@@ -150,3 +324,162 @@
         -webkit-font-smoothing: antialiased;
     }
 }
+
+.ch-login__social {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background: #fff;
+    position: relative;
+    z-index: 10;
+}
+
+.ch-login__social-title {
+    font-size: 2.4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2rem;
+    height: 8rem;
+    color: #000;
+}
+
+.ch-login__social__pane {
+    width: 100%;
+    iframe {
+        width: 100% !important;
+    }
+}
+
+.ch-login__footer {
+    height: 15rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    background: #343c47;
+    position: relative;
+    z-index: 10;
+}
+
+.ch-login__actions__new-account {
+    float: right;
+
+    a:hover {
+        color: #d6d7d9;
+        border-color: #d6d7d9;
+    }
+}
+
+.ch-login__actions__lang {
+    float: right;
+    font-weight: 600;
+    padding-right: 2rem;
+    padding-top: .8rem;
+    padding-bottom: 1rem;
+    margin-right: 1rem;
+    position: relative;
+    color: #fff;
+    cursor: pointer;
+
+    .icon {
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: .5rem;
+        position: relative;
+        top: .2rem;
+        display: inline-block;
+    }
+}
+
+.ch-login__actions__lang:before {
+    content: " ";
+    width: .8rem;
+    height: .4rem;
+    display: inline-block;
+    position: absolute;
+    top: 1.6rem;
+    right: .5rem;
+    background: url("../images/us-icon/arrow-down-white.png") no-repeat center;
+    z-index: 200;
+}
+
+.ch-login__form__group {
+    input.ng-invalid {
+          box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+    }
+}
+
+.footer-links__list {
+    color: #fff;
+
+    li {
+        display: inline-block;
+        margin-left: 2rem;
+        a:hover {
+            color: #aeb0b5;
+        }
+    }
+}
+
+.ch-login__actions__lang__popup {
+    background: #fff;
+    box-shadow: 0 1px 1px #cbcdcf;
+    padding: 1rem 1rem 1rem 1rem;
+
+    position: absolute;
+    top: 5.2rem;
+    right: 0;
+    z-index: 10000;
+}
+
+.ch-login__actions__lang__popup:before {
+    content: '\0020';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -1rem;
+    right: 2rem;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+
+.ch-login__lang__english,
+.ch-login__lang__spanish {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: .5rem 2rem .5rem 2rem;
+
+    border-radius: .4rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #000;
+
+    &:hover {
+        background: #cbcdcf;
+    }
+}
+
+.ch-profile-feedback__form_succeeded {
+    .icon-process-succeed {
+        display: block;
+        margin: 3.8rem auto 0;
+    }
+}
+
+.ch-profile-feedback__form {
+    padding-bottom: 3.6rem;
+}
+
+.ch-profile-feedback__text {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.6rem;
+    margin-bottom: .6rem;
+}
+
+.ch-profile-feedback__text_center {
+    text-align: center;
+}
+
+.ch-profile-feedback-controls {
+    margin-top: 2.8rem;
+}
+

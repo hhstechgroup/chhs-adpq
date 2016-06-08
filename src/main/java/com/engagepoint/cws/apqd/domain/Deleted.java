@@ -1,14 +1,12 @@
 package com.engagepoint.cws.apqd.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -24,14 +22,34 @@ public class Deleted implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "deleted")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Message> messages = new HashSet<>();
+    @OneToOne
+    private Message message;
 
-    @OneToOne(mappedBy = "deleted")
-    @JsonIgnore
-    private MailBox mailBox;
+    @OneToOne
+    private User deletedBy;
+
+    @Column(name = "deleted_date")
+    private ZonedDateTime deletedDate;
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
+    public ZonedDateTime getDeletedDate() {
+        return deletedDate;
+    }
+
+    public void setDeletedDate(ZonedDateTime deletedDate) {
+        this.deletedDate = deletedDate;
+    }
+
+    public User getDeletedBy() {
+        return deletedBy;
+    }
+
+    public void setDeletedBy(User deletedBy) {
+        this.deletedBy = deletedBy;
+    }
 
     public Long getId() {
         return id;
@@ -41,20 +59,12 @@ public class Deleted implements Serializable {
         this.id = id;
     }
 
-    public Set<Message> getMessages() {
-        return messages;
+    public Message getMessage() {
+        return message;
     }
 
-    public void setMessages(Set<Message> messages) {
-        this.messages = messages;
-    }
-
-    public MailBox getMailBox() {
-        return mailBox;
-    }
-
-    public void setMailBox(MailBox mailBox) {
-        this.mailBox = mailBox;
+    public void setMessages(Message message) {
+        this.message = message;
     }
 
     @Override

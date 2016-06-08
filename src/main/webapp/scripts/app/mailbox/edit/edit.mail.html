@@ -9,22 +9,69 @@
                 </div>
                 <div class="ch-mail-heading__item ch-mail-heading__item_heading">
                     <h2 class="ch-new-mail-heading">
-                        {{!isReplyOn ? 'New Mail' : mail.subject}}
+                        {{!isReplyOn ? 'New Message' : mail.subject}}
                     </h2>
                 </div>
+
+                <div>
+                    <h3>
+                       <span>{{progressPercentage}} &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </h3>
+                </div>
+
                 <div class="ch-mail-heading__item ch-mail-heading__item_attach-btn">
                     <div class="ch-mail-attach-files">
-                        <div class="ch-mail-attach-files__btn">
-                            <a class="ch-link-btn ch-link-btn_icon ch-link-btn_icon_attach-files" role="button">Attach files</a>
+                        <div class="ch-mail-attach-files__btn" title="Click to attach the file">
+                            <a ngf-select="upload($file)"
+                               class="ch-link-btn ch-link-btn_icon ch-link-btn_icon_attach-files"
+                               role="button">Attach files</a>
                         </div>
                     </div>
                 </div>
+
                 <div class="ch-mail-heading__item ch-mail-heading__item_action-btn">
                     <button type="button" class="ch-option-btn ch-option-btn_short-text" ng-click="sendMail()">
                         <span class="ch-option-btn__text">{{isReplyOn ? 'Reply' : 'Send'}}</span>
                     </button>
                 </div>
+
             </div>
+        </div>
+
+        <div ng-if="mail.attachments.length > 0" class="ch-mail-expanded__footer">
+            <div class="ch-attachments">
+
+                <div class="ch-attachments__heading">
+                    <h3>
+                        <span class="attachments-count">attachments</span>
+                    </h3>
+                </div>
+
+                <ol class="ch-attachments__list">
+
+                    <li ng-repeat="attachment in mail.attachments" class="ch-attachments__list__item">
+                        <div class="ch-attachments__list__item__icon">
+                            <span class="icon icon-attachment"></span>
+                        </div>
+
+                        <div class="ch-attachments__list__item__file">
+                            <span class="attachments-filename" title="File name">{{attachment.fileName}}</span>
+                            <span class="attachments-filesize" title="File size">{{attachment.fileSize | convertFileSizeToHuman}}</span>
+                        </div>
+
+                        <div class="ch-attachments__list__item__actions">
+
+                            <a href="api/file/{{attachment.id}}">
+                                <span class="icon icon-download" title="Download attachment"></span>
+                            </a>
+
+                            <span class="icon icon-remove" ng-click="removeAttachment(attachment)" title="Remove attachment"></span>
+                        </div>
+                    </li>
+
+                </ol>
+            </div>
+
         </div>
 
         <div class="ch-mail-editor__body">
@@ -48,7 +95,7 @@
                     </div>
                 </div>
 
-                <div ng-if="showContacts && !isReplyOn" class="ch-new-mail__row ch-new-mail__row_no-pad">
+                <div ng-if="showContacts && !isReplyOn && !isOneRecipient" class="ch-new-mail__row ch-new-mail__row_no-pad">
                     <div class="ch-contacts-dropdown">
                         <ul class="ch-contacts-list">
                             <li ng-repeat="contact in contacts" class="ch-contacts-list__item">
@@ -61,15 +108,22 @@
                     </div>
                 </div>
 
-                <div ng-if="isNewMail" class="ch-new-mail__row">
+                <div ng-if="!isReplyOn" class="ch-new-mail__row">
                     <div class="ch-new-mail-field">
-                        <input type="text" class="ch-new-mail-field__input" ng-model="mail.subject" placeholder="Subject:">
+                        <input type="text" maxlength="100" class="ch-new-mail-field__input" ng-model="mail.subject"
+                               ng-change="onTextChange()"
+                               ng-class="isSubjectInvalid ? ' ch-invalid-field' : ''"
+                               placeholder="Subject:">
                     </div>
                 </div>
 
                 <div class="ch-new-mail__row">
                     <div class="ch-new-mail-text-body">
-                        <textarea cols="30" rows="20" ng-model="mail.body" class="ch-new-mail-text-body__text-input"></textarea>
+                        <div class="ch-new-mail-text-body__text-counter">{{4000 - mail.body.length}} characters left</div>
+                        <textarea cols="30" maxlength="4000" rows="20" ng-model="mail.body"
+                                  ng-change="onTextChange()"
+                                  ng-class="isBodyInvalid ? ' ch-invalid-field' : ''"
+                                  class="ch-new-mail-text-body__text-input"></textarea>
                     </div>
                 </div>
             </div>

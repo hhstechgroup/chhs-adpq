@@ -16,12 +16,18 @@ angular.module('apqdApp')
                     }
                 },
                 resolve: {
-                    mail: ['$stateParams', 'Message', function($stateParams, Message) {
+                    mail: ['$state', '$stateParams', 'Message', function($state, $stateParams, Message) {
                         if (!_.isEmpty($stateParams.mailId)) {
                             return Message.get({id: $stateParams.mailId}).$promise;
                         } else {
-                            return null;
+                            return {
+                                to: $state.params.contact,
+                                askAbout: $state.params.askAbout
+                            };
                         }
+                    }],
+                    identity: ['Principal', function(Principal) {
+                        return Principal.identity();
                     }]
                 }
             })
@@ -40,6 +46,9 @@ angular.module('apqdApp')
                 resolve: {
                     mail: ['$stateParams', 'Message', function($stateParams, Message) {
                         return Message.get({id: $stateParams.replyOn}).$promise;
+                    }],
+                    identity: ['Principal', function(Principal) {
+                        return Principal.identity();
                     }]
                 }
             });

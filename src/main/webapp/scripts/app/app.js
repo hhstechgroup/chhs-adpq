@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
-    'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
+    'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'ngToast', 'infinite-scroll',
     // jhipster-needle-angularjs-add-module JHipster will add new module
     'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router',  'infinite-scroll', 'angular-loading-bar',
     'ui.select', 'ngSanitize', 'ui.mask', 'ngScrollbars', 'sticky', 'ui-leaflet'])
@@ -78,19 +78,32 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
                         if (result) {
                             $state.go('metrics');
                         } else {
-                            Principal.hasAuthority('PARENT').then(function(result) {
-                                if(result) {
-                                    $state.go('ch-facilities', {}, {reload: true});
-                                } else {
-                                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
-                                }
-                            })
-
+                            $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
                         }
                     });
             } else {
                 $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
             }
+        };
+
+        $rootScope.goMainPage = function() {
+            Principal.hasAuthority('CASE_WORKER').then(function(has) {
+                if (has) {
+                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
+                }
+            });
+
+            Principal.hasAuthority('PARENT').then(function(has) {
+                if (has) {
+                    $state.go('ch-inbox.messages', {directory: 'inbox'}, {reload: true});
+                }
+            });
+
+            Principal.hasAuthority('ROLE_ADMIN').then(function(has) {
+                if (has) {
+                    $state.go('metrics', {}, {reload: true});
+                }
+            });
         };
 
         $rootScope.hasAnyAuthority = function(authority) {
@@ -109,7 +122,10 @@ angular.module('apqdApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalpre
         $stateProvider.state('site', {
             'abstract': true,
             views: {
-                'main.nav@': {
+                'header@': {
+                    templateUrl: 'scripts/components/header/header.html'
+                },
+                'main.nav@site': {
                     templateUrl: 'scripts/components/main-nav/main.nav.html',
                     controller: 'MainNavController'
                 }

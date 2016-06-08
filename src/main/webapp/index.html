@@ -1,5 +1,5 @@
 <!doctype html>
-<!--EngagePoint CHHS-APQD 0.1-->
+<!--EngagePoint CHHS-APQD 1.0-SNAPSHOT-->
 <html class="no-js">
     <head>
         <meta charset="utf-8">
@@ -8,6 +8,7 @@
         <meta name="description" content="">
         <meta name="google" content="notranslate">
         <meta name="viewport" content="width=device-width">
+        <meta name="google-signin-client_id" content="36149439280-idl95ahqqan7opdsu7nvrq5aqrlj2e3c.apps.googleusercontent.com">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
@@ -20,94 +21,37 @@
         <link rel="stylesheet" href="bower_components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" />
         <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
         <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
         <link rel="stylesheet" href="assets/styles/main.css">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700,800' rel='stylesheet' type='text/css'>
         <!-- endbuild -->
         <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
         <link rel="stylesheet" href="" id="bootswatch-css" title="Default">
         <!-- leaflet geocoder-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.css">
+        <link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.min.css" />
 
     </head>
-    <body ng-app="apqdApp">
+    <body ng-app="apqdApp" class="ch-app">
+    <toast></toast>
 
         <!--[if lt IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <div class="ch-layout" ui-view="global">
-            <div class="ch-layout__header" >
-               <div class="ch-header">
-                   <div class="ch-header__section ch-header__section_logo">
-                        <div class="ch-logo">
-                            <a href="#" class="ch-logo__link">
-                                <img class="ch-logo__img" src="assets/images/logo.png" alt="Logo"/>
-                            </a>
-                        </div>
-                   </div>
-                   <div class="ch-header__section">
-                       <div class="ch-header__subsection">
-                           <nav class="ch-main-nav" ui-view="main.nav">
+            <div class="ch-layout__header"  ui-view="header">
 
-                           </nav>
-                       </div>
-                       <div class="ch-header__subsection ch-header__subsection-user-account" ng-controller="MyProfileAndLogoutController">
-                               <div class="ch-user-account-entry">
-                                   <div class="ch-user-account-entry__dropdown">
-                                       <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed" ng-click="isAccountPopupVisible=!isAccountPopupVisible">
-                                           <span class="icon icon-user-account ch-user-account-entry__dropdown-icon ch-user-account-entry__dropdown-icon_user-account"></span>
-                                       </button>
-                                   </div>
-                                   <div class="ch-user-account-entry__popup" ng-show="isAccountPopupVisible">
-                                       <div class="ch-user-account-popup">
-                                            <div class="ch-user-account-popup__info clearfix">
-                                                <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
-                                                <p class="ch-user-account-popup__user-name">
-                                                    {{accountName}}
-                                                </p>
-                                                <p class="ch-user-account-popup__user-email">
-                                                    {{account.email}}
-                                                </p>
-                                            </div>
-                                           <div class="ch-user-account-popup__controls">
-                                               <div class="ch-user-account-popup__profile-btn">
-                                                   <button type="button" class="ch-option-btn" ui-sref="settings">
-                                                       <span class="ch-option-btn__text">My Profile</span>
-                                                   </button>
-                                               </div>
-                                               <div class="ch-user-account-popup__exit-btn">
-                                                   <button type="button" class="ch-plane-btn" ng-click="logout()">
-                                                       <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
-                                                       <span class="ch-plane-btn__text">Sign out</span>
-                                                   </button>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                       </div>
-                   </div>
-               </div>
             </div>
 
             <div class = "ch-layout__body" ui-view="content">
+
             </div>
-
         </div>
-
-        <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>-->
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
@@ -156,6 +100,8 @@
         <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
         <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
         <script src="bower_components/lodash/lodash.js"></script>
+        <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -183,7 +129,6 @@
     <script src="scripts/components/interceptor/auth.interceptor.js"></script>
     <script src="scripts/components/interceptor/errorhandler.interceptor.js"></script>
     <script src="scripts/components/interceptor/notification.interceptor.js"></script>
-    <script src="scripts/components/main-nav/main.nav.directive.js"></script>
     <script src="scripts/components/main-nav/main.nav.controller.js"></script>
     <script src="scripts/components/user/user.service.js"></script>
     <script src="scripts/components/util/truncate.filter.js"></script>
@@ -197,13 +142,9 @@
     <script src="scripts/components/util/data-util.service.js"></script>
     <script src="scripts/components/util/sort.directive.js"></script>
     <script src="scripts/components/util/auto-save.service.js"></script>
-    <script src="scripts/components/util/cws.storage.service.js"></script>
-    <script src="scripts/app/dashboard/dashboard.js"></script>
-    <script src="scripts/app/dashboard/dashboard.controller.js"></script>
-    <script src="scripts/app/dashboard/dashboard.service.js"></script>
-    <script src="scripts/app/POC/POC.js"></script>
-    <script src="scripts/app/POC/locations/locations.js"></script>
-    <script src="scripts/app/POC/locations/locations.controller.js"></script>
+    <script src="scripts/components/util/address-util.service.js"></script>
+    <script src="scripts/components/util/app-properties.service.js"></script>
+    <script src="scripts/app/account/login/authentication.error.service.js"></script>
     <script src="scripts/app/account/account.js"></script>
     <script src="scripts/app/account/activate/activate.js"></script>
     <script src="scripts/app/account/activate/activate.controller.js"></script>
@@ -241,6 +182,7 @@
     <script src="scripts/app/admin/user-management/user-management.controller.js"></script>
     <script src="scripts/app/admin/user-management/user-management.js"></script>
     <script src="scripts/app/entities/entity.js"></script>
+    <script src="scripts/app/error/accessdenied.controller.js"></script>
     <script src="scripts/app/error/error.js"></script>
     <script src="scripts/app/main/main.js"></script>
     <script src="scripts/app/main/main.controller.js"></script>
@@ -258,12 +200,6 @@
     <script src="scripts/components/util/bootswatch/bootswatch.service.js"></script>
     <script src="scripts/components/util/bootswatch/bootswatch.directive.js"></script>
     <script src="scripts/components/util/bootswatch/bootswatch.controller.js"></script>
-    <script src="scripts/components/cws-search/elastic.search.index.service.js"></script>
-    <script src="scripts/components/cws-search/elastic.search.string.query.builder.js"></script>
-    <script src="scripts/components/cws-search/cws.search.service.js"></script>
-    <script src="scripts/components/contact-address/contact-address.directive.js"></script>
-    <script src="scripts/app/search/search.js"></script>
-    <script src="scripts/app/search/search.controller.js"></script>
     <script src="scripts/components/entities/attachment/attachment.service.js"></script>
     <script src="scripts/components/entities/attachment/attachment.search.service.js"></script>
     <script src="scripts/components/entities/calendarTask/calendarTask.service.js"></script>
@@ -312,9 +248,11 @@
     <script src="scripts/app/mailbox/edit/edit.mail.controller.js"></script>
     <script src="scripts/app/mailbox/edit/edit.mail.js"></script>
     <script src="scripts/components/entities/message/draft.message.service.js"></script>
+    <script src="scripts/components/entities/message/thread.message.service.js"></script>
+    <script src="scripts/components/entities/message/file.message.service.js"></script>
     <script src="scripts/components/mailbox/contacts.service.js"></script>
     <script src="scripts/components/entities/message/confirm.message.service.js"></script>
-    <script src="scripts/components/entities/message/email.service.js"></script>
+    <script src="scripts/components/entities/message/dir.message.service.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox.controller.js"></script>
     <script src="scripts/app/entities/mailBox/mailBox-dialog.controller.js"></script>
@@ -325,6 +263,7 @@
     <script src="scripts/app/entities/message/message.js"></script>
     <script src="scripts/app/entities/message/message.controller.js"></script>
     <script src="scripts/app/entities/message/message-dialog.controller.js"></script>
+    <script src="scripts/app/account/register/register-saved.controller.js"></script>
     <script src="scripts/app/entities/message/message-delete-dialog.controller.js"></script>
     <script src="scripts/app/entities/message/message-detail.controller.js"></script>
     <script src="scripts/components/entities/message/message.service.js"></script>
@@ -358,11 +297,15 @@
     <script src="scripts/components/entities/deleted/deleted.service.js"></script>
     <script src="scripts/components/entities/deleted/deleted.search.service.js"></script>
     <script src="scripts/app/mailbox/mailbox.js"></script>
+    <script src="scripts/components/util/textarea.utils.js"></script>
     <script src="scripts/app/mailbox/mailbox.controller.js"></script>
     <script src="scripts/app/facilities/facilities.js"></script>
     <script src="scripts/app/facilities/facilities.controller.js"></script>
+    <script src="scripts/app/facilities/facilities-agencies.controller.js"></script>
     <script src="scripts/app/facilities/facilities-agency.directive.js"></script>
-
+    <script src="scripts/app/facilities/modal/default-address-dialog.controller.js"></script>
+    <script src="scripts/app/account/login/modal/privacy-policy-dialog.controller.js"></script>
+    <script src="scripts/components/entities/message/delete.message.service.js"></script>
     <script src="scripts/app/entities/draft/draft.js"></script>
     <script src="scripts/app/entities/draft/draft.controller.js"></script>
     <script src="scripts/app/entities/draft/draft-dialog.controller.js"></script>
@@ -371,6 +314,14 @@
     <script src="scripts/components/entities/draft/draft.service.js"></script>
     <script src="scripts/components/entities/draft/draft.search.service.js"></script>
     <script src="scripts/components/geocoder/geocoder.service.js"></script>
+    <script src="scripts/components/geocoder/geocoder.directive.js"></script>
+    <script src="scripts/components/layout/layout.service.js"></script>
+    <script src="scripts/components/social/facebook.service.js"></script>
+    <script src="scripts/components/social/google.plus.service.js"></script>
+    <script src="bower_components/ngToast/dist/ngToast.min.js"></script>
+
+    <script src="scripts/components/header/header.directive.js"></script>
+    <script src="scripts/components/util/set-height.directive.js"></script>
     <!-- endbuild -->
 
     <!-- google places api -->
@@ -386,6 +337,77 @@
         <div class="modal-footer">
             <button class="button primary" ng-click="close()">Close</button>
         </div>
+    </script>
+    <script type="text/ng-template" id="messageSentNotification.html">
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_success">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_success"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Success</p>
+                <p class="ch-alert-msg__info">Message has been sent!</p>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_white"></button>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="messageNotSentNotification.html" >
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_err">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_err"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Error</p>
+                <p class="ch-alert-msg__info">Message has not been sent!</p>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_white"></button>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="attachmentTooBig.html" >
+        <div class="ch-alert-msg ch-alert-msg_with-icn ch-alert-msg_warn">
+            <div class="ch-alert-msg__icon ch-alert-msg__icon_warn"></div>
+            <div class="ch-alert-msg__text">
+                <p class="ch-alert-msg__title">Warning</p>
+                <p class="ch-alert-msg__info">Attachment size should not exceed 10Mб</p>
+            </div>
+            <div class="ch-alert-msg__btn-close">
+                <button type="button" class="close-btn close-btn_black"></button>
+            </div>
+        </div>
+    </script>
+        <!-- Google Plus init -->
+    <script>
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/client:plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+        window.addEventListener("load", function () {
+            window.gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        })
+    </script>
+
+        <!-- Facebook init -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '986049751501891',
+                status: true,
+                cookie: true,
+               // xfbml: true,
+                version: 'v2.4'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
     </script>
 </body>
 </html>

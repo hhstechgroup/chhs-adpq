@@ -1,27 +1,37 @@
 <div class="ch-page">
+    <div class="ch-page-bg"></div>
 
     <div class="ch-page-heading">
 
-        <div class="ch-page-heading__select">
-            <div class="form-type__checkbox_empty-label">
+        <div ng-if="mails.length > 0" class="ch-page-heading__select">
+            <div class="form-type__checkbox_empty-label" title="Select all messages in the list">
                 <input id="selectAll" type="checkbox" ng-click="selectAll()" ng-model="allSelected">
                 <label for="selectAll"></label>
             </div>
         </div>
 
-        <div class="ch-page-heading__actions">
-            <span class="icon icon-remove" ng-click="deleteSelected()"></span>
+        <div ng-if="mails.length == 0" class="ch-page-heading__select">
+            <span>NO MESSAGES</span>
+        </div>
+
+        <div ng-if="!hasSelected()" class="ch-page-heading__actions_hidden">
+        </div>
+
+        <div ng-if="hasSelected()" class="ch-page-heading__actions" ng-click="deleteOrRestoreSelected()">
+            <span class="icon icon-remove" ></span>
+            <span class="actions__text">{{getActionName()}}</span>
         </div>
 
         <div class="ch-page-heading__search">
 
             <form class="form-type__search">
 
-                <button type="submit" class="form-type__search__button">
+                <button ng-click="filter()" type="submit" class="form-type__search__button" title="Provide keywords from message or recipient name">
                     <span class="icon icon-search"></span>
                 </button>
 
-                <input id="search-field-small" type="search" name="search" class="form-type__search__input">
+                <input id="search-field-small" type="search" name="search"
+                       ng-model="searchString" class="form-type__search__input" placeholder="Search in messages" title="Provide keywords from message or recipient name">
 
             </form>
 
@@ -30,13 +40,13 @@
 
                     <div class="ch-button-group__item">
                         <button type="button" class="ch-button-group__btn" ng-click="prevPage()">
-                            <span class="icon icon-pagination-arrow-left"></span>
+                            <span class="icon icon-pagination-arrow-left" title="Open previous page of message list"></span>
                         </button>
                     </div>
 
                     <div class="ch-button-group__item">
-                        <button type="button" class="ch-button-group__btn ch-button-group__btn_left-border" ng-click="nextPage()">
-                            <span class="icon icon-pagination-arrow-right"></span>
+                        <button type="button" class="ch-button-group__btn_left-border" ng-click="nextPage()">
+                            <span class="icon icon-pagination-arrow-right" title="Open next page of message list"></span>
                         </button>
                     </div>
 
@@ -53,10 +63,11 @@
 
     <ul class="ch-page-content">
 
-        <li ng-repeat="mail in mails" class="ch-content-item ch-content-item_active">
+        <li ng-repeat="mail in mails" ng-class="getUnreadMessageStyle(mail)"
+            class="ch-content-item">
 
-            <div class="ch-content-item__checkbox">
-                <div class="form-type__checkbox_empty-label">
+            <div class="ch-content-item__checkbox" ng-click="mail.selected = !mail.selected" >
+                <div class="form-type__checkbox_empty-label" title="Select message for some action">
                     <input id="select{{mail.id}}" type="checkbox" name="select{{mail.id}}"
                            ng-model="mail.selected">
                     <label for="select{{mail.id}}"><span></span></label>
@@ -64,19 +75,18 @@
             </div>
 
             <div ng-click="openMail(mail)">
-                <div class="ch-content-item__person">
+                <div class="ch-content-item__person" title="Recipient or Sender of the message">
                     <span class="person-name">{{getTargetName(mail)}}</span>
-                    <span ng-if="mail.threadUnreadMessages > 0"
-                          class="person-chain-count">({{mail.threadUnreadMessages}})</span>
+                    <span ng-if="getUnreadMessageCount(mail) > 0" class="person-chain-count">({{getUnreadMessageCount(mail)}})</span>
                 </div>
 
-                <div class="ch-content-item__entry">
+                <div class="ch-content-item__entry" title="Message subject and body">
                     <span class="entry-name">{{mail.subject}}</span>
                     <span class="entry-main"> - {{mail.body}}</span>
                 </div>
 
                 <div class="ch-content-item__date">
-                    <span class="item_date">{{mail | formatMailDate}}</span>
+                    <span class="item_date" title="Message date">{{mail | formatMailDate}}</span>
                 </div>
 
                 <div ng-if="mail.attachments.length > 0" class="ch-content-item__attachments">

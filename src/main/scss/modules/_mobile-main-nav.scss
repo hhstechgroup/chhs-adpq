@@ -1,0 +1,151 @@
+.ch-menu-mobile__pane {
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
+    top: -1000px;
+    right: 0;
+    left: 0;
+    box-shadow: 0 2px 2px #343c47;
+    transition-property: opacity;
+    transition-property: top;
+    transition-duration: 200ms;
+    opacity: 0;
+}
+
+.ch-menu-mobile__pane.ch-menu-mobile__active {
+    top: 0;
+    opacity: 1;
+}
+
+.ch-menu-mobile__bg-show {
+    width: 100%;
+    height: 100%;
+    right: 0;
+    top: 10rem;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    background: #cbcdcf;
+    opacity: 0.4;
+    z-index: 999;
+}
+
+.ch-mobile-main-nav-item .ch-menu-mobile__link_active {
+    background: #545d6b !important;
+}
+
+.ch-header__menu-mobile__bg {
+    width: 100%;
+    height: 10rem;
+    position: absolute;
+    z-index: 10001;
+}
+
+.ch-menu-mobile__title {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+    padding-left: 5rem;
+    border-bottom: 1px solid #cbcdcf;
+    text-align: center;
+    color: #fff;
+}
+
+.ch-menu-mobile__title__icon {
+    width: 4.4rem;
+    height: 2.6rem;
+    margin-left: 2rem;
+    background: url(../images/us-icon/icon-menu-mobile-pane.png) 0 0 no-repeat;
+}
+
+.ch-menu-mobile__title__text {
+    font-size: 2.8rem;
+    position: relative;
+    top: -.2rem;
+}
+
+.ch-mobile-main-nav-item {
+
+}
+
+.ch-mobile-main-nav-item__link {
+    display: block;
+    width: 100%;
+    padding: 3rem 4rem 3rem 5rem;
+    background: #343c47;
+
+    .icon {
+        width: 3rem;
+        height: 3rem;
+        margin-right: 2rem;
+    }
+
+    .icon-inbox {
+        color: #fff;
+        background: url("../images/us-icon/letter_mini_white.svg") no-repeat center;
+    }
+
+    .icon-facilities {
+        background: url("../images/us-icon/icon-facilities.png") no-repeat center;
+    }
+
+    .icon-profile {
+        background: url("../images/us-icon/icon-user-big.png") no-repeat center;
+    }
+}
+
+.ch-mobile-main-nav-item__text-bundle {
+
+}
+
+.ch-mobile-main-nav-item__text {
+    display: inline-block;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: #fff;
+    position: relative;
+    top: -.5rem;
+
+  }
+
+.ch-mobile-main-nav-item__inbox-counter {
+    position: absolute;
+    border-radius: 50%;
+    top: -.8rem;
+    right: -1.6rem;
+    background: #fdb81e;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.1rem;
+    color: #fff;
+    text-align: center;
+    padding: .2rem 0 0;
+}
+
+.ch-mobile-main-nav__sign-out {
+    padding: 3rem 4rem 3rem 5rem;
+    border-top: .1rem solid #cbcdcf;
+    background: #343c47;
+
+    .icon {
+      width: 3rem;
+      height: 3rem;
+      display: inline-block;
+      margin-right: 2rem;
+    }
+
+    .icon-user-account-exit {
+        background: url("../images/us-icon/icon-sign-out.png") no-repeat center;
+    }
+
+    .ch-plane-btn__text {
+        float: right;
+        font-size: 2.8rem;
+        font-weight: 400;
+        color: #fff;
+        line-height: 1;
+    }
+}
+
+.ch-mobile-main-nav__sign-out__btn {
+
+}

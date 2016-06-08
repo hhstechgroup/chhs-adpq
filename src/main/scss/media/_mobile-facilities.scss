@@ -1,0 +1,246 @@
+.ch-facilities-heading__row {
+
+    @media screen and (max-width: $break-phone) {
+        display: block;
+        height: 13.5rem;
+        padding-top: 2.8rem;
+        padding-bottom: 2.8rem;
+        padding-left: 1.7rem;
+        padding-right: 1.7rem;
+
+        .ch-facilities-heading__item:first-of-type {
+            padding-left: 0;
+        }
+
+        .ch-facilities-heading__item:last-of-type {
+            padding-right: 0;
+        }
+    }
+}
+
+.ch-facilities-heading__item {
+    @media screen and (max-width: $break-phone) {
+        padding: 0;
+    }
+}
+
+.ch-input-block__form-input_search-field-map .leaflet-pelias-expanded  {
+    @media screen and (max-width: $break-phone) {
+        width: 100% !important;
+    }
+}
+
+.ch-facilities-heading__row .ch-input-block__form-input_search-field-map .leaflet-pelias-expanded .leaflet-pelias-input {
+
+    @media screen and (max-width: $break-phone) {
+        width: 100% !important;
+        height: 8rem;
+        font-size: 2.8rem;
+        padding-left: 6rem;
+    }
+
+}
+
+.ch-facilities-heading__row .ch-input-block__form-input_search-field-map .leaflet-bar a.leaflet-pelias-search-icon {
+
+    @media screen and (max-width: $break-phone) {
+        position: relative;
+        top: 2.5rem;
+        left: 1rem;
+        background-image: url("../../assets/images/us-icon/icon-facilities-m.png");
+    }
+}
+
+.ch-facilities-heading__row .ch-input-block__form-input_search-field-map .leaflet-pelias-expanded .leaflet-pelias-close {
+    @media screen and (max-width: $break-phone) {
+        margin-top: -.6rem;
+        margin-right: .8rem;
+    }
+}
+
+
+.ch-facilities-heading__input__item_2,
+.ch-facilities-heading__input__item_3,
+.ch-facilities-heading__input__item_4 {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-facilities-heading__mobile__view__filter {
+    display: none;
+
+    @media screen and (max-width: $break-phone) {
+        display: block;
+    }
+}
+
+.ch-aside-facilities {
+    @media screen and (max-width: $break-phone) {
+        width: 100%;
+        border-right: 0;
+    }
+}
+
+.ch-layout__aside.ch-layout__aside_facilities {
+    @media screen and (max-width: $break-phone) {
+        width: 100%;
+        border-right: 0;
+    }
+}
+
+
+.ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_2,
+.ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_3,
+.ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_4 {
+    @media screen and (max-width: $break-phone) {
+        display: block;
+    }
+}
+
+.ch-facilities-heading__mobile__view__filter {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: #f1f1f1;
+    border-bottom: .1rem solid #cbcdcf;
+
+}
+
+.ch-aside-facilities-ear {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-filter-pane__title {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-size: 2.8rem;
+
+    .ch-filter-pane__control {
+        float: right;
+        font-size: 2.8rem;
+        color: #0071bc;
+    }
+
+    .ch-facilities-list_top-results {
+        display: inline-block;
+        font-size: 2.8rem;
+
+        .ch-facilities-list_top-count-message {
+            font-size: 2.8rem;
+        }
+
+    }
+
+}
+
+.ch-filter-pane__icon {
+    width: 2.6rem;
+    height: 1.4rem;
+    display: inline-block;
+    margin-left: 1rem;
+}
+
+.ch-filter-pane__icon.down {
+    background: url("../images/us-icon/arrow-down-big-color.png") no-repeat center;
+}
+
+.ch-filter-pane__icon.up {
+    background: url("../images/us-icon/arrow-up-big-color.png") no-repeat center;
+}
+
+.ch-facilities-heading__mobile__view__filter-expanded .ch-form-input.ch-form-input_search {
+    @media screen and (max-width: $break-phone) {
+        width: 100% !important;
+        height: 8rem;
+        font-size: 2.8rem;
+        padding-left: 6rem;
+    }
+
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      font-size: 2.8rem;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      font-size: 2.8rem;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      font-size: 2.8rem;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      font-size: 2.8rem;
+    }
+}
+
+.ch-facilities-heading__mobile__view__filter-expanded {
+    .ch-facilities-heading__input__item_2,
+    .ch-facilities-heading__input__item_3,
+    .ch-facilities-heading__input__item_4 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.ch-popup-label-text {
+    font-size: 2.8rem;
+    position: relative;
+    top: 1.1rem;
+}
+
+
+.ch-facilities-heading__input__item_3,
+.ch-facilities-heading__input__item_4 {
+
+      @media screen and (max-width: $break-phone) {
+          margin-top: 3rem;
+      }
+
+    .ch-multi-select-dropdown__btn-icon::after {
+        @media screen and (max-width: $break-phone) {
+            width: 2.6rem;
+            height: 1.4rem;
+            background: url("../images/us-icon/arrow-down-big.png") no-repeat center;
+        }
+    }
+
+    .ch-multi-select-dropdown__btn {
+        @media screen and (max-width: $break-phone) {
+            height: 8rem;
+            font-size: 2.8rem;
+            padding-left: 6rem;
+        }
+    }
+}
+
+.ch-multi-select-dropdown__popup {
+    @media screen and (max-width: $break-phone) {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+.ch-facilities-list_top-pane {
+    @media screen and (max-width: $break-phone) {
+        display: none;
+    }
+}
+
+.ch-facilities-heading__item_2 {
+    @media screen and (max-width: 1200px) {
+        flex-grow: 1;
+    }
+    
+}
+
+.ch-facilities-heading__mobile__view__reset-btn {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    .ch-option-btn {
+        height: 8rem;
+    }
+    .ch-option-btn__text {
+        font-size: 2.8rem;
+    }
+}

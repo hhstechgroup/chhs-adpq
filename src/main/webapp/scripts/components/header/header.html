@@ -1,0 +1,127 @@
+<div class="ch-header">
+    <div class="ch-header__section ch-header__section_logo">
+        <div class="ch-logo">
+            <a href="" class="ch-logo__link">
+                <img class="ch-logo__img" src="assets/images/logo.png" alt="Logo"/>
+            </a>
+        </div>
+    </div>
+    <div class="ch-header__section">
+        <div class="ch-header__subsection">
+            <nav class="ch-main-nav" ui-view="main.nav">
+
+            </nav>
+        </div>
+        <div class="ch-header__subsection ch-header__subsection-user-account" ng-controller="MyProfileAndLogoutController">
+            <div class="ch-user-account-entry" show-user-account-popup>
+                <div class="ch-user-account-entry__dropdown" title="User profile">
+                    <button type="button" class="ch-user-account-entry__dropdown-btn ch-user-account-entry__dropdown-btn_collapsed" ng-click="toggleUserPopup()">
+                        <span class="icon icon-user-account ch-user-account-entry__dropdown-icon ch-user-account-entry__dropdown-icon_user-account"></span>
+                    </button>
+                </div>
+                <div class="ch-user-account-entry__popup" ng-show="isUserAccountPopupShown" ng-mouseenter="clearAutoHideUserPopup()" ng-mouseleave="autoHideUserPopup()">
+                    <div class="ch-user-account-popup">
+                        <div class="ch-user-account-popup__info clearfix">
+                            <span class="icon  icon-user-accout-popup ch-user-account-popup__icon"></span>
+                            <p class="ch-user-account-popup__user-name">
+                                {{accountName}}
+                            </p>
+                            <p class="ch-user-account-popup__user-email">
+                                {{account.email}}
+                            </p>
+                        </div>
+                        <div class="ch-user-account-popup__controls">
+                            <div class="ch-user-account-popup__profile-btn">
+                                <button type="button" class="ch-option-btn" ui-sref="settings" ng-click="isAccountPopupVisible = false;">
+                                    <span class="ch-option-btn__text" title="Edit user profile">My Profile</span>
+                                </button>
+                            </div>
+                            <div class="ch-user-account-popup__exit-btn">
+                                <button type="button" class="ch-plane-btn" ng-click="logout()">
+                                    <span class="icon icon-user-account-exit ch-plane-btn__icon"></span>
+                                    <span class="ch-plane-btn__text" title="Sign out from you account">Sign out</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-header__menu-mobile">
+            <div class="ch-header__menu-mobile__bg"></div>
+            <div class="ch-menu-mobile__bg"
+                 ng-class="{ 'ch-menu-mobile__bg-show': isMobileMenuVisible, 'ch-menu-mobile__bg-hide': !isAsideVisible}"
+                 ng-click="isMobileMenuVisible = !isMobileMenuVisible"></div>
+
+            <button type="button" class="ch-header__menu-mobile__btn" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
+                <span class="icon icon-menu-mobile" ng-show="!isMobileMenuVisible"></span>
+                <span class="icon icon-menu-close" ng-show="isMobileMenuVisible"></span>
+            </button>
+
+            <div class="ch-menu-mobile__pane ng-hide-animate"
+                 ng-show="isMobileMenuVisible"
+                 ng-class="{ 'ch-menu-mobile__active': isMobileMenuVisible, 'ch-menu-mobile__hide': !isAsideVisible}">
+
+                <h3 class="ch-menu-mobile__title clearfix">
+                    <span class="ch-menu-mobile__title__text">MENU</span>
+                </h3>
+
+                <ul class="ch-menu-mobile__list">
+                  <li class="ch-menu-mobile__list__item" has-any-authority="PARENT, CASE_WORKER">
+
+                      <div class="ch-mobile-main-nav-item">
+                          <a class="ch-mobile-main-nav-item__link" ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-menu-mobile__link_active">
+
+                              <div class="ch-mobile-main-nav-item__text-bundle" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
+                                  <span class="icon icon-inbox"></span>
+                                  <span class="ch-mobile-main-nav-item__text">Inbox</span>
+                                  <span ng-if="unreadInboxCount > 0" class="ch-mobile-main-nav-item__inbox-counter">{{unreadInboxCount}}</span>
+                              </div>
+                          </a>
+                      </div>
+
+                  </li>
+
+                  <li class="ch-menu-mobile__list__item" has-authority="PARENT">
+
+                    <div class="ch-mobile-main-nav-item">
+                        <a class="ch-mobile-main-nav-item__link" ui-sref="ch-facilities" ui-sref-active="ch-menu-mobile__link_active" ng-click="isMobileMenuVisible = !isMobileMenuVisible">
+
+                            <div class="ch-mobile-main-nav-item__text-bundle">
+                                <span class="icon icon-facilities"></span>
+                                <span class="ch-mobile-main-nav-item__text">Facilities</span>
+                            </div>
+
+                        </a>
+                    </div>
+
+                  </li>
+
+                  <li class="ch-menu-mobile__list__item">
+
+                    <div class="ch-mobile-main-nav-item">
+                        <a class="ch-mobile-main-nav-item__link" ng-click="isMobileMenuVisible = !isMobileMenuVisible " ui-sref="settings" ui-sref-active="ch-menu-mobile__link_active">
+
+                            <div class="ch-mobile-main-nav-item__text-bundle">
+                                <span class="icon icon-profile"></span>
+                                <span class="ch-mobile-main-nav-item__text">My Profile</span>
+                            </div>
+                        </a>
+                    </div>
+
+                  </li>
+                </ul>
+
+                <div class="ch-mobile-main-nav__sign-out clearfix" ng-click="isMobileMenuVisible = !isMobileMenuVisible" ng-controller="MyProfileAndLogoutController">
+                    <button type="button" class="ch-mobile-main-nav__sign-out__btn" ng-click="logout()">
+                        <span class="icon icon-user-account-exit"></span>
+                        <span class="ch-plane-btn__text">Sign out</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

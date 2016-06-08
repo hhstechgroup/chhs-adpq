@@ -40,9 +40,18 @@ angular.module('apqdApp')
             });
         };
 
+        var disconnect = function() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+                stompClient = null;
+            }
+        };
+
         connect();
 
         return {
+            connect: connect,
+            disconnect: disconnect,
             receiveUnreadCounts: receiveUnreadCounts
         }
     });

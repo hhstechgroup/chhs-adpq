@@ -3,7 +3,7 @@
 
     <div class="ch-mail-heading">
         <div class="ch-mail-heading__item ch-mail-heading__item_back-control">
-            <button type="button" class="ch-flat-btn ch-flat-btn_back-btn" ng-click="backToPreviousState()">
+            <button type="button" class="ch-flat-btn ch-flat-btn_back-btn" ng-click="backToPreviousState()" title="Return back to previous page">
             </button>
         </div>
 
@@ -13,28 +13,29 @@
             </h2>
         </div>
 
-        <div class="ch-mail-heading__item ch-mail-heading__item_action-group">
-            <div class="ch-page-heading__actions">
+        <div ng-show="showDeleteButtons()" class="ch-mail-heading__item ch-mail-heading__item_action-group">
+            <div class="ch-page-heading__actions" ng-click="deleteAll()">
                 <span class="icon icon-remove"></span>
-                <span class="icon icon-download"></span>
+                <span class="actions__text" title="Delete all messages in the thread">Delete All</span>
             </div>
         </div>
     </div>
 
     <section class="ch-mail-thread">
         <ul class="ch-mail-thread-list">
-            <li class="ch-mail-thread-list__item">
+
+            <li ng-repeat="mail in messageThread.thread" class="ch-mail-thread-list__item">
                 <div class="ch-mail-expanded">
                     <div class="ch-mail-expanded__header">
                         <div class="ch-mail-header">
 
                             <div class="ch-mail-header__item">
-                                <div class="ch-mail-origin">
+                                <div class="ch-mail-origin" title="Message Sender/Recipient">
                                     <span class="ch-mail-origin__prefix">
-                                        From:
+                                        {{getFromOrTo(mail)}}
                                     </span>
                                     <span class="ch-mail-origin__name">
-                                        {{mail.from.firstName}} {{mail.from.LastName}}
+                                        {{getFromOrToName(mail)}}
                                     </span>
                                 </div>
                             </div>
@@ -45,16 +46,22 @@
 
                                     </div>
                                     <div class="ch-mail-info__date">
-                                        <span class="ch-text">20:02</span>
+                                        <span class="ch-text" title="Message creation time">{{mail | formatMailDate}}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-options-group">
+                            <div class="ch-mail-header__item ch-mail-header__item_ch-mail-options-group"
+                                 ng-show="showDeleteButtons()">
+
                                 <div class="ch-mail-options-group">
                                     <div class="ch-button-group-action">
                                         <a href="" role="button" ui-sref="ch-inbox.reply-mail({replyOn: mail.id})"
-                                           class="ch-button-group-action__btn ch-button-group-action__btn_reply"></a>
+                                           class="ch-button-group-action__btn ch-button-group-action__btn_reply">
+                                           <span class="actions__text_position" title="Reply on current message">Reply</span></a>
+                                         <div class="ch-button-group-action__btn_remove" ng-click="deleteOne(mail)">
+                                             <span class="icon icon-remove" title="Delete current message"></span>
+                                         </div>
                                     </div>
                                 </div>
                             </div>
@@ -64,63 +71,42 @@
 
                     <div class="ch-mail-expanded__body">
                         <div class="ch-mail-body">
-                            <p>{{mail.body}}</p>
+                            <textarea elastic disabled class="ch-view-mail-text-body">{{mail.body}}</textarea>
                         </div>
                     </div>
 
-                    <div class="ch-mail-expanded__footer">
+                    <div ng-if="mail.attachments.length > 0" class="ch-mail-expanded__footer">
                         <div class="ch-attachments">
 
                             <div class="ch-attachments__heading">
                                 <h3>
                                     <span class="attachments-count">attachments</span>
-                                    <!--<span class="attachments-download">Download All</span>-->
                                 </h3>
                             </div>
 
-                            <!--<ol class="ch-attachments__list">-->
+                            <ol class="ch-attachments__list">
 
-                                <!--<li class="ch-attachments__list__item">-->
-                                    <!--<div class="ch-attachments__list__item__icon">-->
-                                        <!--<span class="icon icon-attachment"></span>-->
-                                    <!--</div>-->
+                                <li ng-repeat="attachment in mail.attachments" class="ch-attachments__list__item">
+                                    <div class="ch-attachments__list__item__icon">
+                                        <span class="icon icon-attachment"></span>
+                                    </div>
 
-                                    <!--<div class="ch-attachments__list__item__file">-->
-                                        <!--<span class="attachments-filename">Foster Care Services.jpg</span>-->
-                                        <!--<span class="attachments-filesize">120 MB</span>-->
-                                    <!--</div>-->
+                                    <div class="ch-attachments__list__item__file">
+                                        <span class="attachments-filename">{{attachment.fileName}}</span>
+                                        <span class="attachments-filesize">{{attachment.fileSize | convertFileSizeToHuman}}</span>
+                                    </div>
 
-                                    <!--<div class="ch-attachments__list__item__actions">-->
-                                        <!--<span class="icon icon-view"></span>-->
-                                        <!--<span class="icon icon-download"></span>-->
-                                    <!--</div>-->
-                                <!--</li>-->
+                                    <div class="ch-attachments__list__item__actions">
+                                        <a href="api/file/{{attachment.id}}">
+                                            <span class="icon icon-download"></span>
+                                        </a>
+                                    </div>
+                                </li>
 
-                                <!--<li class="ch-attachments__list__item">-->
-                                    <!--<div class="ch-attachments__list__item__icon">-->
-                                        <!--<span class="icon icon-attachment"></span>-->
-                                    <!--</div>-->
-
-                                    <!--<div class="ch-attachments__list__item__file">-->
-                                        <!--<span class="attachments-filename">Services Info.doc</span>-->
-                                        <!--<span class="attachments-filesize">25 MB</span>-->
-                                    <!--</div>-->
-
-                                    <!--<div class="ch-attachments__list__item__actions">-->
-                                        <!--<span class="icon icon-view"></span>-->
-                                        <!--<span class="icon icon-download"></span>-->
-                                    <!--</div>-->
-                                <!--</li>-->
-                            <!--</ol>-->
+                            </ol>
                         </div>
-
                     </div>
-                </div>
-            </li>
 
-            <li class="ch-mail-thread-list__item">
-                <div class="ch-mail-collapsed">
-                    <div class="ch-mail-collapsed__container"></div>
                 </div>
             </li>
 

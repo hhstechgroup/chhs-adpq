@@ -14,6 +14,14 @@ angular.module('apqdApp')
                         templateUrl: 'scripts/app/mailbox/list/list.html',
                         controller: 'MessagesCtrl'
                     }
+                },
+                resolve: {
+                    filterByDestination: ['$state', function($state) {
+                        return $state.params.contact;
+                    }],
+                    identity: ['Principal', function(Principal) {
+                        return Principal.identity();
+                    }]
                 }
             });
     });

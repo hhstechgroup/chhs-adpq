@@ -17,7 +17,7 @@ public class CredentialLoggingFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // tbd
+        // nothing to do
     }
 
     @Override
@@ -43,6 +43,6 @@ public class CredentialLoggingFilter implements Filter {
 
     @Override
     public void destroy() {
-        // tbd
+        // nothing to do
     }
 }

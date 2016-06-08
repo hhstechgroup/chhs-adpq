@@ -239,9 +239,9 @@ public class JHipsterProperties {
 
     public static class Swagger {
 
-        private String title = "intake API";
+        private String title = "APQD API";
 
-        private String description = "intake API documentation";
+        private String description = "APQD API documentation";
 
         private String version = "0.0.1";
 
@@ -390,7 +390,7 @@ public class JHipsterProperties {
 
             private int port = 2003;
 
-            private String prefix = "intake";
+            private String prefix = "apqd";
 
             public boolean isEnabled() {
                 return enabled;
@@ -435,7 +435,11 @@ public class JHipsterProperties {
 
             private int periodSec = 60;
 
-            private String intakeInstanceName;
+            private int socketTimeoutSec = 3;
+
+            private int connectionTimeoutSec = 3;
+
+            private String hostMetadata;
 
             public boolean isEnabled() {
                 return enabled;
@@ -469,12 +473,28 @@ public class JHipsterProperties {
                 this.periodSec = periodSec;
             }
 
-            public String getIntakeInstanceName() {
-                return intakeInstanceName;
+            public String getHostMetadata() {
+                return hostMetadata;
             }
 
-            public void setIntakeInstanceName(String intakeInstanceName) {
-                this.intakeInstanceName = intakeInstanceName;
+            public void setHostMetadata(String hostMetadata) {
+                this.hostMetadata = hostMetadata;
+            }
+
+            public int getSocketTimeoutSec() {
+                return socketTimeoutSec;
+            }
+
+            public void setSocketTimeoutSec(int socketTimeoutSec) {
+                this.socketTimeoutSec = socketTimeoutSec;
+            }
+
+            public int getConnectionTimeoutSec() {
+                return connectionTimeoutSec;
+            }
+
+            public void setConnectionTimeoutSec(int connectionTimeoutSec) {
+                this.connectionTimeoutSec = connectionTimeoutSec;
             }
         }
     }

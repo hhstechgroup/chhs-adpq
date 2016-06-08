@@ -1,9 +1,12 @@
 /* ========================   Modules/Page Content  ======================= */
 
 .ch-page {
-  padding: 2.5rem;
-  background-color: #f1f1f1;
+    height: 91vh;
+    padding: 2.5rem;
+    background-color: #f1f1f1;
+
 }
+
 
 .ch-page-content {
   padding-top: 1.8rem;
@@ -15,36 +18,75 @@
   float: left;
 }
 
+.ch-page-heading__actions_hidden {
+    height: 3.9rem;
+    padding: .7rem 1.8rem;
+    display: inline-block;
+    cursor: inherit;
+}
+
 .ch-page-heading__actions {
-  height: 3.7rem;
-  border: .1rem solid #757575;
-  display: inline-block;
-  cursor: pointer;
+    height: 3.9rem;
+    padding: .7rem 1.8rem;
+    border: .2rem solid #757575;
+    border-radius: .4rem;
+    display: inline-block;
+    cursor: pointer;
+
+    &:hover {
+        border-color: #323a45;
+
+        .actions__text {
+            color: #323a45;
+        }
+    }
 
   .icon {
-    width: 4.5rem;
-    height: 3.5rem;
+      width: 1.6rem;
+      height: 1.6rem;
+  }
+
+  .icon-remove {
+      position: relative;
+      top: .2rem;
   }
 
   .icon-download {
-    border-left: .1rem solid #757575;
+      border-left: .1rem solid #757575;
   }
+}
+
+.actions__text {
+    margin-left: .4rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #757575;
+}
+
+.actions__text_position {
+    margin-left: .4rem;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #757575;
+    position: relative;
+    top: .7rem;
 }
 
 .ch-page-heading__search {
-  width: 70%;
-  float: right;
+    width: calc(100% - 20rem);
+    float: right;
+    position: relative;
 }
 
 .ch-page-heading__county-messages {
-  float: right;
-  padding-right: 1.5rem;
-  padding-top: 1rem;
+    float: right;
+    padding-right: 1.5rem;
+    padding-top: 1rem;
 
-  span {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1.4rem;
-    color: #5b616b;
-  }
+    span {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 1.4rem;
+      color: #5b616b;
+    }
 }

@@ -1,7 +1,6 @@
 package com.engagepoint.cws.apqd.security;
 
 import com.engagepoint.cws.apqd.Application;
-import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.User;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
@@ -13,6 +12,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -22,9 +22,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.addUserRole;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,6 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserDetailsServiceTest {
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private PasswordEncoder passwordEncoder;
 
     @Inject
     private AuthorityRepository authorityRepository;
@@ -58,7 +60,7 @@ public class UserDetailsServiceTest {
     @Test(expected = UserNotActivatedException.class)
     public void testUserNotActivated() {
         final String INACTIVE_LOGIN = "inactiveUser".toLowerCase();
-        prepareUser(userRepository, INACTIVE_LOGIN);
+        prepareUser(userRepository, passwordEncoder, INACTIVE_LOGIN);
         userDetailsService.loadUserByUsername(INACTIVE_LOGIN);
     }
 
@@ -66,13 +68,9 @@ public class UserDetailsServiceTest {
     @Transactional
     public void testUserDetails() {
         final String LOGIN = "activeUser".toLowerCase();
-        User user = prepareUser(null, LOGIN);
+        User user = prepareUser(null, passwordEncoder, LOGIN);
         user.setActivated(true);
-
-        final String ROLE_USER = "ROLE_USER";
-        Set<Authority> authorities = new HashSet<>();
-        authorities.add(authorityRepository.findOne(ROLE_USER));
-        user.setAuthorities(authorities);
+        addUserRole(authorityRepository, user, AuthoritiesConstants.USER);
 
         userRepository.saveAndFlush(user);
 
@@ -88,6 +86,6 @@ public class UserDetailsServiceTest {
         Collection<? extends GrantedAuthority> testAuthorities = userDetails.getAuthorities();
         assertThat(testAuthorities).isNotNull();
         assertThat(testAuthorities.iterator().hasNext()).isTrue();
-        assertThat(testAuthorities.iterator().next().getAuthority()).isEqualTo(ROLE_USER);
+        assertThat(testAuthorities.iterator().next().getAuthority()).isEqualTo(AuthoritiesConstants.USER);
     }
 }

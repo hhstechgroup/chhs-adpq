@@ -1,18 +1,21 @@
 package com.engagepoint.cws.apqd.service;
 
 import com.engagepoint.cws.apqd.Application;
-import com.engagepoint.cws.apqd.domain.LookupGender;
 import com.engagepoint.cws.apqd.domain.PersistentToken;
 import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.repository.AuthorityRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import java.time.ZonedDateTime;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
 import java.time.LocalDate;
+
+import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -22,6 +25,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 import java.util.List;
 
+import static com.engagepoint.cws.apqd.APQDTestUtil.newUserAnnaBrown;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareUser;
 import static org.assertj.core.api.Assertions.*;
 
@@ -37,14 +41,6 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 public class UserServiceIntTest {
 
-    private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
-    private static final LookupGender GENDER = new LookupGender();
-    private static final String DEFAULT_PHONE = "1111111111";
-
-    static {
-        GENDER.setId(1L);
-    }
-
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
 
@@ -52,11 +48,17 @@ public class UserServiceIntTest {
     private UserRepository userRepository;
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
+    private AuthorityRepository authorityRepository;
+
+    @Inject
     private UserService userService;
 
     @Test(expected = ConstraintViolationException.class)
     public void testLoginConstraint() {
-        prepareUser(userRepository, "INVALID LOGIN");
+        prepareUser(userRepository, passwordEncoder, "INVALID LOGIN");
     }
 
     @Test
@@ -86,17 +88,20 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
-        Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user.setActivated(false);
+        user = userService.createUserInformation(new UserDTO(user, user.getPassword()));
+
+        Optional<User> maybeUser = userService.requestPasswordReset(user.getEmail());
         assertThat(maybeUser.isPresent()).isFalse();
+
         userRepository.delete(user);
     }
 
     @Test
     public void assertThatResetKeyMustNotBeOlderThan24Hours() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userService.createUserInformation(new UserDTO(user, user.getPassword()));
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         String resetKey = RandomUtil.generateResetKey();
@@ -115,8 +120,8 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatResetKeyMustBeValid() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userService.createUserInformation(new UserDTO(user, user.getPassword()));
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         user.setActivated(true);
@@ -130,8 +135,9 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatUserCanResetPassword() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost",
-            "en-US", "1111", DEFAULT_BIRTH_DATE, GENDER, DEFAULT_PHONE);
+        User user = newUserAnnaBrown(passwordEncoder, authorityRepository);
+        user = userService.createUserInformation(new UserDTO(user, user.getPassword()));
+
         String oldPassword = user.getPassword();
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
         String resetKey = RandomUtil.generateResetKey();

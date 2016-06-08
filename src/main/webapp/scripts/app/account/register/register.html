@@ -7,10 +7,6 @@
               <a href=""><span class="logo-image"></span></a>
             </div>
 
-            <div class="alert alert-success" ng-show="success" translate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
-
             <div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
                 <strong>Registration failed!</strong> Please try again later.
             </div>
@@ -28,42 +24,54 @@
             </div>
 
         <div class="ch-sign-up__form">
-            <h3 class="ch-sign-up__form__title">Sign Up</h3>
+            <h3 class="ch-sign-up__form__title" ng-show="!success">Sign Up</h3>
 
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 
               <div class="ch-sign-up__form__group ch-sign-up__form__group_row">
                   <div class="ch-sign-up__form__group_child">
-                      <label for="username" translate="">First Name</label>
-                      <input type="text" class="form-control" id="username" ng-model="registerAccount.firstName" placeholder="Your First Name">
+                      <label for="firstName" translate="">First Name *</label>
+                      <input type="text" class="form-control" id="firstName" name="firstName" ng-model="registerAccount.firstName" placeholder="Your First Name" required>
+                      <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
+                          <p class="help-block"
+                             ng-show="form.firstName.$error.required">
+                              Your First Name is required.
+                          </p>
+                      </div>
                   </div>
 
                   <div class="ch-sign-up__form__group_child">
-                      <label for="username" translate="">Last Name</label>
-                      <input type="text" class="form-control" id="username" ng-model="registerAccount.lastName" placeholder="Your Last Name">
+                      <label for="lastName" translate="">Last Name *</label>
+                      <input type="text" class="form-control" id="lastName" ng-model="registerAccount.lastName" placeholder="Your Last Name" name="lastName" required>
+                      <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
+                          <p class="help-block"
+                             ng-show="form.lastName.$error.required">
+                              Your Last Name is required.
+                          </p>
+                      </div>
                   </div>
               </div>
 
                 <div class="ch-sign-up__form__group">
-                    <label class="control-label" for="login" translate="global.form.username">Username</label>
+                    <label class="control-label" for="login">Username *</label>
                     <input type="text" class="form-control" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
-                           ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
+                           ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required uib-tooltip="Username shall contain lower-case letters and digits">
                     <div ng-show="form.login.$dirty && form.login.$invalid">
                         <p class="help-block"
                                ng-show="form.login.$error.required" translate="register.messages.validate.login.required">
-                            Your username is required.
+                            Your Username is required.
                         </p>
                         <p class="help-block"
                                ng-show="form.login.$error.minlength" translate="register.messages.validate.login.minlength">
-                            Your username is required to be at least 1 character.
+                            Your Username is required to be at least 1 character.
                         </p>
                         <p class="help-block"
                                ng-show="form.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
-                            Your username cannot be longer than 50 characters.
+                            Your Username cannot be longer than 50 characters.
                         </p>
                         <p class="help-block"
                                ng-show="form.login.$error.pattern" translate="register.messages.validate.login.pattern">
-                            Your username can only contain lower-case letters and digits.
+                            Your Username can only contain lower-case letters and digits.
                     </p>
                     </div>
                 </div>
@@ -71,28 +79,28 @@
                 <div class="ch-sign-up__form__group ch-sign-up__form__group_row">
 
                     <div class="ch-sign-up__form__group_child">
-                        <label class="control-label" for="password" translate="">Password</label>
+                        <label class="control-label" for="password" translate="">Password *</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
-                               ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
+                               ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required uib-tooltip="Password must be more then 5 and less then 50 characters">
                         <div ng-show="form.password.$dirty && form.password.$invalid">
                             <p class="help-block"
                                    ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
-                                Your password is required.
+                                Your Password is required.
                             </p>
                             <p class="help-block"
                                    ng-show="form.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
-                                Your password is required to be at least 5 characters.
+                                Your Password is required to be at least 5 characters.
                             </p>
                             <p class="help-block"
                                    ng-show="form.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
-                                Your password cannot be longer than 50 characters.
+                                Your Password cannot be longer than 50 characters.
                             </p>
                         </div>
                         <password-strength-bar password-to-check="registerAccount.password"></password-strength-bar>
                     </div>
 
                     <div class="ch-sign-up__form__group_child">
-                        <label class="control-label" for="confirmPassword" translate="">Password confirmation</label>
+                        <label class="control-label" for="confirmPassword" translate="">Password confirmation *</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
                                ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
                         <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
@@ -113,13 +121,13 @@
                 </div>
 
                 <div class="ch-sign-up__form__group">
-                    <label class="control-label" for="email" >License number/Case number</label>
+                    <label class="control-label" for="email" >Family case/License number *</label>
                     <input type="text" class="form-control" id="caseNumber" name="caseNumber" placeholder="License number/Case number"
-                           ng-model="registerAccount.caseNumber" ng-maxlength=20 required>
+                           ng-model="registerAccount.caseNumber" ng-maxlength=20 required uib-tooltip="Provide number of your case or license. You can find  it in notification letter">
                     <div ng-show="form.caseNumber.$dirty && form.caseNumber.$invalid">
                         <p class="help-block"
                                ng-show="form.caseNumber.$error.required">
-                            License number/Case number is required.
+                            Family case/License number is required.
                         </p>
                         <p class="help-block"
                                ng-show="form.caseNumber.$error.maxlength">
@@ -129,7 +137,7 @@
                 </div>
 
                 <div class="ch-sign-up__form__group">
-                    <label class="control-label" for="email" translate="global.form.email">E-mail Address</label>
+                    <label class="control-label" for="email">E-mail Address *</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
                            ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
                     <div ng-show="form.email.$dirty && form.email.$invalid">
@@ -158,14 +166,10 @@
 
             <p></p>
 
-            <!-- <div class="alert alert-warning" translate="global.messages.info.authenticated">
-                If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-            </div> -->
         </div>
 
-        <div class="ch-sign-up__new-account">
+        <div class="ch-sign-up__new-account" ng-show="!success">
            <a class="" href="#">I have an account</a>
         </div>
-
     </div>
 </div>

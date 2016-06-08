@@ -12,6 +12,10 @@
     height: 7.3rem;
     min-width: 12.5rem;
     padding: 2.2rem 2.5rem;
+
+    &:hover {
+        background: #4e5664;
+    }
 }
 
 .ch-main-nav-item__link_active {

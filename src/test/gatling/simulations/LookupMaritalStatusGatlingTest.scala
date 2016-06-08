@@ -40,7 +40,7 @@ class LookupMaritalStatusGatlingTest extends Simulation {
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
-        .check(status.is(401)))
+        .check(currentLocationRegex("/login")))
         .pause(10)
         .exec(http("Authentication")
         .post("/api/authentication")

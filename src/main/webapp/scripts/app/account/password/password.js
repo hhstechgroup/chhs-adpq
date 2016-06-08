@@ -7,7 +7,7 @@ angular.module('apqdApp')
                 parent: 'account',
                 url: '/password',
                 data: {
-                    authorities: ['ROLE_USER'],
+                    authorities: ['PARENT', 'CASE_WORKER', 'ROLE_USER'],
                     pageTitle: 'global.menu.account.password'
                 },
                 views: {

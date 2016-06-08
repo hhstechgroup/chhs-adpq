@@ -87,7 +87,6 @@ public class DeletedResource {
             LOGGER.debug("REST request to get all Deleteds where mailBox is null");
             return StreamSupport
                 .stream(deletedRepository.findAll().spliterator(), false)
-                .filter(deleted -> deleted.getMailBox() == null)
                 .collect(Collectors.toList());
         }
         LOGGER.debug("REST request to get all Deleteds");

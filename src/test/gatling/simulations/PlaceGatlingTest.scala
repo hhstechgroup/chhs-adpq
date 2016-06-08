@@ -40,7 +40,7 @@ class PlaceGatlingTest extends Simulation {
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
-        .check(status.is(401)))
+        .check(currentLocationRegex("/login")))
         .pause(10)
         .exec(http("Authentication")
         .post("/api/authentication")
@@ -64,7 +64,7 @@ class PlaceGatlingTest extends Simulation {
             .exec(http("Create new place")
             .post("/api/places")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "unitNumber":"SAMPLE_TEXT", "cityName":"SAMPLE_TEXT", "streetName":"SAMPLE_TEXT", "streetNumber":"SAMPLE_TEXT", "zipCode":"SAMPLE_TEXT", "zipSuffix":"SAMPLE_TEXT", "longitude":null, "latitude":null, "validAddressFlag":null, "validationStatus":"SAMPLE_TEXT", "validationMessage":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "unitNumber":"B", "cityName":"Nice City", "streetName":"Good street", "streetNumber":"12345", "zipCode":"12345", "zipSuffix":"1234", "longitude":null, "latitude":null, "validAddressFlag":null, "validationStatus":"SAMPLE_TEXT", "validationMessage":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_place_url")))
             .pause(10)

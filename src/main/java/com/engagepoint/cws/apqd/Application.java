@@ -26,7 +26,7 @@ import java.util.Collection;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class, HazelcastAutoConfiguration.class })
-@EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class, HHSAPIProperties.class})
+@EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class, HHSAPIProperties.class, AppProperties.class})
 public class Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);

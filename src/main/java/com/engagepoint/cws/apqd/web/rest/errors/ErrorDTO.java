@@ -25,12 +25,6 @@ public class ErrorDTO implements Serializable {
         this.description = description;
     }
 
-    ErrorDTO(String message, String description, List<FieldErrorDTO> fieldErrors) {
-        this.message = message;
-        this.description = description;
-        this.fieldErrors = fieldErrors;
-    }
-
     public void add(String objectName, String field, String message) {
         if (fieldErrors == null) {
             fieldErrors = new ArrayList<>();

@@ -1,19 +1,18 @@
 package com.engagepoint.cws.apqd.service;
 
-import com.engagepoint.cws.apqd.domain.Authority;
-import com.engagepoint.cws.apqd.domain.LookupGender;
-import com.engagepoint.cws.apqd.domain.Place;
-import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.domain.*;
 import com.engagepoint.cws.apqd.repository.AuthorityRepository;
+import com.engagepoint.cws.apqd.repository.MailBoxRepository;
 import com.engagepoint.cws.apqd.repository.PersistentTokenRepository;
 import com.engagepoint.cws.apqd.repository.UserRepository;
 import com.engagepoint.cws.apqd.repository.search.UserSearchRepository;
 import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
 import com.engagepoint.cws.apqd.security.SecurityUtils;
 import com.engagepoint.cws.apqd.service.util.RandomUtil;
+import com.engagepoint.cws.apqd.web.rest.MailResource;
 import com.engagepoint.cws.apqd.web.rest.dto.ManagedUserDTO;
-import java.time.ZonedDateTime;
-import java.time.LocalDate;
+import com.engagepoint.cws.apqd.web.rest.dto.UserDTO;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,7 +21,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class for managing users.
@@ -48,6 +53,12 @@ public class UserService {
     @Inject
     private AuthorityRepository authorityRepository;
 
+    @Inject
+    private MailBoxRepository mailBoxRepository;
+
+    @Inject
+    private MailResource mailResource;
+
     public Optional<User> activateRegistration(String key) {
         LOGGER.debug("Activating user for activation key {}", key);
         userRepository.findOneByActivationKey(key)
@@ -57,6 +68,8 @@ public class UserService {
                 user.setActivationKey(null);
                 userRepository.save(user);
                 userSearchRepository.save(user);
+                sendInvitationLetter(user.getLogin());
+                attachSupportContacts(user.getLogin());
                 LOGGER.debug("Activated user: {}", user);
                 return user;
             });
@@ -91,24 +104,27 @@ public class UserService {
             });
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey, String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber) {
+    public User createUserInformation(UserDTO userDTO) {
 
         User newUser = new User();
+        MailBox mailBox = prepareMailbox();
+        mailBox.setUser(newUser);
+        newUser.setMailBox(mailBox);
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.PARENT);
         Set<Authority> authorities = new HashSet<>();
-        String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(login);
+        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        newUser.setLogin(userDTO.getLogin());
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setLangKey(langKey);
-        newUser.setSsnLast4Digits(ssnLast4Digits);
-        newUser.setBirthDate(birthDate);
-        newUser.setGender(gender);
-        newUser.setPhoneNumber(phoneNumber);
+        newUser.setFirstName(userDTO.getFirstName());
+        newUser.setLastName(userDTO.getLastName());
+        newUser.setEmail(userDTO.getEmail().toLowerCase());
+        newUser.setLangKey(userDTO.getLangKey());
+        newUser.setSsnLast4Digits(userDTO.getSsnLast4Digits());
+        newUser.setBirthDate(userDTO.getBirthDate());
+        newUser.setGender(userDTO.getGender());
+        newUser.setPhoneNumber(userDTO.getPhoneNumber());
+        newUser.setCaseNumber(userDTO.getCaseNumber());
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
@@ -119,6 +135,48 @@ public class UserService {
         userSearchRepository.save(newUser);
         LOGGER.debug("Created Information for User: {}", newUser);
         return newUser;
+    }
+
+    private void sendInvitationLetter(String login) {
+        Message invitation = new Message();
+
+        String body;
+        try {
+            body = IOUtils.toString(getClass().getResourceAsStream("/templates/invitation.html"));
+        } catch (IOException e) {
+            throw new IllegalStateException("this should not happen", e);
+        }
+
+        invitation.setBody(body);
+        invitation.setSubject("Welcome!");
+        invitation.setFrom(userRepository.findOneByLogin("maryjenkins").get());
+        invitation.setTo(userRepository.findOneByLogin(login).get());
+
+        mailResource.sendInvitationLetter(invitation);
+    }
+
+    private void attachSupportContacts(String login) {
+        User user = userRepository.findOneByLogin(login).get();
+        User support = userRepository.findOneByLogin("worker").get();
+        mailResource.updateUserContacts(user, support);
+    }
+
+    private MailBox prepareMailbox() {
+        MailBox mailBox = new MailBox();
+
+        Inbox inbox = new Inbox();
+        inbox.setMailBox(mailBox);
+        mailBox.setInbox(inbox);
+
+        Outbox outbox = new Outbox();
+        outbox.setMailBox(mailBox);
+        mailBox.setOutbox(outbox);
+
+        Draft draft = new Draft();
+        draft.setMailBox(mailBox);
+        mailBox.setDraft(draft);
+
+        return mailBoxRepository.save(mailBox);
     }
 
     public User createUser(ManagedUserDTO managedUserDTO) {
@@ -155,7 +213,7 @@ public class UserService {
     }
 
     public void updateUserInformation(String firstName, String lastName, String email, String langKey,
-        String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, Place place) {
+        String ssnLast4Digits, LocalDate birthDate, LookupGender gender, String phoneNumber, Place place, String caseNumber) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
@@ -166,6 +224,7 @@ public class UserService {
             u.setPhoneNumber(phoneNumber);
             u.setGender(gender);
             u.setPlace(place);
+            u.setCaseNumber(caseNumber);
             userRepository.save(u);
             userSearchRepository.save(u);
             LOGGER.debug("Changed Information for User: {}", u);
@@ -195,13 +254,6 @@ public class UserService {
             u.getAuthorities().size();
             return u;
         });
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserWithAuthorities(Long id) {
-        User user = userRepository.findOne(id);
-        user.getAuthorities().size(); // eagerly load the association
-        return user;
     }
 
     @Transactional(readOnly = true)

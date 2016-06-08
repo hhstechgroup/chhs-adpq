@@ -4,6 +4,7 @@
 
 .ch-layout {
     width: 100%;
+    min-width: 40rem;
 }
 
 .ch-layout__aside {
@@ -11,6 +12,7 @@
     width: 21rem;
     height: 100vh;
     border-right: 1px solid #cbcdcf;
+    background-color: #fff;
 }
 
 .ch-layout__content {
@@ -32,11 +34,17 @@
 }
 
 .ch-layout__aside.ch-layout__aside_facilities {
-    width: 30rem;
-    border: none;
-    overflow-y: scroll;
+    width: auto;
+    height: calc(100vh - 14.8rem);
+    border-right: .1rem solid #cbcdcf;
+    z-index: 1;
 }
 
 .ch-layout__content.ch-layout__content_facilities {
     padding-left: 30rem;
+}
+
+.ch-layout__content.ch-layout__content_fullwidth {
+    padding: 0;
+    width: 100%;
 }

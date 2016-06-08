@@ -1,0 +1,121 @@
+<div class="ch-mobile-mailbox__nav">
+
+    <div class="ch-mobile-mailbox__nav-tab">
+        <a href="" class="ch-mobile-mailbox__nav-tab__link" ng-class="linkFolders" ng-click="changeFolders()">
+
+            <span class="ch-mobile-mailbox__nav-tab__text">Folders</span>
+        </a>
+    </div>
+
+    <div class="ch-mobile-mailbox__nav-tab">
+        <a href="" class="ch-mobile-mailbox__nav-tab__link" ng-class="linkContacts" ng-click="changeContacts()">
+            <span class="ch-mobile-mailbox__nav-tab__text">Contacts</span>
+        </a>
+    </div>
+
+</div>
+
+<div class="ch-mobile-folders" ng-class="showFolders">
+
+  <div class="ch-mobile-folders__inbox-nav">
+
+    <div class="ch-mobile-folders__action-btn">
+        <button type="button" class="ch-option-btn"  ui-sref="ch-inbox.new-mail">
+            <span class="ch-option-btn__text">Write</span>
+        </button>
+    </div>
+
+    <div class="ch-multi-select-dropdown__mobile">
+        <button type="button" class="ch-multi-select-dropdown__btn-mobile" ng-click="statusesConfig.showList = !statusesConfig.showList;">
+            <span class="ch-multi-select-dropdown__btn-mobile-text">Incoming</span>
+            <span class="ch-multi-select-dropdown__btn-mobile-icon"></span>
+        </button>
+
+        <div class="ch-multi-select-dropdown__popup" ng-show="statusesConfig.showList" ng-mouseleave="statusesConfig.showList = false">
+
+          <ul class="ch-aside-nav-list">
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_inbox"
+                         ui-sref="ch-inbox.messages({directory: 'inbox'})" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Inbox</span>
+                          <span ng-if="unreadInboxCount > 0" class="ch-aside-nav-item__counter">({{unreadInboxCount}})</span>
+                      </a>
+                  </div>
+              </li>
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_sent"
+                         ui-sref="ch-inbox.messages({directory: 'sent'})" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Sent Messages</span>
+                      </a>
+                  </div>
+              </li>
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_drafts"
+                         ui-sref="ch-inbox.messages({directory: 'drafts'})" ui-sref-opts="{directory: 'drafts'}" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Drafts</span>
+                          <span ng-if="draftsCount > 0" class="ch-aside-nav-item__counter">({{draftsCount}})</span>
+                      </a>
+                  </div>
+              </li>
+              <li class="ch-aside-nav-list__item">
+                  <div class="ch-aside-nav-item">
+                      <a href="" class="ch-aside-nav-item__link ch-aside-nav-item__link_icon ch-aside-nav-item__link_icon_deleted"
+                         ui-sref="ch-inbox.messages({directory: 'deleted'})" ui-sref-active="ch-aside-nav-item__link_active">
+
+                          <span class="ch-aside-nav-item__text">Deleted</span>
+                          <span ng-if="unreadDeletedCount > 0" class="ch-aside-nav-item__counter">({{unreadDeletedCount}})</span>
+                      </a>
+                  </div>
+              </li>
+          </ul>
+        </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="ch-mobile-contacts" ng-class="showContacts">
+
+<div class="ch-contacts__body" >
+        <ul class="ch-aside-contacts">
+
+              <li ng-repeat="contact in contacts" class="ch-aside-contacts__item">
+                    <div class="ch-aside-contacts__short clearfix" ng-click="showFullDetails = !showFullDetails">
+                        <div class="ch-aside-contacts__image">
+                            <span class="icon icon-user"></span>
+                        </div>
+                        <div class="ch-aside-contacts__person">
+                            <h3 class="ch-aside-contacts__person-name"><span>{{contact.firstName}} {{contact.lastName}}</span></h3>
+                            <h4 class="ch-aside-contacts__person-role"><span>{{contact.roleDescription}}</span></h4>
+                        </div>
+                        <span class="ch-aside-contacts__short__arrow up" ng-show="showFullDetails"></span>
+                        <span class="ch-aside-contacts__short__arrow down" ng-show="!showFullDetails"></span>
+                    </div>
+
+                    <div class="ch-aside-contacts__full" ng-show="showFullDetails">
+                        <div class="ch-aside-contacts__action-btn">
+                            <button type="button" class="ch-contacts-btn" ng-click="composeMail(contact)">
+                                <span class="ch-contacts-btn__icon"></span>
+                                <span class="ch-contacts-btn__text">Write</span>
+                            </button>
+                        </div>
+                        <div class="ch-aside-contacts__description">
+                            <h3 class="ch-contacts-description__phone"><span>{{contact.phone | formatTel}}</span></h3>
+                            <h4 class="ch-contacts-description__address"><span>{{contact.place | formatAddress}}</span></h4>
+                            <a href="" class="ch-contacts-description__filter" ng-click="filterByContact(contact)"><span>Filter By Contact</span></a>
+                        </div>
+                    </div>
+              </li>
+
+        </ul>
+    </div>
+  </div>

@@ -21,7 +21,7 @@ public class ExceptionTranslator {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
     public ErrorDTO processConcurencyError(ConcurrencyFailureException ex) {
-        return new ErrorDTO(ErrorConstants.ERR_CONCURRENCY_FAILURE);
+        return new ErrorDTO(ErrorConstants.ERR_CONCURRENCY_FAILURE, ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
