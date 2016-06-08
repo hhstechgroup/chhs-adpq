@@ -264,6 +264,16 @@ $break-phone: 640px;
     }
 }
 
+.ch-profile-feedback__link {
+
+    .alert-link {
+        color: #0071bc;
+        &:hover {
+            color: #205493;
+        }
+    }
+}
+
 .ch-login__form__button-submit,
 .ch-reset-request__form__button-submit {
     height: 3.6rem;
