@@ -6,15 +6,31 @@
                 <input type="submit" class="ch-plane-btn ch-plane-btn_save" value="Save Changes"/>
             </div>
         </div>
-        <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
+        <div class="alert alert-success" ng-show="validation.success">
             <strong>Settings saved!</strong>
         </div>
 
-        <div class="alert alert-danger" ng-show="errorEmailExists" translate="settings.messages.error.emailexists">
+        <div class="alert alert-danger" ng-show="validation.errorEmailExists">
             <strong>E-mail is already in use!</strong> Please choose another one.
         </div>
 
-        <div class="alert alert-danger" ng-show="error" translate="settings.messages.error.fail">
+        <div class="alert alert-danger" ng-show="validation.firstNameInvalid">
+            <strong>First Name is absent</strong> Please populate.
+        </div>
+
+        <div class="alert alert-danger" ng-show="validation.lastNameInvalid">
+            <strong>Last Name is absent</strong> Please populate.
+        </div>
+
+        <div class="alert alert-danger" ng-show="validation.licenseInvalid">
+            <strong>Family Case/License number is absent</strong> Please populate.
+        </div>
+
+        <div class="alert alert-danger" ng-show="validation.addressInvalid">
+            <strong>Address cannot be found</strong> Please update.
+        </div>
+
+        <div class="alert alert-danger" ng-show="validation.error">
             <strong>An error has occurred!</strong> Settings could not be saved.
         </div>
 
@@ -85,7 +101,7 @@
                             <div class="ch-input-block">
                                 <label for="license" class="ch-input-block__label">Family Case/License number *</label>
                                 <div class="ch-input-block__form-input">
-                                    <input type="text" name=license" id="license" class="ch-form-input" ng-model="settingsAccount.caseNumber" required/>
+                                    <input type="text" name="license" id="license" class="ch-form-input" ng-model="settingsAccount.caseNumber" required/>
                                 </div>
                                 <div ng-show="form.license.$dirty && form.license.$invalid">
                                     <p class="help-block"
@@ -280,14 +296,14 @@
                     <span class="ch-section__header ch-section__header_icon ch-section__header_icon_password">Change password</span>
                 </uib-accordion-heading>
 
-                    <div class="alert alert-success" ng-show="passwordSuccessfullyChanged">
+                    <div class="alert alert-success" ng-show="validation.passwordSuccessfullyChanged">
                         <strong>Password changed!</strong>
                     </div>
-                    <div class="alert alert-danger" ng-show="passwordChangingError">
+                    <div class="alert alert-danger" ng-show="validation.passwordChangingError">
                         <strong>An error has occurred!</strong> The password could not be changed.
                     </div>
 
-                    <div class="alert alert-danger" ng-show="passwordsDoNotMatch">
+                    <div class="alert alert-danger" ng-show="validation.passwordsDoNotMatch">
                         The password and its confirmation do not match!
                     </div>
 
