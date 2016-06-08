@@ -89,10 +89,10 @@ jhipster:
             port: 2003
             prefix: apqd
         zabbix:
-            enabled: true
+            enabled: false
             host: localhost
             port: 10051
             periodSec: 60
-            hostMetadata: HOSTPOOL
+            hostMetadata: chhs-apqd-default
             socketTimeoutSec: 3
             connectionTimeoutSec: 3
