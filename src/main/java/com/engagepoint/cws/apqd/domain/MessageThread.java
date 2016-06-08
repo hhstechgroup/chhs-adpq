@@ -9,7 +9,7 @@ import java.util.List;
 public class MessageThread {
 
     public MessageThread() {
-
+        // nothing to do
     }
 
     public MessageThread(Long id) {

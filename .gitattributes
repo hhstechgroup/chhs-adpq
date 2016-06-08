@@ -22,3 +22,5 @@
 *.swf binary
 *.bin binary
 *.zip binary
+*.doc binary
+*.docx binary
