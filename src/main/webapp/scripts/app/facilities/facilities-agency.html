@@ -1,7 +1,7 @@
 <div class="ch-facility">
     <div class="ch-facility__header ch-facility__header_has-subinfo">
         <h3 class="ch-facility__heading">{{agency.facility_name}}</h3>
-        <div class="ch-facility__heading-subinfo ">
+        <div class="ch-facility__heading-subinfo" ng-show="viewConfig.presentation == 'list'">
             <span class="ch-facility__heading-subinfo-prefix">{{agency.distance}}</span>
             <span class="ch-facility__heading-subinfo-ending">miles</span>
         </div>
