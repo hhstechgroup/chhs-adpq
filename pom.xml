@@ -75,6 +75,7 @@
             **com/engagepoint/cws/apqd/config/DatabaseConfiguration.java,
             **com/engagepoint/cws/apqd/config/ElasticSearchConfiguration.java,
             **com/engagepoint/cws/apqd/config/LoggingAspectConfiguration.java,
+            **com/engagepoint/cws/apqd/config/zabbix/ZabbixConstants.java,
             **com/engagepoint/cws/apqd/domain/util/*.*,
             **com/engagepoint/cws/apqd/security/AjaxAuthenticationSuccessHandler.java,
             **com/engagepoint/cws/apqd/security/AjaxLogoutSuccessHandler.java,
