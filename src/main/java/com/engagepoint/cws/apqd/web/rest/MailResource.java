@@ -1,10 +1,7 @@
 package com.engagepoint.cws.apqd.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.engagepoint.cws.apqd.domain.Deleted;
-import com.engagepoint.cws.apqd.domain.Message;
-import com.engagepoint.cws.apqd.domain.MessageThread;
-import com.engagepoint.cws.apqd.domain.User;
+import com.engagepoint.cws.apqd.domain.*;
 import com.engagepoint.cws.apqd.domain.enumeration.MessageStatus;
 import com.engagepoint.cws.apqd.repository.DeletedRepository;
 import com.engagepoint.cws.apqd.repository.MailBoxRepository;
@@ -36,6 +33,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -114,8 +112,9 @@ public class MailResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<MessageThread> messageThreadSearchRepository(@PathVariable Long messageId) {
-        return new ResponseEntity<>(findOrCreateMessageThreadByMessageId(messageId), HttpStatus.OK);
+    public ResponseEntity<MessageThread> getThread(@PathVariable Long messageId) {
+        MessageThread thread = filterThreadMessages(findOrCreateMessageThreadByMessageId(messageId));
+        return new ResponseEntity<>(thread, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/mails/draft",
@@ -441,7 +440,7 @@ public class MailResource {
         if (iterator.hasNext()) {
             thread = iterator.next();
         } else {
-            thread = new MessageThread();
+            thread = new MessageThread(messageId);
             thread.addMessage(messageRepository.findOne(messageId));
             messageThreadSearchRepository.save(thread);
         }
@@ -460,7 +459,8 @@ public class MailResource {
     }
 
     private void restoreMessageInSQL(Message message) {
-        Deleted deleted = deletedRepository.findOneByMessage(message);
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        Deleted deleted = deletedRepository.findOneByMessageAndDeletedBy(message, user);
         deletedRepository.delete(deleted);
     }
 
@@ -468,10 +468,10 @@ public class MailResource {
         MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
         for (Message ms : thread.getThread()) {
             if (ms.equals(message)) {
-//                ms.setDateUpdated(ZonedDateTime.now());
-//                messageSearchRepository.save(ms);
-                thread.getThread().remove(ms);
-                messageSearchRepository.delete(ms);
+                MessageThreadDeletedItem deletedItem = new MessageThreadDeletedItem();
+                deletedItem.setDeletedBy(SecurityUtils.getCurrentUserLogin());
+                deletedItem.setMessage(ms);
+                thread.addDeletedItem(deletedItem);
                 messageThreadSearchRepository.save(thread);
                 return;
             }
@@ -479,11 +479,13 @@ public class MailResource {
     }
 
     private void restoreMessageInElastic(Message message) {
+        String currentUser = SecurityUtils.getCurrentUserLogin();
         MessageThread thread = findOrCreateMessageThreadByMessageId(message.getId());
-        for (Message ms : thread.getThread()) {
-            if (ms.equals(message)) {
-                ms.setStatus(MessageStatus.READ);
-                messageSearchRepository.save(ms);
+
+        for (MessageThreadDeletedItem ms : thread.getDeletedItems()) {
+            if (ms.getMessage().equals(message) &&
+                ms.getDeletedBy().equals(currentUser)) {
+                thread.getDeletedItems().remove(ms);
                 messageThreadSearchRepository.save(thread);
                 return;
             }
@@ -507,5 +509,28 @@ public class MailResource {
                 message.setUnreadMessagesCount(message.getUnreadMessagesCountFrom());
             }
         }
+    }
+
+    private MessageThread filterThreadMessages(MessageThread thread) {
+        String currentUser = SecurityUtils.getCurrentUserLogin();
+
+        List<Message> list = new ArrayList<>();
+        for (Message message : thread.getThread()) {
+            boolean notDeleted = true;
+            for (MessageThreadDeletedItem deletedItem : thread.getDeletedItems()) {
+                if (deletedItem.getDeletedBy().equals(currentUser) &&
+                    deletedItem.getMessage().equals(message)) {
+                    notDeleted = false;
+                    break;
+                }
+            }
+
+            if (notDeleted) {
+                list.add(message);
+            }
+        }
+
+        thread.setThread(list);
+        return thread;
     }
 }
