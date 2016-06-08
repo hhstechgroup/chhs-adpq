@@ -1,10 +1,7 @@
 chhs-apqd-elasticsearch:
   container_name: chhs-apqd-elasticsearch
   restart: unless-stopped
-  image: docker-registry-sdg.engagepoint.us:5000/chhs-apqd-elasticsearch
-  # volumes:
-  #   - ~/volumes/jhipster/apqd/elasticsearch/:/usr/share/elasticsearch/data/
-  ports:
+  image: kaver79/chhs-apqd-elasticsearch  ports:
     - "9200:9200"
     - "9300:9300"
 
@@ -12,10 +9,7 @@ chhs-apqd-postgresql:
   container_name: chhs-apqd-postgresql
   restart: unless-stopped
   image: postgres:9.4.5
-  # volumes:
-  #   - ~/volumes/jhipster/apqd/postgresql/:/var/lib/postgresql/
   environment:
-    - POSTGRES_USER=apqd
-    - POSTGRES_PASSWORD=
+    - POSTGRES_USER=chhs-apqd    - POSTGRES_PASSWORD=
   ports:
     - "5432:5432"
