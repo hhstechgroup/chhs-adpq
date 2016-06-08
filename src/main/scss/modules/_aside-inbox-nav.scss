@@ -129,4 +129,8 @@
     font-weight: 600;
     color: #5b616b;
     vertical-align: middle;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }

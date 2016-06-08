@@ -98,6 +98,10 @@
     .icon {
         width: 3.6rem;
         height: 3.6rem;
+
+        @media screen and (max-width: 640px) {
+            height: 5.6rem;
+        }
     }
 }
 
@@ -105,6 +109,11 @@
     float: left;
     padding-left: .7rem;
     max-width: 11rem;
+
+    @media screen and (max-width: 640px) {
+        max-width: 18rem;
+        padding-left: 1rem;
+    }
 }
 
 .ch-aside-contacts__person-name {
@@ -114,6 +123,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .ch-aside-contacts__person-role {
@@ -122,6 +135,10 @@
     padding-top: .4rem;
     text-transform: uppercase;
     color: #5b616b;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .ch-aside-contacts__action-btn {
@@ -134,6 +151,11 @@
         border: .2rem solid #0071bc;
         border-radius: 4px;
 
+        @media screen and (max-width: 640px) {
+            padding: 1.8rem 2.4rem;
+            border: .3rem solid #0071bc;
+        }
+
         &:hover {
             border-color: #205493;
 
@@ -141,14 +163,14 @@
                 color: #205493;
             }
 
-            .ch-contacts-btn__icon {
-                background: url("../images/us-icon/icon-add-mail-hover.svg") no-repeat center;
-            }
+            // .ch-contacts-btn__icon {
+            //     background: url("../images/us-icon/icon-add-mail-hover.svg") no-repeat center;
+            // }
         }
     }
 
     .ch-contacts-btn__icon {
-        width: 2.4rem;
+        width: 2.5rem;
         height: 2.5rem;
         float: left;
         background: url("../images/us-icon/icon-add-mail.svg") no-repeat center;
@@ -161,6 +183,11 @@
         font-size: 1.4rem;
         font-weight: bold;
         color: #0071bc;
+
+        @media screen and (max-width: 640px) {
+            font-size: 2.5rem;
+        }
+
     }
 }
 
@@ -174,6 +201,10 @@
     font-weight: 500;
     padding-top: 1rem;
     color: #5b616b;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .ch-contacts-description__filter {
@@ -187,4 +218,19 @@
         color: #0071bc;
         text-decoration: none;
     }
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
+}
+
+.ch-mobile-contacts__bg {
+  width: 100%;
+  height: 100%;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 20;
 }
