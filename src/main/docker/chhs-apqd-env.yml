@@ -10,6 +10,7 @@ chhs-apqd-postgresql:
   restart: unless-stopped
   image: postgres:9.4.5
   environment:
-    - POSTGRES_USER=chhs-apqd    - POSTGRES_PASSWORD=
+    - POSTGRES_USER=chhs-apqd    
+	- POSTGRES_PASSWORD=
   ports:
     - "5432:5432"
