@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -69,6 +70,8 @@ public class LogsResourceTest {
         LoggerDTO loggerDTO = new LoggerDTO();
         loggerDTO.setName("ROOT");
         loggerDTO.setLevel("INFO");
+
+        assertThat(loggerDTO.toString()).isNotEmpty();
 
         restResourceMockMvc.perform(
             put("/api/logs").contentType(TestUtil.APPLICATION_JSON_UTF8)
