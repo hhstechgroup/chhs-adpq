@@ -1,0 +1,364 @@
+Message-ID: <7318245.501.1465403330681.JavaMail.js-confluence@chhs-apqd.atlassian.net>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_500_13492962.1465403330681"
+
+------=_Part_500_13492962.1465403330681
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>2016-05-31 Retrospective</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>2016-05-31 Retrospective</h1>
+    <div class=3D"Section1">
+        <div class=3D"contentLayout2">=20
+<div class=3D"columnLayout single" data-layout=3D"single">=20
+<div class=3D"cell normal" data-type=3D"normal">=20
+<div class=3D"innerCell">=20
+<div class=3D"plugin-tabmeta-details">
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<th class=3D"confluenceTh">Date</th>
+<td class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<time datetime=3D"2016-05-31" class=3D"date-past">31 May 2016</time>
+</div></td>
+</tr>
+<tr>
+<th class=3D"confluenceTh">Participants</th>
+<td class=3D"confluenceTd">
+<div class=3D"content-wrapper">
+<p><a class=3D"confluence-userlink user-mention current-user-mention" data-=
+username=3D"admin" href=3D"/wiki/display/~admin" data-linked-resource-id=3D=
+"196614" data-linked-resource-version=3D"1" data-linked-resource-type=3D"us=
+erinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Leonid Marus=
+hevskiy</a>&nbsp;<a class=3D"confluence-userlink user-mention" data-usernam=
+e=3D"oleg.korneychuk" href=3D"/wiki/display/~oleg.korneychuk" data-linked-r=
+esource-id=3D"196610" data-linked-resource-version=3D"1" data-linked-resour=
+ce-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki"=
+>Oleg Korneychuk</a>&nbsp;<a class=3D"confluence-userlink user-mention" dat=
+a-username=3D"alexander.sankin" href=3D"/wiki/display/~alexander.sankin" da=
+ta-linked-resource-id=3D"196611" data-linked-resource-version=3D"1" data-li=
+nked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassia=
+n.net/wiki">Alexander Sankin</a>&nbsp;<a class=3D"confluence-userlink user-=
+mention" data-username=3D"alexander.serbin" href=3D"/wiki/display/~alexande=
+r.serbin" data-linked-resource-id=3D"196609" data-linked-resource-version=
+=3D"1" data-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs=
+-apqd.atlassian.net/wiki">Alexander Serbin</a>&nbsp;<a class=3D"confluence-=
+userlink user-mention" data-username=3D"dmitry.rudenko" href=3D"/wiki/displ=
+ay/~dmitry.rudenko" data-linked-resource-id=3D"196612" data-linked-resource=
+-version=3D"1" data-linked-resource-type=3D"userinfo" data-base-url=3D"http=
+s://chhs-apqd.atlassian.net/wiki">Dmitry Rudenko</a>&nbsp;<a class=3D"confl=
+uence-userlink user-mention" data-username=3D"serge.redchuk" href=3D"/wiki/=
+display/~serge.redchuk" data-linked-resource-id=3D"196613" data-linked-reso=
+urce-version=3D"1" data-linked-resource-type=3D"userinfo" data-base-url=3D"=
+https://chhs-apqd.atlassian.net/wiki">Serge Redchuk</a>&nbsp;<a class=3D"co=
+nfluence-userlink user-mention" data-username=3D"dariia.iarmuratii" href=3D=
+"/wiki/display/~dariia.iarmuratii" data-linked-resource-id=3D"196616" data-=
+linked-resource-version=3D"1" data-linked-resource-type=3D"userinfo" data-b=
+ase-url=3D"https://chhs-apqd.atlassian.net/wiki">Dariia Iarmuratii</a>&nbsp=
+;<a class=3D"confluence-userlink user-mention" data-username=3D"yevhen.siro=
+tin" href=3D"/wiki/display/~yevhen.sirotin" data-linked-resource-id=3D"1212=
+461" data-linked-resource-version=3D"1" data-linked-resource-type=3D"userin=
+fo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Yevhen Sirotin</=
+a>&nbsp;<a class=3D"confluence-userlink user-mention" data-username=3D"olek=
+sandr.nikitin" href=3D"/wiki/display/~oleksandr.nikitin" data-linked-resour=
+ce-id=3D"1212462" data-linked-resource-version=3D"1" data-linked-resource-t=
+ype=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net/wiki">Ole=
+ksandr Nikitin</a>&nbsp;<a class=3D"confluence-userlink user-mention" data-=
+username=3D"a.shcherbatiuk" href=3D"/wiki/display/~a.shcherbatiuk" data-lin=
+ked-resource-id=3D"1900682" data-linked-resource-version=3D"1" data-linked-=
+resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlassian.net=
+/wiki">Angelina Shcherbatiuk</a>&nbsp;<a class=3D"confluence-userlink user-=
+mention" data-username=3D"dmytro.balym" href=3D"/wiki/display/~dmytro.balym=
+" data-linked-resource-id=3D"1212460" data-linked-resource-version=3D"1" da=
+ta-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.atl=
+assian.net/wiki">Dmytro Balym</a> <a class=3D"confluence-userlink user-ment=
+ion" data-username=3D"oleksander.kuznetsov" href=3D"/wiki/display/~oleksand=
+er.kuznetsov" data-linked-resource-id=3D"1212494" data-linked-resource-vers=
+ion=3D"1" data-linked-resource-type=3D"userinfo" data-base-url=3D"https://c=
+hhs-apqd.atlassian.net/wiki">Oleksander Kuznetsov</a></p>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<br>
+<h2 id=3D"id-2016-05-31Retrospective-Retrospective">Retrospective</h2>
+</div>=20
+</div>=20
+</div>=20
+<div class=3D"columnLayout two-equal" data-layout=3D"two-equal">=20
+<div class=3D"cell normal" data-type=3D"normal">=20
+<div class=3D"innerCell">=20
+<div class=3D"panel" style=3D"background-color: #f3f9f4;border-color: #91c8=
+9c;border-width: 1px;">
+<div class=3D"panelContent" style=3D"background-color: #f3f9f4;">=20
+<h3 id=3D"id-2016-05-31Retrospective-Whatdidwedowell?">What did we do well?=
+</h3>=20
+</div>
+</div>
+<ul>
+<li>Design stage was done quickly and we were able start application develo=
+pment early.</li>
+<li>We were able to implement a functional application prototype during the=
+ first Sprint.</li>
+<li>We were able to set up continuous integration for the application, &nbs=
+p;which helps a lot in development.</li>
+</ul>
+</div>=20
+</div>=20
+<div class=3D"cell normal" data-type=3D"normal">=20
+<div class=3D"innerCell">=20
+<div class=3D"panel" style=3D"background-color: #fff8f7;border-color: #d044=
+37;border-width: 1px;">
+<div class=3D"panelContent" style=3D"background-color: #fff8f7;">=20
+<h3 id=3D"id-2016-05-31Retrospective-Whatshouldwehavedonebetter?">What shou=
+ld we have done better?</h3>=20
+</div>
+</div>
+<ul>
+<li>We shall not expand the scope during the Sprint.</li>
+<li>One-week Sprint was not enough to finish the development of most of the=
+ user stories. We moved them to the next Sprint. We shall develop user stor=
+ies more granularly, such&nbsp;that we will able to close them during one S=
+print.</li>
+</ul>
+</div>=20
+</div>=20
+</div>=20
+<div class=3D"columnLayout single" data-layout=3D"single">=20
+<div class=3D"cell normal" data-type=3D"normal">=20
+<div class=3D"innerCell">=20
+<p>&nbsp;</p>
+<h2 id=3D"id-2016-05-31Retrospective-Actions">Actions</h2>
+<ul class=3D"inline-task-list" data-inline-tasks-content-id=3D"2523245">
+<li data-inline-task-id=3D"1"><a class=3D"confluence-userlink user-mention =
+current-user-mention" data-username=3D"admin" href=3D"/wiki/display/~admin"=
+ data-linked-resource-id=3D"196614" data-linked-resource-version=3D"1" data=
+-linked-resource-type=3D"userinfo" data-base-url=3D"https://chhs-apqd.atlas=
+sian.net/wiki">Leonid Marushevskiy</a> - Do the Sprint planning and task de=
+composition more carefully in order to eliminate the situation when user st=
+ory is not finished in one Sprint.</li>
+</ul>
+</div>=20
+</div>=20
+</div>=20
+</div>
+    </div>
+</body>
+</html>
+------=_Part_500_13492962.1465403330681--
