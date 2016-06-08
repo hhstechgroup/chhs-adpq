@@ -1,10 +1,9 @@
 <section class="ch-aside-facilities" ng-show="isAsideVisible">
     <div class="ch-facilities-list_top-pane">
-        <div class="ch-facilities-list_top-results">RESULTS: <span class="ch-facilities-list_top-count-message">{{agenciesLength}} Agencies</span></div>        
+        <div class="ch-facilities-list_top-results">RESULTS: <span class="ch-facilities-list_top-count-message">{{agenciesLength}} Agencies</span></div>
     </div>
     <ul class="ch-facilities">
-        <li id="agency{{agency.facility_number}}" ng-repeat="agency in agencies"
-            class="{{ isActiveAgency(agency) ? 'ch-facilities__item_active' : 'ch-facilities__item' }}">
+        <li id="agency{{agency.facility_number}}" class="ch-facilities__item" ng-repeat="agency in agencies">
             <data-apdq-facility-agency data-agency="agency" data-view-config="viewConfig"></data-apdq-facility-agency>
         </li>
     </ul>
