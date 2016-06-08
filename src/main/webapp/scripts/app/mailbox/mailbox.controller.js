@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('MailBoxCtrl', function ($scope, $state, MailBoxService, Contacts) {
+    .controller('MailBoxCtrl', function ($scope, $state, MailBoxService, Contacts, chCustomScrollConfig) {
 
         $scope.$on("apqdApp:updateDraftsCount", function(event, draftsCount) {
             $scope.draftsCount = draftsCount;
@@ -59,4 +59,6 @@ angular.module('apqdApp')
         $scope.updateContactList();
 
         MailBoxService.receiveUnreadCounts();
+
+        $scope.chCustomScrollConfig = chCustomScrollConfig;
     });
