@@ -2,7 +2,7 @@ angular.module('apqdApp')
     .directive('showUserAccountPopup', function($timeout, $document) {
         return {
             restrict: 'A',
-            link: function(scope, element, attrs) {
+            link: function(scope, element) {
                 var timer;
                 scope.isUserAccountPopupShown = false;
                 scope.toggleUserPopup = function() {
