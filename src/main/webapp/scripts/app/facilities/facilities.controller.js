@@ -94,6 +94,23 @@ angular.module('apqdApp')
         $scope.facilityTypes = FacilityType;
         $scope.facilityStatuses = FacilityStatus;
 
+        $scope.showMapView = 'ch-show-map-view';
+        $scope.showLinkMapView = 'ch-mobile-mailbox__nav-tab__link_active';
+
+        $scope.changeMapView = function() {
+            $scope.showMapView = 'ch-show-map-view';
+            $scope.showLinkMapView = 'ch-mobile-mailbox__nav-tab__link_active';
+            $scope.showListView = '';
+            $scope.showLinkListView= '';
+        };
+
+        $scope.changeListView = function() {
+            $scope.showListView = 'ch-show-list-view';
+            $scope.showLinkListView = 'ch-mobile-mailbox__nav-tab__link_active';
+            $scope.showMapView = '';
+            $scope.showLinkMapView = '';
+        };
+
         $scope.applyInfiniteScroll = function () {
             $('.ch-aside-facilities').bind('scroll', function(){
                 if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight / 1.1){

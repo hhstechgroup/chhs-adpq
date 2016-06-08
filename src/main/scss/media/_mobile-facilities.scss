@@ -24,6 +24,12 @@
     }
 }
 
+.ch-input-block__form-input_search-field-map .leaflet-pelias-expanded  {
+    @media screen and (max-width: $break-phone) {
+        width: 100% !important;
+    }
+}
+
 .ch-facilities-heading__row .ch-input-block__form-input_search-field-map .leaflet-pelias-expanded .leaflet-pelias-input {
 
     @media screen and (max-width: $break-phone) {
@@ -52,13 +58,134 @@
     }
 }
 
-
-
-
+.ch-facilities-heading,
 .ch-facilities-heading__input__item_2,
 .ch-facilities-heading__input__item_3,
 .ch-facilities-heading__input__item_4 {
     @media screen and (max-width: $break-phone) {
         display: none;
+    }
+}
+
+.ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_2,
+.ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_3,
+.ch-facilities-heading__mobile__view__filter .ch-facilities-heading__input__item_4 {
+    @media screen and (max-width: $break-phone) {
+        display: block;
+    }
+}
+
+.ch-facilities-heading__mobile__view__filter {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: #f1f1f1;
+    border-bottom: .1rem solid #cbcdcf;
+    display: none;
+
+    @media screen and (max-width: $break-phone) {
+        display: block;
+    }
+}
+
+.ch-filter-pane__title {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #0071bc;
+}
+
+.ch-filter-pane__icon {
+    width: 2.6rem;
+    height: 1.4rem;
+    display: inline-block;
+    margin-left: 1rem;
+}
+
+.ch-filter-pane__icon.down {
+    background: url("../images/us-icon/arrow-down-big-color.png") no-repeat center;
+}
+
+.ch-filter-pane__icon.up {
+    background: url("../images/us-icon/arrow-up-big-color.png") no-repeat center;
+}
+
+.ch-facilities-heading__mobile__view__filter-expanded .ch-form-input.ch-form-input_search {
+    @media screen and (max-width: $break-phone) {
+        width: 100% !important;
+        height: 8rem;
+        font-size: 2.8rem;
+        padding-left: 6rem;
+    }
+
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      font-size: 2.8rem;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      font-size: 2.8rem;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      font-size: 2.8rem;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      font-size: 2.8rem;
+    }
+}
+
+.ch-facilities-heading__mobile__view__filter-expanded {
+    .ch-facilities-heading__input__item_2,
+    .ch-facilities-heading__input__item_3,
+    .ch-facilities-heading__input__item_4 {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.ch-popup-label-text {
+    font-size: 2.8rem;
+    position: relative;
+    top: -1rem;
+}
+
+
+.ch-facilities-heading__input__item_3,
+.ch-facilities-heading__input__item_4 {
+
+      @media screen and (max-width: $break-phone) {
+          margin-top: 3rem;
+      }
+
+    .ch-multi-select-dropdown__btn-icon::after {
+        @media screen and (max-width: $break-phone) {
+            width: 2.6rem;
+            height: 1.4rem;
+            background: url("../images/us-icon/arrow-down-big.png") no-repeat center;
+        }
+    }
+
+    .ch-multi-select-dropdown__btn {
+        @media screen and (max-width: $break-phone) {
+            height: 8rem;
+            font-size: 2.8rem;
+            padding-left: 6rem;
+        }
+    }
+}
+
+.ch-multi-select-dropdown__popup {
+    @media screen and (max-width: $break-phone) {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+.ch-facilities-heading__mobile__view__reset-btn {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    .ch-option-btn {
+        height: 8rem;
+    }
+    .ch-option-btn__text {
+        font-size: 2.8rem;
     }
 }

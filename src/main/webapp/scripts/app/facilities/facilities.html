@@ -5,22 +5,23 @@
         <div class="ch-mobile-mailbox__nav">
 
             <div class="ch-mobile-mailbox__nav-tab">
-                <a href="" class="ch-mobile-mailbox__nav-tab__link ch-mobile-mailbox__nav-tab__link_active" ng-class="linkMapView" ng-click="changeMapView()">
-
+                <a href="" class="ch-mobile-mailbox__nav-tab__link ch-mobile-mailbox__nav-tab__link_active"
+                           ng-class="showLinkMapView" ng-click="changeMapView()">
                     <span class="ch-mobile-mailbox__nav-tab__text">Map View</span>
                 </a>
             </div>
 
             <div class="ch-mobile-mailbox__nav-tab">
-                <a href="" class="ch-mobile-mailbox__nav-tab__link" ng-class="linkListView" ng-click="changeListView()">
+                <a href="" class="ch-mobile-mailbox__nav-tab__link" ng-class="showLinkListView" ng-click="changeListView()">
                     <span class="ch-mobile-mailbox__nav-tab__text">List View</span>
                 </a>
             </div>
 
         </div>
+
     </div>
 
-    <section class="ch-facilities-heading">
+    <section class="ch-facilities-heading" ng-class="showMapView">
         <div class="ch-facilities-heading__row">
             <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_1">
                 <div class="ch-input-block">
@@ -76,12 +77,86 @@
             </div>
         </div>
     </section>
+
 </div>
 
-<div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside"></div>
+<div class="ch-facilities-heading__mobile__view__filter">
 
-<div class = "ch-layout__content ch-layout__content_facilities" ng-class="{ 'ch-layout__content_fullwidth' : isContentFullWidth }" ui-view="main">
-    <div>
-        <leaflet defaults="defaults" lf-center="center" markers="locations" layers="layers" style="height: calc(100vh - 22.1rem);"></leaflet>
+    <div class="ch-facilities-heading__mobile__view__filter-expanded" ng-show="showFilterDetails">
+
+        <div class="ch-facilities-heading__item ch-facilities-heading__item_2 ch-facilities-heading__input__item_2">
+            <div class="ch-input-block" title="Put any available information about children's residential facility like name, address or administrator name">
+                <div class="ch-input-block__form-input ch-input-block__form-input_icon ch-input-block__form-input_icon_left">
+                    <span class="ch-form-input-icon ch-form-input-icon_left ch-form-input-icon_search"></span>
+                    <input type="search" ng-model="text" ng-keypress="findAgenciesByTextQuery($event);" name="search-text" id="search-text" class="ch-form-input ch-form-input_small ch-form-input_search" placeholder="Put facility data here" />
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_3">
+            <div class="ch-multi-select-dropdown" title="Filter facilities by type">
+                <button type="button" class="ch-multi-select-dropdown__btn" ng-click="typesConfig.showList = !typesConfig.showList;">
+                    <span class="ch-multi-select-dropdown__btn-text">{{typesConfig.label}}</span>
+                    <span class="ch-multi-select-dropdown__btn-icon"></span>
+                </button>
+                <div class="ch-multi-select-dropdown__popup" ng-show="typesConfig.showList" ng-mouseleave="typesConfig.showList = false">
+                    <ul class="ch-checkboxes-list">
+                        <li class="ch-checkboxes-list__item" ng-repeat="type in facilityTypes track by type.id | orderBy: 'id'">
+                            <div class="form-type__checkbox_empty-label">
+                                <input id="{{type.id}}" type="checkbox" ng-model="type.selected" ng-click="onTypeClick(type)">
+                                <label for="{{type.id}}"><span class="ch-popup-label-text">{{type.name | capitalize:true}}</span></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-facilities-heading__item ch-facilities-heading__item_1 ch-facilities-heading__input__item_4">
+            <div class="ch-multi-select-dropdown" title="Filter facilities by status">
+                <button type="button" class="ch-multi-select-dropdown__btn" ng-click="statusesConfig.showList = !statusesConfig.showList;">
+                    <span class="ch-multi-select-dropdown__btn-text">{{statusesConfig.label}}</span>
+                    <span class="ch-multi-select-dropdown__btn-icon"></span>
+                </button>
+                <div class="ch-multi-select-dropdown__popup" ng-show="statusesConfig.showList" ng-mouseleave="statusesConfig.showList = false">
+                    <ul class="ch-checkboxes-list">
+                        <li class="ch-checkboxes-list__item" ng-repeat="status in facilityStatuses track by status.id | orderBy: 'id'">
+                            <div class="form-type__checkbox_empty-label">
+                                <input id="{{status.id}}" type="checkbox" ng-model="status.selected" ng-click="onStatusClick(status);">
+                                <label for="{{status.id}}">{{status.name | capitalize:true}}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ch-facilities-heading__mobile__view__reset-btn">
+          <button type="button" class="ch-option-btn ch-option-btn_fullwidth">
+                <span class="ch-option-btn__text">Reset Filters</span>
+          </button>
+        </div>
+
+      </div>
+
+
+
+      <h3 class="ch-filter-pane__title" ng-click="showFilterDetails = !showFilterDetails">
+          <span >All Filters</span>
+          <span class="ch-filter-pane__icon up" ng-show="showFilterDetails"></span>
+          <span class="ch-filter-pane__icon down" ng-show="!showFilterDetails"></span>
+        </h3>
+
+</div>
+
+<div class="ch-mobile-facilities__map-view" ng-class="showListView">
+    <div class="ch-layout__aside ch-layout__aside_facilities" ui-view="aside" ng-class="showListView"></div>
+</div>
+
+<div class="ch-mobile-facilities__list-view" ng-class="showMapView">
+    <div class = "ch-layout__content ch-layout__content_facilities" ng-class="{ 'ch-layout__content_fullwidth' : isContentFullWidth }" ui-view="main">
+        <div>
+            <leaflet defaults="defaults" lf-center="center" markers="locations" style="height: calc(100vh - 15rem);" layers="layers"></leaflet>
+        </div>
     </div>
 </div>
