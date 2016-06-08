@@ -78,12 +78,16 @@ angular.module('apqdApp')
             }, $log.info).$promise;
         };
 
+        $scope.isSubjectValid = function() {
+            return !_.isNil($scope.mail.subject) && !_.isEmpty($scope.mail.subject.trim());
+        };
+
+        $scope.isBodyValid = function() {
+            return !_.isNil($scope.mail.body) && !_.isEmpty($scope.mail.body.trim());
+        };
+
         $scope.isValid = function() {
-            return !_.isNil($scope.mail.to) &&
-                   !_.isNil($scope.mail.body) &&
-                   !_.isNil($scope.mail.subject) &&
-                   !_.isEmpty($scope.mail.body.trim()) &&
-                   !_.isEmpty($scope.mail.subject.trim());
+            return !_.isNil($scope.mail.to) && $scope.isSubjectValid() && $scope.isBodyValid();
         };
 
         $scope.backToPreviousState = function() {

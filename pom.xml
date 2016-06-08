@@ -59,7 +59,9 @@
         <sdn.version>4.1.1.RELEASE</sdn.version>
         <sonar-maven-plugin.version>2.6</sonar-maven-plugin.version>
 
-        <!-- at this stage, do not cover the JHipster framework core classes (which are used worldwide and are relatively proven) -->
+        <!-- At this stage, do not cover certain JHipster framework core classes
+            (which are used worldwide and are relatively proven)
+        -->
         <sonar.exclusions>
             documents/*.*,
             src/main/webapp/assets/**/*.*,
@@ -84,7 +86,8 @@
             **com/engagepoint/cws/apqd/security/UserNotActivatedException.java,
             **com/engagepoint/cws/apqd/web/filter/CachingHttpHeadersFilter.java,
             **com/engagepoint/cws/apqd/web/filter/CsrfCookieGeneratorFilter.java,
-            **com/engagepoint/cws/apqd/web/filter/StaticResourcesProductionFilter.java
+            **com/engagepoint/cws/apqd/web/filter/StaticResourcesProductionFilter.java,
+            **com/engagepoint/cws/apqd/web/rest/util/PaginationUtil.java
         </sonar.exclusions>
 
         <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
