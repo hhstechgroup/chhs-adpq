@@ -15,13 +15,7 @@ angular.module('apqdApp')
                     $rootScope.previousStateName = to;
                     $rootScope.previousStateNameParams = params;
                     $state.go('login');
-                } /*
-                 TODO: CSRF Temporary disabled
-                else if (response.headers("CSRF-ERROR") == "true" && response.status == 403 && response.config.method != 'GET') {
-                    // If the CSRF token expired, then try to get a new CSRF token and retry the old request
-                    var $http = $injector.get('$http');
-                    return $http.get('').finally(function() { return afterCSRFRenewed(response); });
-                }*/
+                }
                 return $q.reject(response);
             }
         };

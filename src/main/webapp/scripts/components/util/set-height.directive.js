@@ -1,8 +1,8 @@
 angular.module('apqdApp')
-    .directive('setHeight', function($window){
+    .directive('setHeight', function(){
         return{
             priority: '3',
-            link: function(scope, element, attrs) {
+            link: function(scope, element) {
                 var setElHeight = function() {
                     var windowHeight = $(window).height(),
                         elPositionRelativeDoc = $(element).offset().top,
