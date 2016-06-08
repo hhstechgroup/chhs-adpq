@@ -55,7 +55,7 @@
                 <div class="ch-sign-up__form__group">
                     <label class="control-label" for="login">Username *</label>
                     <input type="text" class="form-control" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
-                           ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required title="Username shall contain lower-case letters and digits">
+                           ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required uib-tooltip="Username shall contain lower-case letters and digits">
                     <div ng-show="form.login.$dirty && form.login.$invalid">
                         <p class="help-block"
                                ng-show="form.login.$error.required" translate="register.messages.validate.login.required">
@@ -81,7 +81,7 @@
                     <div class="ch-sign-up__form__group_child">
                         <label class="control-label" for="password" translate="">Password *</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
-                               ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required title="Password must be more then 5 and less then 50 characters">
+                               ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required uib-tooltip="Password must be more then 5 and less then 50 characters">
                         <div ng-show="form.password.$dirty && form.password.$invalid">
                             <p class="help-block"
                                    ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
@@ -123,7 +123,7 @@
                 <div class="ch-sign-up__form__group">
                     <label class="control-label" for="email" >Family case/License number *</label>
                     <input type="text" class="form-control" id="caseNumber" name="caseNumber" placeholder="License number/Case number"
-                           ng-model="registerAccount.caseNumber" ng-maxlength=20 required title="Provide number of your case or license. You can find  it in notification letter">
+                           ng-model="registerAccount.caseNumber" ng-maxlength=20 required uib-tooltip="Provide number of your case or license. You can find  it in notification letter">
                     <div ng-show="form.caseNumber.$dirty && form.caseNumber.$invalid">
                         <p class="help-block"
                                ng-show="form.caseNumber.$error.required">
