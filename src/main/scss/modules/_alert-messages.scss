@@ -22,7 +22,7 @@
         width: 2.5rem;
         height: 2.5rem;
         display: inline-block;
-        background: url("../images/us-icon/icon-warning.png") no-repeat center;
+        background: url("../images/us-icon/icon-warning.svg") no-repeat center;
         position: absolute;
         top: 2.8rem;
         left: 4rem;
@@ -83,42 +83,42 @@
     height: 2.2rem;
     width: 2.2rem;
     margin: -1.1rem 0 0 -1.1rem;
-    background: url("../images/out-sprite-icons/icon-success-msg.png") no-repeat center;
+    background: url("../images/out-sprite-icons/icon-success-msg.svg") no-repeat center;
 }
 
 .ch-alert-msg__icon_warn:before {
     height: 2.2rem;
     width: 2.6rem;
     margin: -1.1rem 0 0 -1.3rem;
-    background: url("../images/out-sprite-icons/icon-warn-msg.png") no-repeat center;
+    background: url("../images/out-sprite-icons/icon-warn-msg.svg") no-repeat center;
 }
 
 .ch-alert-msg__icon_err:before {
     height: 2.2rem;
     width: 2.2rem;
     margin: -1.1rem 0 0 -1.1rem;
-    background: url("../images/out-sprite-icons/icon-err-msg.png") no-repeat center;
+    background: url("../images/out-sprite-icons/icon-err-msg.svg") no-repeat center;
 }
 
 .ch-alert-msg__icon_info:before {
     height: 2.2rem;
     width: 2.2rem;
     margin: -1.1rem 0 0 -1.1rem;
-    background: url("../images/out-sprite-icons/icon-info-msg.png") no-repeat center;
+    background: url("../images/out-sprite-icons/icon-info-msg.svg") no-repeat center;
 }
 
 .ch-alert-msg__icon_email:before {
     height: 1.6rem;
     width: 2.6rem;
     margin: -0.8rem 0 0 -1.3rem;
-    background: url("../images/out-sprite-icons/icon-email-msg.png") no-repeat center;
+    background: url("../images/out-sprite-icons/icon-email-msg.svg") no-repeat center;
 }
 
 .ch-alert-msg__icon_util:before {
     height: 2.2rem;
     width: 2rem;
     margin: -1.1rem 0 0 -1rem;
-    background: url("../images/out-sprite-icons/icon-util-msg.png") no-repeat center;
+    background: url("../images/out-sprite-icons/icon-util-msg.svg") no-repeat center;
 }
 
 .ch-alert-msg__text {
@@ -146,16 +146,16 @@
 }
 
 .close-btn {
-    background: url("../images/out-sprite-icons/icon-close-btn.png") no-repeat center;
+    background: url("../images/out-sprite-icons/icon-close-btn.svg") no-repeat center;
     padding: 1rem;
 }
 
 .close-btn_white {
-    background-image: url("../images/out-sprite-icons/icon-close-wh.png");
+    background-image: url("../images/out-sprite-icons/icon-close-wh.svg");
 }
 
 .close-btn_black {
-    background-image: url("../images/out-sprite-icons/icon-close-bl.png");
+    background-image: url("../images/out-sprite-icons/icon-close-bl.svg");
 }
 
 .ch-alert-msg__btn {
