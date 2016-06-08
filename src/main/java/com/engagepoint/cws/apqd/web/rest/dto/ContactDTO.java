@@ -1,9 +1,9 @@
 package com.engagepoint.cws.apqd.web.rest.dto;
 
-import com.engagepoint.cws.apqd.domain.Authority;
 import com.engagepoint.cws.apqd.domain.Place;
 import com.engagepoint.cws.apqd.domain.User;
-import com.engagepoint.cws.apqd.security.AuthoritiesConstants;
+
+import static com.engagepoint.cws.apqd.web.rest.util.ContactUtil.extractRoleDescription;
 
 public class ContactDTO {
 
@@ -17,7 +17,7 @@ public class ContactDTO {
         this.firstName = user.getFirstName();
         this.phone = user.getPhoneNumber();
         this.place = user.getPlace();
-        this.roleDescription = extractRole(user);
+        this.roleDescription = extractRoleDescription(user);
     }
 
     private String login;
@@ -78,24 +78,5 @@ public class ContactDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    private String extractRole(User user) {
-        if (user.getAuthorities().isEmpty()) {
-            return "";
-        }
-
-        Authority authority = user.getAuthorities().iterator().next();
-        if (authority.getName().equals(AuthoritiesConstants.CASE_WORKER)) {
-            return "Case Worker";
-        } else if (authority.getName().equals(AuthoritiesConstants.PARENT)) {
-            return "Parent";
-        } else if (authority.getName().equals(AuthoritiesConstants.ADMIN)) {
-            return "Admin";
-        } else if (authority.getName().equals(AuthoritiesConstants.USER)) {
-            return "User";
-        } else {
-            return "";
-        }
     }
 }

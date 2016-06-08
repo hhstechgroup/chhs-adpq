@@ -41,6 +41,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.Future;
 
+import static com.engagepoint.cws.apqd.web.rest.util.ContactUtil.extractRoleDescription;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -198,14 +199,29 @@ public final class APQDTestUtil {
         assertThat(actual.getCaseNumber()).isEqualTo(expected.getCaseNumber());
     }
 
-    public static void expectHasContact(ResultActions resultActions, User contact) throws Exception {
-        ContactDTO contactDTO = new ContactDTO(contact);
+    private static void expectHasContact(ResultActions resultActions, ContactDTO contactDTO) throws Exception {
         resultActions
             .andExpect(jsonPath("$.[*].login").value(hasItem(contactDTO.getLogin())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(contactDTO.getFirstName())))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(contactDTO.getLastName())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(contactDTO.getPhone())))
             .andExpect(jsonPath("$.[*].roleDescription").value(hasItem(contactDTO.getRoleDescription())));
+    }
+
+    public static void expectHasContact1(ResultActions resultActions, User contact) throws Exception {
+        expectHasContact(resultActions, new ContactDTO(contact));
+    }
+
+    public static void expectHasContact2(ResultActions resultActions, User contact) throws Exception {
+        ContactDTO contactDTO = new ContactDTO();
+        contactDTO.setLogin(contact.getLogin());
+        contactDTO.setFirstName(contact.getFirstName());
+        contactDTO.setLastName(contact.getLastName());
+        contactDTO.setPhone(contact.getPhoneNumber());
+        contactDTO.setPlace(contact.getPlace());
+        contactDTO.setRoleDescription(extractRoleDescription(contact));
+
+        expectHasContact(resultActions, contactDTO);
     }
 
     /*

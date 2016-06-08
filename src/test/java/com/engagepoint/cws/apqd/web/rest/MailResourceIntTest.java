@@ -43,7 +43,8 @@ import javax.inject.Inject;
 
 import static com.engagepoint.cws.apqd.APQDTestUtil.addUserRole;
 import static com.engagepoint.cws.apqd.APQDTestUtil.assertUserEmail;
-import static com.engagepoint.cws.apqd.APQDTestUtil.expectHasContact;
+import static com.engagepoint.cws.apqd.APQDTestUtil.expectHasContact1;
+import static com.engagepoint.cws.apqd.APQDTestUtil.expectHasContact2;
 import static com.engagepoint.cws.apqd.APQDTestUtil.newUserAnnaBrown;
 import static com.engagepoint.cws.apqd.APQDTestUtil.newUserJohnWhite;
 import static com.engagepoint.cws.apqd.APQDTestUtil.prepareMailBox;
@@ -281,7 +282,7 @@ public class MailResourceIntTest {
             get("/api/contacts"))
             .andExpect(status().isOk());
 
-        expectHasContact(resultActions, expectedContact);
+        expectHasContact1(resultActions, expectedContact);
     }
 
     private void assertGetContactsList(User expectedContact) throws Exception {
@@ -289,7 +290,7 @@ public class MailResourceIntTest {
             post("/api/contacts"))
             .andExpect(status().isOk());
 
-        expectHasContact(resultActions, expectedContact);
+        expectHasContact2(resultActions, expectedContact);
     }
 
     @Test
@@ -366,6 +367,7 @@ public class MailResourceIntTest {
 
         setCurrentUser(fromUser);
         assertGetContactsForMailTo(toUser);
+        assertGetContactsList(toUser);
 
         setCurrentUser(toUser);
         assertGetContactsForMailTo(fromUser);
