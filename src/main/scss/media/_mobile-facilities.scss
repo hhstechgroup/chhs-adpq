@@ -45,9 +45,9 @@
 
     @media screen and (max-width: $break-phone) {
         position: relative;
-        top: 2.5rem;
+        top: 2rem;
         left: 1rem;
-        background-image: url("../../assets/images/us-icon/icon-facilities-m.png");
+        background-image: url("../../assets/images/us-icon/icon-facilities-m.svg");
     }
 }
 
@@ -143,11 +143,11 @@
 }
 
 .ch-filter-pane__icon.down {
-    background: url("../images/us-icon/arrow-down-big-color.png") no-repeat center;
+    background: url("../images/us-icon/arrow-down-big-color.svg") no-repeat center;
 }
 
 .ch-filter-pane__icon.up {
-    background: url("../images/us-icon/arrow-up-big-color.png") no-repeat center;
+    background: url("../images/us-icon/arrow-up-big-color.svg") no-repeat center;
 }
 
 .ch-facilities-heading__mobile__view__filter-expanded .ch-form-input.ch-form-input_search {
@@ -199,7 +199,7 @@
         @media screen and (max-width: $break-phone) {
             width: 2.6rem;
             height: 1.4rem;
-            background: url("../images/us-icon/arrow-down-big.png") no-repeat center;
+            background: url("../images/us-icon/arrow-down-big.svg") no-repeat center;
         }
     }
 
@@ -229,7 +229,7 @@
     @media screen and (max-width: 1200px) {
         flex-grow: 1;
     }
-    
+
 }
 
 .ch-facilities-heading__mobile__view__reset-btn {

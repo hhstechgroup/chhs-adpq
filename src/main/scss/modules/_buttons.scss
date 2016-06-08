@@ -20,6 +20,9 @@
     font-weight: bold;
     color: #fff;
 
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .ch-button-group__item {
@@ -71,10 +74,19 @@
     &:hover {
         border-color: #323a45;
     }
+
+    @media screen and (max-width: 640px) {
+        width: 6.8rem;
+        height: 100%;
+    }
 }
 
 .ch-option-btn_short-text {
     padding: .8rem 4rem;
+
+    @media screen and (max-width: 640px) {
+        height: 100%;
+    }
 }
 
 .ch-link-btn {
@@ -88,14 +100,21 @@
     position: relative;
 }
 
+.ch-link-btn_icon_attach-files {
+    @media screen and (max-width: 640px) {
+        font-size: 2rem;
+        width: 12rem;
+    }
+}
+
 .ch-link-btn_icon_attach-files:before {
     content: '\0020';
     position: absolute;
     top: 0;
     left: 0;
-    width: 10px;
-    height: 16px;
-    background: url("../images/us-icon/icon-attachment.png") no-repeat center;
+    width: 1.2rem;
+    height: 1.8rem;
+    background: url("../images/us-icon/icon-attachment.svg") no-repeat center;
 }
 
 .ch-dropdown-label-btn {
@@ -117,6 +136,10 @@
 .ch-dropdown-label-btn__text {
     font-size: 1.4rem;
     color: #5b616b;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.4rem;
+    }
 }
 
 .ch-plane-btn {

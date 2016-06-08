@@ -182,7 +182,7 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
 }
 
 .ch-form-input-icon_search:after {
-    background: url(../images/out-sprite-icons/icon-search.png) no-repeat center;
+    background: url(../images/out-sprite-icons/icon-search.svg) no-repeat center;
     content: "\0020";
     position: absolute;
     height: 1.6rem;
@@ -191,10 +191,14 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
     left: 50%;
     margin: -0.8rem 0 0 -0.8rem;
 
+    @media screen and (max-width: $break-phone) {
+        left: 67%;
+    }
+
 }
 
 .ch-form-input-icon_arrow-down:after {
-    background: url(../images/out-sprite-icons/icon-arrow-down.png) no-repeat center;
+    background: url(../images/out-sprite-icons/icon-arrow-down.svg) no-repeat center;
     content: "\0020";
     position: absolute;
     height: 0.7rem;
@@ -263,7 +267,7 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
         top: 0;
         bottom: 0;
         margin: auto 0;
-        background: url(../images/out-sprite-icons/icon-arrow-down.png) no-repeat center;
+        background: url(../images/out-sprite-icons/icon-arrow-down.svg) no-repeat center;
 
     }
 
@@ -292,15 +296,15 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
         }
 
         .ch-section__header_icon.ch-section__header_icon_drafts:before {
-            background: url(../images/out-sprite-icons/icon-drafts-profile-active.png) no-repeat center;
+            background: url(../images/out-sprite-icons/icon-drafts-profile-active.svg) no-repeat center;
         }
 
         .ch-section__header_icon.ch-section__header_icon_map-pointer:before {
-            background: url(../images/out-sprite-icons/icon-map-pointer-profile-active.png) no-repeat center;
+            background: url(../images/out-sprite-icons/icon-map-pointer-profile-active.svg) no-repeat center;
         }
 
         .ch-section__header_icon.ch-section__header_icon_password:before {
-            background: url(../images/out-sprite-icons/icon-password-active.png) no-repeat center;
+            background: url(../images/out-sprite-icons/icon-password-active.svg) no-repeat center;
         }
     }
 }
@@ -322,17 +326,17 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
 .ch-section__header_icon.ch-section__header_icon_drafts:before {
     width: 1.8rem;
     height: 2.1rem;
-    background: url(../images/out-sprite-icons/icon-drafts-profile.png) no-repeat center;
+    background: url(../images/out-sprite-icons/icon-drafts-profile.svg) no-repeat center;
 }
 
 .ch-section__header_icon.ch-section__header_icon_map-pointer:before {
     width: 1.6rem;
     height: 2.1rem;
-    background: url(../images/out-sprite-icons/icon-map-pointer-profile.png) no-repeat center;
+    background: url(../images/out-sprite-icons/icon-map-pointer-profile.svg) no-repeat center;
 }
 
 .ch-section__header_icon.ch-section__header_icon_password:before {
     width: 1.8rem;
     height: 2.1rem;
-    background: url(../images/out-sprite-icons/icon-password.png) no-repeat center;
+    background: url(../images/out-sprite-icons/icon-password.svg) no-repeat center;
 }
