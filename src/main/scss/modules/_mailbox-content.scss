@@ -13,7 +13,7 @@
 .ch-mail-expanded {
     padding: 1.8rem 3rem;
     background: #fff;
-    border: 1px solid #cbcdcf;
+    border: .1rem solid #cbcdcf;
 }
 
 .ch-mail-origin__prefix {
@@ -21,12 +21,20 @@
     font-size: 1.4rem;
     font-weight: 400;
     margin-right: .4rem;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .ch-mail-origin__name {
     color: #000;
     font-size: 1.4rem;
     font-weight: 600;
+
+    @media screen and (max-width: 640px) {
+        font-size: 2.5rem;
+    }
 }
 
 .ch-button-group-action {
@@ -66,6 +74,11 @@
             color: #323a45;
         }
     }
+
+    @media screen and (max-width: 640px) {
+        height: 6rem;
+        border: .3rem solid #757575;
+    }
 }
 
 .ch-button-group-action__btn_mail-options {
@@ -84,6 +97,11 @@
     margin-left: -.2rem;
     position: relative;
 
+    @media screen and (max-width: 640px) {
+        border: .3rem solid #757575;
+        height: 6rem;
+    }
+
     &:hover {
         border-color: #323a45;
         z-index: 2;
@@ -92,16 +110,26 @@
     .icon {
         width: 1.6rem;
         height: 1.6rem;
+
+        @media screen and (max-width: 640px) {
+            width: 2.6rem;
+        }
     }
 
     .icon-remove {
         position: relative;
         top: .2rem;
+
+        @media screen and (max-width: 640px) {
+            top: 1.4rem;
+        }
     }
 
     .icon-download {
         border-left: .1rem solid #757575;
     }
+
+
 }
 
 .ch-button-group-action__btn_reply:before {
@@ -111,6 +139,10 @@
     height: 16px;
     background: url(../images/out-sprite-icons/icon-reply-msg.png) 0 0 no-repeat;
     vertical-align: -10px;
+
+    @media screen and (max-width: 640px) {
+        vertical-align: -1.5rem;
+    }
 }
 
 .ch-button-group-action__btn_mail-options:before {
@@ -151,16 +183,30 @@
 
 .ch-mail-options-group {
     display: inline-block;
+
+    @media screen and (max-width: 640px) {
+
+    }
 }
 
 .ch-mail-expanded__header {
     padding: 0 0 1.6rem 0;
     margin-bottom: 2rem;
     border-bottom: .1rem solid #cbcdcf;
+
+    @media screen and (max-width: 640px) {
+        height: 10rem;
+        padding: 1.8rem 0 1.8rem 0;
+    }
 }
 
 .ch-mail-expanded__body {
     margin-bottom: 2rem;
+    .ch-view-mail-text-body {
+      @media screen and (max-width: 640px) {
+          font-size: 2.5rem;
+      }
+    }
 }
 
 .ch-new-mail-heading {
@@ -293,6 +339,11 @@
 
 .ch-mail-heading__item_action-group {
     flex: 0 0 15rem;
+
+    @media screen and (max-width: 640px) {
+        height: 6rem;
+        flex: none;
+    }
 }
 
 .ch-contacts-dropdown {
@@ -338,4 +389,17 @@
     top: 0;
     background: url(../images/out-sprite-icons/icon-close-btn.png) 50% 50% no-repeat;
     padding: 1.5rem;
+}
+
+.ch-mail-thread {
+    @media screen and (max-width: 640px) {
+      margin-left: -2rem;
+      margin-right: -2rem;
+    }
+}
+
+.ch-mail-origin {
+    @media screen and (max-width: 640px) {
+      width: 21rem;
+    }
 }
