@@ -414,7 +414,7 @@ module.exports = function (grunt) {
         'useminPrepare',
         'ngtemplates',
         'sass:server',
-        'imagemin',
+        //'imagemin',
         'svgmin',
         'concat',
         'copy:fonts',

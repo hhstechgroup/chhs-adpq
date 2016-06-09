@@ -5,8 +5,8 @@ Feature: APQD-109 As a user, I want to see communication threads in my private I
   Scenario: Open home page and register new user
     When open home page
     Given random alphabetic name with 'parentuser' and length '4' saved to 'parentuser' variable
-    Then register new user with email '${parentuser}@mailinator.com', login '${parentuser}' and password 'password'
-    When check confirmation letter for email '${parentuser}@mailinator.com'
+    Then register new user with email '${parentuser}', login '${parentuser}' and password 'password'
+    When check confirmation letter for email '${parentuser}'
 
   Scenario: Log in as parent and communicate with caseworker
     When open home page
