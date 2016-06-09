@@ -40,8 +40,7 @@ public class UserStepDefs {
 
     @Before
     public void setup() {
-        //baseUrl = "http://west.apdq.engagepoint.us/#/";
-        baseUrl = "http://mdc-apdq-app-a1.engagepoint.us:8080/#/";
+        baseUrl = "http://ec2-54-191-30-16.us-west-2.compute.amazonaws.com:8080/#/";
         //Configuration.browser = "firefox";
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
@@ -74,7 +73,7 @@ public class UserStepDefs {
     @When("^register new user with email '(.*)', login '(.*)' and password '(.*)'$")
     public void open_home_page(@Transform(VarsConverter.class) String email, @Transform(VarsConverter.class) String login, String password) throws Throwable {
         click_css_and_wait("a[href*='#/registerme']");
-        $("#email").setValue(email);
+        $("#email").setValue(email + "@yopmail.com");
         $("#caseNumber").setValue("12345");
         $("#login").setValue(login);
         $("[ng-model='registerAccount.firstName']").setValue(login);
@@ -88,19 +87,23 @@ public class UserStepDefs {
     @When("^check confirmation letter for email '(.*)'$")
     public void check_confirmation_letter_for_email(@Transform(VarsConverter.class) String email) throws Throwable {
         close();
-        open("http://mailinator.com");
-        $("#inboxfield").setValue(email);
+        open("http://www.yopmail.com/en/");
+        $("#login").shouldBe(visible);
+        $("#login").setValue(email);
         sleep(5000);
-        $(By.xpath(".//button[contains(text(),'Go')]")).shouldBe(visible);
-        $(By.xpath(".//button[contains(text(),'Go')]")).click();
+        $(".sbut").shouldBe(visible);
+        $(".sbut").click();
         sleep(2000);
-        $("[onclick*='showTheMessage']").shouldBe(enabled);
-        $("[onclick*='showTheMessage']").hover();
-        $("[onclick*='showTheMessage']").click();
-        $("[onclick*='showTheMessage']").waitUntil(disappear, 4000);
-        $("#publiccontenttypeselect").shouldBe(visible);
-        $(By.xpath(".//iframe[@id='publicshowmaildivcontent']")).shouldBe(visible);
-        switchTo().innerFrame("publicshowmaildivcontent");
+        $("#inboxtit").shouldBe(visible);
+        $(By.xpath(".//iframe[@id='ifinbox']")).shouldBe(visible);
+        switchTo().innerFrame("ifinbox");
+        $(By.xpath(".//a/span[contains(text(),'CWS Parent Portal activation')]")).shouldBe(visible);
+        $(By.xpath(".//a/span[contains(text(),'CWS Parent Portal activation')]")).click();
+        switchTo().defaultContent();
+        $(By.xpath(".//iframe[@id='ifmail']")).shouldBe(visible);
+        switchTo().innerFrame("ifmail");
+        $("p>a").shouldBe(visible);
+        $("p>a").hover();
         $("p>a").click();
         sleep(4000);
     }
@@ -143,7 +146,7 @@ public class UserStepDefs {
     public void open_and_verify_Metrics_page() throws Throwable {
         $("a[href='#/metrics']").hover();
         click_css_and_wait("a[href='#/metrics']");
-        $(By.xpath(".//h2[text()='Application Metrics']")).shouldBe(visible);
+        click_xpath_and_wait(".//h2[text()='Application Metrics']");
         $(By.xpath(".//*[text()='JVM Metrics']")).shouldBe(visible);
         $(By.xpath(".//*[text()='Garbage collections']")).shouldBe(visible);
         $(By.xpath(".//*[text()='HTTP requests (events per second)']")).shouldBe(visible);
@@ -165,7 +168,7 @@ public class UserStepDefs {
     public void open_and_verify_Tracker_page() throws Throwable {
         $("a[href='#/tracker']").hover();
         click_css_and_wait("a[href='#/tracker']");
-        $(By.xpath(".//h2[text()='Real-time user activities']")).shouldBe(visible);
+        click_xpath_and_wait(".//h2[text()='Real-time user activities']");
         $(By.xpath(".//th[text()='User']/../th[text()='IP Address']/../th[text()='Current page']/../th[text()='Time']/..")).shouldBe(visible);
     }
 
@@ -174,6 +177,7 @@ public class UserStepDefs {
         $("a[href='#/health']").hover();
         click_css_and_wait("a[href='#/health']");
         $(By.xpath(".//h2[text()='Health checks']")).shouldBe(visible);
+        click_xpath_and_wait(".//h2[text()='Health checks']");
         $(By.xpath(".//th[text()='Service name']/../th[text()='Status']/../th[text()='Details']/..")).shouldBe(visible);
     }
 
@@ -181,7 +185,7 @@ public class UserStepDefs {
     public void open_and_verify_Configuration_page() throws Throwable {
         $("a[href='#/configuration']").hover();
         click_css_and_wait("a[href='#/configuration']");
-        $(By.xpath(".//h2[text()='Configuration']")).shouldBe(visible);
+        click_xpath_and_wait(".//h2[text()='Configuration']");
         $(By.xpath(".//th[contains(.,'Prefix')]/../th[contains(.,'Properties')]/..")).shouldBe(visible);
     }
 
@@ -189,7 +193,7 @@ public class UserStepDefs {
     public void open_and_verify_Audit_page() throws Throwable {
         $("a[href='#/audits']").hover();
         click_css_and_wait("a[href='#/audits']");
-        $(By.xpath(".//h2[text()='Audits']")).shouldBe(visible);
+        click_xpath_and_wait(".//h2[text()='Audits']");
         $(By.xpath(".//th[contains(.,'Date')]/../th[contains(.,'User')]/../th[contains(.,'State')]/../th[contains(.,'Extra data')]/..")).shouldBe(visible);
     }
 
@@ -197,7 +201,7 @@ public class UserStepDefs {
     public void open_and_verify_Logs_page() throws Throwable {
         $("a[href='#/logs']").hover();
         click_css_and_wait("a[href='#/logs']");
-        $(By.xpath(".//h2[text()='Logs']")).shouldBe(visible);
+        click_xpath_and_wait(".//h2[text()='Logs']");
         $(By.xpath(".//th[contains(.,'Name')]/../th[contains(.,'Level')]/..")).shouldBe(visible);
     }
 
@@ -268,13 +272,13 @@ public class UserStepDefs {
 
     @Then("^verify facility with address '(.*)' and name '(.*)' presents in the list$")
     public void verify_facility_with_address_and_name_presents_in_the_list(String facilityAddress, String facilityName) throws Throwable {
-        $(By.xpath(".//span[contains(text(),'" + facilityAddress + "')]/ancestor::div[@class='ch-facility']/*[text()='" + facilityName + "']")).shouldBe(visible);
-        $(By.xpath(".//div[@class='ch-facility']/*[text()='" + facilityName + "']/../descendant::button[text()='Ask about']")).shouldBe(visible);
+        $(By.xpath(".//span[contains(text(),'" + facilityAddress + "')]/ancestor::div[@class='ch-facility']/descendant::*[text()='" + facilityName + "']")).shouldBe(visible);
+        $(By.xpath(".//*[text()='" + facilityName + "']/ancestor::div[@class='ch-facility']/descendant::button[text()='Ask Caseworker']")).shouldBe(visible);
     }
 
     @When("^do Ask About for facility with address '(.*)' and name '(.*)' and send letter$")
     public void do_Ask_About_for_facility_with_address_and_name_and_send_letter(String facilityAddress, String facilityName) throws Throwable {
-        click_xpath_and_wait(".//span[contains(text(),'" + facilityAddress + "')]/ancestor::div[@class='ch-facility']/*[text()='" + facilityName + "']/../descendant::button[text()='Ask about']");
+        click_xpath_and_wait(".//span[contains(text(),'" + facilityAddress + "')]/ancestor::div[@class='ch-facility']/descendant::*[text()='" + facilityName + "']/ancestor::div[@class='ch-facility']/descendant::button[text()='Ask Caseworker']");
         click_css_and_wait("[ng-click='sendMail()']");
         $("[ng-click='sendMail()']").waitUntil(disappear, 4000);
         click_xpath_and_wait(".//*[contains(@class,'ch-alert-msg')]/*[text()='Message has been sent!']");
@@ -372,20 +376,20 @@ public class UserStepDefs {
 
     @When("^click element '(.*)' with css and wait$")
     public void click_css_and_wait(String cssElement) throws Throwable {
-        $("#loading-bar-spinner").waitUntil(disappear, 6000);
+        $("#loading-bar-spinner").waitUntil(disappear, 11000);
         $(cssElement).shouldBe(visible);
         $(cssElement).shouldBe(enabled);
         $(cssElement).click();
-        $("#loading-bar-spinner").waitUntil(disappear, 6000);
+        $("#loading-bar-spinner").waitUntil(disappear, 11000);
     }
 
     @When("^click element '(.*)' with xpath and wait$")
     public void click_xpath_and_wait(String xpathElement) throws Throwable {
-        $("#loading-bar-spinner").waitUntil(disappear, 6000);
+        $("#loading-bar-spinner").waitUntil(disappear, 11000);
         $(By.xpath(xpathElement)).shouldBe(visible);
         $(By.xpath(xpathElement)).shouldBe(enabled);
         $(By.xpath(xpathElement)).click();
-        $("#loading-bar-spinner").waitUntil(disappear, 6000);
+        $("#loading-bar-spinner").waitUntil(disappear, 11000);
     }
 
     public static class VarsConverter extends Transformer<String> {

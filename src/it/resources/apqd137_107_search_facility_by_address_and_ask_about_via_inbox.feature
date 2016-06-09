@@ -6,8 +6,8 @@ Feature: APQD-137  I want to be able to put city or zip code in address lookup f
     When login with login 'parent' and password 'parent'
     When open facilities page
     When search 'Palo Alto,' in facility address search
-    Then verify facility with address '2672 Bayshore Parkwy, Ste 1000, Mountain View, CA 94043' and name 'AFRICAN CRADLE, INC.' presents in the list
-    When do Ask About for facility with address '2672 Bayshore Parkwy, Ste 1000, Mountain View, CA 94043' and name 'AFRICAN CRADLE, INC.' and send letter
+    Then verify facility with address '4043 El Camino Way, Palo Alto, CA 94306' and name 'AFRICAN CRADLE, INC.' presents in the list
+    When do Ask About for facility with address '4043 El Camino Way, Palo Alto, CA 94306' and name 'AFRICAN CRADLE, INC.' and send letter
     When open facilities page
     When open inbox page
     When verify letter to 'CHHS Support' with subject 'AFRICAN CRADLE, INC.' and text 'I am interested in more information about' is sent
