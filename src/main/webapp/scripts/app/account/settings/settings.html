@@ -6,33 +6,37 @@
                 <input type="submit" class="ch-plane-btn ch-plane-btn_save" value="Save Changes"/>
             </div>
         </div>
-        <div class="alert alert-success" ng-show="validation.success">
-            <strong>Settings saved!</strong>
+
+        <div class="ch-profile__alert-messages">
+              <div class="alert ch-alert-msg_success" ng-show="validation.success">
+                  <strong>Settings saved!</strong>
+              </div>
+
+              <div class="alert ch-alert-msg_warn" ng-show="validation.errorEmailExists">
+                  <strong>E-mail is already in use!</strong> Please choose another one.
+              </div>
+
+              <div class="alert ch-alert-msg_warn" ng-show="validation.firstNameInvalid">
+                  <strong>First Name is absent</strong> Please populate.
+              </div>
+
+              <div class="alert ch-alert-msg_warn" ng-show="validation.lastNameInvalid">
+                  <strong>Last Name is absent</strong> Please populate.
+              </div>
+
+              <div class="alert ch-alert-msg_warn" ng-show="validation.licenseInvalid">
+                  <strong>Family Case/License number is absent</strong> Please populate.
+              </div>
+
+              <div class="alert ch-alert-msg_warn" ng-show="validation.addressInvalid">
+                  <strong>Address cannot be found</strong> Please update.
+              </div>
+
+              <div class="alert ch-alert-msg_err" ng-show="validation.error">
+                  <strong>An error has occurred!</strong> Settings could not be saved.
+              </div>
         </div>
 
-        <div class="alert alert-danger" ng-show="validation.errorEmailExists">
-            <strong>E-mail is already in use!</strong> Please choose another one.
-        </div>
-
-        <div class="alert alert-danger" ng-show="validation.firstNameInvalid">
-            <strong>First Name is absent</strong> Please populate.
-        </div>
-
-        <div class="alert alert-danger" ng-show="validation.lastNameInvalid">
-            <strong>Last Name is absent</strong> Please populate.
-        </div>
-
-        <div class="alert alert-danger" ng-show="validation.licenseInvalid">
-            <strong>Family Case/License number is absent</strong> Please populate.
-        </div>
-
-        <div class="alert alert-danger" ng-show="validation.addressInvalid">
-            <strong>Address cannot be found</strong> Please update.
-        </div>
-
-        <div class="alert alert-danger" ng-show="validation.error">
-            <strong>An error has occurred!</strong> Settings could not be saved.
-        </div>
 
         <uib-accordion close-others="true">
             <uib-accordion-group is-open="isProfileGeneralInformation">
