@@ -82,7 +82,7 @@ angular.module('apqdApp')
                 //focus: true,
                 message: message,
                 icon: {
-                    iconUrl: 'assets/images/icon_pin_home.png',
+                    iconUrl: 'assets/images/icon_pin_home.jpeg',
                     iconAnchor: [46, 46]
                 }
             };
@@ -177,7 +177,7 @@ angular.module('apqdApp')
         $scope.defineIcon = function(agency) {
             return 'assets/images/icon_pin_'
                 + _.find(FacilityType, {name: agency.facility_type}).label + '_'
-                + _.find(FacilityStatus, {name: agency.facility_status}).color + '.png';
+                + _.find(FacilityStatus, {name: agency.facility_status}).color + '.jpeg';
         };
 
         $scope.findLocationByAddress = function(address) {
