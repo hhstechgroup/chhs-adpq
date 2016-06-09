@@ -4,6 +4,9 @@ angular.module('apqdApp')
     .controller('ThreadViewCtrl', function ($rootScope, $state, $stateParams, $scope, $log, messageThread, ConfirmMessage,
                                             DeleteMessageService, identity) {
         $scope.messageThread = messageThread;
+        if (!_.isNil($scope.messageThread.body)) {
+            $scope.messageThread = {thread: [$scope.messageThread]}
+        }
 
         var mails = $scope.messageThread.thread;
         if (_.last(mails).id > _.first(mails).id) {

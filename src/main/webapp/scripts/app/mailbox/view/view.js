@@ -17,10 +17,8 @@ angular.module('apqdApp')
                 },
                 resolve: {
                     messageThread: ['MessageThread', 'Message', '$stateParams', function(MessageThread, Message, $stateParams) {
-                        if (_.isEmpty($stateParams.readOnly)) {
-                            return Message.get({id: $stateParams.mailId}, function(mail) {
-                                return {thread: [mail]};
-                            }).$promise;
+                        if (!_.isEmpty($stateParams.readOnly)) {
+                            return Message.get({id: $stateParams.mailId}, function(mail) {}).$promise;
                         } else {
                             return MessageThread.get({id: $stateParams.mailId}).$promise;
                         }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apqdApp')
-    .controller('RegisterController', function ($scope, $state, $translate, $timeout, Auth, $window, $rootScope,  FacebookService, GooglePlusService) {
+    .controller('RegisterController', function ($scope, $state, $translate, $timeout, Auth, $window, $rootScope) {
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
@@ -32,14 +32,6 @@ angular.module('apqdApp')
                     }
                 });
             }
-        };
-
-        $scope.gLogin = function () {
-            GooglePlusService.login().then($scope.pupulateFields);
-        };
-
-        $scope.fLogin = function () {
-            FacebookService.login().then($scope.pupulateFields);
         };
 
         $scope.pupulateFields = function (socialUser) {
