@@ -162,7 +162,11 @@ public class MailResourceIntTest {
         ReflectionTestUtils.setField(contactResource, "userRepository", userRepository);
         ReflectionTestUtils.setField(contactResource, "authorityRepository", authorityRepository);
 
-        this.restResourceMockMvc = MockMvcBuilders.standaloneSetup(mailResource, contactResource)
+        MessageResource messageResource = new MessageResource();
+        ReflectionTestUtils.setField(messageResource, "messageRepository", messageRepository);
+        ReflectionTestUtils.setField(messageResource, "messageSearchRepository", messageSearchRepository);
+
+        this.restResourceMockMvc = MockMvcBuilders.standaloneSetup(mailResource, contactResource, messageResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
@@ -319,6 +323,16 @@ public class MailResourceIntTest {
             .andExpect(status().isOk());
     }
 
+    private void assertSearchMessages(Message message) throws Exception {
+        restResourceMockMvc.perform(
+            get("/api/_search/messages/+id:" + message.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))
+            .andExpect(jsonPath("$.[*].subject").value(hasItem(message.getSubject())))
+            .andExpect(jsonPath("$.[*].body").value(hasItem(message.getBody())));
+    }
+
     @Test
     @Transactional
     public void testCreateGetUpdateSendRead() throws Exception {
@@ -388,6 +402,10 @@ public class MailResourceIntTest {
         // test message thread
 
         assertMessageThread(testMessage);
+
+        // test search Messages
+
+        assertSearchMessages(testMessage);
 
         // test delete messages
 

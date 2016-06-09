@@ -91,7 +91,7 @@ public class MailResource {
 
         final String CONTACT_FILTER_MARK = "BY_LOGIN_";
 
-        if (search.equals("-1")) {
+        if ("-1".equals(search)) {
             page = filterMessages(directory, pageable);
         } else if (search.startsWith(CONTACT_FILTER_MARK)) {
             String searchLogin = search.substring(CONTACT_FILTER_MARK.length(), search.length());
@@ -503,7 +503,7 @@ public class MailResource {
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
 
         for (Message message : page.getContent()) {
-            if (message.getTo().equals(user)) {
+            if (message.getTo() != null && message.getTo().equals(user)) {
                 message.setUnreadMessagesCount(message.getUnreadMessagesCountTo());
             } else {
                 message.setUnreadMessagesCount(message.getUnreadMessagesCountFrom());
@@ -512,8 +512,11 @@ public class MailResource {
     }
 
     private MessageThread filterThreadMessages(MessageThread thread) {
-        String currentUser = SecurityUtils.getCurrentUserLogin();
+        if (thread.getThread().size() == 1) {
+            return thread;
+        }
 
+        String currentUser = SecurityUtils.getCurrentUserLogin();
         List<Message> list = new ArrayList<>();
         for (Message message : thread.getThread()) {
             boolean notDeleted = true;

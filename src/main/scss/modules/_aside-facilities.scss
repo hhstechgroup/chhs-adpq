@@ -89,13 +89,16 @@
 }
 
 .ch-facilities-list_top-results {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 400;
     line-height: inherit;
-}
+    color: #5b616b; }
 
 .ch-facilities-list_top-count-message {
-    color: #000; }
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #000;
+    padding-left: .6rem; }
 
 .ch-facilities-list_top-times {
     color: #80b8de; }
@@ -132,7 +135,7 @@
 
 .ch-facilities-list_top-pane {
     background-color: #f1f1f1;
-    padding: 1.9rem 3.2rem 2.4rem 2.5rem;
+    padding: 2rem 3.2rem 2rem 2.5rem;
     border-bottom: .1rem solid #cbcdcf;  }
 
 .ch-facilities-tag {

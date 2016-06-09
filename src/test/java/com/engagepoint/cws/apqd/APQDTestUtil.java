@@ -35,6 +35,8 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Locale;
@@ -375,5 +377,14 @@ public final class APQDTestUtil {
         ).isEqualTo(
             cutQuotedUrls(getUserEmailContent(templateEngine, user, contentTemplateName))
         );
+    }
+
+    //
+
+    public static <T> void assertThatConstructorIsPrivate(Class<T> clazz) throws Exception {
+        Constructor<T> constructor = clazz.getDeclaredConstructor();
+        assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
+        constructor.setAccessible(true);
+        constructor.newInstance();
     }
 }
