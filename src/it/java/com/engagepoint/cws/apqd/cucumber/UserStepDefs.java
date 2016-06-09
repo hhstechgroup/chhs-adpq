@@ -90,7 +90,7 @@ public class UserStepDefs {
         open("http://www.yopmail.com/en/");
         $("#login").shouldBe(visible);
         $("#login").setValue(email);
-        sleep(5000);
+        sleep(60000);
         $(".sbut").shouldBe(visible);
         $(".sbut").click();
         sleep(2000);
