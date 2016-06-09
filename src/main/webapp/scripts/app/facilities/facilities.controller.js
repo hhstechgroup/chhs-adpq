@@ -59,6 +59,10 @@ angular.module('apqdApp')
         $scope.viewConfig = {presentation: 'list'};
         $scope.center = {lat: 0, lng: 0, zoom: $scope.DEFAULT_ZOOM};
 
+        $scope.getIconeUrl = function(id) {
+            return $('#' + 'icon_pin_' + id)[0].src;
+        };
+
         $scope.getHomeLocation = function (latLng, message) {
             if (message) {
                 if (!$scope.geocoder._input) {
@@ -82,7 +86,7 @@ angular.module('apqdApp')
                 //focus: true,
                 message: message,
                 icon: {
-                    iconUrl: 'assets/images/icon_pin_home.jpeg',
+                    iconUrl: $scope.getIconeUrl("home"),
                     iconAnchor: [46, 46]
                 }
             };
@@ -175,9 +179,9 @@ angular.module('apqdApp')
         };
 
         $scope.defineIcon = function(agency) {
-            return 'assets/images/icon_pin_'
-                + _.find(FacilityType, {name: agency.facility_type}).label + '_'
-                + _.find(FacilityStatus, {name: agency.facility_status}).color + '.jpeg';
+            var imgId =  _.find(FacilityType, {name: agency.facility_type}).label + '_'
+                + _.find(FacilityStatus, {name: agency.facility_status}).color;
+            return $scope.getIconeUrl(imgId);
         };
 
         $scope.findLocationByAddress = function(address) {

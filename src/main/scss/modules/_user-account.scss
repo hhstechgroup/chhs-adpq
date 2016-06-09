@@ -256,6 +256,7 @@ input[type="radio"]:checked + .ch-input-block__label-radio:after {
         padding: 1.2rem 0;
         color: #080808;
         position: relative;
+        outline: none;
     }
 
     .accordion-toggle:after {
