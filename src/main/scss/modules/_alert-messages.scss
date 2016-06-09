@@ -64,6 +64,15 @@
     color: #ffffff;
 }
 
+.ch-profile__alert-messages {
+    width: 53.6rem;
+    margin: 0 auto;
+
+    .alert {
+        border-radius: 0;
+    }
+}
+
 .ch-alert-msg__icon {
     padding: 1.8rem 1.4rem;
     margin-left: 2.5rem;

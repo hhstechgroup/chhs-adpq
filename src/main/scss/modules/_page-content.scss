@@ -42,7 +42,7 @@
     @media screen and (max-width: 640px) {
         height: 6rem;
         padding: 1.4rem 1.8rem;
-        border: .3rem solid #757575;
+        border: .3rem solid #0071bc;
     }
 
   .icon {
@@ -53,11 +53,26 @@
   .icon-remove {
       position: relative;
       top: .2rem;
+
+      @media screen and (max-width: 640px) {
+          background: url("../images/out-sprite-icons/icon-recycle-bin-active.svg") no-repeat center;
+      }
   }
 
   .icon-download {
       border-left: .1rem solid #757575;
   }
+}
+
+.ch-page-heading__actions-container {
+    display: inline-block;
+    width: 13rem;
+    height: 4.5rem;
+
+    @media screen and (max-width: 640px) {
+        width: 18rem;
+        height: 7rem;
+    }
 }
 
 .actions__text {
@@ -68,6 +83,7 @@
 
     @media screen and (max-width: 640px) {
         font-size: 2.5rem;
+        color: #0071bc;
     }
 }
 
@@ -82,11 +98,12 @@
     @media screen and (max-width: 640px) {
         font-size: 2.2rem;
         top: 1.5rem;
+        color: #0071bc;
     }
 }
 
 .ch-page-heading__search {
-    width: calc(100% - 20rem);
+    width: calc(100% - 30rem);
     float: right;
     position: relative;
 }
