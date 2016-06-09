@@ -5,6 +5,7 @@ ADPQ prototype URL: [CWS Parent Portal](http://www.adpq.engagepoint.com)</br></b
 [Monitoring](http://zabbix.adpq.engagepoint.com:10080/zabbix/screens.php?ddreset=1&sid=27fb8e3546b888ea)</br>
 [Code Quality](http://sonar.adpq.engagepoint.com:8080/dashboard/index/1)</br>
 [JIRA](https://chhs-apqd.atlassian.net/secure/RapidBoard.jspa?rapidView=2&view=reporting&chart=cumulativeFlowDiagram&swimlane=2&column=10&column=11&column=13&column=12&days=7) Please use user name: viewer, password: viewer</br>
+[U.S. Digital Service Playbook compliance](http://sonar.adpq.engagepoint.com:8080/dashboard/index/1)</br>
 
 ## User guide
 Application provides several roles with different capabilities: PARENT, CASE_WORKER and ADMIN.</br>
