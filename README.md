@@ -2,7 +2,7 @@
 
 ADPQ prototype URL: [CWS Parent Portal](http://www.adpq.engagepoint.com)</br></br>
 [Continuous Delivery](http://jenkins.adpq.engagepoint.com/)</br>
-[Monitoring](http://zabbix.adpq.engagepoint.com:10080/)</br>
+[Monitoring](http://zabbix.adpq.engagepoint.com:10080/zabbix/)</br>
 [Code Quality](http://sonar.adpq.engagepoint.com:8080/)</br>
 
 ## User guide
