@@ -15,6 +15,7 @@ Demo user with role ADMIN:</br>
 After registration and activation of account using email, user receives role PARENT.</br>
 Application provide different capabilities for different roles. </br>
 Parents can communicate with caseworkers using private inbox.
+
 ---
 
 # Technical approach
