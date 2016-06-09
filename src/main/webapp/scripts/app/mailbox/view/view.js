@@ -20,7 +20,7 @@ angular.module('apqdApp')
                         if (_.isEmpty($stateParams.readOnly)) {
                             return Message.get({id: $stateParams.mailId}, function(mail) {
                                 return {thread: [mail]};
-                            }).$promise
+                            }).$promise;
                         } else {
                             return MessageThread.get({id: $stateParams.mailId}).$promise;
                         }
