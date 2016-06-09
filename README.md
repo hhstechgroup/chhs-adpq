@@ -15,6 +15,7 @@ Demo user with role ADMIN:</br>
 After registration and activation of account using email, user receives role PARENT.</br>
 Application provide different capabilities for different roles. </br>
 Parents can communicate with caseworkers using private inbox.
+---
 
 # Technical approach
 
@@ -107,6 +108,8 @@ EngagePoint conducted these prototype implementation steps:
 
 For each development stage, we created automated tests (and performance and acceptance tests) for Java and JavaScript code. [SonarQube](http://www.sonarqube.org/) controlled code quality, incorporated in an automated continuous delivery workflow that was implemented in  [Jenkins](https://jenkins.io/). We also manually reviewed code to ensure quality.
 With this approach, we  implemented a modern, mobile friendly, cloud-ready web application in only three weeks.
+
+---
 
 #  References
 
