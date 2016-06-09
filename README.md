@@ -15,10 +15,8 @@ Demo user with role PARENT: </br>
 Demo uses with role CASE_WORKER: </br>
     - name: worker, password: worker</br>
     - name: maryjenkins, password: worker</br>
-Demo user with role ADMIN:</br>
-    - name: admin, password: admin
-
----
+    
+----------------------------------------------
 
 # Technical approach
 
