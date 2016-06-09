@@ -369,9 +369,9 @@ public class UserStepDefs {
     public void video_can_be_played() throws Throwable {
         $(By.xpath(".//iframe[@id='youtube']")).waitUntil(appear, 4000);
         switchTo().innerFrame("youtube");
-        $(By.xpath(".//*[contains(@id,'player_uid')]/div/button[@aria-label='Play']")).shouldBe(visible);
-        click_xpath_and_wait(".//*[contains(@id,'player_uid')]/div/button[@aria-label='Play']");
-        $(By.xpath(".//*[contains(@id,'player_uid')]/div/button[@aria-label='Play']")).waitUntil(disappear, 6000);
+        $(By.xpath(".//*[contains(@id,'player_uid')]/div/button[contains(@class,'ytp-large-play-button')]")).shouldBe(visible);
+        click_xpath_and_wait(".//*[contains(@id,'player_uid')]/div/button[contains(@class,'ytp-large-play-button')]");
+        $(By.xpath(".//*[contains(@id,'player_uid')]/div/button[contains(@class,'ytp-large-play-button')]")).waitUntil(disappear, 6000);
     }
 
     @When("^click element '(.*)' with css and wait$")
