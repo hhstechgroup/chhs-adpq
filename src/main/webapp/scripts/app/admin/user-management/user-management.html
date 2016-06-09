@@ -1,12 +1,9 @@
 <div>
-    <h2 translate="user-management.home.title">Users</h2>
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
           <div class="col-md-4">
-              <button class="btn btn-primary" ui-sref="user-management.new">
-                  <span class="glyphicon glyphicon-flash"></span> <span translate="user-management.home.createLabel">Create a new User</span>
-              </button>
+
           </div>
         </div>
     </div>
@@ -23,7 +20,6 @@
                 <th translate="user-management.createdDate">CreatedDate</th>
                 <th translate="user-management.lastModifiedBy">LastModifiedBy</th>
                 <th translate="user-management.lastModifiedDate">LastModifiedDate</th>
-                <th>SSN Last 4 digits</th>
             </tr>
             </thead>
             <tbody>
@@ -46,25 +42,6 @@
                 <td>{{user.createdDate | date:'dd/MM/yy HH:mm'}}</td>
                 <td>{{user.lastModifiedBy}}</td>
                 <td>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</td>
-                <td>{{user.ssnLast4Digits}}</td>
-                <td class="text-right">
-                    <button type="submit"
-                            ui-sref="user-management-detail({login:user.login})"
-                            class="btn btn-info btn-sm">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                    </button>
-                    <button type="submit"
-                            ui-sref="user-management.edit({login:user.login})"
-                            class="btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button type="submit"
-                            ui-sref="user-management.delete({login:user.login})"
-                            class="btn btn-danger btn-sm"
-                            ng-disabled="currentAccount.login==user.login">
-                        <span class="glyphicon glyphicon-remove-circle"></span>
-                    </button>
-                </td>
             </tr>
             </tbody>
         </table>
