@@ -14,12 +14,16 @@
             <span>NO MESSAGES</span>
         </div>
 
-        <div ng-if="!hasSelected()" class="ch-page-heading__actions_hidden">
-        </div>
+        <div class="ch-page-heading__actions-container">
 
-        <div ng-if="hasSelected()" class="ch-page-heading__actions" ng-click="deleteOrRestoreSelected()">
-            <span class="icon icon-remove" ></span>
-            <span class="actions__text">{{getActionName()}}</span>
+            <div ng-if="!hasSelected()" class="ch-page-heading__actions_hidden">
+            </div>
+
+
+              <div ng-if="hasSelected()" class="ch-page-heading__actions" ng-click="deleteOrRestoreSelected()">
+                  <span class="icon icon-remove" ></span>
+                  <span class="actions__text">{{getActionName()}}</span>
+              </div>
         </div>
 
         <div class="ch-page-heading__search">

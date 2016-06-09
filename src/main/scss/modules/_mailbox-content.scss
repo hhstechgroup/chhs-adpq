@@ -16,6 +16,14 @@
     border: .1rem solid #cbcdcf;
 }
 
+.ch-mail-thread-list {
+
+}
+
+.ch-mail-thread-list__item {
+    margin-bottom: 2rem;
+}
+
 .ch-mail-origin__prefix {
     color: #6a6f78;
     font-size: 1.4rem;
@@ -77,7 +85,7 @@
 
     @media screen and (max-width: 640px) {
         height: 6rem;
-        border: .3rem solid #757575;
+        border: .3rem solid #0071bc;
     }
 }
 
@@ -98,7 +106,7 @@
     position: relative;
 
     @media screen and (max-width: 640px) {
-        border: .3rem solid #757575;
+        border: .3rem solid #0071bc;
         height: 6rem;
     }
 
@@ -122,6 +130,7 @@
 
         @media screen and (max-width: 640px) {
             top: 1.4rem;
+            background: url("../images/out-sprite-icons/icon-recycle-bin-active.svg") no-repeat center;
         }
     }
 
