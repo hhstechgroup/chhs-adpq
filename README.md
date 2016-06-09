@@ -39,7 +39,7 @@ EngagePoint used the open source code generator  [JHipster](https://jhipster.git
 
 JHipster lets us choose technologies based on project requirements. For the prototype, EngagePoint chose this technology stack:
 
-![Architectural diagram](https://github.com/engagepoint/chhs-adpq/tree/master/documents/Images/Architecture.png)
+![Architectural diagram](/documents/Images/Architecture.png?raw=true)
 
 ## 4.2. Rationale
 
