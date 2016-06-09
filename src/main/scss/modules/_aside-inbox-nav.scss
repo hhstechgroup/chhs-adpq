@@ -74,7 +74,7 @@
 }
 
 .ch-aside-nav-item__link_active.ch-aside-nav-item__link_icon {
-    padding: 0 0 0 5.1rem;
+    padding: 0 0 0 2.7rem;
 }
 
 .ch-aside-nav-item__link_icon:before {
@@ -87,7 +87,7 @@
 }
 
 .ch-aside-nav-item__link_active.ch-aside-nav-item__link_icon:before {
-    left: 2.4rem;
+    left: 1.1rem;
 }
 
 .ch-aside-nav-item__link_icon_inbox:before {
@@ -139,7 +139,7 @@
     font-weight: 600;
     color: #5b616b;
     vertical-align: middle;
-    padding-left: 1.3rem;
+    padding-left: 1.4rem;
 
     @media screen and (max-width: 640px) {
         font-size: 2.5rem;
