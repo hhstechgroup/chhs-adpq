@@ -4,6 +4,6 @@ angular.module('apqdApp')
 
 .constant('ENV', 'dev')
 
-.constant('VERSION', '1.0-SNAPSHOT')
+.constant('VERSION', '1.0')
 
 ;
